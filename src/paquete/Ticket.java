@@ -1,6 +1,5 @@
 package paquete;
 
-import java.util.ArrayList;
 import java.util.GregorianCalendar;
 
 /**
@@ -15,7 +14,6 @@ public abstract class Ticket {
 	private GregorianCalendar fecha;
 	private int estado;
 	protected Formulario formulario;
-	ArrayList<Empleado> empleadosmatcheados= new ArrayList<Empleado>();
 	/**
 	 *<b>Pos:</b> 
 	 * @param fecha en el constructor cada vez que se genera un  nuevo ticket, en el parametro fecha, crear siempre un nuevo objeto de Gregorian Calenadar
@@ -42,17 +40,6 @@ public abstract class Ticket {
 	}
 	public GregorianCalendar getFecha() {
 		return fecha;
-	}
-	
-	public void nuevoEmpleadoMatcheado(Empleado empleadomatcheado) {
-		this.empleadosmatcheados.add(empleadomatcheado);
-	}
-	
-	/**
-	 * se usa para resetar la lista en el proximo llamado de matcheos
-	 */
-	public void resetListaEmpleados() {
-		this.empleadosmatcheados.clear();
 	}
 	
 	public Formulario getFormulario() {

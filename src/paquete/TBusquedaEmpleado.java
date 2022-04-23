@@ -3,6 +3,7 @@
  */
 package paquete;
 
+import java.util.ArrayList;
 import java.util.GregorianCalendar;
 
 /**
@@ -10,7 +11,8 @@ import java.util.GregorianCalendar;
  *
  */
 public class TBusquedaEmpleado extends Ticket {
-private int cantempleadosbuscados, cantempleadosobtenidos;
+  private int cantempleadosbuscados, cantempleadosobtenidos;
+  ArrayList<Empleado> empleadosmatcheados= new ArrayList<Empleado>();
 	/**
 	 * @param fecha definido en la clase abstracta Ticket
 	 * @param formulario definido en la clase abstracta Ticket
@@ -52,7 +54,15 @@ private int cantempleadosbuscados, cantempleadosobtenidos;
 
 	}
 	
+	public void nuevoEmpleadoMatcheado(Empleado empleadomatcheado) {
+		this.empleadosmatcheados.add(empleadomatcheado);
+	}
 	
-
+	/**
+	 * se usa para resetar la lista en el proximo llamado de matcheos
+	 */
+	public void resetListaEmpleados() {
+		this.empleadosmatcheados.clear();
+	}
 	
 }
