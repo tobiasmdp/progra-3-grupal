@@ -1,4 +1,6 @@
-package dominio;
+package paquete;
+
+import agencia.Agencia;
 
 public class Empleador extends Usuario {
 	private String nombre;
@@ -7,10 +9,12 @@ public class Empleador extends Usuario {
 	
 	private Empleador(String nombreUsuario,String contra) {
 		super(nombreUsuario,contra);
+		Agencia.getInstance().addEmpleador(this);
 	}
 	
 	private Empleador(String nombreUsuario,String contra,String nombre, Persona tPersona, Rubro rubro) {
 		super(nombreUsuario,contra);
+		Agencia.getInstance().addEmpleador(this);
 		this.nombre = nombre;
 		this.tPersona = tPersona;
 		this.rubro = rubro;

@@ -1,16 +1,19 @@
 package paquete;
 
+import agencia.Agencia;
 
 public class EmpleadoPretenso extends Usuario {
 	private String datosPersonales;
 
-	public EmpleadoPretenso(string nombreUsuario, string contra, String datosPersonales) {
+	public EmpleadoPretenso(String nombreUsuario, String contra, String datosPersonales) {
 		super(nombreUsuario, contra);
+		Agencia.getInstance().addEmpleadoPretenso(this);
 		this.datosPersonales = datosPersonales;
 	}
 
 	
 	public EmpleadoPretenso registro(String nombreUsuario,String contra) {
+		Agencia.getInstance().addEmpleadoPretenso(this);
 		return new Empleador(nombreUsuario,contra);
 	}
 
