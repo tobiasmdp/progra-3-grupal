@@ -1,7 +1,7 @@
 /**
  * 
  */
-package paquete;
+package paqueteTickets;
 
 import java.util.ArrayList;
 import java.util.GregorianCalendar;

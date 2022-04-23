@@ -1,4 +1,4 @@
-package paquete;
+package paqueteTickets;
 
 /**
  * @author mikel
@@ -30,5 +30,34 @@ public class Formulario {
 		this.cursados = cursados;
 		getEstudiosCursados(this.cursados);
 	}
+
+	public Locacion getLocacion() {
+		return locacion;
+	}
+
+	public Remuneracion getRemuneracion() {
+		return remuneracion;
+	}
+
+	public CargaHoraria getCargaHoraria() {
+		return cargaHoraria;
+	}
+
+	public TipodePuesto getTipoPuesto() {
+		return tipoPuesto;
+	}
+
+	public ExperienciaPrevia getExperienciaprevia() {
+		return experienciaprevia;
+	}
+
+	public RangoEtario getRangoEtario() {
+		return rangoEtario;
+	}
+
+	public EstudiosCursados getCursados() {
+		return cursados;
+	}
+	
 
 }

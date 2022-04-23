@@ -1,4 +1,4 @@
-package paquete;
+package paqueteTickets;
 
 import java.util.GregorianCalendar;
 
