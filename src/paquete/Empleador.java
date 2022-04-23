@@ -5,7 +5,7 @@ public class Empleador extends Usuario {
 	private String nombre;
 	private Persona tPersona;
 	private Rubro rubro;
-	private TBusquedaEmpleado ticketBusqueda;
+	private TBusquedaEmpleado TBusquedaEmpleado;
 	
 	private Empleador(String nombreUsuario,String contra) {
 		super(nombreUsuario,contra);
@@ -22,7 +22,10 @@ public class Empleador extends Usuario {
 		return new Empleador(nombreUsuario,contra);
 	}
 	
-	public createTicketBusqueda(TBusquedaEmpleado Ticket)
+	public void createTBusquedaEmpleado(TBusquedaEmpleado ticket) {
+		this.TBusquedaEmpleado = new TBusquedaEmpleado(ticket);
+	}
+	
 	
 	public String getNombre() {
 		return nombre;

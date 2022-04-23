@@ -21,7 +21,7 @@ private int resultado;
 	public void setResultado(int resultado) {
 		this.resultado = resultado;
 	}
-	
-	
 }
+
+
 	

@@ -22,6 +22,7 @@ private int cantempleadosbuscados, cantempleadosobtenidos;
 		this.cantempleadosbuscados=cantempleadosbuscados;
 		this.cantempleadosobtenidos=0;
 	}
+	
 	public int getCantempleadosbuscados() {
 		return cantempleadosbuscados;
 	}
