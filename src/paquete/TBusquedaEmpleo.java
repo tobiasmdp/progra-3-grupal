@@ -10,8 +10,8 @@ import java.util.GregorianCalendar;
  */
 public class TBusquedaEmpleo extends Ticket {
 private int resultado;
-	public TBusquedaEmpleo(GregorianCalendar fecha, Formulario formulario) {
-		super(fecha, formulario);
+	public TBusquedaEmpleo(GregorianCalendar fecha, Formulario formulario,int estado) {
+		super(fecha, formulario,estado);
 		this.resultado=0;
 		// TODO Auto-generated constructor stub
 	}

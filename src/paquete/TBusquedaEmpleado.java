@@ -17,8 +17,8 @@ private int cantempleadosbuscados, cantempleadosobtenidos;
 	 * @param cantempleadosbuscados aca el empleador debe poner al cantidad de empelados que busca, no tiene que ser menor a 1
 	 * canempleadosobtenidos se inicializa en 0 para todos los objetos, porque al recien crear el ticket, todavía no obtuvo ningun empleado
 	 */
-	public TBusquedaEmpleado(GregorianCalendar fecha,Formulario formulario, int cantempleadosbuscados) {
-		super(fecha,formulario);
+	public TBusquedaEmpleado(GregorianCalendar fecha,Formulario formulario, int cantempleadosbuscados, int estado) {
+		super(fecha,formulario,estado);
 		this.cantempleadosbuscados=cantempleadosbuscados;
 		this.cantempleadosobtenidos=0;
 	}
@@ -38,8 +38,11 @@ private int cantempleadosbuscados, cantempleadosobtenidos;
 		this.cantempleadosobtenidos=cantempleadosobtenidos;
 	}
 	
-	public void Empleadosobtenido(int cantempleadosobtenidos) { //ver bien con el grupo
-		this.cantempleadosobtenidos = cantempleadosobtenidos;
+	/**este metodo se llama cuando los empleados son contratados
+	 * @param cantempleadosobtenidos se pasa los empleados obtenidos contratados
+	 */
+	public void empleadosObtenido(int cantempleadosobtenidos) { //ver bien con el grupo
+		this.cantempleadosobtenidos += cantempleadosobtenidos;
 		if (this.cantempleadosobtenidos<this.cantempleadosbuscados)
 			this.cantempleadosbuscados-=this.cantempleadosobtenidos;
 		else {
