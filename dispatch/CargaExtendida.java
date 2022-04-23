@@ -15,7 +15,7 @@ public class CargaExtendida implements CargaHoraria{
 	}
 
 	public double extendida() {
-		return -0.5;
+		return 1;
 	}
 	
 }

@@ -8,7 +8,7 @@ public class Indistinto implements Locacion{
 		return 1;
 	}
 	public double comparaPresencial() {
-		return -1;
+		return 1;
 	}	
 	public double comparaIndistinto() {
 		return 1;

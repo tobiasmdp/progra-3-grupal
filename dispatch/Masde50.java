@@ -15,7 +15,7 @@ public class Masde50 implements RangoEtario{
 	}
 	
 	public double comparaMasde50() {
-		return -0.5;
+		return 1;
 	}
 
 }

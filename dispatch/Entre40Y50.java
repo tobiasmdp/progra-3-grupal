@@ -15,7 +15,7 @@ public class Entre40Y50 implements RangoEtario{
 	}
 	
 	public double comparaMasde50() {
-		return 1;
+		return 0.5;
 }
 
 }

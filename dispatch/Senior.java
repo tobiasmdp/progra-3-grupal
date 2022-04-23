@@ -7,7 +7,7 @@ public class Senior  implements TipodePuesto{
 		}
 		
 		public double comparaJunior() {
-			return -0.5;
+			return 0.5;
 		}
 
 		public double comparaSenior() {
