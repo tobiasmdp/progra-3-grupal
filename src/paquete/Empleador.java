@@ -1,11 +1,9 @@
-package paquete;
-
+package dominio;
 
 public class Empleador extends Usuario {
 	private String nombre;
 	private Persona tPersona;
 	private Rubro rubro;
-	private TBusquedaEmpleado TBusquedaEmpleado;
 	
 	private Empleador(String nombreUsuario,String contra) {
 		super(nombreUsuario,contra);
@@ -18,12 +16,12 @@ public class Empleador extends Usuario {
 		this.rubro = rubro;
 	}
 	
-	public Empleador registro(String nombreUsuario,String contra) {
-		return new Empleador(nombreUsuario,contra);
+	public Empleador registro(String nombreUsuario,String contra,String nombre, Persona tPersona, Rubro rubro) {
+		return new Empleador(nombreUsuario,contra,nombre,tPersona,rubro);
 	}
 	
-	public void createTBusquedaEmpleado(TBusquedaEmpleado ticket) {
-		this.TBusquedaEmpleado = new TBusquedaEmpleado(ticket);
+	public Empleador registro(String nombreUsuario,String contra) {
+		return new Empleador(nombreUsuario,contra);
 	}
 	
 	
