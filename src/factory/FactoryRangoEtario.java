@@ -1,4 +1,4 @@
-package Factory;
+package factory;
 
 import dispatch.RangoEtario;
 import dispatch.Menosde40;

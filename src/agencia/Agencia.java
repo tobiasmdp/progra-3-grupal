@@ -14,7 +14,7 @@ public class Agencia {
 	private Agencia() {
 	}
 	
-	public static Agencia getInstance() {//SINGLETONE
+	public static Agencia getInstance() {//SINGLETON
 		if (Agencia.instance == null)
 			Agencia.instance = new Agencia();
 		return instance;

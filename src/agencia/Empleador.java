@@ -2,8 +2,8 @@ package agencia;
 
 import agencia.Agencia;
 import dispatch.Formulario;
-import paqueteTickets.Ticket;
-import paqueteTickets.TicketEmpleador;
+import tickets.Ticket;
+import tickets.TicketEmpleador;
 
 import java.util.GregorianCalendar;
 

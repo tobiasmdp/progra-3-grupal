@@ -1,4 +1,4 @@
-package paqueteTickets;
+package tickets;
 
 import java.util.ArrayList;
 import java.util.GregorianCalendar;

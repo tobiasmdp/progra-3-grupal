@@ -1,8 +1,8 @@
 package agencia;
 
 import agencia.Agencia;
-import paqueteTickets.Ticket;
-import paqueteTickets.TicketEmpleado;
+import tickets.Ticket;
+import tickets.TicketEmpleado;
 
 public class EmpleadoPretenso extends Usuario {
 	private String nombre,apellido,telefono;

@@ -1,4 +1,4 @@
-package Factory;
+package factory;
 
 import dispatch.TipodePuesto;
 import dispatch.Junior;
