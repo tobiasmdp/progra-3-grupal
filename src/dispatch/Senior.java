@@ -15,7 +15,7 @@ public class Senior  implements TipodePuesto{
 		}
 
 		public double comparaManagment() {
-			return 1;
+			return 0.5;
 		}
-		
+		//junior.comparo(senior)=-0,5
 }
