@@ -2,7 +2,7 @@ package tickets;
 
 import java.util.GregorianCalendar;
 
-import dispatch.Formulario;
+import formulario.Formulario;
 
 /**
  * @author mikel

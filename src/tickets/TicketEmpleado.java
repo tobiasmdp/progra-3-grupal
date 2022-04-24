@@ -6,7 +6,7 @@ import java.util.GregorianCalendar;
 import agencia.EmpleadoPretenso;
 import agencia.Empleador;
 import agencia.Usuario_puntaje;
-import dispatch.Formulario;
+import formulario.Formulario;
 
 /**
  * @author mikel

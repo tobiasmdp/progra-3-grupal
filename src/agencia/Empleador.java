@@ -1,7 +1,7 @@
 package agencia;
 
 import agencia.Agencia;
-import dispatch.Formulario;
+import formulario.Formulario;
 import tickets.Ticket;
 import tickets.TicketEmpleador;
 

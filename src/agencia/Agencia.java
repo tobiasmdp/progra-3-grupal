@@ -2,7 +2,7 @@ package agencia;
 
 import java.util.ArrayList;
 
-import dispatch.Formulario;
+import formulario.Formulario;
 
 
 public class Agencia {
