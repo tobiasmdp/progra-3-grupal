@@ -1,8 +1,10 @@
 package agencia;
 
+import java.util.GregorianCalendar;
+
 import agencia.Agencia;
-import tickets.Ticket;
-import tickets.TicketEmpleado;
+import formulario.Formulario;
+import tickets.*;
 
 public class EmpleadoPretenso extends Usuario {
 	private String nombre,apellido,telefono;
@@ -39,6 +41,10 @@ public class EmpleadoPretenso extends Usuario {
 		return edad;
 	}
 
+	public void nuevoTicket(GregorianCalendar fecha, Formulario formulario) {
+		this.ticket = new TicketEmpleado(fecha, formulario);
+	}
+	
 	@Override
 	public void actualizarPuntaje() {
 		/*

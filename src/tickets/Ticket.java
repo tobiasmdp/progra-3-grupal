@@ -22,11 +22,18 @@ public abstract class Ticket {
 	 * @param estado a la hora de crear el ticket, el estado esta en activo por defecto.
 	 * @param formulario, en el constructor cada vez que se genera un  nuevo ticket, en el parametro formulario, crear siempre un nuevo objeto de Formulario
 	 */
-	public Ticket(GregorianCalendar fecha,Formulario formulario,int estado) {
+	public Ticket(GregorianCalendar fecha,Formulario formulario,int estado) { //contructor en caso de que se requiera crear un ticket que no este activo
 		this.fecha = fecha;
 		this.formulario=formulario;
 		this.estado = estado;
 	}
+		
+	public Ticket(GregorianCalendar fecha,Formulario formulario) {  //inicializa el ticket en activo por default
+		this.fecha = fecha;
+		this.formulario=formulario;
+		this.estado = 1;
+	}
+	
 	public int getEstado() {
 		return estado;
 	}

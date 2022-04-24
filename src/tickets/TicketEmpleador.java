@@ -30,6 +30,13 @@ public class TicketEmpleador extends Ticket {
 		this.cantempleadosbuscados=cantempleadosbuscados;
 		this.cantempleadosobtenidos=0;
 	}
+	
+	public TicketEmpleador(GregorianCalendar fecha,Formulario formulario, int cantempleadosbuscados) {
+		super(fecha,formulario);
+		this.cantempleadosbuscados=cantempleadosbuscados;
+		this.cantempleadosobtenidos=0;
+	}
+	
 	public int getCantempleadosbuscados() {
 		return cantempleadosbuscados;
 	}

@@ -21,9 +21,14 @@ import formulario.Formulario;
  public TicketEmpleado(GregorianCalendar fecha, Formulario formulario,int estado) {
 		super(fecha, formulario,estado);
 		this.resultado=0;
-		// TODO Auto-generated constructor stub
 	}
-	public int getResultado() {
+ 
+ public TicketEmpleado(GregorianCalendar fecha, Formulario formulario) {
+		super(fecha, formulario);
+		this.resultado=0;
+	}
+ 
+	public int getResultado() { 
 		return resultado;
 	}
 	public void setResultado(int resultado) {
