@@ -7,7 +7,7 @@ public class Managment implements TipodePuesto{
 	}
 	
 	public double comparaJunior() {
-		return 0.5;
+		return 0;
 	}
 
 	public double comparaSenior() {
