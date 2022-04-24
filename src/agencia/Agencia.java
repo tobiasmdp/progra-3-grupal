@@ -46,6 +46,7 @@ public class Agencia {
 	
 	public void rondaEncuentrosLaborales() {
 		for (int i=0; i < empleadores.size(); i++) {
+			ArrayList<EmpleadoPretenso> listaAsignacionEmpleador = new ArrayList<EmpleadoPretenso>();
 			for (int j=0; j < empleadosPretensos.size(); j++) {
 				
 			}
