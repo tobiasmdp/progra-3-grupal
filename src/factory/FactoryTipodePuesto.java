@@ -6,7 +6,7 @@ import dispatch.Senior;
 import dispatch.Managment;
 
 public class FactoryTipodePuesto {
-	public TipodePuesto getTipodePuesto(String tipo) {
+	public static TipodePuesto factoryGetTipodePuesto(String tipo) {
 		TipodePuesto respuesta=null;
 		if(tipo.equals("Junior"))
 			respuesta = new Junior();

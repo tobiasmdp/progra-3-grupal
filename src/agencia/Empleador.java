@@ -30,8 +30,8 @@ public class Empleador extends Usuario {
 	}
 	
 	
-	public void nuevoTicket(GregorianCalendar fecha, Formulario formulario, int estado ) {
-		this.ticket = new Ticket(fecha,formulario,estado); //terminar la creacion de un empleador
+	public void nuevoTicket(GregorianCalendar fecha, Formulario formulario, int cantempleadosbuscados, int estado ) {
+		this.ticket = new TicketEmpleador(fecha, formulario, cantempleadosbuscados, estado); //terminar la creacion de un empleador
 	}
 
 	public Empleador registro(String nombreUsuario,String contra,String nombre, Persona tPersona, Rubro rubro) {

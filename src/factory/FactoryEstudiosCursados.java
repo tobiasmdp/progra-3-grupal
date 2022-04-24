@@ -6,7 +6,7 @@ import dispatch.Secundario;
 import dispatch.Terciario;
 
 public class FactoryEstudiosCursados {
-	public EstudiosCursados getEstudiosCursados(String tipo) {
+	public static EstudiosCursados factoryGetEstudiosCursados(String tipo) {
 		EstudiosCursados respuesta = null;
 		if (tipo.equals("Primario")) 
 			respuesta = new Primario();

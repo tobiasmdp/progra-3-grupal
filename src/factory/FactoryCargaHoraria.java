@@ -6,7 +6,7 @@ import dispatch.CargaCompleta;
 import dispatch.CargaMedia;
 
 public class FactoryCargaHoraria {
-	public CargaHoraria getCargaHoraria(String tipo) {
+	public static CargaHoraria factoryGetCargaHoraria(String tipo) {
 		CargaHoraria respuesta = null;
 		if (tipo.equals("CargaExtendida")) 
 			respuesta = new CargaExtendida();

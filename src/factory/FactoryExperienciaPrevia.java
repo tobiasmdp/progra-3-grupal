@@ -6,7 +6,7 @@ import dispatch.ExperienciaMedia;
 import dispatch.ExperienciaMucha;
 
 public class FactoryExperienciaPrevia {
-	public ExperienciaPrevia getExperienciaPrevia(String tipo) {
+	public static ExperienciaPrevia factoryGetExperienciaPrevia(String tipo) {
 		ExperienciaPrevia respuesta = null;
 		if (tipo.equals("ExperienciaNada")) 
 			respuesta = new ExperienciaNada();

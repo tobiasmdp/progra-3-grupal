@@ -51,6 +51,7 @@ public class EmpleadoPretenso extends Usuario {
 		return ticket;
 	}
 
+	
 	@Override
 	public double calcularComisiones() {
 		return Persona.calcularComisiones(this.rubro);//Este falta el tipopersona

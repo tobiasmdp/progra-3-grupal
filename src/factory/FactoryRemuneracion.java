@@ -6,7 +6,7 @@ import dispatch.EntreV1yV2;
 import dispatch.MasdeV2;
 
 public class FactoryRemuneracion {
-	public Remuneracion getRemuneracion(String tipo) {
+	public static Remuneracion factoryGetRemuneracion(String tipo) {
 		Remuneracion respuesta = null;
 		if (tipo.equals("HastaV1")) 
 			respuesta = new HastaV1();

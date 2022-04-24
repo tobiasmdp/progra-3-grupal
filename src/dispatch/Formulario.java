@@ -1,65 +1,60 @@
 package dispatch;
 
-
+import factory.*;
+import factory.
 
 /**
  * @author mikel
  * Crea la clase formulario, para que esta se cree en la funcion que lo invoca, se deben validar todos los datos
  */
 public class Formulario {
-	private Locacion locacion;
-	private Remuneracion remuneracion;
-	private CargaHoraria cargaHoraria;
-	private TipodePuesto tipoPuesto;
-	private ExperienciaPrevia experienciaprevia;
-	private RangoEtario rangoEtario;
-	private EstudiosCursados cursados;
-	
-	public Formulario(Locacion locacion, Remuneracion remuneracion, CargaHoraria cargaHoraria, TipodePuesto tipoPuesto, RangoEtario rangoEtario,
-			ExperienciaPrevia experienciaprevia, EstudiosCursados cursados) {
-		this.locacion = locacion;//CAMBIAR GETS POR FACTORYS
-		getLocacion(this.locacion);
-		this.remuneracion = remuneracion;
-		getRemuneracion(this.remuneracion);
-		this.cargaHoraria = cargaHoraria;
-		getCargaHoraria(this.cargaHoraria);
-		this.tipoPuesto = tipoPuesto;
-		getTipoPuesto(this.tipoPuesto);
-		this.rangoEtario = rangoEtario;
-		getRangoEtario(this.rangoEtario);
-		this.experienciaprevia = experienciaprevia;
-		getExperienciaPrevia(this.experienciaprevia);
-		this.cursados = cursados;
-		getEstudiosCursados(this.cursados);
-	}
+    private Locacion locacion;
+    private Remuneracion remuneracion;
+    private CargaHoraria cargaHoraria;
+    private TipodePuesto tipoPuesto;
+    private ExperienciaPrevia experienciaprevia;
+    private RangoEtario rangoEtario;
+    private EstudiosCursados cursados;
 
-	public Locacion getLocacion() {
-		return locacion;
-	}
+    public Formulario(String locacion, String remuneracion, String cargaHoraria, String tipoPuesto, String rangoEtario,
+            String experienciaprevia, String cursados) {
 
-	public Remuneracion getRemuneracion() {
-		return remuneracion;
-	}
+        this.locacion = FactoryLocacion.factoryGetLocacion(locacion);   
+        this.remuneracion = FactoryRemuneracion.factoryGetRemuneracion(remuneracion);
+        this.cargaHoraria = FactoryCargaHoraria.factoryGetCargaHoraria(cargaHoraria);
+        this.tipoPuesto = FactoryTipodePuesto.factoryGetTipodePuesto(tipoPuesto);
+        this.rangoEtario = FactoryRangoEtario.factoryGetRangoEtario(rangoEtario);
+        this.experienciaprevia = FactoryExperienciaPrevia.factoryGetExperienciaPrevia(experienciaprevia);
+        this.cursados = FactoryEstudiosCursados.factoryGetEstudiosCursados(cursados);
+    }
 
-	public CargaHoraria getCargaHoraria(CargaHoraria cargaHoraria) {
-		return cargaHoraria;
-	}
+    public Locacion getLocacion() {
+        return locacion;
+    }
 
-	public TipodePuesto getTipoPuesto(TipodePuesto tipoPuesto) {
-		return tipoPuesto;
-	}
+    public Remuneracion getRemuneracion() {
+        return remuneracion;
+    }
 
-	public ExperienciaPrevia getExperienciaPrevia(ExperienciaPrevia experienciaprevia) {
-		return experienciaprevia;
-	}
+    public CargaHoraria getCargaHoraria() {
+        return cargaHoraria;
+    }
 
-	public RangoEtario getRangoEtario(RangoEtario rangoEtario) {
-		return rangoEtario;
-	}
+    public TipodePuesto getTipoPuesto() {
+        return tipoPuesto;
+    }
 
-	public EstudiosCursados getEstudiosCursados(EstudiosCursados cursados) {
-		return cursados;
-	}
-	
+    public ExperienciaPrevia getExperienciaPrevia() {
+        return experienciaprevia;
+    }
+
+    public RangoEtario getRangoEtario() {
+        return rangoEtario;
+    }
+
+    public EstudiosCursados getEstudiosCursados() {
+        return cursados;
+    }
+
 
 }

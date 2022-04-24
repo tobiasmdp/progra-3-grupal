@@ -5,8 +5,8 @@ import dispatch.Menosde40;
 import dispatch.Entre40Y50;
 import dispatch.Masde50;
 
-public class FactoryRangoEtario {
-	public RangoEtario getRangoEtario(String tipo) {
+public abstract class FactoryRangoEtario {
+	public static RangoEtario factoryGetRangoEtario(String tipo) {
 		RangoEtario respuesta=null;
 		if(tipo.equals("Menosde40"))
 			respuesta = new Menosde40();

@@ -6,7 +6,7 @@ import dispatch.Indistinto;
 import dispatch.Presencial;
 
 public class FactoryLocacion {
-	public Locacion getLocacion(String tipo) {
+	public static Locacion factoryGetLocacion(String tipo) {
 		Locacion respuesta = null;
 		if (tipo.equals("Home Office"))
 			respuesta = new HomeOffice();
