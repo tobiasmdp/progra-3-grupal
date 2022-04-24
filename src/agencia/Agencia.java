@@ -55,12 +55,8 @@ public class Agencia {
 		double puntaje;
 		Usuario_puntaje aux;
 		for (int i=0; i < empleadores.size(); i++) {
-<<<<<<< HEAD
-
-=======
-
+			auxEmpleador=empleadores.get(i);
 			
->>>>>>> e64d5f9a6738d5bd17554076bd324f253f086d13
 			for (int j=0; j < empleadosPretensos.size(); j++) {
 				auxEmpleado=empleadosPretensos.get(i);
 				puntaje=calculoPuntajesEmpleador(auxEmpleador.getTicket().getFormulario(),auxEmpleado.getTicket().getFormulario());
