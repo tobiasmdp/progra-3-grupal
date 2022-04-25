@@ -48,7 +48,14 @@ public class Prueba {
 		empleador6.nuevoTicket(new GregorianCalendar(), 
 				new Formulario("Presencial", "CargaMedia", "Terciario", "ExperienciaMucha", "MasdeV2", "Managment", "Masde50"));
 			
-
+		
+		
+		Agencia.getInstance().rondaEncuentrosLaborales();
+		
+		
+	
 	}
 
+	
+	
 }
