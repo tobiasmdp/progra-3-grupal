@@ -3,11 +3,11 @@ package formulario;
 public class FactoryLocacion {
 	public static Locacion getLocacion(String tipo) {
 		Locacion respuesta = null;
-		if (tipo.equals("Home Office"))
+		if (tipo.equalsIgnoreCase("Home Office"))
 			respuesta = new HomeOffice();
-		else if (tipo.equals("Indistinto"))
+		else if (tipo.equalsIgnoreCase("Indistinto"))
 			respuesta = new Indistinto();
-		else if (tipo.equals("Presencial"))
+		else if (tipo.equalsIgnoreCase("Presencial"))
 			respuesta = new Presencial();
 		return respuesta;
 	}

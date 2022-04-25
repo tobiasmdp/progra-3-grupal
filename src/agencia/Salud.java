@@ -1,6 +1,6 @@
 package agencia;
 
-public class Salud extends Rubro{
+public class Salud implements IRubro{
 
 	@Override
 	public double comisionFisica() {

@@ -1,6 +1,6 @@
 package agencia;
 
-public class Internacional extends Rubro {
+public class Internacional implements IRubro {
 
 	@Override
 	public double comisionFisica() {

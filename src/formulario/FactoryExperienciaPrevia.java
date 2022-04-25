@@ -3,11 +3,11 @@ package formulario;
 public class FactoryExperienciaPrevia {
 	public static ExperienciaPrevia getExperienciaPrevia(String tipo) {
 		ExperienciaPrevia respuesta = null;
-		if (tipo.equals("ExperienciaNada")) 
+		if (tipo.equalsIgnoreCase("ExperienciaNada")) 
 			respuesta = new ExperienciaNada();
-		else if (tipo.equals("ExperienciaMedia")) 
+		else if (tipo.equalsIgnoreCase("ExperienciaMedia")) 
 			respuesta = new ExperienciaMedia();
-		else if (tipo.equals("ExperienciaMucha")) 
+		else if (tipo.equalsIgnoreCase("ExperienciaMucha")) 
 			respuesta = new ExperienciaMucha();
 		return respuesta;
 	}

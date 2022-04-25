@@ -1,6 +1,6 @@
 package agencia;
 
-public class Local extends Rubro {
+public class Local implements IRubro {
 
 	@Override
 	public double comisionFisica() {

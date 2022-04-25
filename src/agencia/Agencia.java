@@ -3,6 +3,7 @@ package agencia;
 import java.util.ArrayList;
 
 import formulario.Formulario;
+import tickets.TicketEmpleador;
 
 
 public class Agencia {
@@ -58,18 +59,20 @@ public class Agencia {
 			auxEmpleador=empleadores.get(i);
 			
 			for (int j=0; j < empleadosPretensos.size(); j++) {
-				auxEmpleado=empleadosPretensos.get(i);
-				puntaje=calculoPuntajesEmpleador(auxEmpleador.getTicket().getFormulario(),auxEmpleado.getTicket().getFormulario());
+				auxEmpleado=empleadosPretensos.get(j);
+				puntaje=calculoPuntajesEmpleador(auxEmpleador.getTicket(),auxEmpleado.getTicket().getFormulario());
 				aux=new Usuario_puntaje(auxEmpleado,puntaje);
 				auxEmpleador.getTicket().nuevoEmpleadoMatcheado(aux);
-				
 			}
+			
+			//auxEmpleador.getTicket().getEmpleadosmatcheados().sort(Usuario_puntaje);
+			
 		}
 		for (int i=0; i < empleadosPretensos.size(); i++) {
 			auxEmpleado=empleadosPretensos.get(i);
 			
 			for (int j=0; j < empleadores.size(); j++) {
-				auxEmpleador=empleadores.get(i);
+				auxEmpleador=empleadores.get(j);
 				puntaje=calculoPuntajesEmpleado(auxEmpleado.getTicket().getFormulario(),auxEmpleador.getTicket().getFormulario());
 				aux=new Usuario_puntaje(auxEmpleador,puntaje);
 				auxEmpleado.getTicket().nuevoEmpleadorMatcheado(aux);
@@ -78,12 +81,15 @@ public class Agencia {
 		//genero las listas de asignaciones
 	}
 	
-	public double calculoPuntajesEmpleador(Formulario formempleador, Formulario formfempleado) {
+	public double calculoPuntajesEmpleador(TicketEmpleador ticketempleador, Formulario formfempleado) {
 		double aux=0;
-		aux+=formempleador.getLocacion().compara(formfempleado.getLocacion());
-		aux+=formempleador.getRemuneracion().compara(formfempleado.getRemuneracion() );
-		//Agregar las otras comparaciones
-		
+		aux+=ticketempleador.getFormulario().getLocacion().compara(formfempleado.getLocacion())*ticketempleador.getpLocacion();
+		aux+=ticketempleador.getFormulario().getRemuneracion().compara(formfempleado.getRemuneracion())*ticketempleador.getpRemuneracion();
+		aux+=ticketempleador.getFormulario().getCargaHoraria().compara(formfempleado.getCargaHoraria())*ticketempleador.getpCargaHoraria();
+		aux+=ticketempleador.getFormulario().getTipoPuesto().compara(formfempleado.getTipoPuesto())*ticketempleador.getpTipodePuesto();
+		aux+=ticketempleador.getFormulario().getExperienciaPrevia().compara(formfempleado.getExperienciaPrevia())*ticketempleador.getpExperienciaPrevia();
+		aux+=ticketempleador.getFormulario().getRangoEtario().compara(formfempleado.getRangoEtario())*ticketempleador.getpRangoEtario();
+		aux+=ticketempleador.getFormulario().getEstudiosCursados().compara(formfempleado.getEstudiosCursados())*ticketempleador.getpEstudiosCursados();
 		return aux;
 	}
 	
@@ -91,6 +97,12 @@ public class Agencia {
 		double aux=0;
 		aux+=formempleado.getLocacion().compara(formempleador.getLocacion());
 		aux+=formempleado.getRemuneracion().compara(formempleador.getRemuneracion() );
+		aux+=formempleado.getCargaHoraria().compara(formempleador.getCargaHoraria());
+		aux+=formempleado.getCargaHoraria().compara(formempleador.getCargaHoraria() );
+		aux+=formempleado.getTipoPuesto().compara(formempleador.getTipoPuesto());
+		aux+=formempleado.getExperienciaPrevia().compara(formempleador.getExperienciaPrevia() );
+		aux+=formempleado.getRangoEtario().compara(formempleador.getRangoEtario());
+		aux+=formempleado.getEstudiosCursados().compara(formempleador.getEstudiosCursados() );
 		//Agregar las otras comparaciones
 		return aux;
 	}

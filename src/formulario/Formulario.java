@@ -26,6 +26,7 @@ public class Formulario {
         this.cursados = FactoryEstudiosCursados.getEstudiosCursados(cursados);
     }
 
+    
     public Locacion getLocacion() {
         return locacion;
     }

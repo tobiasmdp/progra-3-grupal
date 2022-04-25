@@ -1,6 +1,6 @@
 package agencia;
 
-public class Fisica extends Persona {
+public class Fisica implements IPersona {
 
 	@Override
 	public double comisionSalud() {

@@ -3,11 +3,11 @@ package formulario;
 public class FactoryTipodePuesto {
 	public static TipodePuesto getTipodePuesto(String tipo) {
 		TipodePuesto respuesta=null;
-		if(tipo.equals("Junior"))
+		if(tipo.equalsIgnoreCase("Junior"))
 			respuesta = new Junior();
-		if(tipo.equals("Senior"))
+		if(tipo.equalsIgnoreCase("Senior"))
 			respuesta = new Senior();
-		if (tipo.equals("Managment"))
+		if (tipo.equalsIgnoreCase("Managment"))
 			respuesta = new Managment();
 		return respuesta;
 	}

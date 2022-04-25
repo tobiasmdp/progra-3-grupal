@@ -18,7 +18,7 @@ import formulario.Formulario;
  private int resultado;
  ArrayList<Usuario_puntaje> empleadoresmatcheados= new ArrayList<Usuario_puntaje>();
 	
- public TicketEmpleado(GregorianCalendar fecha, Formulario formulario,int estado) {
+ public TicketEmpleado(GregorianCalendar fecha, Formulario formulario, String estado) {
 		super(fecha, formulario,estado);
 		this.resultado=0;
 	}

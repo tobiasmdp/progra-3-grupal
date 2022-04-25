@@ -17,8 +17,7 @@ public class EmpleadoPretenso extends Usuario {
 	//private static int codUsuario;
 	
 
-	public EmpleadoPretenso(String nombreUsuario, String password, String nombre, String apellido, String telefono,
-			int edad) {
+	public EmpleadoPretenso(String nombreUsuario, String password, String nombre, String apellido, String telefono,int edad) {
 		super(nombreUsuario, password);
 		this.nombre = nombre;
 		this.apellido = apellido;

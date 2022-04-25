@@ -5,14 +5,14 @@ import formulario.Formulario;
 import tickets.Ticket;
 import tickets.TicketEmpleador;
 
+import java.util.ArrayList;
 import java.util.GregorianCalendar;
 
 public class Empleador extends Usuario {
 	private String nombre;
-	private Persona tPersona;
-	private Rubro rubro;
+	private IPersona tPersona;
+	private IRubro rubro;
 	private TicketEmpleador ticket;
-	//Implementar peso
 	
 	public Empleador(String nombreUsuario,String contra) {
 		super(nombreUsuario,contra);
@@ -20,21 +20,23 @@ public class Empleador extends Usuario {
 	}
 	
 	
-	public Empleador(String nombreUsuario,String contra,String nombre, Persona tPersona, Rubro rubro) {
+	public Empleador(String nombreUsuario,String contra,String nombre, String tPersona, String rubro) {
 		super(nombreUsuario,contra);
 		Agencia.getInstance().addEmpleador(this);
 		this.nombre = nombre;
-		this.tPersona = tPersona;
-		this.rubro = rubro;
+		this.tPersona = FactoryPersona.getPersona(tPersona);
+		this.rubro = FactoryRubro.getRubro(rubro);
 		
 	}
 	
 	
-	public void nuevoTicket(GregorianCalendar fecha, Formulario formulario, int cantempleadosbuscados) {
-		this.ticket = new TicketEmpleador(fecha, formulario, cantempleadosbuscados); //terminar la creacion de un empleador
+	public void nuevoTicket(GregorianCalendar fecha, Formulario formulario, String estado, int cantempleadosbuscados, int pLocacion, int pRemuneracion, int pCargaHoraria,
+			int pTipodePuesto, int pExperienciaPrevia, int pRangoEtario, int pEstudiosCursados) {
+		this.ticket = new TicketEmpleador(fecha, formulario,estado, cantempleadosbuscados, pLocacion,pRemuneracion, pCargaHoraria,
+				pTipodePuesto, pExperienciaPrevia, pRangoEtario, pEstudiosCursados); 
 	}
 
-	public Empleador registro(String nombreUsuario,String contra,String nombre, Persona tPersona, Rubro rubro) {
+	public Empleador registro(String nombreUsuario,String contra,String nombre, IPersona tPersona, IRubro rubro) {
 		return new Empleador(nombreUsuario,contra,nombre,tPersona,rubro);
 	}
 	
@@ -46,10 +48,10 @@ public class Empleador extends Usuario {
 	public String getNombre() {
 		return nombre;
 	}
-	public Persona gettPersona() {
+	public IPersona gettPersona() {
 		return tPersona;
 	}
-	public Rubro getRubro() {
+	public IRubro getRubro() {
 		return rubro;
 	}
 
