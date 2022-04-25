@@ -6,6 +6,10 @@ import agencia.Agencia;
 import formulario.Formulario;
 import tickets.*;
 
+/**
+ * @author tobia
+ *
+ */
 public class EmpleadoPretenso extends Usuario {
 	private String nombre,apellido,telefono;
 	private int edad;
@@ -60,7 +64,7 @@ public class EmpleadoPretenso extends Usuario {
 	
 	@Override
 	public double calcularComisiones() {
-		return Persona.calcularComisiones(this.rubro);//Este falta el tipopersona
+		return 1;//Este falta el tipopersona
 	}
 
 }
