@@ -47,14 +47,7 @@ public class Prueba {
 		empleador6.login("Usuario6", empleador6.getPassword());
 		empleador6.nuevoTicket(new GregorianCalendar(), 
 				new Formulario("Presencial", "CargaMedia", "Terciario", "ExperienciaMucha", "MasdeV2", "Managment", "Masde50"));
-		
-		
-		
-		
-		
-		
-	
-		
+			
 
 	}
 
