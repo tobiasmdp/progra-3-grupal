@@ -19,4 +19,10 @@ public class CargaCompleta implements CargaHoraria{
 		return 1;
 	}
 
+	@Override
+	public String toString() {
+		return "Carga Completa";
+	}
+
+	
 }

@@ -101,7 +101,7 @@ public class TicketEmpleador extends Ticket {
 			this.cantempleadosbuscados-=this.cantempleadosobtenidos;
 		else {
 			this.cantempleadosbuscados=this.cantempleadosobtenidos;
-			this.setEstado(4);
+			this.setEstado("finalizado");
 		}
 
 	}
@@ -117,5 +117,12 @@ public class TicketEmpleador extends Ticket {
 	public void resetListaEmpleados() {
 		this.empleadosmatcheados.clear();
 	}
+	
+
+	public ArrayList<Usuario_puntaje> getEmpleadosmatcheados() {
+		return empleadosmatcheados;
+	}
+
+	
 	
 }

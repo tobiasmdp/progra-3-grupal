@@ -17,5 +17,10 @@ public class Salud implements IRubro{
 		return p.comisionSalud();
 	}
 
+	@Override
+	public String toString() {
+		return "Salud";
+	}
+
 	
 }

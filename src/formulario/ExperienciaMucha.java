@@ -17,6 +17,11 @@ public class ExperienciaMucha implements ExperienciaPrevia{
 	public double comparaMucha() {
 		return 1;
 	}
+
+	@Override
+	public String toString() {
+		return "Mucha experiencia";
+	}
     
 
 }

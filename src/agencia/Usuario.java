@@ -2,7 +2,7 @@ package agencia;
 
 import excepciones.*;//mirarlo
 
-public abstract class Usuario implements IPuntaje,IComisiones {
+public abstract class Usuario implements IPuntaje {
 	private String nombreUsuario;
 	private String password;
 	protected int puntaje;	

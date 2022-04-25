@@ -14,4 +14,9 @@ public class HastaV1 implements Remuneracion {
 	public double comparaMasdeV2() {
 		return 1;
 	}
+	@Override
+	public String toString() {
+		return "Hasta V1 ";
+	}
+	
 }

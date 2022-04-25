@@ -17,5 +17,11 @@ public class Managment implements TipodePuesto{
 	public double comparaManagment() {
 		return 1;
 	}
+
+	@Override
+	public String toString() {
+		return "Managment";
+	}
+	
 	
 }

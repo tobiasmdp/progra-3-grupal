@@ -46,6 +46,11 @@ import formulario.Formulario;
 	public void resetListaEmpleados() {
 		this.empleadoresmatcheados.clear();
 	}
+
+	public ArrayList<Usuario_puntaje> getEmpleadoresmatcheados() {
+		return empleadoresmatcheados;
+	}
+	
 	
 	
 }

@@ -18,6 +18,11 @@ public class Junior implements TipodePuesto{
 		return -1;
 	}
 
+	@Override
+	public String toString() {
+		return "Junior";
+	}
+
 	
 }
  

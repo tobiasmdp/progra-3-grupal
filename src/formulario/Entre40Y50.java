@@ -18,4 +18,9 @@ public class Entre40Y50 implements RangoEtario{
 		return 0.5;
 }
 
+	@Override
+	public String toString() {
+		return "Entre 40 y 50 años";
+	}
+
 }

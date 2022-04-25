@@ -6,7 +6,7 @@ import formulario.Formulario;
 import tickets.TicketEmpleador;
 
 
-public class Agencia {
+public class Agencia{
 	
 	private static Agencia instance = null; // arranca valiendo null, aplico SINGLETON, 
 	private ArrayList<EmpleadoPretenso> empleadosPretensos = new ArrayList<EmpleadoPretenso>();
@@ -81,7 +81,7 @@ public class Agencia {
 		//genero las listas de asignaciones
 	}
 	
-	public double calculoPuntajesEmpleador(TicketEmpleador ticketempleador, Formulario formfempleado) {
+	public double calculoPuntajesEmpleador(TicketEmpleador ticketempleador, Formulario formfempleado) {//Calcula puntajes
 		double aux=0;
 		aux+=ticketempleador.getFormulario().getLocacion().compara(formfempleado.getLocacion())*ticketempleador.getpLocacion();
 		aux+=ticketempleador.getFormulario().getRemuneracion().compara(formfempleado.getRemuneracion())*ticketempleador.getpRemuneracion();
@@ -106,5 +106,12 @@ public class Agencia {
 		//Agregar las otras comparaciones
 		return aux;
 	}
+	
+	/*
+	@Override
+	public double calcularComisiones() {
+		return tPersona.calcularComisiones(rubro);
+	}
+	*/
 	
 }

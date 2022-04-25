@@ -16,6 +16,11 @@ public class Usuario_puntaje {
 	public double getPuntaje() {
 		return puntaje;
 	}
+
+	@Override
+	public String toString() {
+		return "        "  + puntaje +"      " + usuario;
+	}
 	
 	
 }

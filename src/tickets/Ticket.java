@@ -54,6 +54,13 @@ public abstract class Ticket {
 	public Formulario getFormulario() {
 		return this.formulario;
 	}
+
+	@Override
+	public String toString() {
+		return "Ticket [formulario=" + formulario + "]";
+	}
+
+	
 	
 	
 }

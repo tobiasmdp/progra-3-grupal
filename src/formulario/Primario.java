@@ -17,5 +17,10 @@ public class Primario implements EstudiosCursados{
 	public double comparaTerciario() {
 		return -2;
 	}
+
+	@Override
+	public String toString() {
+		return "Primario ";
+	}
 	
 }

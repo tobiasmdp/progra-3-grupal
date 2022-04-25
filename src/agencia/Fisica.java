@@ -22,4 +22,9 @@ public class Fisica implements IPersona {
 		return p.comisionFisica();
 	}
 
+	@Override
+	public String toString() {
+		return "Fisica";
+	}
+	
 }

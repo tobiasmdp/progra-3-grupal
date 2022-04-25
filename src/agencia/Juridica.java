@@ -22,4 +22,10 @@ public class Juridica implements IPersona {
 		return p.comisionJuridica();
 	}
 
+	@Override
+	public String toString() {
+		return "Juridica";
+	}
+
+	
 }

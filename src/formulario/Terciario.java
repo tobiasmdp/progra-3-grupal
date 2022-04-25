@@ -17,5 +17,10 @@ public class Terciario implements EstudiosCursados{
 	public double comparaTerciario() {
 		return 1;
 	}
+
+	@Override
+	public String toString() {
+		return "Terciario ";
+	}
 	
 }

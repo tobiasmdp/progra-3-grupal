@@ -14,4 +14,9 @@ public class EntreV1yV2 implements Remuneracion{
 	public double comparaMasdeV2() {
 		return 1;
 	}
+	@Override
+	public String toString() {
+		return "Entre V1 Y V2";
+	}
+	
 }

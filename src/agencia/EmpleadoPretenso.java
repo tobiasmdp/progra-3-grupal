@@ -1,5 +1,6 @@
 package agencia;
 
+import java.util.ArrayList;
 import java.util.GregorianCalendar;
 
 import agencia.Agencia;
@@ -10,9 +11,10 @@ import tickets.*;
  * @author tobia
  *
  */
-public class EmpleadoPretenso extends Usuario {
+public class EmpleadoPretenso extends Usuario implements IMuestraLista{
 	private String nombre,apellido,telefono;
 	private int edad;
+	private IPersona tPersona;
 	private TicketEmpleado ticket;
 	//private static int codUsuario;
 	
@@ -23,6 +25,7 @@ public class EmpleadoPretenso extends Usuario {
 		this.apellido = apellido;
 		this.telefono = telefono;
 		this.edad = edad;
+		this.tPersona=FactoryPersona.getPersona("Juridica");
 		//EmpleadoPretenso.codUsuario++;
 		Agencia.getInstance().addEmpleadoPretenso(this);
 	}
@@ -61,9 +64,25 @@ public class EmpleadoPretenso extends Usuario {
 	}
 
 	
+
+
 	@Override
-	public double calcularComisiones() {
-		return 1;//Este falta el tipopersona
+	public void mostrarLista() {
+		int i;
+		Usuario_puntaje auxUsuario; 
+		System.out.println( "Puesto    Puntaje    Empleadores");
+		for (i=0;i<this.ticket.getEmpleadoresmatcheados().size();i++) {
+			auxUsuario=this.ticket.getEmpleadoresmatcheados().get(i);
+			System.out.println((i+1) +":"+auxUsuario);
+		}
+		
 	}
+
+	@Override
+	public String toString() {
+		return "nombre=" + nombre + ", apellido=" + apellido + ", telefono=" + telefono + ", edad="
+				+ edad + ", tPersona=" + tPersona + ticket;
+	}
+	
 
 }

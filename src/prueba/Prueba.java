@@ -53,6 +53,12 @@ public class Prueba {
 		
 		Agencia.getInstance().rondaEncuentrosLaborales();
 		
+		empleador3.mostrarLista();
+		empleador1.mostrarLista();
+		empleador2.mostrarLista();
+		empleado1.mostrarLista();
+		empleado2.mostrarLista();
+		empleado3.mostrarLista();
 		
 	
 	}

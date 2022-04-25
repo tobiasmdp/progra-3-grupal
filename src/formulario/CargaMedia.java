@@ -14,5 +14,11 @@ public class CargaMedia implements CargaHoraria{
 	public double extendida() {
 		return -1;
 	}
+
+	@Override
+	public String toString() {
+		return "Carga Media ";
+	}
+	
 	
 }

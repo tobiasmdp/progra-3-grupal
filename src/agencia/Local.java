@@ -17,4 +17,9 @@ public class Local implements IRubro {
 		return p.comisionLocal();
 	}
 
+	@Override
+	public String toString() {
+		return "Local";
+	}
+	
 }

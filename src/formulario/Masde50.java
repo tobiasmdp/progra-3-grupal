@@ -18,5 +18,11 @@ public class Masde50 implements RangoEtario{
 		return 1;
 	}
 
+	@Override
+	public String toString() {
+		return "Mas de 50 años";
+	}
+	
+	
 }
 

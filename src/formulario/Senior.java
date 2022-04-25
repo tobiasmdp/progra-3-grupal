@@ -18,4 +18,9 @@ public class Senior  implements TipodePuesto{
 			return 0.5;
 		}
 		//junior.comparo(senior)=-0,5
+
+		@Override
+		public String toString() {
+			return "Senior";
+		}
 }
