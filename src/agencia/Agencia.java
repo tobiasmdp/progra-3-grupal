@@ -1,6 +1,7 @@
 package agencia;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 import formulario.Formulario;
 import tickets.TicketEmpleador;
@@ -65,7 +66,8 @@ public class Agencia{
 				auxEmpleador.getTicket().nuevoEmpleadoMatcheado(aux);
 			}
 			
-			//auxEmpleador.getTicket().getEmpleadosmatcheados().sort(Usuario_puntaje);
+
+			Collections.sort(auxEmpleador.getTicket().getEmpleadosmatcheados(), new UsuarioComparator());
 			
 		}
 		for (int i=0; i < empleadosPretensos.size(); i++) {
@@ -77,6 +79,7 @@ public class Agencia{
 				aux=new Usuario_puntaje(auxEmpleador,puntaje);
 				auxEmpleado.getTicket().nuevoEmpleadorMatcheado(aux);
 			}
+			//Collections.sort(auxEmpleador.getTicket().getEmpleadosmatcheados(), new UsuarioComparator());
 		}
 		//genero las listas de asignaciones
 	}

@@ -82,7 +82,7 @@ public class Empleador extends Usuario implements IMuestraLista{
 		System.out.println( "Puesto    Puntaje    Empleadores");
 		for (i=0;i<this.ticket.getEmpleadosmatcheados().size();i++) {
 			auxUsuario=this.ticket.getEmpleadosmatcheados().get(i);
-			System.out.println((i+1)+":"+auxUsuario);
+			System.out.println((i+1)+":"+auxUsuario);//FOR EACH
 		}
 	}
 	

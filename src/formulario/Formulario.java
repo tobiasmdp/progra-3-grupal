@@ -58,9 +58,9 @@ public class Formulario {
 
 	@Override
 	public String toString() {
-		return "Formulario [locacion=" + locacion + ", remuneracion=" + remuneracion + ", cargaHoraria=" + cargaHoraria
+		return "locacion=" + locacion + ", remuneracion=" + remuneracion + ", cargaHoraria=" + cargaHoraria
 				+ ", tipoPuesto=" + tipoPuesto + ", experienciaprevia=" + experienciaprevia + ", rangoEtario="
-				+ rangoEtario + ", cursados=" + cursados + "]";
+				+ rangoEtario + ", cursados=" + cursados ;
 	}
 
 
