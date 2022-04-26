@@ -20,7 +20,7 @@ public class Masde50 implements RangoEtario{
 
 	@Override
 	public String toString() {
-		return "Mas de 50 años";
+		return "Mas de 50 años    ";
 	}
 	
 	

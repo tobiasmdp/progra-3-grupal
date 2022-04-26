@@ -1,6 +1,5 @@
 package agencia;
 
-import agencia.Agencia;
 import formulario.Formulario;
 import tickets.Ticket;
 import tickets.TicketEmpleador;
@@ -8,11 +7,12 @@ import tickets.TicketEmpleador;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
 
-public class Empleador extends Usuario implements IMuestraLista{
+public class Empleador extends Usuario implements IMuestraLista, IPuntaje{
 	private String nombre;
 	private IPersona tPersona;
 	private IRubro rubro;
 	private TicketEmpleador ticket;
+	private int puntaje;
 	
 	public Empleador(String nombreUsuario,String contra) {
 		super(nombreUsuario,contra);
@@ -48,6 +48,16 @@ public class Empleador extends Usuario implements IMuestraLista{
 	public String getNombre() {
 		return nombre;
 	}
+	public void setComisionPersona(IPersona tPersona) {
+		this.tPersona = tPersona.calcularComisiones();
+	}
+
+
+	public void setComisionRubro(IRubro rubro) {
+		this.rubro = rubro;
+	}
+
+
 	public IPersona gettPersona() {
 		return tPersona;
 	}
@@ -59,7 +69,14 @@ public class Empleador extends Usuario implements IMuestraLista{
 	public TicketEmpleador getTicket() {
 		return ticket;
 	}
+	
+	public int getPuntaje() {
+		return puntaje;
+	}
 
+	public void setPuntaje(int puntaje) {
+		this.puntaje = puntaje;
+	}
 
 	@Override
 	public void actualizarPuntaje() {
@@ -79,7 +96,7 @@ public class Empleador extends Usuario implements IMuestraLista{
 	public void mostrarLista() {
 		int i;
 		Usuario_puntaje auxUsuario;
-		System.out.println( "Puesto    Puntaje    Empleadores");
+		System.out.println( "Puesto   Puntaje     Empleado       Apellido         Edad         Locacion          Remuneracion               Carga horaria      Tipo de puesto        Experiencia previa    Rango etario        Estudios cursados");
 		for (i=0;i<this.ticket.getEmpleadosmatcheados().size();i++) {
 			auxUsuario=this.ticket.getEmpleadosmatcheados().get(i);
 			System.out.println((i+1)+":"+auxUsuario);//FOR EACH
@@ -88,7 +105,7 @@ public class Empleador extends Usuario implements IMuestraLista{
 	
 	@Override
 	public String toString() {
-		return "Empleador [nombre=" + nombre + ", tPersona=" + tPersona + ", rubro=" + rubro +"]";
+		return  nombre + "       " + tPersona + "         " + rubro + "         " + ticket;
 	}
 
 	

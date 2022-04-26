@@ -1,13 +1,13 @@
 package formulario;
 
 public abstract class FactoryRangoEtario {
-	public static RangoEtario getRangoEtario(String tipo) {
+	public static RangoEtario getRangoEtario(int tipo) {
 		RangoEtario respuesta=null;
-		if(tipo.equalsIgnoreCase("Menosde40"))
+		if(tipo<40)
 			respuesta = new Menosde40();
-		if(tipo.equalsIgnoreCase("Entre40Y50"))
+		if(tipo<=50)
 			respuesta = new Entre40Y50();
-		if (tipo.equalsIgnoreCase("Masde50"))
+		else
 			respuesta = new Masde50();
 		return respuesta;
 	}

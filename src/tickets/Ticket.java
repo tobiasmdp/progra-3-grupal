@@ -1,9 +1,10 @@
 package tickets;
 
+import java.util.ArrayList;
 import java.util.GregorianCalendar;
 
 import formulario.Formulario;
-
+import agencia.Usuario_puntaje;
 /**
  * @author mikel
  * la clase ticket es abstracta y es para generar los tickets de empleados y empleadores
@@ -16,6 +17,8 @@ public abstract class Ticket {
 	private GregorianCalendar fecha;
 	private String estado= "Activo";
 	protected Formulario formulario;
+	protected ArrayList<Usuario_puntaje> usuariosElegidos; //permito que se pueda elegir varios tickets en empleado tmb, luego se limita desde su ticket
+	
 	/**
 	 *<b>Pos:</b> 
 	 * @param fecha en el constructor cada vez que se genera un  nuevo ticket, en el parametro fecha, crear siempre un nuevo objeto de Gregorian Calenadar
@@ -26,12 +29,14 @@ public abstract class Ticket {
 		this.fecha = fecha;
 		this.formulario=formulario;
 		this.estado = estado;
+		this.usuariosElegidos = new ArrayList<Usuario_puntaje>();
 	}
 		
 	public Ticket(GregorianCalendar fecha,Formulario formulario) {  //inicializa el ticket en activo por default
 		this.fecha = fecha;
 		this.formulario=formulario;
 		this.estado = "Activo";
+		this.usuariosElegidos = new ArrayList<Usuario_puntaje>();
 	}
 	
 	public String getEstado() {
@@ -57,10 +62,20 @@ public abstract class Ticket {
 
 	@Override
 	public String toString() {
-		return "Ticket [formulario=" + formulario + "]";
+		return ""+formulario ;
+	}
+	protected void seleccionar(Usuario_puntaje elemento) { 
+		this.usuariosElegidos.add(elemento);
+	}
+	
+	protected void deseleccionar(Usuario_puntaje elemento) {
+		this.usuariosElegidos.remove(elemento);
 	}
 
 	
+	public ArrayList<Usuario_puntaje> getUsuariosElegidos() {
+		return usuariosElegidos;
+	}
 	
 	
 }

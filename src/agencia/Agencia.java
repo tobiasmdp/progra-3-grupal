@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 import formulario.Formulario;
+import tickets.TicketEmpleado;
 import tickets.TicketEmpleador;
 
 
@@ -12,7 +13,15 @@ public class Agencia{
 	private static Agencia instance = null; // arranca valiendo null, aplico SINGLETON, 
 	private ArrayList<EmpleadoPretenso> empleadosPretensos = new ArrayList<EmpleadoPretenso>();
 	private ArrayList<Empleador> empleadores = new ArrayList<Empleador>();
+	private int V1=50000,V2=150000;
+	private ArrayList<Contratacion> contrataciones = new ArrayList<Contratacion>();
 	
+	public ArrayList<Contratacion> getContrataciones() {
+		return contrataciones;
+	}
+
+	
+
 	private Agencia() {
 	}
 	
@@ -84,7 +93,7 @@ public class Agencia{
 		//genero las listas de asignaciones
 	}
 	
-	public double calculoPuntajesEmpleador(TicketEmpleador ticketempleador, Formulario formfempleado) {//Calcula puntajes
+	private double calculoPuntajesEmpleador(TicketEmpleador ticketempleador, Formulario formfempleado) {//Calcula puntajes
 		double aux=0;
 		aux+=ticketempleador.getFormulario().getLocacion().compara(formfempleado.getLocacion())*ticketempleador.getpLocacion();
 		aux+=ticketempleador.getFormulario().getRemuneracion().compara(formfempleado.getRemuneracion())*ticketempleador.getpRemuneracion();
@@ -96,7 +105,7 @@ public class Agencia{
 		return aux;
 	}
 	
-	public double calculoPuntajesEmpleado(Formulario formempleado, Formulario formempleador) {
+	private double calculoPuntajesEmpleado(Formulario formempleado, Formulario formempleador) {
 		double aux=0;
 		aux+=formempleado.getLocacion().compara(formempleador.getLocacion());
 		aux+=formempleado.getRemuneracion().compara(formempleador.getRemuneracion() );
@@ -110,11 +119,77 @@ public class Agencia{
 		return aux;
 	}
 	
+	/**
+	 * llegado el momento de contratacion, al tratar las listas ordenadas, si el empleado eligiese 2 empresas, 
+	 * siempre seria contratado por la que le dio mejor puntaje
+	 */
+	private void rondaContrataciones() {
+		double comisionEmpleado, comisionEmpleador;
+		TicketEmpleador ticketEmpleador,ticketEmpleadorElegido;
+		TicketEmpleado ticketEmpleado;
+		ArrayList<Usuario_puntaje> eleccionEmpleador,eleccionEmpleado;
+		Empleador empleadorElegido;
+		EmpleadoPretenso empleadoElegido;
+		for(Empleador empleador:this.empleadores) {
+			ticketEmpleador = empleador.getTicket();
+			eleccionEmpleador= ticketEmpleador.getUsuariosElegidos(); //tomo el array de empleados elegidos por el empleado
+			Collections.sort(eleccionEmpleador, new UsuarioComparator()); 
+			
+			for (Usuario_puntaje usuarioElegidoPorEmpleador:eleccionEmpleador) { // para cada usuario_puntaje elegido por ese ticket de empleador
+				empleadoElegido = (EmpleadoPretenso) usuarioElegidoPorEmpleador.getUsuario();
+				ticketEmpleado = empleadoElegido.getTicket();
+				eleccionEmpleado = ticketEmpleado.getUsuariosElegidos();
+				Collections.sort(eleccionEmpleado, new UsuarioComparator());	
+				
+				for (Usuario_puntaje usuarioElegidoPorEmpleado:eleccionEmpleado) { //el empleadorElegido si castear, siendo usuario
+					empleadorElegido = (Empleador) usuarioElegidoPorEmpleado.getUsuario();
+					ticketEmpleadorElegido= empleadorElegido.getTicket(); 
+					if (ticketEmpleador.equals(ticketEmpleadorElegido)){ 
+						empleador.actualizarPuntaje();
+						empleadoElegido.actualizarPuntaje();	
+						
+						comisionEmpleado = 1;//calcular comision empleador
+						comisionEmpleador = 1;//calcular comision empleado
+						
+						this.contrataciones.add(new Contratacion(empleadoElegido, empleador,comisionEmpleado, comisionEmpleador));
+						
+						ticketEmpleador.setCantempleadosobtenidos(ticketEmpleador.getCantempleadosbuscados() + 1 );
+						if (ticketEmpleador.getCantempleadosbuscados() == ticketEmpleador.getCantempleadosobtenidos()){
+							ticketEmpleador.setEstado("finalizado");
+						}
+						ticketEmpleado.setEstado("finalizado");
+//						ticketEmpleado.setResultado(0); hay que poner un exito o fracaso?
+						// dar de baja "ticketEmpleador"
+						//dar de baja "ticketEmpleado"
+					}
+				}
+			}
+		}
+	}
+
+	
+	
+	
 	/*
 	@Override
 	public double calcularComisiones() {
 		return tPersona.calcularComisiones(rubro);
 	}
 	*/
-	
+
+	public int getV1() {
+		return V1;
+	}
+
+	public void setV1(int v1) {
+		V1 = v1;
+	}
+
+	public int getV2() {
+		return V2;
+	}
+
+	public void setV2(int v2) {
+		V2 = v2;
+	}
 }

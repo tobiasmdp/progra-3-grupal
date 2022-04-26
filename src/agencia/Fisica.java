@@ -24,7 +24,7 @@ public class Fisica implements IPersona {
 
 	@Override
 	public String toString() {
-		return "Fisica";
+		return "Fisica  ";
 	}
 	
 }

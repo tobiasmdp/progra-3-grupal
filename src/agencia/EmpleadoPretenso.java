@@ -11,11 +11,11 @@ import tickets.*;
  * @author tobia
  *
  */
-public class EmpleadoPretenso extends Usuario implements IMuestraLista{
+public class EmpleadoPretenso extends Usuario implements IMuestraLista, IPuntaje{
 	private String nombre,apellido,telefono;
-	private int edad;
-	private IPersona tPersona;
+	protected int edad;
 	private TicketEmpleado ticket;
+	private int puntaje;
 	//private static int codUsuario;
 	
 
@@ -25,7 +25,6 @@ public class EmpleadoPretenso extends Usuario implements IMuestraLista{
 		this.apellido = apellido;
 		this.telefono = telefono;
 		this.edad = edad;
-		this.tPersona=FactoryPersona.getPersona("Juridica");
 		//EmpleadoPretenso.codUsuario++;
 		Agencia.getInstance().addEmpleadoPretenso(this);
 	}
@@ -45,6 +44,14 @@ public class EmpleadoPretenso extends Usuario implements IMuestraLista{
 
 	public int getEdad() {
 		return edad;
+	}
+	
+	public int getPuntaje() {
+		return puntaje;
+	}
+
+	public void setPuntaje(int puntaje) {
+		this.puntaje = puntaje;
 	}
 
 	public void nuevoTicket(GregorianCalendar fecha, Formulario formulario) {
@@ -70,7 +77,7 @@ public class EmpleadoPretenso extends Usuario implements IMuestraLista{
 	public void mostrarLista() {
 		int i;
 		Usuario_puntaje auxUsuario; 
-		System.out.println( "Puesto    Puntaje    Empleadores");
+		System.out.println( "Puesto    Puntaje    Empleador        Rubro       Tipo Persona   Locacion          Remuneracion               Carga horaria      Tipo de puesto        Experiencia previa    Rango etario        Estudios cursados");
 		for (i=0;i<this.ticket.getEmpleadoresmatcheados().size();i++) {
 			auxUsuario=this.ticket.getEmpleadoresmatcheados().get(i);
 			System.out.println((i+1) +":"+auxUsuario);
@@ -80,8 +87,7 @@ public class EmpleadoPretenso extends Usuario implements IMuestraLista{
 
 	@Override
 	public String toString() {
-		return "nombre=" + nombre + ", apellido=" + apellido + ", telefono=" + telefono + ", edad="
-				+ edad + ", tPersona=" + tPersona + ticket;
+		return nombre  + "         " + apellido + "         " + edad + "         " + ticket;
 	}
 	
 

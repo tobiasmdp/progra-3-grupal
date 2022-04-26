@@ -51,6 +51,11 @@ import formulario.Formulario;
 		return empleadoresmatcheados;
 	}
 	
+	@Override
+	protected void seleccionar(Usuario_puntaje elemento) {
+		if(this.getUsuariosElegidos().isEmpty())
+			super.seleccionar(elemento);
+	}
 	
 	
 }

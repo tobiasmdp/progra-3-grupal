@@ -14,7 +14,7 @@ public class Formulario {
     private RangoEtario rangoEtario;
     private EstudiosCursados cursados;
 
-    public Formulario(String locacion, String remuneracion, String cargaHoraria, String tipoPuesto, String rangoEtario,
+    public Formulario(String locacion, int remuneracion, String cargaHoraria, String tipoPuesto, int rangoEtario,
             String experienciaprevia, String cursados) {
 
         this.locacion = FactoryLocacion.getLocacion(locacion);   
@@ -58,9 +58,9 @@ public class Formulario {
 
 	@Override
 	public String toString() {
-		return "locacion=" + locacion + ", remuneracion=" + remuneracion + ", cargaHoraria=" + cargaHoraria
-				+ ", tipoPuesto=" + tipoPuesto + ", experienciaprevia=" + experienciaprevia + ", rangoEtario="
-				+ rangoEtario + ", cursados=" + cursados ;
+		return  locacion + "        " + remuneracion  + "          " + cargaHoraria
+				+ "            " + tipoPuesto  + "                " + experienciaprevia 
+				+ "          " + rangoEtario + "      " + cursados ;
 	}
 
 
