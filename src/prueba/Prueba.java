@@ -5,7 +5,11 @@ package prueba;
 import java.util.GregorianCalendar;
 
 import agencia.*;
-import formulario.Formulario;
+import capaDeDatos.Administrador;
+import capaDeDatos.EmpleadoPretenso;
+import capaDeDatos.Empleador;
+import capaDeNegocios.Agencia;
+import capaDeNegocios.Formulario;
 
 public class Prueba {
 

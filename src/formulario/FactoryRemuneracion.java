@@ -1,6 +1,6 @@
 package formulario;
 
-import agencia.Agencia;
+import capaDeNegocios.Agencia;
 
 public class FactoryRemuneracion {
 	public static Remuneracion getRemuneracion(int tipo) {

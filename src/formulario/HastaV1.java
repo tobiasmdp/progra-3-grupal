@@ -1,6 +1,6 @@
 package formulario;
 
-import agencia.Agencia;
+import capaDeNegocios.Agencia;
 
 public class HastaV1 implements Remuneracion {
 	
