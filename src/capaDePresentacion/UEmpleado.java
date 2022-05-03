@@ -1,9 +1,8 @@
 package capaDePresentacion;
 
-import capaDeNegocios.Usuario_puntaje;
+import excepciones.LoginException;
 
-public class UEmpleado {
+public class UEmpleado extends IUsuarios{
 
-	
 	
 }

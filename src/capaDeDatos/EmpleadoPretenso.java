@@ -1,14 +1,6 @@
 package capaDeDatos;
 
-import java.util.ArrayList;
-import java.util.GregorianCalendar;
-
 import capaDeNegocios.Agencia;
-import capaDeNegocios.Formulario;
-import capaDeNegocios.IMuestraLista;
-import capaDeNegocios.IPuntaje;
-import capaDeNegocios.Usuario_puntaje;
-import tickets.*;
 
 /**
  * @author tobia

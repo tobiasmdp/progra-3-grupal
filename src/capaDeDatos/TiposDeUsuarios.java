@@ -2,10 +2,6 @@ package capaDeDatos;
 
 import java.util.GregorianCalendar;
 
-import capaDeNegocios.Agencia;
-import capaDeNegocios.Contratacion;
-import capaDeNegocios.Formulario;
-import excepciones.*;//mirarlo
 
 public abstract class TiposDeUsuarios  {
 	private String nombreUsuario;
@@ -24,18 +20,18 @@ public abstract class TiposDeUsuarios  {
 	public String getPassword() {
 		return password;
 	}
-	
-	public void login(String nombreUsuario,String contra) throws LoginException {//PUEDEN LLEGAR A IRSE
-		if(!nombreUsuario.equals(this.nombreUsuario))
-			throw new NombreUsuarioException("el nombre de usuario ingresado no coincide", nombreUsuario);
-		else if(!contra.equals(this.password))
-			throw new ContraException("la contraseña ingresada no es la correcta", contra);
-		else
-			System.out.println("sesion iniciada correctamente");
+
+	public void setNombreUsuario(String nombreUsuario) {
+		this.nombreUsuario = nombreUsuario;
 	}
 
-	public void logout() {//PUEDEN LLEGAR A IRSE
-		this.logeado=false;
+	public void setPassword(String password) {
+		this.password = password;
 	}
+
+	public void setLogeado(boolean logeado) {
+		this.logeado = logeado;
+	}
+	
 	
 }

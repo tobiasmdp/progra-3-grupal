@@ -2,14 +2,25 @@ package capaDeNegocios;
 
 import java.util.GregorianCalendar;
 
+import capaDeDatos.EmpleadoPretenso;
 import capaDeDatos.TicketEmpleado;
 
-public class MetodosEmpleado implements IMetodoCliente implements IMuestraLista, IPuntaje{
+public class MetodosEmpleado {
+	private static MetodosEmpleado instance = null;
 
 
+	private MetodosEmpleado() {
+	}
+	
+	protected static MetodosEmpleado getInstance() {//SINGLETON
+		if (MetodosEmpleado.instance == null) {
+			MetodosEmpleado.instance = new MetodosEmpleado();
+		}
+		return instance;
+	}
+	
 
-	@Override
-	public void actualizarPuntaje() {
+	protected void actualizarPuntaje(EmpleadoPretenso empleado) {
 		/*
 		por cada Ticket finalizado suma 50 puntos
  		por no ser elegido por ningún empleado pretenso resta 20 puntos.
@@ -17,7 +28,7 @@ public class MetodosEmpleado implements IMetodoCliente implements IMuestraLista,
 		*/
 	}
 	
-	private double calculoPuntajes(Formulario formempleado, Formulario formempleador) {
+	protected double calculoPuntajes(Formulario formempleado, Formulario formempleador) {
 		double aux=0;
 		aux+=formempleado.getLocacion().compara(formempleador.getLocacion());
 		aux+=formempleado.getRemuneracion().compara(formempleador.getRemuneracion() );
@@ -31,18 +42,16 @@ public class MetodosEmpleado implements IMetodoCliente implements IMuestraLista,
 		return aux;
 	}
 
-	@Override
-	public void mostrarLista() {
+	protected void mostrarLista(EmpleadoPretenso empleado) {
 		int i;
 		Usuario_puntaje auxUsuario;
 		System.out.println( "Puesto   Puntaje     Empleado       Apellido         Edad         Locacion          Remuneracion               Carga horaria      Tipo de puesto        Experiencia previa    Rango etario        Estudios cursados");
-		for (i=0;i<this.ticket.getEmpleadosmatcheados().size();i++) {
-			auxUsuario=this.ticket.getEmpleadosmatcheados().get(i);
-			System.out.println((i+1)+":"+auxUsuario);//FOR EACH
+		for (i=0;i<empleado.getTicket().getEmpleadoresmatcheados().size();i++) {
+			auxUsuario=empleado.getTicket().getEmpleadoresmatcheados().get(i);
+			System.out.println((i+1)+":"+auxUsuario);
 		}
 	}
-
-	public void nuevoTicket(GregorianCalendar fecha, Formulario formulario) {
+	protected void nuevoTicket(GregorianCalendar fecha, Formulario formulario) {
 		this.ticket = new TicketEmpleado(fecha, formulario);
 	}
 }

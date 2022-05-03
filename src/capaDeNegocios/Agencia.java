@@ -4,8 +4,15 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.GregorianCalendar;
 
+import capaDeDatos.Administrador;
+import capaDeDatos.EmpleadoPretenso;
+import capaDeDatos.Empleador;
 import capaDeDatos.TicketEmpleado;
 import capaDeDatos.TicketEmpleador;
+import capaDeDatos.TiposDeUsuarios;
+import excepciones.ContraException;
+import excepciones.LoginException;
+import excepciones.NombreUsuarioException;
 
 
 public class Agencia{
@@ -13,23 +20,32 @@ public class Agencia{
 	private static Agencia instance = null; // arranca valiendo null, aplico SINGLETON, 
 	private ArrayList<EmpleadoPretenso> empleadosPretensos = new ArrayList<EmpleadoPretenso>();
 	private ArrayList<Empleador> empleadores = new ArrayList<Empleador>();
+	private ArrayList<Administrador> administradores = new ArrayList<Administrador>();
 	private int V1=50000,V2=150000;
 	private ArrayList<Contratacion> contrataciones = new ArrayList<Contratacion>();
+	private MetodosEmpleado zonaEmpleados;
+	private MetodosEmpleador zonaEmpleador;
+	private ArrayList<NodoLogeoEmpleado> logeoempleados=new ArrayList<NodoLogeoEmpleado>();
+	private ArrayList<NodoLogeoEmpleador> logeoempleadores=new ArrayList<NodoLogeoEmpleador>();
 	
 	public ArrayList<Contratacion> getContrataciones() {
 		return contrataciones;
+		
 	}
 	
-
 	private Agencia() {
+		this.zonaEmpleados =  MetodosEmpleado.getInstance();
+		this.zonaEmpleador =  MetodosEmpleador.getInstance();
 	}
 	
 	public static Agencia getInstance() {//SINGLETON
-		if (Agencia.instance == null)
-			Agencia.instance = new Agencia();
+		if (Agencia.instance == null) {
+			Agencia.instance=new Agencia();
+		}
 		return instance;
 	}
-
+	
+	/******GETTERS DE ARRAYLISTS******/
 	public ArrayList<EmpleadoPretenso> getEmpleadosPretensos() {
 		return empleadosPretensos;
 	}
@@ -38,18 +54,47 @@ public class Agencia{
 		return empleadores;
 	}
 	
+	public ArrayList<NodoLogeoEmpleado> getLogeoempleados() {
+		return logeoempleados;
+	}
+
+
+	public ArrayList<NodoLogeoEmpleador> getLogeoempleadores() {
+		return logeoempleadores;
+	}
+	
 	/*public EmpleadoPretenso registro(String nombreUsuario,String contra) {//Dudas: no sera void?
 		Agencia.getInstance().addEmpleadoPretenso(this);
 		return new EmpleadoPretenso(nombreUsuario,contra);
 	}*/
 
-	public void addEmpleadoPretenso(EmpleadoPretenso empleadoPretenso) {
-		this.empleadosPretensos.add(empleadoPretenso);
+	/******AGREGADOS DE ARRAYLISTS******/
+
+	public void addLogeoEmpleadores(NodoLogeoEmpleador usuario) {//Agrega un administrador logeado al arreglo de logeos empleadores
+		this.logeoempleadores.add(usuario);
+	}
+
+	public void addLogeoEmpleadoPretenso(NodoLogeoEmpleado usuario) {//Agrega un empleado logeado al arreglo de logeos empleados
+		this.logeoempleados.add(usuario);
 	}
 	
-	public void addEmpleador(Empleador empleador) {
+	public void addLogeoAdministrador(Administrador usuario) {//Agrega un administrador logeado al arreglo de logeos admins
+		this.administradores.add(usuario);
+	}
+
+	public void addAdministrador(Administrador usuario) {//Agrega un administrador  al arreglo de admins 
+		this.administradores.add(usuario);
+	}
+	
+	public void addEmpleadoPretenso(EmpleadoPretenso empleadoPretenso) {//Agrega un empleado  al arreglo de empleados
+		this.empleadosPretensos.add(empleadoPretenso);
+	}
+
+	public void addEmpleador(Empleador empleador) {//Agrega un empleador  al arreglo de empleadores
 		this.empleadores.add(empleador);
 	}
+	
+	/******REMOVEDORES DE ARRAYLISTS******/
 	
 	public void removeEmpleadoPretenso(EmpleadoPretenso empleadoPretenso) {
 		this.empleadosPretensos.remove(empleadoPretenso);
@@ -58,6 +103,72 @@ public class Agencia{
 	public void removeEmpleador(Empleador empleador) {
 		this.empleadores.remove(empleador);
 	}
+	
+	
+	
+	public void login(String nombreUsuario,String contra) throws LoginException {
+		Empleador auxempleador;
+		EmpleadoPretenso auxempleado;
+		Administrador auxadmin;
+		NodoLogeoEmpleado auxnodoempleado;
+		NodoLogeoEmpleador auxnodoempleador;
+		TiposDeUsuarios auxusuario;
+		
+		int i=0,bandera=0;
+		
+		do{
+			auxempleado=empleadosPretensos.get(i);
+			i++;
+		}while(i<empleadosPretensos.size() && (auxempleado.getNombreUsuario()!=nombreUsuario));
+		
+		if(bandera==1) {
+			auxusuario.setNombreUsuario(nombreUsuario);
+			auxusuario.setPassword(contra);
+			auxnodoempleado=new NodoLogeoEmpleado(auxusuario,auxempleado);
+			addLogeoEmpleadoPretenso(auxnodoempleado);
+		}
+		bandera=0;
+		i=0;
+		
+		if(bandera==0) {
+			do{
+				auxempleador= empleadores.get(i);
+				i++;
+			}while( i<empleadosPretensos.size() && (auxempleador.getNombreUsuario()!=nombreUsuario));
+			bandera=0;
+			i=0;
+		}
+		
+		if(bandera==1) {
+			auxusuario.setNombreUsuario(nombreUsuario);
+			auxusuario.setPassword(contra);
+			auxnodoempleador=new NodoLogeoEmpleador(auxusuario,auxempleador);
+			addLogeoEmpleadores(auxnodoempleador);
+		}
+		if(bandera==0) {
+			do{
+				auxadmin=administradores.get(i);
+				i++;
+			}while(i<administradores.size() && (auxadmin.getNombreUsuario()!=nombreUsuario));
+			bandera=0;
+			i=0;
+		}
+		
+		if(i==usuarios.size() && (auxusuario.getNombreUsuario()!=nombreUsuario))
+			throw new NombreUsuarioException("el nombre de usuario ingresado no coincide", nombreUsuario);
+		else if(auxusuario.getPassword()!=contra)
+			throw new ContraException("la contraseña ingresada no es la correcta", contra);
+		else {
+			System.out.println("sesion iniciada correctamente");
+		}
+		
+	}
+	
+	
+	/*public void logout() {//PUEDEN LLEGAR A IRSE
+	this.logeado=false;
+}*/
+	
 	
 	public void rondaEncuentrosLaborales() {
 		Empleador auxEmpleador;
@@ -69,13 +180,13 @@ public class Agencia{
 			
 			for (int j=0; j < empleadosPretensos.size(); j++) {
 				auxEmpleado=empleadosPretensos.get(j);
-				puntaje=calculoPuntajesEmpleador(auxEmpleador.getTicket(),auxEmpleado.getTicket().getFormulario());
+				puntaje=zonaEmpleador.calculoPuntajes(auxEmpleador.getTicket(),auxEmpleado.getTicket().getFormulario());
 				aux=new Usuario_puntaje(auxEmpleado,puntaje);
 				auxEmpleador.getTicket().nuevoEmpleadoMatcheado(aux);
 			}
 			
 
-			Collections.sort(auxEmpleador.getTicket().getEmpleadosmatcheados(), new UsuarioComparator());
+			Collections.sort(auxEmpleador.getTicket().getEmpleadosmatcheados(), new UsuarioComparator());//Le paso la lista como 1er parametor
 			
 		}
 		for (int i=0; i < empleadosPretensos.size(); i++) {
@@ -83,7 +194,7 @@ public class Agencia{
 			
 			for (int j=0; j < empleadores.size(); j++) {
 				auxEmpleador=empleadores.get(j);
-				puntaje=calculoPuntajesEmpleado(auxEmpleado.getTicket().getFormulario(),auxEmpleador.getTicket().getFormulario());
+				puntaje=zonaEmpleados.calculoPuntajes(auxEmpleado.getTicket().getFormulario(),auxEmpleador.getTicket().getFormulario());
 				aux=new Usuario_puntaje(auxEmpleador,puntaje);
 				auxEmpleado.getTicket().nuevoEmpleadorMatcheado(aux);
 			}
@@ -92,20 +203,6 @@ public class Agencia{
 		//genero las listas de asignaciones
 	}
 	
-	
-	private double calculoPuntajesEmpleado(Formulario formempleado, Formulario formempleador) {
-		double aux=0;
-		aux+=formempleado.getLocacion().compara(formempleador.getLocacion());
-		aux+=formempleado.getRemuneracion().compara(formempleador.getRemuneracion() );
-		aux+=formempleado.getCargaHoraria().compara(formempleador.getCargaHoraria());
-		aux+=formempleado.getCargaHoraria().compara(formempleador.getCargaHoraria() );
-		aux+=formempleado.getTipoPuesto().compara(formempleador.getTipoPuesto());
-		aux+=formempleado.getExperienciaPrevia().compara(formempleador.getExperienciaPrevia() );
-		aux+=formempleado.getRangoEtario().compara(formempleador.getRangoEtario());
-		aux+=formempleado.getEstudiosCursados().compara(formempleador.getEstudiosCursados() );
-		//Agregar las otras comparaciones
-		return aux;
-	}
 	
 	/**
 	 * llegado el momento de contratacion, al tratar las listas ordenadas, si el empleado eligiese 2 empresas, 
@@ -133,8 +230,8 @@ public class Agencia{
 					empleadorElegido = (Empleador) usuarioElegidoPorEmpleado.getUsuario();
 					ticketEmpleadorElegido= empleadorElegido.getTicket(); 
 					if (ticketEmpleador.equals(ticketEmpleadorElegido)){ 
-						empleador.actualizarPuntaje();
-						empleadoElegido.actualizarPuntaje();	
+						zonaEmpleador.actualizarPuntaje(empleador);
+						zonaEmpleados.actualizarPuntaje(empleadoElegido);	
 						
 						comisionEmpleado = 1;//calcular comision empleador
 						comisionEmpleador = 1;//calcular comision empleado
@@ -156,15 +253,10 @@ public class Agencia{
 	}
 
 	
-
-
-	@Override
+	
+	
+	
 	public void actualizarPuntaje() {
-		/*
-		por cada Ticket finalizado suma 50 puntos
- 		por no ser elegido por ningún empleado pretenso resta 20 puntos.
- 		por ser primero en la Lista de Empleadores suma 10 puntos por cada una.
-		*/
 	}
 	
 	/*
@@ -195,4 +287,6 @@ public class Agencia{
 			System.out.println(contratacion);
 		}
 	}
+	//********METODOS DE LOGEO****//////////
+	
 }

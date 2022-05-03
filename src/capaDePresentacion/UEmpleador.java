@@ -1,5 +1,5 @@
 package capaDePresentacion;
 
-public class UEmpleador {
+public class UEmpleador implements IUsuario{
 
 }
