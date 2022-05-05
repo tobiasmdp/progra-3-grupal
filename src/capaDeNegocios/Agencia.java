@@ -208,7 +208,7 @@ public class Agencia{
 	 * llegado el momento de contratacion, al tratar las listas ordenadas, si el empleado eligiese 2 empresas, 
 	 * siempre seria contratado por la que le dio mejor puntaje
 	 */
-	private void rondaContrataciones() {
+	public void rondaContrataciones() {
 		double comisionEmpleado, comisionEmpleador;
 		TicketEmpleador ticketEmpleador,ticketEmpleadorElegido;
 		TicketEmpleado ticketEmpleado;
@@ -280,12 +280,6 @@ public class Agencia{
 
 	public void setV2(int v2) {
 		V2 = v2;
-	}
-
-	public void mostrarContrataciones() {
-		for(Contratacion contratacion:Agencia.getInstance().getContrataciones()) {
-			System.out.println(contratacion);
-		}
 	}
 	//********METODOS DE LOGEO****//////////
 	
