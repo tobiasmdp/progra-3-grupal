@@ -1,6 +1,7 @@
 package capaDeDatos;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 import capaDeNegocios.Formulario;
@@ -16,12 +17,12 @@ import capaDeNegocios.Usuario_puntaje;
  private int resultado;
  ArrayList<Usuario_puntaje> empleadoresmatcheados= new ArrayList<Usuario_puntaje>();
 
- public TicketEmpleado(GregorianCalendar fecha, Formulario formulario, String estado) {
+ public TicketEmpleado(Calendar fecha, Formulario formulario, String estado) {
 		super(fecha, formulario,estado);
 		this.resultado=0;
 	}
  
- public TicketEmpleado(GregorianCalendar fecha, Formulario formulario) {
+ public TicketEmpleado(Calendar fecha, Formulario formulario) {
 		super(fecha, formulario);
 		this.resultado=0;
 	}

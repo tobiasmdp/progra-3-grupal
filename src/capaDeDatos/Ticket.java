@@ -1,6 +1,7 @@
 package capaDeDatos;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 import capaDeNegocios.Formulario;
@@ -14,7 +15,7 @@ import capaDeNegocios.Usuario_puntaje;
  *
  */
 public abstract class Ticket { 
-	private GregorianCalendar fecha;
+	private Calendar fecha;
 	private String estado= "Activo";
 	protected Formulario formulario;
 	protected ArrayList<Usuario_puntaje> usuariosElegidos; //permito que se pueda elegir varios tickets en empleado tmb, luego se limita desde su ticket
@@ -26,14 +27,14 @@ public abstract class Ticket {
 	 * @param formulario, en el constructor cada vez que se genera un  nuevo ticket, en el parametro formulario, crear siempre un nuevo objeto de Formulario
 	 */
 	
-	public Ticket(GregorianCalendar fecha,Formulario formulario,String estado) { //contructor en caso de que se requiera crear un ticket que no este activo
+	public Ticket(Calendar fecha,Formulario formulario,String estado) { //contructor en caso de que se requiera crear un ticket que no este activo
 		this.fecha = fecha;
 		this.formulario=formulario;
 		this.estado = estado;
 		this.usuariosElegidos = new ArrayList<Usuario_puntaje>();
 	}
 		
-	public Ticket(GregorianCalendar fecha,Formulario formulario) {  //inicializa el ticket en activo por default
+	public Ticket(Calendar fecha,Formulario formulario) {  //inicializa el ticket en activo por default
 		this.fecha = fecha;
 		this.formulario=formulario;
 		this.estado = "Activo";
@@ -54,7 +55,7 @@ public abstract class Ticket {
 				this.estado=estado;
 	}
 	
-	public GregorianCalendar getFecha() {
+	public Calendar getFecha() {
 		return fecha;
 	}
 	

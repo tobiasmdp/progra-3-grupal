@@ -4,6 +4,7 @@
 package capaDeDatos;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 import capaDeNegocios.Formulario;
@@ -26,14 +27,14 @@ public class TicketEmpleador extends Ticket {
 	
 	
 	/**
-	 * @param fecha definido en la clase abstracta Ticket
+	 * @param calendar definido en la clase abstracta Ticket
 	 * @param formulario definido en la clase abstracta Ticket
 	 * @param cantempleadosbuscados aca el empleador debe poner al cantidad de empelados que busca, no tiene que ser menor a 1
 	 * canempleadosobtenidos se inicializa en 0 para todos los objetos, porque al recien crear el ticket, todavía no obtuvo ningun empleado
 	 */
 	
-	public TicketEmpleador(GregorianCalendar fecha,Formulario formulario, int cantempleadosbuscados) {
-		super(fecha,formulario);
+	public TicketEmpleador(Calendar calendar,Formulario formulario, int cantempleadosbuscados) {
+		super(calendar,formulario);
 		this.cantempleadosbuscados=cantempleadosbuscados;
 		this.cantempleadosobtenidos=0;
 	}

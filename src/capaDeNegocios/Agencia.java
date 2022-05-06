@@ -10,7 +10,10 @@ import capaDeDatos.Empleador;
 import capaDeDatos.TicketEmpleado;
 import capaDeDatos.TicketEmpleador;
 import capaDeDatos.TiposDeUsuarios;
-import capaDePresentacion.IUsuarios;
+import capaDePresentacion.UAdministrador;
+import capaDePresentacion.UEmpleado;
+import capaDePresentacion.UEmpleador;
+import capaDePresentacion.Usuario;
 import excepciones.ContraException;
 import excepciones.LoginException;
 import excepciones.NombreUsuarioException;
@@ -133,47 +136,50 @@ public class Agencia {
 	 * @param usuario
 	 * @throws LoginException
 	 */
-	public void login(String nombreUsuario,String contra, IUsuarios usuario) throws LoginException { 
-		Empleador auxempleador;
-		EmpleadoPretenso auxempleado;
-		Administrador auxadmin;
-		NodoLogeoEmpleado auxnodoempleado;
-		NodoLogeoEmpleador auxnodoempleador;
-		
-		int i=0;
-		
-		while (i<empleadosPretensos.size() && !(empleadosPretensos.get(i).getNombreUsuario().equals(nombreUsuario)))
+	public void login(String nombreUsuario, String contra, Usuario usuario) throws LoginException {
+		int i = 0;
+
+		while (i < empleadosPretensos.size() && !(empleadosPretensos.get(i).getNombreUsuario().equals(nombreUsuario)))
 			i++;
-		if (empleadosPretensos.get(i).getNombreUsuario().equals(nombreUsuario))  // agrego a logeado
+		if (empleadosPretensos.get(i).getNombreUsuario().equals(nombreUsuario)) // agrego a logeado
 			if (empleadosPretensos.get(i).getPassword().equals(contra)) {
-				addLogeoEmpleadoPretenso(new NodoLogeoEmpleado(usuario,empleadosPretensos.get(i)));
+				addLogeoEmpleadoPretenso(new NodoLogeoEmpleado(usuario, empleadosPretensos.get(i)));
 				System.out.println("sesion iniciada correctamente");
-			}
-			else 
+			} else
 				throw new ContraException("la contraseña ingresada no es la correcta", contra);
 		else {
-			i=0;
-			while (i<empleadores.size() && !(empleadores.get(i).getNombreUsuario().equals(nombreUsuario)))
+			i = 0;
+			while (i < empleadores.size() && !(empleadores.get(i).getNombreUsuario().equals(nombreUsuario)))
 				i++;
-			if (empleadores.get(i).getNombreUsuario()==nombreUsuario) // agrego a logeado
-				if (empleadores.get(i).getPassword()==contra) {
-					addLogeoEmpleadores(new NodoLogeoEmpleador(usuario,empleadores.get(i)));
+			if (empleadores.get(i).getNombreUsuario().equals(nombreUsuario)) // agrego a logeado
+				if (empleadores.get(i).getPassword().equals(contra)) {
+					addLogeoEmpleadores(new NodoLogeoEmpleador(usuario, empleadores.get(i)));
 					System.out.println("sesion iniciada correctamente");
-				}else 
+				} else
 					throw new ContraException("la contraseña ingresada no es la correcta", contra);
-			else{
-			i=0;
-			while (i<administradores.size() && (administradores.get(i).getNombreUsuario()!=nombreUsuario))
-				i++;
-			if (administradores.get(i).getNombreUsuario()==nombreUsuario) // agrego a logeado
-				if (empleadores.get(i).getPassword()==contra) {
-					addLogeoAdministrador(new NodoLogeoAdministrador(usuario,administradores.get(i)));
-					System.out.println("sesion iniciada correctamente");
-				}
-				else 
-					throw new ContraException("la contraseña ingresada no es la correcta", contra);
-			else
-					throw new NombreUsuarioException("el nombre de usuario ingresado no coincide", nombreUsuario); //si llego hasta aca es que no lo encontro en ningun lado
+			else {
+				i = 0;
+				while (i < administradores.size() && (administradores.get(i).getNombreUsuario().equals(nombreUsuario)))
+					i++;
+				if (administradores.get(i).getNombreUsuario().equals(nombreUsuario)) // agrego a logeado
+					if (empleadores.get(i).getPassword().equals(contra)) {
+						addLogeoAdministrador(new NodoLogeoAdministrador(usuario, administradores.get(i)));
+						System.out.println("sesion iniciada correctamente");
+					} else
+						throw new ContraException("la contraseña ingresada no es la correcta", contra);
+				else
+					throw new NombreUsuarioException("el nombre de usuario ingresado no coincide", nombreUsuario); // si
+																													// llego
+																													// hasta
+																													// aca
+																													// es
+																													// que
+																													// no
+																													// lo
+																													// encontro
+																													// en
+																													// ningun
+																													// lado
 			}
 		}
 	}
@@ -184,7 +190,7 @@ public class Agencia {
 	 * @return retorna 1 si es emplado, 2 si es empleador, 3 si es admin y 0 si no
 	 *         esta logeado
 	 */
-	private int logged(IUsuarios usuario) {
+	private int logged(Usuario usuario) {
 		int i = 0;
 		while (i < logeoempleados.size() && !usuario.equals(logeoempleados.get(i).getUsuario()))
 			i++;
@@ -208,7 +214,7 @@ public class Agencia {
 	/**
 	 * @param usuario recibe un usuario para poder hacerle el logout del sistema
 	 */
-	public void logout(IUsuarios usuario) {
+	public void logout(Usuario usuario) {
 		int i = 0;
 		while (i < logeoempleados.size() && !usuario.equals(logeoempleados.get(i).getUsuario()))
 			i++;
@@ -230,8 +236,122 @@ public class Agencia {
 		}
 	}
 
-	// -------------------------------------------------------------------------------------------------------------------------------------------------
+	////////////////////////////////////////////// SOLICITUDES////////////////////////////////////////////////////
 
+	// Solicitudes Usuario
+
+	public void borrarCuenta(Usuario usuario) { // este esta raro
+		int nroarreglo = logged(usuario);
+		if (nroarreglo == 1) {
+
+		} else if (nroarreglo == 2) {
+
+		} else {
+
+		}
+
+	}
+
+	// Solicitudes UEmpleador
+
+	/**
+	 * Una vez registrado el empleador, se logea automaticamente
+	 * @param usuario
+	 * @param contrasenia
+	 * @throws LoginException 
+	 */
+	public void registroEmpleador(String usuario, String contrasenia, UEmpleador uempleador) throws LoginException { 
+		Empleador nuevo= new Empleador(usuario,contrasenia);
+		login(usuario,contrasenia,uempleador);
+	}
+
+	public void registroEmpleador(String usuario, String contrasenia, String nombre, String tPersona, String rubro, UEmpleador uempleador) throws LoginException {
+		Empleador nuevo= new Empleador(usuario,contrasenia,nombre,tPersona,rubro);	
+		login(usuario,contrasenia,uempleador);
+	}
+
+	public void crearTicketEmpleador(String locacion, int remuneracion, String cargaHoraria, String tipoPuesto,
+			int rangoEtario, String experienciaPrevia, String estudiosCursados, int cantEmpleados,
+			UEmpleador uEmpleador) {
+		Formulario nuevofor=new Formulario(locacion,remuneracion,cargaHoraria,tipoPuesto,rangoEtario,experienciaPrevia,estudiosCursados);
+		TicketEmpleador nuevoticket=new TicketEmpleador(GregorianCalendar.getInstance(),nuevofor,cantEmpleados);
+		int i=0;
+		int arreglologeado=logged(uEmpleador);
+		if (arreglologeado==1) {
+			while (i < logeoempleadores.size() && !uEmpleador.equals(logeoempleadores.get(i).getUsuario()))
+				i++;
+			logeoempleadores.get(i).getEmpleador().setTicket(nuevoticket);
+		}
+	}
+
+	public void cambiarEstadoTicket(String estado, UEmpleador uEmpleador) {
+		int i=0;
+		int arreglologeado=logged(uEmpleador);
+		if (arreglologeado==1) {
+			while (i < logeoempleadores.size() && !uEmpleador.equals(logeoempleadores.get(i).getUsuario()))
+				i++;
+			logeoempleadores.get(i).getEmpleador().getTicket().setEstado(estado);
+		}
+	}
+
+	public void elegirUsuario_puntaje(Usuario_puntaje usuario, UEmpleador uEmpleador) {
+		// TODO Auto-generated method stub
+
+	}
+
+	// Solicitud UEmpleado
+
+	public void registroEmpleado(String usuario, String contrasenia, UEmpleado uempleado) throws LoginException {
+		EmpleadoPretenso nuevo= new EmpleadoPretenso(usuario,contrasenia);
+		login(usuario,contrasenia,uempleado);
+	}
+
+	public void registroEmpleado(String usuario, String contrasenia, String nombre, String apellido, String telefono,
+			String edad, UEmpleado uempleado) throws LoginException {
+		EmpleadoPretenso nuevo= new EmpleadoPretenso(usuario,contrasenia,nombre,apellido,telefono,edad);
+		login(usuario,contrasenia,uempleado);
+
+	}
+
+	public void crearTicketEmpleado(String locacion, int remuneracion, String cargaHoraria, String tipoPuesto,
+			int rangoEtario, String experienciaPrevia, String estudiosCursados, UEmpleado uEmpleado) {
+		Formulario nuevofor=new Formulario(locacion,remuneracion,cargaHoraria,tipoPuesto,rangoEtario,experienciaPrevia,estudiosCursados);
+		TicketEmpleado nuevoticket=new TicketEmpleado(GregorianCalendar.getInstance(),nuevofor);
+		int i=0;
+		int arreglologeado=logged(uEmpleado);
+		if (arreglologeado==2) {
+			while (i < logeoempleados.size() && !uEmpleado.equals(logeoempleados.get(i).getUsuario()))
+				i++;
+			logeoempleados.get(i).getEmpleado().setTicket(nuevoticket);;
+		}
+
+	}
+
+	public void cambiarEstadoTicket(String estado, UEmpleado uEmpleado) {
+		int i=0;
+		int arreglologeado=logged(uEmpleado);
+		if (arreglologeado==1) {
+			while (i < logeoempleados.size() && !uEmpleado.equals(logeoempleados.get(i).getUsuario()))
+				i++;
+			logeoempleados.get(i).getEmpleado().getTicket().setEstado(estado);
+		}
+
+	}
+
+	public void elegirUsuario_puntaje(Usuario_puntaje usuario, UEmpleado uEmpleado) {
+		// TODO Auto-generated method stub
+
+	}
+
+	// UAdministrador
+
+	public void registroAdministrador(String usuario, String contrasenia, UAdministrador uAdministrador) throws LoginException {
+		Administrador nuevo= new Administrador(usuario,contrasenia);
+		login(usuario,contrasenia,uAdministrador);
+
+	}
+
+	////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	public void rondaEncuentrosLaborales() {
 		Empleador auxEmpleador;
 		EmpleadoPretenso auxEmpleado;
@@ -346,12 +466,5 @@ public class Agencia {
 	public void setV2(int v2) {
 		V2 = v2;
 	}
-
-	public void mostrarContrataciones() {
-		for (Contratacion contratacion : Agencia.getInstance().getContrataciones()) {
-			System.out.println(contratacion);
-		}
-	}
-	// ********METODOS DE LOGEO****//////////
 
 }

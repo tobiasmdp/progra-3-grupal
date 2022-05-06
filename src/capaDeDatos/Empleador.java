@@ -13,6 +13,10 @@ import comisiones.FactoryRubro;
 import comisiones.IPersona;
 import comisiones.IRubro;
 
+/**
+ * @author mikel
+ * los constructores de esta clase ya agregan a los arraylist de empleador de la agencia
+ */
 public class Empleador extends TiposDeUsuarios {
 	private String nombre;
 	private IPersona tPersona;
