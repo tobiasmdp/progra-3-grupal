@@ -190,7 +190,7 @@ public class Agencia {
 	 * @return retorna 1 si es emplado, 2 si es empleador, 3 si es admin y 0 si no
 	 *         esta logeado
 	 */
-	private int logged(Usuario usuario) {
+	public int logged(Usuario usuario) {
 		int i = 0;
 		while (i < logeoempleados.size() && !usuario.equals(logeoempleados.get(i).getUsuario()))
 			i++;
@@ -260,38 +260,28 @@ public class Agencia {
 	 * @param contrasenia
 	 * @throws LoginException 
 	 */
-	public void registroEmpleador(String usuario, String contrasenia, UEmpleador uempleador) throws LoginException { 
+	public void registroEmpleador(String usuario, String contrasenia, UEmpleador uempleador) { 
 		Empleador nuevo= new Empleador(usuario,contrasenia);
-		login(usuario,contrasenia,uempleador);
+		try {
+			login(usuario,contrasenia,uempleador);
+		} catch (LoginException e) {}
 	}
 
-	public void registroEmpleador(String usuario, String contrasenia, String nombre, String tPersona, String rubro, UEmpleador uempleador) throws LoginException {
+	public void registroEmpleador(String usuario, String contrasenia, String nombre, String tPersona, String rubro, UEmpleador uempleador) {
 		Empleador nuevo= new Empleador(usuario,contrasenia,nombre,tPersona,rubro);	
-		login(usuario,contrasenia,uempleador);
+		try {
+			login(usuario,contrasenia,uempleador);
+		} catch (LoginException e) {}
 	}
 
 	public void crearTicketEmpleador(String locacion, int remuneracion, String cargaHoraria, String tipoPuesto,
 			int rangoEtario, String experienciaPrevia, String estudiosCursados, int cantEmpleados,
 			UEmpleador uEmpleador) {
-		Formulario nuevofor=new Formulario(locacion,remuneracion,cargaHoraria,tipoPuesto,rangoEtario,experienciaPrevia,estudiosCursados);
-		TicketEmpleador nuevoticket=new TicketEmpleador(GregorianCalendar.getInstance(),nuevofor,cantEmpleados);
-		int i=0;
-		int arreglologeado=logged(uEmpleador);
-		if (arreglologeado==1) {
-			while (i < logeoempleadores.size() && !uEmpleador.equals(logeoempleadores.get(i).getUsuario()))
-				i++;
-			logeoempleadores.get(i).getEmpleador().setTicket(nuevoticket);
-		}
+			zonaEmpleador.crearTicketEmpleador(locacion, remuneracion, cargaHoraria, tipoPuesto, rangoEtario, experienciaPrevia, estudiosCursados, cantEmpleados, uEmpleador);
 	}
 
 	public void cambiarEstadoTicket(String estado, UEmpleador uEmpleador) {
-		int i=0;
-		int arreglologeado=logged(uEmpleador);
-		if (arreglologeado==1) {
-			while (i < logeoempleadores.size() && !uEmpleador.equals(logeoempleadores.get(i).getUsuario()))
-				i++;
-			logeoempleadores.get(i).getEmpleador().getTicket().setEstado(estado);
-		}
+		zonaEmpleador.cambiarEstadoTicket(estado, uEmpleador);
 	}
 
 	public void elegirUsuario_puntaje(Usuario_puntaje usuario, UEmpleador uEmpleador) {
@@ -301,41 +291,28 @@ public class Agencia {
 
 	// Solicitud UEmpleado
 
-	public void registroEmpleado(String usuario, String contrasenia, UEmpleado uempleado) throws LoginException {
+	public void registroEmpleado(String usuario, String contrasenia, UEmpleado uempleado){
 		EmpleadoPretenso nuevo= new EmpleadoPretenso(usuario,contrasenia);
-		login(usuario,contrasenia,uempleado);
+		try {
+			login(usuario,contrasenia,uempleado);
+		} catch (LoginException e) {}
 	}
 
 	public void registroEmpleado(String usuario, String contrasenia, String nombre, String apellido, String telefono,
-			String edad, UEmpleado uempleado) throws LoginException {
+			String edad, UEmpleado uempleado) {
 		EmpleadoPretenso nuevo= new EmpleadoPretenso(usuario,contrasenia,nombre,apellido,telefono,edad);
-		login(usuario,contrasenia,uempleado);
-
+		try {
+			login(usuario,contrasenia,uempleado);
+		} catch (LoginException e) {}
 	}
 
 	public void crearTicketEmpleado(String locacion, int remuneracion, String cargaHoraria, String tipoPuesto,
 			int rangoEtario, String experienciaPrevia, String estudiosCursados, UEmpleado uEmpleado) {
-		Formulario nuevofor=new Formulario(locacion,remuneracion,cargaHoraria,tipoPuesto,rangoEtario,experienciaPrevia,estudiosCursados);
-		TicketEmpleado nuevoticket=new TicketEmpleado(GregorianCalendar.getInstance(),nuevofor);
-		int i=0;
-		int arreglologeado=logged(uEmpleado);
-		if (arreglologeado==2) {
-			while (i < logeoempleados.size() && !uEmpleado.equals(logeoempleados.get(i).getUsuario()))
-				i++;
-			logeoempleados.get(i).getEmpleado().setTicket(nuevoticket);;
-		}
-
+		zonaEmpleados.crearTicketEmpleado(locacion, remuneracion, cargaHoraria, tipoPuesto, rangoEtario, experienciaPrevia, estudiosCursados, uEmpleado);
 	}
 
 	public void cambiarEstadoTicket(String estado, UEmpleado uEmpleado) {
-		int i=0;
-		int arreglologeado=logged(uEmpleado);
-		if (arreglologeado==1) {
-			while (i < logeoempleados.size() && !uEmpleado.equals(logeoempleados.get(i).getUsuario()))
-				i++;
-			logeoempleados.get(i).getEmpleado().getTicket().setEstado(estado);
-		}
-
+		zonaEmpleados.cambiarEstadoTicket(estado, uEmpleado);
 	}
 
 	public void elegirUsuario_puntaje(Usuario_puntaje usuario, UEmpleado uEmpleado) {
@@ -345,10 +322,11 @@ public class Agencia {
 
 	// UAdministrador
 
-	public void registroAdministrador(String usuario, String contrasenia, UAdministrador uAdministrador) throws LoginException {
+	public void registroAdministrador(String usuario, String contrasenia, UAdministrador uAdministrador) {
 		Administrador nuevo= new Administrador(usuario,contrasenia);
-		login(usuario,contrasenia,uAdministrador);
-
+		try {
+			login(usuario,contrasenia,uAdministrador);
+		} catch (LoginException e) {}
 	}
 
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -395,7 +373,7 @@ public class Agencia {
 	 * empleado eligiese 2 empresas, siempre seria contratado por la que le dio
 	 * mejor puntaje
 	 */
-	private void rondaContrataciones() {
+	public void rondaContrataciones() {
 		double comisionEmpleado, comisionEmpleador;
 		TicketEmpleador ticketEmpleador, ticketEmpleadorElegido;
 		TicketEmpleado ticketEmpleado;
