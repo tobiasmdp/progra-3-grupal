@@ -4,8 +4,12 @@ import java.util.ArrayList;
 import java.util.GregorianCalendar;
 
 import capaDeDatos.EmpleadoPretenso;
+import capaDeDatos.Empleador;
 import capaDeDatos.TicketEmpleado;
 import capaDePresentacion.UEmpleado;
+import comisiones.IPersona;
+import comisiones.IRubro;
+import formulario.TipodePuesto;
 
 public class MetodosEmpleado {
 	private static MetodosEmpleado instance = null;
@@ -77,5 +81,26 @@ public class MetodosEmpleado {
 				i++;
 			aux.get(i).getEmpleado().getTicket().setEstado(estado);
 		}
+	}
+
+	public void cobraComision(EmpleadoPretenso empleado) {
+		double modificadorcomision,remuneracion,descuento;
+		TipodePuesto puesto;
+		//*Extraigo datos*//
+		puesto=empleado.getTicket().getFormulario().getTipoPuesto();
+		remuneracion=empleado.getTicket().getFormulario().getRemuneracionint();
+		//*Calculo el modificador de la comision*//
+		modificadorcomision=puesto.calculaComision();
+		//*Calculo el descuento por puntaje//*
+		descuento=empleado.getPuntaje()*0.01;
+		//*Seteo la comision*//
+		empleado.setComision(remuneracion*modificadorcomision*descuento);
+		
+		
+	}
+	
+	public void actualizarPuntaje(EmpleadoPretenso empleado, int valor) {
+		empleado.setPuntaje(empleado.getPuntaje()+valor);
+		
 	}
 }

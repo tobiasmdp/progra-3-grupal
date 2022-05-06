@@ -11,7 +11,9 @@ public class EmpleadoPretenso extends TiposDeUsuarios{
 	protected String edad;
 	private TicketEmpleado ticket;
 	private int puntaje;
+	private double comision;
 	//private static int codUsuario;
+	
 	
 	
 	public EmpleadoPretenso(String nombreUsuario,String contra) {
@@ -46,6 +48,14 @@ public class EmpleadoPretenso extends TiposDeUsuarios{
 		return edad;
 	}
 	
+	public double getComision() {
+		return comision;
+	}
+
+	public void setComision(double comision) {
+		this.comision = comision;
+	}
+
 	public void setTicket(TicketEmpleado ticket) {
 		this.ticket = ticket;
 	}
@@ -69,5 +79,4 @@ public class EmpleadoPretenso extends TiposDeUsuarios{
 		return nombre  + "         " + apellido + "         " + edad + "         " + ticket;
 	}
 	
-
 }

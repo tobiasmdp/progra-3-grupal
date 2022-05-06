@@ -15,8 +15,8 @@ import capaDeNegocios.Usuario_puntaje;
  *
  */
 public class TicketEmpleador extends Ticket {
-  private int cantempleadosbuscados, cantempleadosobtenidos;
-  ArrayList<Usuario_puntaje> empleadosmatcheados= new ArrayList<Usuario_puntaje>();
+    private int cantempleadosbuscados, cantempleadosobtenidos;
+    ArrayList<Usuario_puntaje> empleadosmatcheados= new ArrayList<Usuario_puntaje>();
   	private int pLocacion;
 	private int pRemuneracion;
 	private int pCargaHoraria;
@@ -106,7 +106,6 @@ public class TicketEmpleador extends Ticket {
 	}
 	
 	public void nuevoEmpleadoMatcheado(Usuario_puntaje usuario) {
-		//INSERTARLO ORDENADO ACA
 		this.empleadosmatcheados.add(usuario);
 	}
 	
@@ -122,6 +121,6 @@ public class TicketEmpleador extends Ticket {
 		return empleadosmatcheados;
 	}
 
-	
+
 	
 }

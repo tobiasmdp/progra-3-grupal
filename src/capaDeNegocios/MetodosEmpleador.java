@@ -9,6 +9,8 @@ import capaDeDatos.TicketEmpleado;
 import capaDeDatos.TicketEmpleador;
 import capaDePresentacion.UEmpleado;
 import capaDePresentacion.UEmpleador;
+import comisiones.IPersona;
+import comisiones.IRubro;
 
 public class MetodosEmpleador {
 	private static MetodosEmpleador instance = null;
@@ -83,5 +85,28 @@ public class MetodosEmpleador {
 				i++;
 			aux.get(i).getEmpleador().getTicket().setEstado(estado);
 		}
+	}
+
+	
+
+	public void cobraComision(Empleador empleador) {
+		double modificadorcomision,remuneracion,descuento;
+		IRubro rubro;
+		IPersona persona;
+		//*Extraigo datos*//
+		persona=empleador.gettPersona();
+		rubro=empleador.getRubro();
+		remuneracion=empleador.getTicket().getFormulario().getRemuneracionint();//problema ya que la remu no es int?
+		//*Calculo el modificador de la comision*//
+		modificadorcomision=persona.calcularComisiones(rubro);
+		//*Calculo el descuento por puntaje//*
+		descuento=empleador.getPuntaje()*0.01;
+		//*Seteo la comision*//
+		empleador.setComision(remuneracion*modificadorcomision*descuento);
+	}
+
+	public void actualizarPuntaje(Empleador empleador, int valor) {
+		empleador.setPuntaje(empleador.getPuntaje()+valor);
+		
 	}
 }

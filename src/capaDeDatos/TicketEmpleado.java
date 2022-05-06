@@ -50,10 +50,5 @@ import capaDeNegocios.Usuario_puntaje;
 		return empleadoresmatcheados;
 	}
 	
-	@Override
-	protected void seleccionar(Usuario_puntaje elemento) {
-		if(this.getUsuariosElegidos().isEmpty())
-			super.seleccionar(elemento);
-	}
 }
 	

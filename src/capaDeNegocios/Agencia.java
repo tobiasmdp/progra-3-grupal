@@ -67,12 +67,6 @@ public class Agencia {
 		return logeoempleadores;
 	}
 
-	/*
-	 * public EmpleadoPretenso registro(String nombreUsuario,String contra)
-	 * {//Dudas: no sera void? Agencia.getInstance().addEmpleadoPretenso(this);
-	 * return new EmpleadoPretenso(nombreUsuario,contra); }
-	 */
-
 	/****** AGREGADOS DE ARRAYLISTS ******/
 
 	public void addLogeoEmpleadores(NodoLogeoEmpleador usuario) {// Agrega un administrador logeado al arreglo de logeos
@@ -340,13 +334,12 @@ public class Agencia {
 
 			for (int j = 0; j < empleadosPretensos.size(); j++) {
 				auxEmpleado = empleadosPretensos.get(j);
-				puntaje = zonaEmpleador.calculoPuntajes(auxEmpleador.getTicket(),
-						auxEmpleado.getTicket().getFormulario());
+				puntaje = zonaEmpleador.calculoPuntajes(auxEmpleador.getTicket(),auxEmpleado.getTicket().getFormulario());
 				aux = new Usuario_puntaje(auxEmpleado, puntaje);
-				auxEmpleador.getTicket().nuevoEmpleadoMatcheado(aux);
+				auxEmpleador.getTicket().addUsuarioAsignacion(aux);
 			}
 
-			Collections.sort(auxEmpleador.getTicket().getEmpleadosmatcheados(), new UsuarioComparator());// Le paso la
+			Collections.sort(auxEmpleador.getTicket().getListaAsignacion().getLista(), new UsuarioComparator());// Le paso la
 																											// lista
 																											// como 1er
 																											// parametor
@@ -357,15 +350,12 @@ public class Agencia {
 
 			for (int j = 0; j < empleadores.size(); j++) {
 				auxEmpleador = empleadores.get(j);
-				puntaje = zonaEmpleados.calculoPuntajes(auxEmpleado.getTicket().getFormulario(),
-						auxEmpleador.getTicket().getFormulario());
+				puntaje = zonaEmpleados.calculoPuntajes(auxEmpleado.getTicket().getFormulario(),auxEmpleador.getTicket().getFormulario());
 				aux = new Usuario_puntaje(auxEmpleador, puntaje);
-				auxEmpleado.getTicket().nuevoEmpleadorMatcheado(aux);
+				auxEmpleado.getTicket().addUsuarioAsignacion(aux);
 			}
-			// Collections.sort(auxEmpleador.getTicket().getEmpleadosmatcheados(), new
-			// UsuarioComparator());
+		   Collections.sort(auxEmpleado.getTicket().getListaAsignacion().getLista(), new UsuarioComparator());
 		}
-		// genero las listas de asignaciones
 	}
 
 	/**
@@ -392,27 +382,30 @@ public class Agencia {
 				ticketEmpleado = empleadoElegido.getTicket();
 				eleccionEmpleado = ticketEmpleado.getUsuariosElegidos();
 				Collections.sort(eleccionEmpleado, new UsuarioComparator());
-
-				for (Usuario_puntaje usuarioElegidoPorEmpleado : eleccionEmpleado) { // el empleadorElegido si castear,
-																						// siendo usuario
+				
+				for (Usuario_puntaje usuarioElegidoPorEmpleado : eleccionEmpleado) { 
 					empleadorElegido = (Empleador) usuarioElegidoPorEmpleado.getUsuario();
 					ticketEmpleadorElegido = empleadorElegido.getTicket();
-					if (ticketEmpleador.equals(ticketEmpleadorElegido)) {
-						zonaEmpleador.actualizarPuntaje(empleador);
-						zonaEmpleados.actualizarPuntaje(empleadoElegido);
-
+					
+					
+					if (ticketEmpleador.equals(ticketEmpleadorElegido)) {//coincidio
+						
+						zonaEmpleador.actualizarPuntaje(empleador,10);
+						zonaEmpleados.actualizarPuntaje(empleadoElegido,10);
+						zonaEmpleador.cobraComision(empleador);
+						zonaEmpleados.cobraComision(empleadoElegido);
+						
 						comisionEmpleado = 1;// calcular comision empleador
 						comisionEmpleador = 1;// calcular comision empleado
 
-						this.contrataciones
-								.add(new Contratacion(empleadoElegido, empleador, comisionEmpleado, comisionEmpleador));
+						this.contrataciones.add(new Contratacion(empleadoElegido, empleador, comisionEmpleado, comisionEmpleador));
 
 						ticketEmpleador.setCantempleadosobtenidos(ticketEmpleador.getCantempleadosbuscados() + 1);
 						if (ticketEmpleador.getCantempleadosbuscados() == ticketEmpleador.getCantempleadosobtenidos()) {
 							ticketEmpleador.setEstado("finalizado");
 						}
 						ticketEmpleado.setEstado("finalizado");
-//						ticketEmpleado.setResultado(0); hay que poner un exito o fracaso?
+						//ticketEmpleado.setResultado(0); hay que poner un exito o fracaso?
 						// dar de baja "ticketEmpleador"
 						// dar de baja "ticketEmpleado"
 					}
@@ -421,13 +414,9 @@ public class Agencia {
 		}
 	}
 
-	public void actualizarPuntaje() {
-	}
+	
+	
 
-	/*
-	 * @Override public double calcularComisiones() { return
-	 * tPersona.calcularComisiones(rubro); }
-	 */
 
 	public int getV1() {
 		return V1;
