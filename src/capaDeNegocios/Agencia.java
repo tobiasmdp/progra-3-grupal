@@ -416,6 +416,15 @@ public class Agencia {
 
 	
 	
+	
+	public void elegir(String nombreUsuario,Usuario usuario) {
+		int aux=this.logged(usuario);
+		if(aux==2)
+        	zonaEmpleador.elegir(nombreUsuario,(UEmpleador)usuario);
+        if(aux==1)
+        	zonaEmpleados.elegir(nombreUsuario,(UEmpleado)usuario);
+    }
+	
 
 
 	public int getV1() {

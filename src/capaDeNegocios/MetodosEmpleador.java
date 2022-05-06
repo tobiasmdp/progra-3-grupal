@@ -9,6 +9,7 @@ import capaDeDatos.TicketEmpleado;
 import capaDeDatos.TicketEmpleador;
 import capaDePresentacion.UEmpleado;
 import capaDePresentacion.UEmpleador;
+import capaDePresentacion.Usuario;
 import comisiones.IPersona;
 import comisiones.IRubro;
 
@@ -107,6 +108,27 @@ public class MetodosEmpleador {
 
 	public void actualizarPuntaje(Empleador empleador, int valor) {
 		empleador.setPuntaje(empleador.getPuntaje()+valor);
+		
+	}
+	//aca jose
+	public void elegir(String nombreUsuarioElegido,Usuario usuario) {
+        int i = 0;
+        EmpleadoPretenso e;
+        Empleador empleador=BusquedaEnLogeado(usuario);
+
+        do {
+            e = empleados.index(i++); //acceso a ese indice devuelve empleados
+        }while(i<e.size() && !(nombreUsuarioElegido.equals(e.getNombre())))
+
+        if(i<e.size()) //lo encontre
+            elector.getTicket.usuariosElegidos.add(e);
+    }
+	
+	private Empleador BusquedaEnLogeado(Empleador empleador) {
+		int i=0;
+		ArrayList <NodoLogeoEmpleador> aux = Agencia.getInstance().getLogeoempleadores();
+		while (i < aux.size() && !Empleador.equals(aux.get(i).getUsuario()))
+			i++;
 		
 	}
 }

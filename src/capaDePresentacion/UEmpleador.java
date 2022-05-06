@@ -23,8 +23,8 @@ public class UEmpleador extends Usuario{
 		Agencia.getInstance().cambiarEstadoTicket(estado, this);
 	}
 	
-	public void elegirUsuario_puntaje(Usuario_puntaje usuario) {
-		Agencia.getInstance().elegirUsuario_puntaje(usuario, this);		
+	public void elegirUsuario_puntaje(String nombreUsuario) {
+		Agencia.getInstance().elegir(nombreUsuario, this);		
 	}
 	
 	
