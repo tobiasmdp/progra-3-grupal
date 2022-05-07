@@ -5,12 +5,14 @@ import java.util.Collections;
 import java.util.GregorianCalendar;
 
 import capaDeDatos.Administrador;
+import capaDeDatos.Cliente;
 import capaDeDatos.EmpleadoPretenso;
 import capaDeDatos.Empleador;
 import capaDeDatos.TicketEmpleado;
 import capaDeDatos.TicketEmpleador;
 import capaDeDatos.TiposDeUsuarios;
 import capaDePresentacion.UAdministrador;
+import capaDePresentacion.UCliente;
 import capaDePresentacion.UEmpleado;
 import capaDePresentacion.UEmpleador;
 import capaDePresentacion.Usuario;
@@ -374,7 +376,7 @@ public class Agencia {
 	 * mejor puntaje
 	 */
 	
-	/*public void rondaContrataciones() {
+	public void rondaContrataciones() {
 		double comisionEmpleado, comisionEmpleador;
 		TicketEmpleador ticketEmpleador, ticketEmpleadorElegido;
 		TicketEmpleado ticketEmpleado;
@@ -405,18 +407,15 @@ public class Agencia {
 						zonaEmpleados.actualizarPuntaje(empleadoElegido,10);
 						zonaEmpleador.cobraComision(empleador);
 						zonaEmpleados.cobraComision(empleadoElegido);
-						
-						comisionEmpleado = 1;// calcular comision empleador
-						comisionEmpleador = 1;// calcular comision empleado
 
-						this.contrataciones.add(new Contratacion(empleadoElegido, empleador, comisionEmpleado, comisionEmpleador));
+						this.contrataciones.add(new Contratacion(empleadoElegido, empleador));
 
 						ticketEmpleador.setCantempleadosobtenidos(ticketEmpleador.getCantempleadosbuscados() + 1);
 						if (ticketEmpleador.getCantempleadosbuscados() == ticketEmpleador.getCantempleadosobtenidos()) {
 							ticketEmpleador.setEstado("finalizado");
 						}
 						ticketEmpleado.setEstado("finalizado");
-						//ticketEmpleado.setResultado(0); hay que poner un exito o fracaso?
+
 						// dar de baja "ticketEmpleador"
 						// dar de baja "ticketEmpleado"
 					}
@@ -425,52 +424,32 @@ public class Agencia {
 		}
 	}
 
-	*/
-	
-	public void elegir(String nombreUsuario,UEmpleador usuario) { 
-        tiposDeUsuarios elector = obtenerTiposDeUsuarios(usuario);//pasar de UEmpleador a empleador
-        if(elector!=null) zonaEmpleador.elegir(nombreUsuario,elector);
-    }
 
-    public void elegir(String nombreUsuario,UEmpleado usuario) { 
-        tiposDeUsuarios elector = obtenerTiposDeUsuarios(usuario);//pasar de UEmpleador a empleador
-        if(elector!=null) zonaEmpleado.elegir(nombreUsuario,elector);
+    public void elegir(String nombreUsuario, UCliente uCliente) { 
+    	Cliente cliente;
+        cliente = getCliente(uCliente);
+    	cliente.elegir(nombreUsuario);
     }
     
-    public tiposDeUsuarios obtenerTiposDeUsuarios(Usuario usuario) { //devuelve el tipo de usuario (EMPLEADO / EMPLEADOR / ADM)
-        int i = 0;
-        tiposDeUsuarios retorno;
-        while (i < logeoempleados.size() && !usuario.equals(logeoempleados.get(i).getUsuario()))
-            i++;
-        if (usuario.equals(logeoempleados.get(i).getUsuario()))
-            retorno = logeoempleados.get(i).getEmpleado();
-        else {
-            i = 0;
-            while (i < logeoempleadores.size() && !usuario.equals(logeoempleadores.get(i).getUsuario()))
-                i++;
-            if (usuario.equals(logeoempleadores.get(i).getUsuario()))
-                retorno = logeoempleadores.get(i).getEmpleador();
-            else {
-                i = 0;
-                while (i < logeoadministradores.size() && !usuario.equals(logeoadministradores.get(i).getUsuario()))
-                    i++;
-                if (usuario.equals(logeoadministradores.get(i).getUsuario()))
-                    retorno = logeoadministradores.get(i).getAdministrador();
-                else
-                    return null;
-            }
-        }
-        return retorno;
+    private Cliente getCliente(UCliente uCliente) {	
+    	Cliente cliente = null; //si el usuario no esta logeado te va a devolver un null	
+    	for (NodoLogeoEmpleado empleadoLogeado:this.logeoempleados) {
+    		if (uCliente.equals(empleadoLogeado.getUsuario()))
+    			cliente = empleadoLogeado.getEmpleado(); 
+    	}
+    	for (NodoLogeoEmpleador empleadorLogeado:this.logeoempleadores) {
+    		if (uCliente.equals(empleadorLogeado.getUsuario()))
+    			cliente = empleadorLogeado.getEmpleador(); 
+    	}
+    	return cliente;
     }
-
-    
     
 	public int getV1() {
-		return V1;
+		return this.V1;
 	}
 
 	public void setV1(int v1) {
-		V1 = v1;
+		this.V1 = v1;
 	}
 
 	public int getV2() {

@@ -6,17 +6,11 @@ import capaDeDatos.Empleador;
 public class Contratacion {
 	private EmpleadoPretenso empleado;
 	private Empleador empleador;
-	private double comisionEmpleado;
-	private double comisionEmpleador;
 	
-	
-	public Contratacion(EmpleadoPretenso empleado, Empleador empleador, double comisionEmpleado,
-			double comisionEmpleador) {
+	public Contratacion(EmpleadoPretenso empleado, Empleador empleador) {
 		super();
 		this.empleado = empleado;
 		this.empleador = empleador;
-		this.comisionEmpleado = comisionEmpleado;
-		this.comisionEmpleador = comisionEmpleador;
 	}
 
 
@@ -27,16 +21,6 @@ public class Contratacion {
 
 	public Empleador getEmpleador() {
 		return empleador;
-	}
-
-
-	public double getComisionEmpleado() {
-		return comisionEmpleado;
-	}
-
-
-	public double getComisionEmpleador() {
-		return comisionEmpleador;
 	}
 
 

@@ -3,7 +3,7 @@ package capaDePresentacion;
 import capaDeNegocios.Agencia;
 import capaDeNegocios.Usuario_puntaje;
 
-public class UEmpleador extends Usuario{
+public class UEmpleador extends UCliente{
 
 	public UEmpleador() {
 	}
@@ -18,18 +18,5 @@ public class UEmpleador extends Usuario{
 		Agencia.getInstance().crearTicketEmpleador(locacion, remuneracion, cargaHoraria, tipoPuesto, rangoEtario, experienciaPrevia, estudiosCursados,
 				cantEmpleados,pLocacion,pRemuneracion, pCargaHoraria, pTipodePuesto, pExperienciaPrevia, pRangoEtario, pEstudiosCursados, this);
 	}
-	
-	public void cambiarEstadoTicket(String estado) {
-		Agencia.getInstance().cambiarEstadoTicket(estado, this);
-	}
-	/*
-	public void elegirUsuario_puntaje(String nombreUsuario) {
-		Agencia.getInstance().elegir(nombreUsuario, this);		
-	}
-	*/
-	
-	public void elegirUsuario_puntaje(String nombreUsuario) {
-        Agencia.getInstance().elegir(nombreUsuario, this);
-    }
 
 }

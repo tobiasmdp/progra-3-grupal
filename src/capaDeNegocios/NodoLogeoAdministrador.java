@@ -20,10 +20,10 @@ public class NodoLogeoAdministrador {
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
 	}
-	public Administrador getEmpleado() {
+	public Administrador getAdministrador() {
 		return administrador;
 	}
-	public void setEmpleado(Administrador administrador) {
+	public void setAdministrador(Administrador administrador) {
 		this.administrador = administrador;
 	}
 }
