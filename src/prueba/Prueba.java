@@ -36,12 +36,12 @@ public class Prueba {
 		empleador1.crearTicket("Indistinto", 180000, "CargaMedia", "Managment",60, "ExperienciaMedia", "secundario",1,1,3,4,5,6,7,8);
 		
 		UEmpleador empleador2= new UEmpleador();
-		empleador1.registrarse("Usuario5","Contraseña5","Nombre5","Juridica","Salud");
-		empleador1.crearTicket("Indistinto", 100000, "CargaMedia", "senior", 20, "ExperienciaMedia", "secundario",8,7,6,5,4,3,2,1);
+		empleador2.registrarse("Usuario5","Contraseña5","Nombre5","Juridica","Salud");
+		empleador2.crearTicket("Indistinto", 100000, "CargaMedia", "senior", 20, "ExperienciaMedia", "secundario",8,7,6,5,4,3,2,1);
 		
 		UEmpleador empleador3= new UEmpleador();
-		empleador1.registrarse("Usuario6","Contraseña6","Nombre6","Juridica","Salud");
-		empleador1.crearTicket("Indistinto", 120000, "CargaMedia", "senior", 25, "ExperienciaMedia", "secundario",2,4,6,8,10,12,14,16);
+		empleador3.registrarse("Usuario6","Contraseña6","Nombre6","Juridica","Salud");
+		empleador3.crearTicket("Indistinto", 120000, "CargaMedia", "senior", 25, "ExperienciaMedia", "secundario",2,4,6,8,10,12,14,16);
 		
 		UAdministrador admin1= new UAdministrador("Mikel","Contra");
 		admin1.setV1(15000);

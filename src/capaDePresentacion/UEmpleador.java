@@ -28,6 +28,8 @@ public class UEmpleador extends Usuario{
 	}
 	*/
 	
-	
+	public void elegirUsuario_puntaje(String nombreUsuario) {
+        Agencia.getInstance().elegir(nombreUsuario, this);
+    }
 
 }

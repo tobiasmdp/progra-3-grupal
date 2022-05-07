@@ -103,4 +103,17 @@ public class MetodosEmpleado {
 		empleado.setPuntaje(empleado.getPuntaje()+valor);
 		
 	}
+	
+	public void elegir(String nombreUsuarioElegido,Empleado elector) {
+        int i = 0;
+        Empleador e;
+
+        do {
+            e = empleadores.index(i++); //acceso a ese indice devuelve empleados
+        }while(i<e.size() && !(nombreUsuarioElegido.equals(e.getNombre())))
+
+        if(i<e.size()) //lo encontre
+            elector.getTicket.usuariosElegidos.add(e);
+    }
+
 }

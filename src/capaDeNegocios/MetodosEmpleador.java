@@ -109,12 +109,12 @@ public class MetodosEmpleador {
 	public void actualizarPuntaje(Empleador empleador, int valor) {
 		empleador.setPuntaje(empleador.getPuntaje()+valor);
 		
-	}/*
-	//aca jose
-	public void elegir(String nombreUsuarioElegido,Usuario usuario) {
+		
+	}
+	
+	public void elegir(String nombreUsuarioElegido,Empleador elector) {
         int i = 0;
         EmpleadoPretenso e;
-        Empleador empleador=BusquedaEnLogeado(usuario);
 
         do {
             e = empleados.index(i++); //acceso a ese indice devuelve empleados
@@ -123,13 +123,4 @@ public class MetodosEmpleador {
         if(i<e.size()) //lo encontre
             elector.getTicket.usuariosElegidos.add(e);
     }
-	
-	private Empleador BusquedaEnLogeado(Empleador empleador) {
-		int i=0;
-		ArrayList <NodoLogeoEmpleador> aux = Agencia.getInstance().getLogeoempleadores();
-		while (i < aux.size() && !Empleador.equals(aux.get(i).getUsuario()))
-			i++;
-		
-	}
-	*/
 }

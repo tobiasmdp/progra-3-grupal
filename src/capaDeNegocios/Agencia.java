@@ -331,34 +331,40 @@ public class Agencia {
 		Usuario_puntaje aux;
 		for (int i = 0; i < empleadores.size(); i++) {
 			auxEmpleador = empleadores.get(i);
-
-			for (int j = 0; j < empleadosPretensos.size(); j++) {
-				auxEmpleado = empleadosPretensos.get(j);
-				puntaje = zonaEmpleador.calculoPuntajes(auxEmpleador.getTicket(),auxEmpleado.getTicket().getFormulario());
-				aux = new Usuario_puntaje(auxEmpleado, puntaje);
-				if (auxEmpleador.getTicket().getListaAsignacion()==null)
-					auxEmpleador.getTicket().nuevaLista();
-				auxEmpleador.getTicket().addUsuarioAsignacion(aux);
+			if(auxEmpleador.getTicket()!=null && auxEmpleador.getTicket().getEstado().equalsIgnoreCase("activo")) {
+	
+				for (int j = 0; j < empleadosPretensos.size(); j++) {
+					auxEmpleado = empleadosPretensos.get(j);
+					if(auxEmpleado.getTicket()!=null  && auxEmpleado.getTicket().getEstado().equalsIgnoreCase("activo")) {
+						puntaje = zonaEmpleador.calculoPuntajes(auxEmpleador.getTicket(),auxEmpleado.getTicket().getFormulario());
+						aux = new Usuario_puntaje(auxEmpleado, puntaje);
+						if (auxEmpleador.getTicket().getListaAsignacion()==null)
+							auxEmpleador.getTicket().nuevaLista();
+						auxEmpleador.getTicket().addUsuarioAsignacion(aux);
+					}
+				}
+	
+				Collections.sort(auxEmpleador.getTicket().getListaAsignacion().getLista(), new UsuarioComparator());// Le paso la
+																												// lista
+																												// como 1er
+																												// parametor
 			}
-
-			Collections.sort(auxEmpleador.getTicket().getListaAsignacion().getLista(), new UsuarioComparator());// Le paso la
-																											// lista
-																											// como 1er
-																											// parametor
-
 		}
 		for (int i = 0; i < empleadosPretensos.size(); i++) {
 			auxEmpleado = empleadosPretensos.get(i);
-
-			for (int j = 0; j < empleadores.size(); j++) {
-				auxEmpleador = empleadores.get(j);
-				puntaje = zonaEmpleados.calculoPuntajes(auxEmpleado.getTicket().getFormulario(),auxEmpleador.getTicket().getFormulario());
-				aux = new Usuario_puntaje(auxEmpleador, puntaje);
-				if (auxEmpleado.getTicket().getListaAsignacion()==null)
-					auxEmpleado.getTicket().nuevaLista();
-				auxEmpleado.getTicket().addUsuarioAsignacion(aux);
+			if(auxEmpleado.getTicket()!=null && auxEmpleado.getTicket().getEstado().equalsIgnoreCase("activo")) {
+				for (int j = 0; j < empleadores.size(); j++) {
+					auxEmpleador = empleadores.get(j);
+					if(auxEmpleador.getTicket()!=null && auxEmpleador.getTicket().getEstado().equalsIgnoreCase("activo")) {
+						puntaje = zonaEmpleados.calculoPuntajes(auxEmpleado.getTicket().getFormulario(),auxEmpleador.getTicket().getFormulario());
+						aux = new Usuario_puntaje(auxEmpleador, puntaje);
+						if (auxEmpleado.getTicket().getListaAsignacion()==null)
+							auxEmpleado.getTicket().nuevaLista();
+						auxEmpleado.getTicket().addUsuarioAsignacion(aux);
+					}
+				}
+			   Collections.sort(auxEmpleado.getTicket().getListaAsignacion().getLista(), new UsuarioComparator());
 			}
-		   Collections.sort(auxEmpleado.getTicket().getListaAsignacion().getLista(), new UsuarioComparator());
 		}
 	}
 
@@ -421,17 +427,44 @@ public class Agencia {
 
 	*/
 	
-	/*
-	public void elegir(String nombreUsuario,Usuario usuario) {
-		int aux=this.logged(usuario);
-		if(aux==2)
-        	zonaEmpleador.elegir(nombreUsuario,(UEmpleador)usuario);
-        if(aux==1)
-        	zonaEmpleados.elegir(nombreUsuario,(UEmpleado)usuario);
+	public void elegir(String nombreUsuario,UEmpleador usuario) { 
+        tiposDeUsuarios elector = obtenerTiposDeUsuarios(usuario);//pasar de UEmpleador a empleador
+        if(elector!=null) zonaEmpleador.elegir(nombreUsuario,elector);
     }
-	*/
 
+    public void elegir(String nombreUsuario,UEmpleado usuario) { 
+        tiposDeUsuarios elector = obtenerTiposDeUsuarios(usuario);//pasar de UEmpleador a empleador
+        if(elector!=null) zonaEmpleado.elegir(nombreUsuario,elector);
+    }
+    
+    public tiposDeUsuarios obtenerTiposDeUsuarios(Usuario usuario) { //devuelve el tipo de usuario (EMPLEADO / EMPLEADOR / ADM)
+        int i = 0;
+        tiposDeUsuarios retorno;
+        while (i < logeoempleados.size() && !usuario.equals(logeoempleados.get(i).getUsuario()))
+            i++;
+        if (usuario.equals(logeoempleados.get(i).getUsuario()))
+            retorno = logeoempleados.get(i).getEmpleado();
+        else {
+            i = 0;
+            while (i < logeoempleadores.size() && !usuario.equals(logeoempleadores.get(i).getUsuario()))
+                i++;
+            if (usuario.equals(logeoempleadores.get(i).getUsuario()))
+                retorno = logeoempleadores.get(i).getEmpleador();
+            else {
+                i = 0;
+                while (i < logeoadministradores.size() && !usuario.equals(logeoadministradores.get(i).getUsuario()))
+                    i++;
+                if (usuario.equals(logeoadministradores.get(i).getUsuario()))
+                    retorno = logeoadministradores.get(i).getAdministrador();
+                else
+                    return null;
+            }
+        }
+        return retorno;
+    }
 
+    
+    
 	public int getV1() {
 		return V1;
 	}
