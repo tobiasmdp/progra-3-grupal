@@ -6,10 +6,8 @@ import java.util.Calendar;
 import capaDeNegocios.Usuario_puntaje;
 
 public class ListaDeAsignacion {
-	private ArrayList<Usuario_puntaje> listaAsignacion;
+	private ArrayList<Usuario_puntaje> listaAsignacion = new ArrayList<Usuario_puntaje>();
 	private Calendar fecha = Calendar.getInstance();
-	
-	
 	
 	
 	public Calendar getFecha() {

@@ -135,7 +135,7 @@ public class Agencia {
 
 		while (i < empleadosPretensos.size() && !(empleadosPretensos.get(i).getNombreUsuario().equals(nombreUsuario)))
 			i++;
-		if (empleadosPretensos.get(i).getNombreUsuario().equals(nombreUsuario)) // agrego a logeado
+		if (i < empleadosPretensos.size() && empleadosPretensos.get(i).getNombreUsuario().equals(nombreUsuario)) // agrego a logeado
 			if (empleadosPretensos.get(i).getPassword().equals(contra)) {
 				addLogeoEmpleadoPretenso(new NodoLogeoEmpleado(usuario, empleadosPretensos.get(i)));
 				System.out.println("sesion iniciada correctamente");
@@ -145,7 +145,7 @@ public class Agencia {
 			i = 0;
 			while (i < empleadores.size() && !(empleadores.get(i).getNombreUsuario().equals(nombreUsuario)))
 				i++;
-			if (empleadores.get(i).getNombreUsuario().equals(nombreUsuario)) // agrego a logeado
+			if (i < empleadores.size() && empleadores.get(i).getNombreUsuario().equals(nombreUsuario)) // agrego a logeado
 				if (empleadores.get(i).getPassword().equals(contra)) {
 					addLogeoEmpleadores(new NodoLogeoEmpleador(usuario, empleadores.get(i)));
 					System.out.println("sesion iniciada correctamente");
@@ -155,7 +155,7 @@ public class Agencia {
 				i = 0;
 				while (i < administradores.size() && (administradores.get(i).getNombreUsuario().equals(nombreUsuario)))
 					i++;
-				if (administradores.get(i).getNombreUsuario().equals(nombreUsuario)) // agrego a logeado
+				if (i < administradores.size() && administradores.get(i).getNombreUsuario().equals(nombreUsuario)) // agrego a logeado
 					if (empleadores.get(i).getPassword().equals(contra)) {
 						addLogeoAdministrador(new NodoLogeoAdministrador(usuario, administradores.get(i)));
 						System.out.println("sesion iniciada correctamente");
@@ -188,17 +188,17 @@ public class Agencia {
 		int i = 0;
 		while (i < logeoempleados.size() && !usuario.equals(logeoempleados.get(i).getUsuario()))
 			i++;
-		if (usuario.equals(logeoempleados.get(i).getUsuario()))
+		if (i < logeoempleados.size() && usuario.equals(logeoempleados.get(i).getUsuario()))
 			return 1;
 		i = 0;
 		while (i < logeoempleadores.size() && !usuario.equals(logeoempleadores.get(i).getUsuario()))
 			i++;
-		if (usuario.equals(logeoempleadores.get(i).getUsuario()))
+		if (i < logeoempleadores.size() && usuario.equals(logeoempleadores.get(i).getUsuario()))
 			return 2;
 		i = 0;
 		while (i < logeoadministradores.size() && !usuario.equals(logeoadministradores.get(i).getUsuario()))
 			i++;
-		if (usuario.equals(logeoadministradores.get(i).getUsuario()))
+		if (i < logeoadministradores.size() && usuario.equals(logeoadministradores.get(i).getUsuario()))
 			return 3;
 		else
 			return 0;
@@ -212,19 +212,19 @@ public class Agencia {
 		int i = 0;
 		while (i < logeoempleados.size() && !usuario.equals(logeoempleados.get(i).getUsuario()))
 			i++;
-		if (usuario.equals(logeoempleados.get(i).getUsuario()))
+		if (i < logeoempleados.size() && usuario.equals(logeoempleados.get(i).getUsuario()))
 			removeLogeoEmpleados(logeoempleados.get(i));
 		else {
 			i = 0;
 			while (i < logeoempleadores.size() && !usuario.equals(logeoempleadores.get(i).getUsuario()))
 				i++;
-			if (usuario.equals(logeoempleadores.get(i).getUsuario()))
+			if (i < logeoempleadores.size() && usuario.equals(logeoempleadores.get(i).getUsuario()))
 				removeLogeoEmpleador(logeoempleadores.get(i));
 			else {
 				i = 0;
 				while (i < logeoadministradores.size() && !usuario.equals(logeoadministradores.get(i).getUsuario()))
 					i++;
-				if (usuario.equals(logeoadministradores.get(i).getUsuario()))
+				if (i < logeoadministradores.size() && usuario.equals(logeoadministradores.get(i).getUsuario()))
 					removeLogeoAdministrador(logeoadministradores.get(i));
 			}
 		}
@@ -271,7 +271,7 @@ public class Agencia {
 	public void crearTicketEmpleador(String locacion, int remuneracion, String cargaHoraria, String tipoPuesto,
 			int rangoEtario, String experienciaPrevia, String estudiosCursados, int cantEmpleados,
 			int pLocacion,int pRemuneracion,int pCargaHoraria,int pTipodePuesto,int pExperienciaPrevia,int pRangoEtario,int pEstudiosCursados,UEmpleador uEmpleador) {
-			zonaEmpleador.crearTicketEmpleador(locacion, remuneracion, cargaHoraria, tipoPuesto, rangoEtario, experienciaPrevia, estudiosCursados, cantEmpleados, uEmpleador);
+			zonaEmpleador.crearTicketEmpleador(locacion, remuneracion, cargaHoraria, tipoPuesto, rangoEtario, experienciaPrevia, estudiosCursados, cantEmpleados,pLocacion,pRemuneracion,pCargaHoraria,pTipodePuesto,pExperienciaPrevia,pRangoEtario,pEstudiosCursados, uEmpleador);
 	}
 
 	public void cambiarEstadoTicket(String estado, UEmpleador uEmpleador) {
@@ -287,7 +287,6 @@ public class Agencia {
 
 	public void registroEmpleado(String usuario, String contrasenia, UEmpleado uempleado){
 		EmpleadoPretenso nuevo= new EmpleadoPretenso(usuario,contrasenia);
-		this.addEmpleadoPretenso(nuevo);
 		try {
 			login(usuario,contrasenia,uempleado);
 		} catch (LoginException e) {}
@@ -296,7 +295,6 @@ public class Agencia {
 	public void registroEmpleado(String usuario, String contrasenia, String nombre, String apellido, String telefono,
 			int edad,UEmpleado uempleado) {
 		EmpleadoPretenso nuevo= new EmpleadoPretenso(usuario,contrasenia,nombre,apellido,telefono,edad);
-		this.addEmpleadoPretenso(nuevo);
 		try {
 			login(usuario,contrasenia,uempleado);
 		} catch (LoginException e) {}
@@ -338,6 +336,8 @@ public class Agencia {
 				auxEmpleado = empleadosPretensos.get(j);
 				puntaje = zonaEmpleador.calculoPuntajes(auxEmpleador.getTicket(),auxEmpleado.getTicket().getFormulario());
 				aux = new Usuario_puntaje(auxEmpleado, puntaje);
+				if (auxEmpleador.getTicket().getListaAsignacion()==null)
+					auxEmpleador.getTicket().nuevaLista();
 				auxEmpleador.getTicket().addUsuarioAsignacion(aux);
 			}
 
@@ -354,6 +354,8 @@ public class Agencia {
 				auxEmpleador = empleadores.get(j);
 				puntaje = zonaEmpleados.calculoPuntajes(auxEmpleado.getTicket().getFormulario(),auxEmpleador.getTicket().getFormulario());
 				aux = new Usuario_puntaje(auxEmpleador, puntaje);
+				if (auxEmpleado.getTicket().getListaAsignacion()==null)
+					auxEmpleado.getTicket().nuevaLista();
 				auxEmpleado.getTicket().addUsuarioAsignacion(aux);
 			}
 		   Collections.sort(auxEmpleado.getTicket().getListaAsignacion().getLista(), new UsuarioComparator());
@@ -448,6 +450,10 @@ public class Agencia {
 
 	public void Mostrararreglodebug(ArrayList<EmpleadoPretenso> empleadosPretensos) {
 		for(EmpleadoPretenso elemento: empleadosPretensos)
+			System.out.println(elemento);
+	}
+	public void Mostrararreglodebug2(ArrayList<Empleador> empleadores) {
+		for(Empleador elemento: empleadores)
 			System.out.println(elemento);
 	}
 }

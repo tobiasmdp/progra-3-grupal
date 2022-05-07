@@ -55,7 +55,10 @@ public abstract class Ticket {
 	public Formulario getFormulario() {
 		return this.formulario;
 	}
-
+	
+	public void nuevaLista() {
+		this.listaAsignacion= new ListaDeAsignacion();
+	}
 
 	public void addUsuarioAsignacion(Usuario_puntaje elemento) { 
 		this.listaAsignacion.addlista(elemento);

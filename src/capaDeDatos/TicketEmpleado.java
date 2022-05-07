@@ -17,13 +17,9 @@ import capaDeNegocios.Usuario_puntaje;
  private int resultado;
  ArrayList<Usuario_puntaje> empleadoresmatcheados= new ArrayList<Usuario_puntaje>();
 
- public TicketEmpleado(Calendar fecha, Formulario formulario, String estado) {
-		super(fecha, formulario,estado);
-		this.resultado=0;
-	}
  
  public TicketEmpleado(Calendar fecha, Formulario formulario) {
-		super(fecha, formulario);
+		super(formulario);
 		this.resultado=0;
 	}
  
