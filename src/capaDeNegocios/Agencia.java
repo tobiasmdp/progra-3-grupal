@@ -373,12 +373,8 @@ public class Agencia {
 	 * empleado eligiese 2 empresas, siempre seria contratado por la que le dio
 	 * mejor puntaje
 	 */
-<<<<<<< HEAD
-	public void rondaContrataciones() {
-=======
 	
 	/*public void rondaContrataciones() {
->>>>>>> main
 		double comisionEmpleado, comisionEmpleador;
 		TicketEmpleador ticketEmpleador, ticketEmpleadorElegido;
 		TicketEmpleado ticketEmpleado;
@@ -484,10 +480,6 @@ public class Agencia {
 	public void setV2(int v2) {
 		V2 = v2;
 	}
-<<<<<<< HEAD
-	//********METODOS DE LOGEO****//////////
-	
-=======
 
 	public void Mostrararreglodebug(ArrayList<EmpleadoPretenso> empleadosPretensos) {
 		for(EmpleadoPretenso elemento: empleadosPretensos)
@@ -497,5 +489,4 @@ public class Agencia {
 		for(Empleador elemento: empleadores)
 			System.out.println(elemento);
 	}
->>>>>>> main
 }

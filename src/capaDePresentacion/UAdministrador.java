@@ -1,7 +1,6 @@
 package capaDePresentacion;
 
 import capaDeNegocios.Agencia;
-import excepciones.LoginException;
 
 public class UAdministrador extends Usuario{
 
@@ -18,20 +17,12 @@ public class UAdministrador extends Usuario{
 	}
 	
 	public void rondaEncuentrosLaborales(){
-<<<<<<< HEAD
-		Agencia.getInstance().rondaEncuentrosLaborales();;
-=======
 		Agencia.getInstance().rondaEncuentrosLaborales();
 	}
 	/*
 	public void rondaContrataciones(){
 		Agencia.getInstance().rondaContrataciones();
->>>>>>> main
 	}
 	*/
-	
-	public void rondaContrataciones(){
-		Agencia.getInstance().rondaContrataciones();;
-	}
 	
 }
