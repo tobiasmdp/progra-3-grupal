@@ -12,10 +12,6 @@ public class Local implements IRubro {
 		return 0.9;
 	}
 
-	@Override
-	public double calcularComisiones(IComisionesRubro p) {
-		return p.comisionLocal();
-	}
 
 	@Override
 	public String toString() {

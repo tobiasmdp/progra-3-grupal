@@ -12,10 +12,6 @@ public class Salud implements IRubro{
 		return 0.8;
 	}
 
-	@Override
-	public double calcularComisiones(IComisionesRubro p) {
-		return p.comisionSalud();
-	}
 
 	@Override
 	public String toString() {

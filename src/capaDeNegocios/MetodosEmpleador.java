@@ -5,7 +5,13 @@ import java.util.GregorianCalendar;
 
 import capaDeDatos.EmpleadoPretenso;
 import capaDeDatos.Empleador;
+import capaDeDatos.TicketEmpleado;
 import capaDeDatos.TicketEmpleador;
+import capaDePresentacion.UEmpleado;
+import capaDePresentacion.UEmpleador;
+import capaDePresentacion.Usuario;
+import comisiones.IPersona;
+import comisiones.IRubro;
 
 public class MetodosEmpleador {
 	private static MetodosEmpleador instance = null;
@@ -55,10 +61,66 @@ public class MetodosEmpleador {
 	}
 	
 	
-	protected void nuevoTicket(GregorianCalendar fecha, Formulario formulario, String estado, int cantempleadosbuscados, int pLocacion, int pRemuneracion, int pCargaHoraria,
-			int pTipodePuesto, int pExperienciaPrevia, int pRangoEtario, int pEstudiosCursados) {
-		this.ticket = new TicketEmpleador(fecha, formulario,estado, cantempleadosbuscados, pLocacion,pRemuneracion, pCargaHoraria,
-				pTipodePuesto, pExperienciaPrevia, pRangoEtario, pEstudiosCursados); 
+	public void crearTicketEmpleador(String locacion, int remuneracion, String cargaHoraria, String tipoPuesto,
+			int rangoEtario, String experienciaPrevia, String estudiosCursados, int cantEmpleados,int pLocacion,int pRemuneracion,int pCargaHoraria,int pTipodePuesto,int pExperienciaPrevia,int pRangoEtario,int pEstudiosCursados,
+			UEmpleador uEmpleador){
+		Formulario nuevofor = new Formulario(locacion, remuneracion, cargaHoraria, tipoPuesto, rangoEtario,
+				experienciaPrevia, estudiosCursados);
+		TicketEmpleador nuevoticket = new TicketEmpleador(nuevofor,cantEmpleados,pLocacion,pRemuneracion, pCargaHoraria, pTipodePuesto, pExperienciaPrevia, pRangoEtario, pEstudiosCursados);
+		int i = 0;
+		ArrayList <NodoLogeoEmpleador> aux = Agencia.getInstance().getLogeoempleadores();
+		int arreglologeado = Agencia.getInstance().logged(uEmpleador);
+		if (arreglologeado == 2) {
+			while (i < aux.size() && !uEmpleador.equals(aux.get(i).getUsuario()))
+				i++;
+			aux.get(i).getEmpleador().setTicket(nuevoticket);
+		}
 	}
 	
+	public void cambiarEstadoTicket(String estado, UEmpleador uEmpleador) {
+		ArrayList <NodoLogeoEmpleador> aux = Agencia.getInstance().getLogeoempleadores();
+		int i=0;
+		int arreglologeado=Agencia.getInstance().logged(uEmpleador);
+		if (arreglologeado==1) {
+			while (i < aux.size() && !uEmpleador.equals(aux.get(i).getUsuario()))
+				i++;
+			aux.get(i).getEmpleador().getTicket().setEstado(estado);
+		}
+	}
+
+	
+
+	public void cobraComision(Empleador empleador) {
+		double modificadorcomision,remuneracion,descuento;
+		IRubro rubro;
+		IPersona persona;
+		//*Extraigo datos*//
+		persona=empleador.gettPersona();
+		rubro=empleador.getRubro();
+		remuneracion=empleador.getTicket().getFormulario().getRemuneracionint();//problema ya que la remu no es int?
+		//*Calculo el modificador de la comision*//
+		modificadorcomision=persona.calcularComisiones(rubro);
+		//*Calculo el descuento por puntaje//*
+		descuento=empleador.getPuntaje()*0.01;
+		//*Seteo la comision*//
+		empleador.setComision(remuneracion*modificadorcomision*descuento);
+	}
+
+	public void actualizarPuntaje(Empleador empleador, int valor) {
+		empleador.setPuntaje(empleador.getPuntaje()+valor);
+		
+		
+	}
+	
+	public void elegir(String nombreUsuarioElegido,Empleador elector) {
+        int i = 0;
+        EmpleadoPretenso e;
+
+        do {
+            e = empleados.index(i++); //acceso a ese indice devuelve empleados
+        }while(i<e.size() && !(nombreUsuarioElegido.equals(e.getNombre())))
+
+        if(i<e.size()) //lo encontre
+            elector.getTicket.usuariosElegidos.add(e);
+    }
 }

@@ -1,24 +1,23 @@
 package capaDeDatos;
 
-import java.util.ArrayList;
-import java.util.GregorianCalendar;
 
 import capaDeNegocios.Agencia;
-import capaDeNegocios.Formulario;
-import capaDeNegocios.IMuestraLista;
-import capaDeNegocios.IPuntaje;
-import capaDeNegocios.Usuario_puntaje;
 import comisiones.FactoryPersona;
 import comisiones.FactoryRubro;
 import comisiones.IPersona;
 import comisiones.IRubro;
 
+/**
+ * @author mikel
+ * los constructores de esta clase ya agregan a los arraylist de empleador de la agencia
+ */
 public class Empleador extends TiposDeUsuarios {
 	private String nombre;
 	private IPersona tPersona;
 	private IRubro rubro;
 	private TicketEmpleador ticket;
 	private int puntaje;
+	private double comision;
 	
 	public Empleador(String nombreUsuario,String contra) {
 		super(nombreUsuario,contra);
@@ -55,15 +54,6 @@ public class Empleador extends TiposDeUsuarios {
 	public String getNombre() {
 		return nombre;
 	}
-	public void setComisionPersona(IPersona tPersona) {
-		this.tPersona = tPersona.calcularComisiones();
-	}
-
-
-	public void setComisionRubro(IRubro rubro) {
-		this.rubro = rubro;
-	}
-
 
 	public IPersona gettPersona() {
 		return tPersona;
@@ -73,6 +63,16 @@ public class Empleador extends TiposDeUsuarios {
 	}
 
 	
+	public double getComision() {
+		return comision;
+	}
+
+
+	public void setComision(double comision) {
+		this.comision = comision;
+	}
+
+
 	public TicketEmpleador getTicket() {
 		return ticket;
 	}

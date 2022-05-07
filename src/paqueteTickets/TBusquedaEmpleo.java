@@ -1,11 +1,7 @@
-package capaDeDatos;
+package paqueteTickets;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.GregorianCalendar;
-
-import capaDeNegocios.Formulario;
-import capaDeNegocios.Usuario_puntaje;
 
 /**
  * @author mikel
@@ -13,24 +9,23 @@ import capaDeNegocios.Usuario_puntaje;
  * La variable resultado va a ser booleana, y recibira un 0 si fue un fracaso o un 1 si fue un exito.
  * Al crearse el ticket todos los resultados van a ser 0 porque todavía no se realizao el matcheo.
  */
- public class TicketEmpleado extends Ticket {
+ public class TBusquedaEmpleo extends Ticket {
  private int resultado;
- ArrayList<Usuario_puntaje> empleadoresmatcheados= new ArrayList<Usuario_puntaje>();
-
- 
- public TicketEmpleado(Calendar fecha, Formulario formulario) {
-		super(formulario);
+ ArrayList<Empleador> empleadoresmatcheados= new ArrayList<Empleador>();
+	
+ public TBusquedaEmpleo(GregorianCalendar fecha, Formulario formulario,int estado) {
+		super(fecha, formulario,estado);
 		this.resultado=0;
+		// TODO Auto-generated constructor stub
 	}
- 
-	public int getResultado() { 
+	public int getResultado() {
 		return resultado;
 	}
 	public void setResultado(int resultado) {
 		this.resultado = resultado;
 	}
 	
-	public void nuevoEmpleadorMatcheado(Usuario_puntaje empleadormatcheado) {
+	public void nuevoEmpleadorMatcheado(Empleado empleadormatcheado) {
 		this.empleadoresmatcheados.add(empleadormatcheado);
 	}
 	
@@ -41,10 +36,7 @@ import capaDeNegocios.Usuario_puntaje;
 	public void resetListaEmpleados() {
 		this.empleadoresmatcheados.clear();
 	}
-
-	public ArrayList<Usuario_puntaje> getEmpleadoresmatcheados() {
-		return empleadoresmatcheados;
-	}
+	
 	
 }
 	

@@ -8,11 +8,17 @@ import capaDeNegocios.Agencia;
  */
 public class EmpleadoPretenso extends TiposDeUsuarios{
 	private String nombre,apellido,telefono;
-	protected int edad;
 	private TicketEmpleado ticket;
-	private int puntaje;
+	private int puntaje,edad;
+	private double comision;
 	//private static int codUsuario;
 	
+	
+	
+	public EmpleadoPretenso(String nombreUsuario,String contra) {
+		super(nombreUsuario,contra);
+		Agencia.getInstance().addEmpleadoPretenso(this);
+	}
 
 	public EmpleadoPretenso(String nombreUsuario, String password, String nombre, String apellido, String telefono,int edad) {
 		super(nombreUsuario, password);
@@ -41,6 +47,18 @@ public class EmpleadoPretenso extends TiposDeUsuarios{
 		return edad;
 	}
 	
+	public double getComision() {
+		return comision;
+	}
+
+	public void setComision(double comision) {
+		this.comision = comision;
+	}
+
+	public void setTicket(TicketEmpleado ticket) {
+		this.ticket = ticket;
+	}
+
 	public int getPuntaje() {
 		return puntaje;
 	}
@@ -60,5 +78,4 @@ public class EmpleadoPretenso extends TiposDeUsuarios{
 		return nombre  + "         " + apellido + "         " + edad + "         " + ticket;
 	}
 	
-
 }

@@ -2,19 +2,21 @@ package capaDeNegocios;
 
 import capaDeDatos.Empleador;
 import capaDeDatos.TiposDeUsuarios;
+import capaDePresentacion.Usuario;
+
 
 public class NodoLogeoEmpleador {
-	private TiposDeUsuarios usuario;
+	private Usuario usuario;
 	private Empleador empleador;
 	
 	
 	
-	public NodoLogeoEmpleador(TiposDeUsuarios auxusuario, Empleador empleador) {
+	public NodoLogeoEmpleador(Usuario auxusuario, Empleador empleador) {
 		super();
 		this.usuario = auxusuario;
 		this.empleador = empleador;
 	}
-	public TiposDeUsuarios getUsuario() {
+	public Usuario getUsuario() {
 		return usuario;
 	}
 	public Empleador getEmpleador() {

@@ -4,6 +4,7 @@
 package capaDeDatos;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 import capaDeNegocios.Formulario;
@@ -14,8 +15,8 @@ import capaDeNegocios.Usuario_puntaje;
  *
  */
 public class TicketEmpleador extends Ticket {
-  private int cantempleadosbuscados, cantempleadosobtenidos;
-  ArrayList<Usuario_puntaje> empleadosmatcheados= new ArrayList<Usuario_puntaje>();
+    private int cantempleadosbuscados, cantempleadosobtenidos;
+    ArrayList<Usuario_puntaje> empleadosmatcheados= new ArrayList<Usuario_puntaje>();
   	private int pLocacion;
 	private int pRemuneracion;
 	private int pCargaHoraria;
@@ -26,22 +27,22 @@ public class TicketEmpleador extends Ticket {
 	
 	
 	/**
-	 * @param fecha definido en la clase abstracta Ticket
+	 * @param calendar definido en la clase abstracta Ticket
 	 * @param formulario definido en la clase abstracta Ticket
 	 * @param cantempleadosbuscados aca el empleador debe poner al cantidad de empelados que busca, no tiene que ser menor a 1
 	 * canempleadosobtenidos se inicializa en 0 para todos los objetos, porque al recien crear el ticket, todavía no obtuvo ningun empleado
 	 */
 	
-	public TicketEmpleador(GregorianCalendar fecha,Formulario formulario, int cantempleadosbuscados) {
-		super(fecha,formulario);
+	public TicketEmpleador(Formulario formulario, int cantempleadosbuscados) {
+		super(formulario);
 		this.cantempleadosbuscados=cantempleadosbuscados;
 		this.cantempleadosobtenidos=0;
 	}
 	
-	public TicketEmpleador(GregorianCalendar fecha, Formulario formulario, String estado, int cantempleadosbuscados
+	public TicketEmpleador( Formulario formulario, int cantempleadosbuscados
 			, int pLocacion, int pRemuneracion, int pCargaHoraria,
 			int pTipodePuesto, int pExperienciaPrevia, int pRangoEtario, int pEstudiosCursados) {
-		super(fecha,formulario,estado);
+		super(formulario);
 		this.cantempleadosbuscados=cantempleadosbuscados;
 		this.cantempleadosobtenidos=0;
 		this.pLocacion = pLocacion;
@@ -105,7 +106,6 @@ public class TicketEmpleador extends Ticket {
 	}
 	
 	public void nuevoEmpleadoMatcheado(Usuario_puntaje usuario) {
-		//INSERTARLO ORDENADO ACA
 		this.empleadosmatcheados.add(usuario);
 	}
 	
@@ -121,6 +121,6 @@ public class TicketEmpleador extends Ticket {
 		return empleadosmatcheados;
 	}
 
-	
+
 	
 }
