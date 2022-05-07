@@ -1,7 +1,6 @@
 package capaDeNegocios;
 
 import capaDeDatos.EmpleadoPretenso;
-import capaDeDatos.TiposDeUsuarios;
 import capaDePresentacion.Usuario;
 
 public class NodoLogeoEmpleado {

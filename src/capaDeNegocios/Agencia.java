@@ -276,8 +276,9 @@ public class Agencia {
 			zonaEmpleador.crearTicketEmpleador(locacion, remuneracion, cargaHoraria, tipoPuesto, rangoEtario, experienciaPrevia, estudiosCursados, cantEmpleados,pLocacion,pRemuneracion,pCargaHoraria,pTipodePuesto,pExperienciaPrevia,pRangoEtario,pEstudiosCursados, uEmpleador);
 	}
 
-	public void cambiarEstadoTicket(String estado, UEmpleador uEmpleador) {
-		zonaEmpleador.cambiarEstadoTicket(estado, uEmpleador);
+	public void cambiarEstadoTicket(String estado, UCliente ucliente) {
+		Cliente cliente;
+		cliente = getCliente(ucliente);
 	}
 
 	public void elegirUsuario_puntaje(Usuario_puntaje usuario, UEmpleador uEmpleador) {
@@ -428,22 +429,25 @@ public class Agencia {
     public void elegir(String nombreUsuario, UCliente uCliente) { 
     	Cliente cliente;
         cliente = getCliente(uCliente);
-    	cliente.elegir(nombreUsuario);
+    	boolean aux=cliente.elegir(nombreUsuario);
     }
     
-    private Cliente getCliente(UCliente uCliente) {	
-    	Cliente cliente = null; //si el usuario no esta logeado te va a devolver un null	
-    	for (NodoLogeoEmpleado empleadoLogeado:this.logeoempleados) {
-    		if (uCliente.equals(empleadoLogeado.getUsuario()))
-    			cliente = empleadoLogeado.getEmpleado(); 
-    	}
-    	for (NodoLogeoEmpleador empleadorLogeado:this.logeoempleadores) {
-    		if (uCliente.equals(empleadorLogeado.getUsuario()))
-    			cliente = empleadorLogeado.getEmpleador(); 
-    	}
-    	return cliente;
+    private Cliente getCliente(UCliente usuario) { //devuelve el tipo de usuario (EMPLEADO / EMPLEADOR )
+        int i = 0;
+        Cliente retorno=null;
+        while (i < logeoempleados.size() && !usuario.equals(logeoempleados.get(i).getUsuario()))
+            i++;
+        if (usuario.equals(logeoempleados.get(i).getUsuario()))
+            retorno = logeoempleados.get(i).getEmpleado();
+        else {
+            i = 0;
+            while (i < logeoempleadores.size() && !usuario.equals(logeoempleadores.get(i).getUsuario()))
+                i++;
+            if (usuario.equals(logeoempleadores.get(i).getUsuario()))
+                retorno = logeoempleadores.get(i).getEmpleador();
+        }
+        return retorno;
     }
-    
 	public int getV1() {
 		return this.V1;
 	}

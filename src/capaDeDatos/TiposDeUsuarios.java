@@ -1,6 +1,5 @@
 package capaDeDatos;
 
-import java.util.GregorianCalendar;
 
 
 public abstract class TiposDeUsuarios  {

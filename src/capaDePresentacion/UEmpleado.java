@@ -1,7 +1,6 @@
 package capaDePresentacion;
 
 import capaDeNegocios.Agencia;
-import capaDeNegocios.Usuario_puntaje;
 
 public class UEmpleado extends UCliente{
 

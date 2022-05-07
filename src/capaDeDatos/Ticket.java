@@ -85,6 +85,7 @@ public abstract class Ticket {
 		return listaAsignacion;
 	}
 
+	
 	@Override
 	public String toString() {
 		return ""+formulario ;
