@@ -65,7 +65,7 @@ public class MetodosEmpleado {
 		int i = 0;
 		ArrayList <NodoLogeoEmpleado> aux = Agencia.getInstance().getLogeoempleados();
 		int arreglologeado = Agencia.getInstance().logged(uEmpleado);
-		if (arreglologeado == 2) {
+		if (arreglologeado == 1) {
 			while (i < aux.size() && !uEmpleado.equals(aux.get(i).getUsuario()))
 				i++;
 			aux.get(i).getEmpleado().setTicket(nuevoticket);

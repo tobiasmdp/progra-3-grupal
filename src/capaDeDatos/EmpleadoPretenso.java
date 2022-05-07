@@ -8,9 +8,8 @@ import capaDeNegocios.Agencia;
  */
 public class EmpleadoPretenso extends TiposDeUsuarios{
 	private String nombre,apellido,telefono;
-	protected String edad;
 	private TicketEmpleado ticket;
-	private int puntaje;
+	private int puntaje,edad;
 	private double comision;
 	//private static int codUsuario;
 	
@@ -21,7 +20,7 @@ public class EmpleadoPretenso extends TiposDeUsuarios{
 		Agencia.getInstance().addEmpleadoPretenso(this);
 	}
 
-	public EmpleadoPretenso(String nombreUsuario, String password, String nombre, String apellido, String telefono,String edad) {
+	public EmpleadoPretenso(String nombreUsuario, String password, String nombre, String apellido, String telefono,int edad) {
 		super(nombreUsuario, password);
 		this.nombre = nombre;
 		this.apellido = apellido;
@@ -44,7 +43,7 @@ public class EmpleadoPretenso extends TiposDeUsuarios{
 		return telefono;
 	}
 
-	public String getEdad() {
+	public int getEdad() {
 		return edad;
 	}
 	

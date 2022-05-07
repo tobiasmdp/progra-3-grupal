@@ -5,13 +5,12 @@ import capaDeNegocios.Usuario_puntaje;
 
 public class UEmpleado extends Usuario{
 
-	public UEmpleado(String usuario, String contrasenia) {
-		Agencia.getInstance().registroEmpleado(usuario, contrasenia,this);
+	public UEmpleado() {
 	}
 	
-	public UEmpleado(String usuario, String contrasenia, String nombre, 
-			String apellido, String telefono, String edad) {
-		Agencia.getInstance().registroEmpleado(usuario, contrasenia, nombre, apellido, telefono, edad);
+	public void registrarse(String nombreUsuario, String contrasenia, String nombre, 
+			String apellido, String telefono, int edad) {
+		Agencia.getInstance().registroEmpleado(nombreUsuario, contrasenia, nombre, apellido, telefono, edad,this);
 	}
 	
 	public void crearTicket(String locacion, int remuneracion, String cargaHoraria, String tipoPuesto, 

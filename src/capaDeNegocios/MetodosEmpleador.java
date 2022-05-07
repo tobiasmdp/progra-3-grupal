@@ -62,11 +62,11 @@ public class MetodosEmpleador {
 	
 	
 	public void crearTicketEmpleador(String locacion, int remuneracion, String cargaHoraria, String tipoPuesto,
-			int rangoEtario, String experienciaPrevia, String estudiosCursados, int cantEmpleados,
+			int rangoEtario, String experienciaPrevia, String estudiosCursados, int cantEmpleados,int pLocacion,int pRemuneracion,int pCargaHoraria,int pTipodePuesto,int pExperienciaPrevia,int pRangoEtario,int pEstudiosCursados,
 			UEmpleador uEmpleador){
 		Formulario nuevofor = new Formulario(locacion, remuneracion, cargaHoraria, tipoPuesto, rangoEtario,
 				experienciaPrevia, estudiosCursados);
-		TicketEmpleador nuevoticket = new TicketEmpleador(GregorianCalendar.getInstance(), nuevofor,cantEmpleados);
+		TicketEmpleador nuevoticket = new TicketEmpleador(nuevofor,cantEmpleados,pLocacion,pRemuneracion, pCargaHoraria, pTipodePuesto, pExperienciaPrevia, pRangoEtario, pEstudiosCursados);
 		int i = 0;
 		ArrayList <NodoLogeoEmpleador> aux = Agencia.getInstance().getLogeoempleadores();
 		int arreglologeado = Agencia.getInstance().logged(uEmpleador);
@@ -109,7 +109,7 @@ public class MetodosEmpleador {
 	public void actualizarPuntaje(Empleador empleador, int valor) {
 		empleador.setPuntaje(empleador.getPuntaje()+valor);
 		
-	}
+	}/*
 	//aca jose
 	public void elegir(String nombreUsuarioElegido,Usuario usuario) {
         int i = 0;
@@ -131,4 +131,5 @@ public class MetodosEmpleador {
 			i++;
 		
 	}
+	*/
 }

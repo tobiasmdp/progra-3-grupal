@@ -33,16 +33,16 @@ public class TicketEmpleador extends Ticket {
 	 * canempleadosobtenidos se inicializa en 0 para todos los objetos, porque al recien crear el ticket, todavía no obtuvo ningun empleado
 	 */
 	
-	public TicketEmpleador(Calendar calendar,Formulario formulario, int cantempleadosbuscados) {
-		super(calendar,formulario);
+	public TicketEmpleador(Formulario formulario, int cantempleadosbuscados) {
+		super(formulario);
 		this.cantempleadosbuscados=cantempleadosbuscados;
 		this.cantempleadosobtenidos=0;
 	}
 	
-	public TicketEmpleador(GregorianCalendar fecha, Formulario formulario, String estado, int cantempleadosbuscados
+	public TicketEmpleador( Formulario formulario, int cantempleadosbuscados
 			, int pLocacion, int pRemuneracion, int pCargaHoraria,
 			int pTipodePuesto, int pExperienciaPrevia, int pRangoEtario, int pEstudiosCursados) {
-		super(fecha,formulario,estado);
+		super(formulario);
 		this.cantempleadosbuscados=cantempleadosbuscados;
 		this.cantempleadosobtenidos=0;
 		this.pLocacion = pLocacion;

@@ -27,14 +27,8 @@ public abstract class Ticket {
 	 * @param formulario, en el constructor cada vez que se genera un  nuevo ticket, en el parametro formulario, crear siempre un nuevo objeto de Formulario
 	 */
 	
-	public Ticket(Calendar fecha,Formulario formulario,String estado) { //contructor en caso de que se requiera crear un ticket que no este activo
-		this.fecha = fecha;
-		this.formulario=formulario;
-		this.estado = estado;
-	}
-
-	public Ticket(Calendar fecha,Formulario formulario) {  //inicializa el ticket en activo por default
-		this.fecha = fecha;
+	public Ticket(Formulario formulario) {  //inicializa el ticket en activo por default
+		this.fecha = GregorianCalendar.getInstance();
 		this.formulario=formulario;
 		this.estado = "Activo";
 	}

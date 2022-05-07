@@ -270,7 +270,7 @@ public class Agencia {
 
 	public void crearTicketEmpleador(String locacion, int remuneracion, String cargaHoraria, String tipoPuesto,
 			int rangoEtario, String experienciaPrevia, String estudiosCursados, int cantEmpleados,
-			UEmpleador uEmpleador) {
+			int pLocacion,int pRemuneracion,int pCargaHoraria,int pTipodePuesto,int pExperienciaPrevia,int pRangoEtario,int pEstudiosCursados,UEmpleador uEmpleador) {
 			zonaEmpleador.crearTicketEmpleador(locacion, remuneracion, cargaHoraria, tipoPuesto, rangoEtario, experienciaPrevia, estudiosCursados, cantEmpleados, uEmpleador);
 	}
 
@@ -287,14 +287,16 @@ public class Agencia {
 
 	public void registroEmpleado(String usuario, String contrasenia, UEmpleado uempleado){
 		EmpleadoPretenso nuevo= new EmpleadoPretenso(usuario,contrasenia);
+		this.addEmpleadoPretenso(nuevo);
 		try {
 			login(usuario,contrasenia,uempleado);
 		} catch (LoginException e) {}
 	}
 
 	public void registroEmpleado(String usuario, String contrasenia, String nombre, String apellido, String telefono,
-			String edad, UEmpleado uempleado) {
+			int edad,UEmpleado uempleado) {
 		EmpleadoPretenso nuevo= new EmpleadoPretenso(usuario,contrasenia,nombre,apellido,telefono,edad);
+		this.addEmpleadoPretenso(nuevo);
 		try {
 			login(usuario,contrasenia,uempleado);
 		} catch (LoginException e) {}
@@ -363,7 +365,8 @@ public class Agencia {
 	 * empleado eligiese 2 empresas, siempre seria contratado por la que le dio
 	 * mejor puntaje
 	 */
-	public void rondaContrataciones() {
+	
+	/*public void rondaContrataciones() {
 		double comisionEmpleado, comisionEmpleador;
 		TicketEmpleador ticketEmpleador, ticketEmpleadorElegido;
 		TicketEmpleado ticketEmpleado;
@@ -414,9 +417,9 @@ public class Agencia {
 		}
 	}
 
+	*/
 	
-	
-	
+	/*
 	public void elegir(String nombreUsuario,Usuario usuario) {
 		int aux=this.logged(usuario);
 		if(aux==2)
@@ -424,7 +427,7 @@ public class Agencia {
         if(aux==1)
         	zonaEmpleados.elegir(nombreUsuario,(UEmpleado)usuario);
     }
-	
+	*/
 
 
 	public int getV1() {
@@ -443,4 +446,8 @@ public class Agencia {
 		V2 = v2;
 	}
 
+	public void Mostrararreglodebug(ArrayList<EmpleadoPretenso> empleadosPretensos) {
+		for(EmpleadoPretenso elemento: empleadosPretensos)
+			System.out.println(elemento);
+	}
 }
