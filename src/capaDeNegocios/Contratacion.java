@@ -3,6 +3,13 @@ package capaDeNegocios;
 import capaDeDatos.EmpleadoPretenso;
 import capaDeDatos.Empleador;
 
+
+/**
+ *<b>
+ *Clase que representa el contrato entre el empleado y empleador. Se usa durante la ronda de contrataciones.
+ *<b>Pre: </b> Se tienen que haber gatillado la ronda de encuentros laborales y de elecciones.
+ *<b>Post: </b> Se crea esta clase que vincula tanto al empleado como al empleador. (Ambos se eligieron mutuamente)
+ */
 public class Contratacion {
 	private EmpleadoPretenso empleado;
 	private Empleador empleador;

@@ -4,11 +4,14 @@ import java.util.ArrayList;
 import java.util.GregorianCalendar;
 
 import capaDeDatos.EmpleadoPretenso;
-import capaDeDatos.Formulario;
 import capaDeDatos.TicketEmpleado;
 import capaDePresentacion.UEmpleado;
 import formulario.TipodePuesto;
 
+/**
+ *<b>
+ *Clase que contiene los metodos de los empleados.
+ */
 public class MetodosEmpleado {
 	private static MetodosEmpleado instance = null;
 
@@ -93,6 +96,11 @@ public class MetodosEmpleado {
 	
 	
 
+	/**
+	 * Calcula la comision a cobrar para el empleado. Usa el tipo de puesto que esta en el formulario del ticket.
+	 * <b>Pre: </b> Se tiene que haber gatillado la ronda de contrataciones.
+	 * @param empleado: empleado a calcular la comision.
+	 */
 	public void cobraComision(EmpleadoPretenso empleado) {
         double modificadorcomision,remuneracion,descuento;
         TipodePuesto puesto;

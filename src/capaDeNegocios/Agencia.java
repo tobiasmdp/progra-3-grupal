@@ -135,60 +135,45 @@ public class Agencia {
 	/*------------------------------------logs-------------------------------------------------------------*/
 
 	/**
-	 * @param nombreUsuario
-	 * @param contra
-	 * @param usuario
-	 * @throws LoginException
+	 * Intenta logearse en el sistema.
+	 * @throws LoginException: clase padre de las dos excepciones que puede lanzar. (ContraException y NombreUsuarioException)
+	 * ContraException en caso de que la contrasenia ingresada no sea la correcta.
+	 * NombreUsuarioException en caso de que no se encuentre el nombre de usuario ingresado.
 	 */
 	public void login(String nombreUsuario, String contra, Usuario usuario) throws LoginException {
 		int i = 0;
 
 		while (i < empleadosPretensos.size() && !(empleadosPretensos.get(i).getNombreUsuario().equals(nombreUsuario)))
 			i++;
-		if (i < empleadosPretensos.size() && empleadosPretensos.get(i).getNombreUsuario().equals(nombreUsuario)) // agrego
-																													// a
-																													// logeado
+		if (i < empleadosPretensos.size() && empleadosPretensos.get(i).getNombreUsuario().equals(nombreUsuario)) // agrego a logeado
 			if (empleadosPretensos.get(i).getPassword().equals(contra)) {
 				addLogeoEmpleadoPretenso(new NodoLogeoEmpleado(usuario, empleadosPretensos.get(i)));
 				System.out.println("sesion iniciada correctamente");
 			} else
-				throw new ContraException("la contraseña ingresada no es la correcta", contra);
+				throw new ContraException("la contraseï¿½a ingresada no es la correcta", contra);
 		else {
 			i = 0;
 			while (i < empleadores.size() && !(empleadores.get(i).getNombreUsuario().equals(nombreUsuario)))
 				i++;
-			if (i < empleadores.size() && empleadores.get(i).getNombreUsuario().equals(nombreUsuario)) // agrego a
-																										// logeado
+			if (i < empleadores.size() && empleadores.get(i).getNombreUsuario().equals(nombreUsuario)) // agrego a logeado
 				if (empleadores.get(i).getPassword().equals(contra)) {
 					addLogeoEmpleadores(new NodoLogeoEmpleador(usuario, empleadores.get(i)));
 					System.out.println("sesion iniciada correctamente");
 				} else
-					throw new ContraException("la contraseña ingresada no es la correcta", contra);
+					throw new ContraException("la contraseï¿½a ingresada no es la correcta", contra);
 			else {
 				i = 0;
 				while (i < administradores.size() && !(administradores.get(i).getNombreUsuario().equals(nombreUsuario)))
 					i++;
-				if (i < administradores.size() && administradores.get(i).getNombreUsuario().equals(nombreUsuario)) // agrego
-																													// a
-																													// logeado
+				if (i < administradores.size() && administradores.get(i).getNombreUsuario().equals(nombreUsuario)) // agrego a logeado
 					if (administradores.get(i).getPassword().equals(contra)) {
 						addLogeoAdministrador(new NodoLogeoAdministrador(usuario, administradores.get(i)));
 						System.out.println("sesion iniciada correctamente");
 					} else
-						throw new ContraException("la contraseña ingresada no es la correcta", contra);
+						throw new ContraException("la contraseï¿½a ingresada no es la correcta", contra);
 				else
-					throw new NombreUsuarioException("el nombre de usuario ingresado no coincide", nombreUsuario); // si
-																													// llego
-																													// hasta
-																													// aca
-																													// es
-																													// que
-																													// no
-																													// lo
-																													// encontro
-																													// en
-																													// ningun
-																													// lado
+					throw new NombreUsuarioException("el nombre de usuario ingresado no coincide", nombreUsuario); // si llego hasta aca 
+																							//es que no lo encontro en ningun lado
 			}
 		}
 	}
@@ -200,25 +185,28 @@ public class Agencia {
 	 *         esta logeado
 	 */
 	public int logged(Usuario usuario) {
-		int i = 0;
-		while (i < logeoempleados.size() && !usuario.equals(logeoempleados.get(i).getUsuario()))
-			i++;
-		if (i < logeoempleados.size() && usuario.equals(logeoempleados.get(i).getUsuario()))
-			return 1;
-		i = 0;
-		while (i < logeoempleadores.size() && !usuario.equals(logeoempleadores.get(i).getUsuario()))
-			i++;
-		if (i < logeoempleadores.size() && usuario.equals(logeoempleadores.get(i).getUsuario()))
-			return 2;
-		i = 0;
-		while (i < logeoadministradores.size() && !usuario.equals(logeoadministradores.get(i).getUsuario()))
-			i++;
-		if (i < logeoadministradores.size() && usuario.equals(logeoadministradores.get(i).getUsuario()))
-			return 3;
-		else
-			return 0;
-
-	}
+        int i = 0;
+        while (i < logeoempleados.size() && !usuario.equals(logeoempleados.get(i).getUsuario()))
+            i++;
+        if (i < logeoempleados.size() && usuario.equals(logeoempleados.get(i).getUsuario()))
+            return 1;
+        else {
+            i = 0;
+            while (i < logeoempleadores.size() && !usuario.equals(logeoempleadores.get(i).getUsuario()))
+                i++;
+            if (i < logeoempleadores.size() && usuario.equals(logeoempleadores.get(i).getUsuario()))
+                return 2;
+            else {
+                i = 0;
+                while (i < logeoadministradores.size() && !usuario.equals(logeoadministradores.get(i).getUsuario()))
+                    i++;
+                if (i < logeoadministradores.size() && usuario.equals(logeoadministradores.get(i).getUsuario()))
+                    return 3;
+                else
+                    return 0;
+            }
+        }
+    }
 
 	/**
 	 * @param usuario recibe un usuario para poder hacerle el logout del sistema
@@ -283,11 +271,8 @@ public class Agencia {
 	// Solicitudes UEmpleador
 
 	/**
-	 * Una vez registrado el empleador, se logea automaticamente
-	 * 
-	 * @param usuario
-	 * @param contrasenia
-	 * @throws LoginException
+	 * Crea el objeto empleador y lo agrega al sistema.
+	 * Una vez registrado el empleador, se logea automaticamente.
 	 */
 	public void registroEmpleador(String usuario, String contrasenia, UEmpleador uEmpleador) {
 		Empleador aux = new Empleador(usuario, contrasenia);
@@ -329,7 +314,11 @@ public class Agencia {
 	}
 
 	// Solicitud UEmpleado
-
+	
+	/**
+	 * Crea el objeto empleado y lo agrega al sistema.
+	 * Una vez registrado el empleado, se logea automaticamente.
+	 */
 	public void registroEmpleado(String usuario, String contrasenia, UEmpleado uEmpleado) {
 		EmpleadoPretenso aux = new EmpleadoPretenso(usuario, contrasenia);
 		addEmpleadoPretenso(aux);
@@ -367,7 +356,11 @@ public class Agencia {
 	}
 
 	// UAdministrador
-
+	
+	/**
+	 * Crea el objeto administrador y lo agrega al sistema.
+	 * Una vez registrado el administrador, se logea automaticamente.
+	 */
 	public void registroAdministrador(String usuario, String contrasenia, UAdministrador uAdministrador) {
 		Administrador aux = new Administrador(usuario, contrasenia);
 		addAdministrador(aux);
@@ -379,6 +372,12 @@ public class Agencia {
 	}
 
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Recorre todos los empleadores que tengan los tickets en activo. Y calcula el puntaje de todos los empleados para con ese empleador.
+	 * Una vez calculados todos los puntajes los guarda en la lista de asignacion del empleador.
+	 * Luego hace los mismo con los empleados y recorre todos los empleadores.
+	 * <b>Post: </b> Se crean las listas de asignaciones.
+	 */
 	public void rondaEncuentrosLaborales() {
 		Empleador auxEmpleador;
 		EmpleadoPretenso auxEmpleado;
@@ -399,31 +398,21 @@ public class Agencia {
 						auxEmpleador.getTicket().addUsuarioAsignacion(aux);
 					}
 				}
-
-				Collections.sort(auxEmpleador.getTicket().getListaAsignacion().getLista(), new UsuarioComparator());// Le
-																													// paso
-																													// la
-				k = auxEmpleador.getTicket().getListaAsignacion().getLista().size() - 1;
-				zonaEmpleados.actualizarPuntaje(
-						(EmpleadoPretenso) auxEmpleador.getTicket().getListaAsignacion().getLista().get(k).getUsuario(),
-						-5);
-				zonaEmpleados.actualizarPuntaje(
-						(EmpleadoPretenso) auxEmpleador.getTicket().getListaAsignacion().getLista().get(0).getUsuario(),
-						5);// lista
-				// como 1er
-				// parametor
+				Collections.sort(auxEmpleador.getTicket().getListaAsignacion().getLista(), new UsuarioComparator());																								
+				
+                k = auxEmpleador.getTicket().getListaAsignacion().getLista().size() - 1;
+				zonaEmpleados.actualizarPuntaje((EmpleadoPretenso) auxEmpleador.getTicket().getListaAsignacion().getLista().get(k).getUsuario(),-5);
+				zonaEmpleados.actualizarPuntaje((EmpleadoPretenso) auxEmpleador.getTicket().getListaAsignacion().getLista().get(0).getUsuario(),5);
 			}
 		}
 		for (int i = 0; i < empleadosPretensos.size(); i++) {
 			auxEmpleado = empleadosPretensos.get(i);
 			if (auxEmpleado.getTicket() != null && auxEmpleado.getTicket().getEstado().equalsIgnoreCase("activo")) {
 				auxEmpleado.getTicket().nuevaLista();
-				//"envejece el ticket o si ya esta vencido, lo cancela"
 				if (this.vencimientoTicket < auxEmpleado.getTicket().getRondasTranscurridas())
 					auxEmpleado.getTicket().setRondasTranscurridas(auxEmpleado.getTicket().getRondasTranscurridas()+1);
 				else
 					zonaEmpleados.cambiarEstadoTicket("cancelado",auxEmpleado);
-				
 				for (int j = 0; j < empleadores.size(); j++) {
 					auxEmpleador = empleadores.get(j);
 					if (auxEmpleador.getTicket() != null
@@ -435,16 +424,17 @@ public class Agencia {
 					}
 				}
 				Collections.sort(auxEmpleado.getTicket().getListaAsignacion().getLista(), new UsuarioComparator());
-				zonaEmpleador.actualizarPuntaje(
-						(Empleador) auxEmpleado.getTicket().getListaAsignacion().getLista().get(0).getUsuario(), 10);
+				
+                zonaEmpleador.actualizarPuntaje((Empleador) auxEmpleado.getTicket().getListaAsignacion().getLista().get(0).getUsuario(), 10);
 			}
 		}
 	}
 
 	/**
-	 * llegado el momento de contratacion, al tratar las listas ordenadas, si el
-	 * empleado eligiese 2 empresas, siempre seria contratado por la que le dio
-	 * mejor puntaje
+	 * Busca en cada ticket de cada empleador los empleados elegidos y se fija si estos que eligio, lo eligieron a el.
+	 * <b>Pre: </b> Se tiene que haber gatillado la ronda de encuentros laborales.
+	 * <b>Post: </b> Se cambian los estados de los tickets correspondientes, se calculan las comisiones, se modifican algunos puntajes.
+	 * Y se crean contratos en caso de que se elijan mutuamente.
 	 */
 	public void rondaContrataciones() {
 		TicketEmpleador ticketEmpleador;
@@ -492,6 +482,10 @@ public class Agencia {
 		}
 	}
 	
+	/**
+	 * Se fija si el empleador no fue elegido por ningun empleado pretenso.
+	 * @return true en caso de que lo haya elegido al menos una vez.
+	 */
 	private boolean checkElegido(Empleador empleador) {
 		int i = 0, j = 0;
 		boolean esta = false;
@@ -508,6 +502,12 @@ public class Agencia {
 		return esta;
 	}
 
+	/**
+	 * Elige el empleado/empleador (depende el caso) cuyo nombre de usuario en pasado por parametro.
+	 * @param nombreUsuario: nombre de usuario elegido.
+	 * @param uCliente: puede ser UEmpleadoPretenso / UEmpleador.
+	 * @throws UsuarioNoEncontradoException: en caso de que el nombre de usuario pasado por parametro no se encuentre en el sistema.
+	 */
 	public void elegirUsuario_puntaje(String nombreUsuario, UCliente uCliente) throws UsuarioNoEncontradoException {
 		Cliente cliente;
 		cliente = getCliente(uCliente);

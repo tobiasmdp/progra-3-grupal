@@ -3,12 +3,16 @@ package capaDeNegocios;
 import java.util.ArrayList;
 
 import capaDeDatos.Empleador;
-import capaDeDatos.Formulario;
 import capaDeDatos.TicketEmpleador;
 import capaDePresentacion.UEmpleador;
 import comisiones.IPersona;
 import comisiones.IRubro;
 
+
+/**
+ *<b>
+ *Clase que contiene todos los metodos de los empleadores.
+ */
 public class MetodosEmpleador {
 	private static MetodosEmpleador instance = null;
 
@@ -89,9 +93,12 @@ public class MetodosEmpleador {
 		if (empleador.getTicket().getEstado().equalsIgnoreCase("finalizado"))
 			actualizarPuntaje(empleador,50);
 }
-
 	
-
+	/**
+	 * Calcula la comision a cobrar para el empleador. Utiliza los atributos del empleador(tPersona y rubro) para calcular.
+	 * <b>Pre: </b> Se tiene que haber gatillado la ronda de contrataciones.
+	 * @param empleador: empleador a calcular la comision.
+	 */
 	public void cobraComision(Empleador empleador) {
         double modificadorcomision,remuneracion,descuento;
         IRubro rubro;
