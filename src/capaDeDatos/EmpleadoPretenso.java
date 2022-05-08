@@ -30,10 +30,15 @@ public class EmpleadoPretenso extends Cliente{
 		Agencia.getInstance().addEmpleadoPretenso(this);
 	}
 	
-	public boolean elegir(String nombreUsuario) { 
-		return this.ticket.elegir(nombreUsuario);
+	public boolean elegirUsuario_puntaje(String nombreUsuario) { 
+		return this.ticket.elegirUsuario_puntaje(nombreUsuario);
 	}
 	
+	public ListaDeAsignacion getListaDeAsignacion() {
+		ListaDeAsignacion listaDeAsignacion = null;
+		listaDeAsignacion = this.getTicket().getListaAsignacion();
+		return listaDeAsignacion;
+	}
 	
 	public String getNombre() {
 		return nombre;

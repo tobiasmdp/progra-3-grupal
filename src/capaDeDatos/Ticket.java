@@ -57,7 +57,7 @@ public abstract class Ticket {
 		return this.formulario;
 	}
 	
-	public boolean elegir(String nombreUsuario) {
+	public boolean elegirUsuario_puntaje(String nombreUsuario) {
 		boolean resultado = false;
 		for(Usuario_puntaje usuario: this.listaAsignacion.getLista()) {
 			if (nombreUsuario.equals(usuario.getUsuario().getNombreUsuario()))

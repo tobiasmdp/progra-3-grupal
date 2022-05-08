@@ -2,15 +2,14 @@ package capaDeNegocios;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.GregorianCalendar;
 
 import capaDeDatos.Administrador;
 import capaDeDatos.Cliente;
 import capaDeDatos.EmpleadoPretenso;
 import capaDeDatos.Empleador;
+import capaDeDatos.ListaDeAsignacion;
 import capaDeDatos.TicketEmpleado;
 import capaDeDatos.TicketEmpleador;
-import capaDeDatos.TiposDeUsuarios;
 import capaDePresentacion.UAdministrador;
 import capaDePresentacion.UCliente;
 import capaDePresentacion.UEmpleado;
@@ -34,9 +33,16 @@ public class Agencia {
 	private ArrayList<NodoLogeoEmpleador> logeoempleadores = new ArrayList<NodoLogeoEmpleador>();
 	private ArrayList<NodoLogeoAdministrador> logeoadministradores = new ArrayList<NodoLogeoAdministrador>();
 
+	public ListaDeAsignacion getListaDeAsignacion(UCliente uCliente) {
+		ListaDeAsignacion listaDeAsignacion;
+    	Cliente cliente;
+        cliente = getCliente(uCliente);
+        listaDeAsignacion = cliente.getListaDeAsignacion();
+		return listaDeAsignacion;
+	}
+	
 	public ArrayList<Contratacion> getContrataciones() {
 		return contrataciones;
-
 	}
 
 	private Agencia() {
@@ -50,6 +56,7 @@ public class Agencia {
 		}
 		return instance;
 	}
+	
 
 	/****** GETTERS DE ARRAYLISTS ******/
 
@@ -237,15 +244,31 @@ public class Agencia {
 	// Solicitudes Usuario
 
 	public void borrarCuenta(Usuario usuario) { // este esta raro
-		int nroarreglo = logged(usuario);
-		if (nroarreglo == 1) {
-
-		} else if (nroarreglo == 2) {
-
-		} else {
-
+		int i = 0;
+		while (i < logeoempleados.size() && !usuario.equals(logeoempleados.get(i).getUsuario()))
+			i++;
+		if (i < logeoempleados.size() && usuario.equals(logeoempleados.get(i).getUsuario())) {
+			removeEmpleadoPretenso(logeoempleados.get(i).getEmpleado());
+			removeLogeoEmpleados(logeoempleados.get(i));
 		}
-
+		else {
+			i = 0;
+			while (i < logeoempleadores.size() && !usuario.equals(logeoempleadores.get(i).getUsuario()))
+				i++;
+			if (i < logeoempleadores.size() && usuario.equals(logeoempleadores.get(i).getUsuario())) {
+				removeEmpleador(logeoempleadores.get(i).getEmpleador());
+				removeLogeoEmpleador(logeoempleadores.get(i));
+			}
+			else {
+				i = 0;
+				while (i < logeoadministradores.size() && !usuario.equals(logeoadministradores.get(i).getUsuario()))
+					i++;
+				if (i < logeoadministradores.size() && usuario.equals(logeoadministradores.get(i).getUsuario())) {
+					removeAdministrador(logeoadministradores.get(i).getAdministrador());
+					removeLogeoAdministrador(logeoadministradores.get(i));
+				}
+			}
+		}
 	}
 
 	// Solicitudes UEmpleador
@@ -256,18 +279,22 @@ public class Agencia {
 	 * @param contrasenia
 	 * @throws LoginException 
 	 */
-	public void registroEmpleador(String usuario, String contrasenia, UEmpleador uempleador) { 
-		Empleador nuevo= new Empleador(usuario,contrasenia);
+	public void registroEmpleador(String usuario, String contrasenia, UEmpleador uEmpleador) { 
+		new Empleador(usuario,contrasenia);
 		try {
-			login(usuario,contrasenia,uempleador);
-		} catch (LoginException e) {}
+			login(usuario,contrasenia,uEmpleador);
+		} catch (LoginException e) {
+			System.out.println(e.getMessage());
+		}
 	}
 
-	public void registroEmpleador(String usuario, String contrasenia, String nombre, String tPersona, String rubro, UEmpleador uempleador) {
-		Empleador nuevo= new Empleador(usuario,contrasenia,nombre,tPersona,rubro);	
+	public void registroEmpleador(String usuario, String contrasenia, String nombre, String tPersona, String rubro, UEmpleador uEmpleador) {
+		new Empleador(usuario,contrasenia,nombre,tPersona,rubro);	
 		try {
-			login(usuario,contrasenia,uempleador);
-		} catch (LoginException e) {}
+			login(usuario,contrasenia,uEmpleador);
+		} catch (LoginException e) {
+			System.out.println(e.getMessage());
+		}
 	}
 
 	public void crearTicketEmpleador(String locacion, int remuneracion, String cargaHoraria, String tipoPuesto,
@@ -276,31 +303,30 @@ public class Agencia {
 			zonaEmpleador.crearTicketEmpleador(locacion, remuneracion, cargaHoraria, tipoPuesto, rangoEtario, experienciaPrevia, estudiosCursados, cantEmpleados,pLocacion,pRemuneracion,pCargaHoraria,pTipodePuesto,pExperienciaPrevia,pRangoEtario,pEstudiosCursados, uEmpleador);
 	}
 
-	public void cambiarEstadoTicket(String estado, UCliente ucliente) {
+	public void cambiarEstadoTicket(String estado, UCliente uCliente) {
 		Cliente cliente;
-		cliente = getCliente(ucliente);
-	}
-
-	public void elegirUsuario_puntaje(Usuario_puntaje usuario, UEmpleador uEmpleador) {
-		// TODO Auto-generated method stub
-
+		cliente = getCliente(uCliente);
 	}
 
 	// Solicitud UEmpleado
 
-	public void registroEmpleado(String usuario, String contrasenia, UEmpleado uempleado){
-		EmpleadoPretenso nuevo= new EmpleadoPretenso(usuario,contrasenia);
+	public void registroEmpleado(String usuario, String contrasenia, UEmpleado uEmpleado){
+		new EmpleadoPretenso(usuario,contrasenia);
 		try {
-			login(usuario,contrasenia,uempleado);
-		} catch (LoginException e) {}
+			login(usuario,contrasenia,uEmpleado);
+		} catch (LoginException e) {
+			System.out.println(e.getMessage());
+		}
 	}
 
 	public void registroEmpleado(String usuario, String contrasenia, String nombre, String apellido, String telefono,
-			int edad,UEmpleado uempleado) {
-		EmpleadoPretenso nuevo= new EmpleadoPretenso(usuario,contrasenia,nombre,apellido,telefono,edad);
+			int edad,UEmpleado uEmpleado) {
+		new EmpleadoPretenso(usuario,contrasenia,nombre,apellido,telefono,edad);
 		try {
-			login(usuario,contrasenia,uempleado);
-		} catch (LoginException e) {}
+			login(usuario,contrasenia,uEmpleado);
+		} catch (LoginException e) {
+			System.out.println(e.getMessage());
+		}
 	}
 
 	public void crearTicketEmpleado(String locacion, int remuneracion, String cargaHoraria, String tipoPuesto,
@@ -312,18 +338,15 @@ public class Agencia {
 		zonaEmpleados.cambiarEstadoTicket(estado, uEmpleado);
 	}
 
-	public void elegirUsuario_puntaje(Usuario_puntaje usuario, UEmpleado uEmpleado) {
-		// TODO Auto-generated method stub
-
-	}
-
 	// UAdministrador
 
 	public void registroAdministrador(String usuario, String contrasenia, UAdministrador uAdministrador) {
-		Administrador nuevo= new Administrador(usuario,contrasenia);
+		new Administrador(usuario,contrasenia);
 		try {
 			login(usuario,contrasenia,uAdministrador);
-		} catch (LoginException e) {}
+		} catch (LoginException e) {
+			System.out.println(e.getMessage());
+		}
 	}
 
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -341,8 +364,8 @@ public class Agencia {
 					if(auxEmpleado.getTicket()!=null  && auxEmpleado.getTicket().getEstado().equalsIgnoreCase("activo")) {
 						puntaje = zonaEmpleador.calculoPuntajes(auxEmpleador.getTicket(),auxEmpleado.getTicket().getFormulario());
 						aux = new Usuario_puntaje(auxEmpleado, puntaje);
-						if (auxEmpleador.getTicket().getListaAsignacion()==null)
-							auxEmpleador.getTicket().nuevaLista();
+						auxEmpleador.getTicket().getListaAsignacion().getLista().clear();
+						auxEmpleador.getTicket().nuevaLista();
 						auxEmpleador.getTicket().addUsuarioAsignacion(aux);
 					}
 				}
@@ -361,8 +384,8 @@ public class Agencia {
 					if(auxEmpleador.getTicket()!=null && auxEmpleador.getTicket().getEstado().equalsIgnoreCase("activo")) {
 						puntaje = zonaEmpleados.calculoPuntajes(auxEmpleado.getTicket().getFormulario(),auxEmpleador.getTicket().getFormulario());
 						aux = new Usuario_puntaje(auxEmpleador, puntaje);
-						if (auxEmpleado.getTicket().getListaAsignacion()==null)
-							auxEmpleado.getTicket().nuevaLista();
+						auxEmpleado.getTicket().getListaAsignacion().getLista().clear();
+						auxEmpleado.getTicket().nuevaLista();
 						auxEmpleado.getTicket().addUsuarioAsignacion(aux);
 					}
 				}
@@ -378,7 +401,6 @@ public class Agencia {
 	 */
 	
 	public void rondaContrataciones() {
-		double comisionEmpleado, comisionEmpleador;
 		TicketEmpleador ticketEmpleador, ticketEmpleadorElegido;
 		TicketEmpleado ticketEmpleado;
 		ArrayList<Usuario_puntaje> eleccionEmpleador, eleccionEmpleado;
@@ -386,39 +408,42 @@ public class Agencia {
 		EmpleadoPretenso empleadoElegido;
 		for (Empleador empleador : this.empleadores) {
 			ticketEmpleador = empleador.getTicket();
-			eleccionEmpleador = ticketEmpleador.getUsuariosElegidos(); // tomo el array de empleados elegidos por el
-																		// empleado
-			Collections.sort(eleccionEmpleador, new UsuarioComparator());
-
-			for (Usuario_puntaje usuarioElegidoPorEmpleador : eleccionEmpleador) { // para cada usuario_puntaje elegido
-																					// por ese ticket de empleador
-				empleadoElegido = (EmpleadoPretenso) usuarioElegidoPorEmpleador.getUsuario();
-				ticketEmpleado = empleadoElegido.getTicket();
-				eleccionEmpleado = ticketEmpleado.getUsuariosElegidos();
-				Collections.sort(eleccionEmpleado, new UsuarioComparator());
-				
-				for (Usuario_puntaje usuarioElegidoPorEmpleado : eleccionEmpleado) { 
-					empleadorElegido = (Empleador) usuarioElegidoPorEmpleado.getUsuario();
-					ticketEmpleadorElegido = empleadorElegido.getTicket();
-					
-					
-					if (ticketEmpleador.equals(ticketEmpleadorElegido)) {//coincidio
+			if (ticketEmpleador.getEstado().equalsIgnoreCase("activo")) {
+				eleccionEmpleador = ticketEmpleador.getUsuariosElegidos(); // tomo el array de empleados elegidos por el empleador
+				Collections.sort(eleccionEmpleador, new UsuarioComparator());
+	
+				for (Usuario_puntaje usuarioElegidoPorEmpleador : eleccionEmpleador) { // para cada usuario_puntaje elegido
+																						// por ese ticket de empleador
+					empleadoElegido = (EmpleadoPretenso) usuarioElegidoPorEmpleador.getUsuario();
+					ticketEmpleado = empleadoElegido.getTicket();
+					if (ticketEmpleado.getEstado().equalsIgnoreCase("activo")) {
+						eleccionEmpleado = ticketEmpleado.getUsuariosElegidos();
+						Collections.sort(eleccionEmpleado, new UsuarioComparator());
 						
-						zonaEmpleador.actualizarPuntaje(empleador,10);
-						zonaEmpleados.actualizarPuntaje(empleadoElegido,10);
-						zonaEmpleador.cobraComision(empleador);
-						zonaEmpleados.cobraComision(empleadoElegido);
-
-						this.contrataciones.add(new Contratacion(empleadoElegido, empleador));
-
-						ticketEmpleador.setCantempleadosobtenidos(ticketEmpleador.getCantempleadosbuscados() + 1);
-						if (ticketEmpleador.getCantempleadosbuscados() == ticketEmpleador.getCantempleadosobtenidos()) {
-							ticketEmpleador.setEstado("finalizado");
+						for (Usuario_puntaje usuarioElegidoPorEmpleado : eleccionEmpleado) { 
+							empleadorElegido = (Empleador) usuarioElegidoPorEmpleado.getUsuario();
+							ticketEmpleadorElegido = empleadorElegido.getTicket();
+							
+							
+							if (ticketEmpleador.equals(ticketEmpleadorElegido)) {//coincidio
+								
+								zonaEmpleador.actualizarPuntaje(empleador,10);
+								zonaEmpleados.actualizarPuntaje(empleadoElegido,10);
+								zonaEmpleador.cobraComision(empleador);
+								zonaEmpleados.cobraComision(empleadoElegido);
+		
+								this.contrataciones.add(new Contratacion(empleadoElegido, empleador));
+		
+								ticketEmpleador.setCantempleadosobtenidos(ticketEmpleador.getCantempleadosbuscados() + 1);
+								if (ticketEmpleador.getCantempleadosbuscados() == ticketEmpleador.getCantempleadosobtenidos()) {
+									ticketEmpleador.setEstado("finalizado");
+								}
+								ticketEmpleado.setEstado("finalizado");
+		
+								// dar de baja "ticketEmpleador"
+								// dar de baja "ticketEmpleado"
+							}
 						}
-						ticketEmpleado.setEstado("finalizado");
-
-						// dar de baja "ticketEmpleador"
-						// dar de baja "ticketEmpleado"
 					}
 				}
 			}
@@ -426,28 +451,31 @@ public class Agencia {
 	}
 
 
-    public void elegir(String nombreUsuario, UCliente uCliente) { 
+    public boolean elegirUsuario_puntaje(String nombreUsuario, UCliente uCliente) { 
+    	boolean resultado;
     	Cliente cliente;
         cliente = getCliente(uCliente);
-    	boolean aux=cliente.elegir(nombreUsuario);
+    	resultado = cliente.elegirUsuario_puntaje(nombreUsuario);
+    	return resultado;
     }
     
-    private Cliente getCliente(UCliente usuario) { //devuelve el tipo de usuario (EMPLEADO / EMPLEADOR )
+    private Cliente getCliente(UCliente usuario) { //retorna cliente correspondiente a usuario
         int i = 0;
-        Cliente retorno=null;
+        Cliente cliente=null;
         while (i < logeoempleados.size() && !usuario.equals(logeoempleados.get(i).getUsuario()))
             i++;
         if (usuario.equals(logeoempleados.get(i).getUsuario()))
-            retorno = logeoempleados.get(i).getEmpleado();
+            cliente = logeoempleados.get(i).getEmpleado();
         else {
             i = 0;
             while (i < logeoempleadores.size() && !usuario.equals(logeoempleadores.get(i).getUsuario()))
                 i++;
             if (usuario.equals(logeoempleadores.get(i).getUsuario()))
-                retorno = logeoempleadores.get(i).getEmpleador();
+                cliente = logeoempleadores.get(i).getEmpleador();
         }
-        return retorno;
+        return cliente;
     }
+    
 	public int getV1() {
 		return this.V1;
 	}

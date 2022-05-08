@@ -1,8 +1,5 @@
 package prueba;
 
-
-
-
 import capaDeNegocios.Agencia;
 import capaDePresentacion.UAdministrador;
 import capaDePresentacion.UEmpleado;
@@ -47,21 +44,10 @@ public class Prueba {
 		admin1.rondaEncuentrosLaborales();
 		
 		empleado1.elegirUsuario_puntaje("Usuario3");
-		
-	/*
-		
-		
-		empleador3.mostrarLista();
-		empleador1.mostrarLista();
-		empleador2.mostrarLista();
-		
-		empleado1.mostrarLista();
-		empleado2.mostrarLista();
-		empleado3.mostrarLista();
-
-		*/
-		Agencia.getInstance().Mostrararreglodebug(Agencia.getInstance().getEmpleadosPretensos());
-		Agencia.getInstance().Mostrararreglodebug2(Agencia.getInstance().getEmpleadores());
+		empleado1.mostrarListaAsignaciones();
+	
+		//Agencia.getInstance().Mostrararreglodebug(Agencia.getInstance().getEmpleadosPretensos());
+		//Agencia.getInstance().Mostrararreglodebug2(Agencia.getInstance().getEmpleadores());
 	
 	}
 

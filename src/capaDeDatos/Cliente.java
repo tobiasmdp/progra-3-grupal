@@ -7,6 +7,7 @@ public abstract class Cliente extends TiposDeUsuarios{
 		// TODO Auto-generated constructor stub
 	}
 	
-	public abstract boolean elegir(String nombreUsuario);
+	public abstract boolean elegirUsuario_puntaje(String nombreUsuario);
 
+	public abstract ListaDeAsignacion getListaDeAsignacion();
 }
