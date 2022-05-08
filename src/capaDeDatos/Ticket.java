@@ -23,7 +23,7 @@ public abstract class Ticket {
 	protected ArrayList<Usuario_puntaje> usuariosElegidos = new ArrayList<Usuario_puntaje>();
 	protected int rondasTranscurridas;
 	
-	/**
+	/**        
 	 *<b>Pos:</b> 
 	 * @param fecha en el constructor cada vez que se genera un  nuevo ticket, en el parametro fecha, crear siempre un nuevo objeto de Gregorian Calenadar
 	 * @param estado a la hora de crear el ticket, el estado esta en activo por defecto.
@@ -37,6 +37,14 @@ public abstract class Ticket {
 		this.rondasTranscurridas = 0;
 	}
 	
+	public void setRondasTranscurridas(int rondasTranscurridas) {
+		this.rondasTranscurridas = rondasTranscurridas;
+	}
+
+	public int getRondasTranscurridas() {
+		return rondasTranscurridas;
+	}
+
 	public String getEstado() {
 		return estado;
 	}

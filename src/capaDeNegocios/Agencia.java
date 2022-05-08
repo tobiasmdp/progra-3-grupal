@@ -27,6 +27,7 @@ public class Agencia {
 	private ArrayList<Empleador> empleadores = new ArrayList<Empleador>();
 	private ArrayList<Administrador> administradores = new ArrayList<Administrador>();
 	private int V1 = 50000, V2 = 150000;
+	private int vencimientoTicket;
 	private ArrayList<Contratacion> contrataciones = new ArrayList<Contratacion>();
 	private MetodosEmpleado zonaEmpleados;
 	private MetodosEmpleador zonaEmpleador;
@@ -319,7 +320,8 @@ public class Agencia {
 	}
 
 	public void cambiarEstadoTicket(String estado, UEmpleador uEmpleador) {
-		zonaEmpleador.cambiarEstadoTicket(estado, uEmpleador);
+		if (!estado.equalsIgnoreCase("cancelado"))
+			zonaEmpleador.cambiarEstadoTicket(estado, uEmpleador);
 	}
 
 	public void cambiarEstadoTicket(String estado, Empleador empleador) {
@@ -356,7 +358,8 @@ public class Agencia {
 	}
 
 	public void cambiarEstadoTicket(String estado, UEmpleado uEmpleado) {
-		zonaEmpleados.cambiarEstadoTicket(estado, uEmpleado);
+		if (!estado.equalsIgnoreCase("cancelado"))
+			zonaEmpleados.cambiarEstadoTicket(estado, uEmpleado);
 	}
 
 	public void cambiarEstadoTicket(String estado, EmpleadoPretenso empleado) {
@@ -415,6 +418,12 @@ public class Agencia {
 			auxEmpleado = empleadosPretensos.get(i);
 			if (auxEmpleado.getTicket() != null && auxEmpleado.getTicket().getEstado().equalsIgnoreCase("activo")) {
 				auxEmpleado.getTicket().nuevaLista();
+				//"envejece el ticket o si ya esta vencido, lo cancela"
+				if (this.vencimientoTicket < auxEmpleado.getTicket().getRondasTranscurridas())
+					auxEmpleado.getTicket().setRondasTranscurridas(auxEmpleado.getTicket().getRondasTranscurridas()+1);
+				else
+					zonaEmpleados.cambiarEstadoTicket("cancelado",auxEmpleado);
+				
 				for (int j = 0; j < empleadores.size(); j++) {
 					auxEmpleador = empleadores.get(j);
 					if (auxEmpleador.getTicket() != null
@@ -428,7 +437,6 @@ public class Agencia {
 				Collections.sort(auxEmpleado.getTicket().getListaAsignacion().getLista(), new UsuarioComparator());
 				zonaEmpleador.actualizarPuntaje(
 						(Empleador) auxEmpleado.getTicket().getListaAsignacion().getLista().get(0).getUsuario(), 10);
-
 			}
 		}
 	}
@@ -522,6 +530,15 @@ public class Agencia {
 		}
 		return cliente;
 	}
+	
+	public void limpiarTickets() {
+		for (Empleador empleador : this.empleadores) 
+			if (empleador.getTicket().getEstado().equals("cancelado") || empleador.getTicket().getEstado().equals("finalizado"))
+					empleador.setTicket(null);
+		for (EmpleadoPretenso empleado : this.empleadosPretensos) 
+			if (empleado.getTicket().getEstado().equals("cancelado") || empleado.getTicket().getEstado().equals("finalizado"))
+					empleado.setTicket(null);		
+	}
 
 	public int getV1() {
 		return this.V1;
@@ -539,15 +556,14 @@ public class Agencia {
 		V2 = v2;
 	}
 
-	public void Mostrararreglodebug(ArrayList<EmpleadoPretenso> empleadosPretensos) {
-		for (EmpleadoPretenso elemento : empleadosPretensos)
-			System.out.println(elemento);
+	public int getVencimientoTicket() {
+		return vencimientoTicket;
 	}
 
-	public void Mostrararreglodebug2(ArrayList<Empleador> empleadores) {
-		for (Empleador elemento : empleadores)
-			System.out.println(elemento);
+	public void setVencimientoTicket(int vencimientoTicket) {
+		this.vencimientoTicket = vencimientoTicket;
 	}
-	
+
+
 	
 }

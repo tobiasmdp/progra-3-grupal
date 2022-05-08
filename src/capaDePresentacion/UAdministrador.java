@@ -1,5 +1,7 @@
 package capaDePresentacion;
 
+import capaDeDatos.EmpleadoPretenso;
+import capaDeDatos.Empleador;
 import capaDeNegocios.Agencia;
 
 public class UAdministrador extends Usuario {
@@ -23,5 +25,23 @@ public class UAdministrador extends Usuario {
 	public void rondaContrataciones() {
 		Agencia.getInstance().rondaContrataciones();
 	}
+	
+	public void setVencimientoTicket(int valor){
+		Agencia.getInstance().setVencimientoTicket(valor);
+	}
+	
+	public void limpiarTickets() {
+		Agencia.getInstance().limpiarTickets();
+	}
 
+	public void mostrarEmpleados() {
+		for (EmpleadoPretenso empleado : Agencia.getInstance().getEmpleadosPretensos())
+			System.out.println(empleado);
+	}
+	
+	public void mostrarEmpleadores() {
+		for (Empleador empleador : Agencia.getInstance().getEmpleadores())
+			System.out.println(empleador);
+	}
+	
 }
