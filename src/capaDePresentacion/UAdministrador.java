@@ -19,10 +19,10 @@ public class UAdministrador extends Usuario{
 	public void rondaEncuentrosLaborales(){
 		Agencia.getInstance().rondaEncuentrosLaborales();
 	}
-	/*
+	
 	public void rondaContrataciones(){
 		Agencia.getInstance().rondaContrataciones();
 	}
-	*/
+	
 	
 }

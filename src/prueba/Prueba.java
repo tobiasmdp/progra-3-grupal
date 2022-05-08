@@ -38,14 +38,31 @@ public class Prueba {
 		UEmpleador empleador3= new UEmpleador();
 		empleador3.registrarse("Usuario6","Contraseña6","Nombre6","Juridica","Salud");
 		empleador3.crearTicket("Indistinto", 120000, "CargaMedia", "senior", 25, "ExperienciaMedia", "secundario",2,4,6,8,10,12,14,16);
+		empleador3.logout();
+		empleador3.login("Usuario7","Contraseña6");
+		empleador3.borrarCuenta();
 		
 		UAdministrador admin1= new UAdministrador("Mikel","Contra");
 		admin1.setV1(15000);
 		admin1.rondaEncuentrosLaborales();
 		
-		empleado1.elegirUsuario_puntaje("Usuario3");
 		empleado1.mostrarListaAsignaciones();
-	
+		empleado2.mostrarListaAsignaciones();
+		
+		
+
+		empleado1.elegirUsuario_puntaje("Usuario5");
+		empleado1.elegirUsuario_puntaje("Usuario4");
+		empleado2.elegirUsuario_puntaje("Usuario6");
+		
+		empleador1.elegirUsuario_puntaje("Usuario1");
+		empleador2.elegirUsuario_puntaje("Usuario3");
+		empleador2.elegirUsuario_puntaje("Usuario2");
+		
+		admin1.rondaContrataciones();
+		admin1.mostrarListaContrataciones();
+		empleado1.mostrarListaContrataciones();
+		empleador1.mostrarListaContrataciones();
 		//Agencia.getInstance().Mostrararreglodebug(Agencia.getInstance().getEmpleadosPretensos());
 		//Agencia.getInstance().Mostrararreglodebug2(Agencia.getInstance().getEmpleadores());
 	

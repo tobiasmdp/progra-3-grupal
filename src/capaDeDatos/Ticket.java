@@ -6,6 +6,7 @@ import java.util.GregorianCalendar;
 
 import capaDeNegocios.Formulario;
 import capaDeNegocios.Usuario_puntaje;
+import excepciones.UsuarioNoEncontradoException;
 /**
  * @author mikel
  * la clase ticket es abstracta y es para generar los tickets de empleados y empleadores
@@ -18,7 +19,7 @@ public abstract class Ticket {
 	private Calendar fecha;
 	private String estado= "Activo";
 	protected Formulario formulario;
-	protected ListaDeAsignacion listaAsignacion=null; //permito que se pueda elegir varios tickets en empleado tmb, luego se limita desde su ticket
+	protected ListaDeAsignacion listaAsignacion; //permito que se pueda elegir varios tickets en empleado tmb, luego se limita desde su ticket
 	protected ArrayList<Usuario_puntaje> usuariosElegidos = new ArrayList<Usuario_puntaje>();
 	
 	/**
@@ -57,14 +58,16 @@ public abstract class Ticket {
 		return this.formulario;
 	}
 	
-	public boolean elegirUsuario_puntaje(String nombreUsuario) {
-		boolean resultado = false;
-		for(Usuario_puntaje usuario: this.listaAsignacion.getLista()) {
-			if (nombreUsuario.equals(usuario.getUsuario().getNombreUsuario()))
-				this.usuariosElegidos.add(usuario);
-				resultado = true;
+	public void elegirUsuario_puntaje(String nombreUsuario) throws UsuarioNoEncontradoException{
+		int i=0;
+		while(i<listaAsignacion.getLista().size() && !listaAsignacion.getLista().get(i).getUsuario().getNombreUsuario().equals(nombreUsuario)) {
+			i++;
 		}
-		return resultado;
+		if(i==listaAsignacion.getLista().size())
+			throw new UsuarioNoEncontradoException("El usuario no se encuentra en la lista de asignacion");
+		else
+			this.usuariosElegidos.add(listaAsignacion.getLista().get(i));
+		
 	}
 	
 	public ArrayList<Usuario_puntaje> getUsuariosElegidos() {

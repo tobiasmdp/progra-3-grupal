@@ -6,6 +6,7 @@ import comisiones.FactoryPersona;
 import comisiones.FactoryRubro;
 import comisiones.IPersona;
 import comisiones.IRubro;
+import excepciones.UsuarioNoEncontradoException;
 
 /**
  * @author mikel
@@ -21,20 +22,18 @@ public class Empleador extends Cliente {
 	
 	public Empleador(String nombreUsuario,String contra) {
 		super(nombreUsuario,contra);
-		Agencia.getInstance().addEmpleador(this);
 	}
 	
 	
 	public Empleador(String nombreUsuario,String contra,String nombre, String tPersona, String rubro) {
 		super(nombreUsuario,contra);
-		Agencia.getInstance().addEmpleador(this);
 		this.nombre = nombre;
 		this.tPersona = FactoryPersona.getPersona(tPersona);
 		this.rubro = FactoryRubro.getRubro(rubro);
 	}
 	
-	public boolean elegirUsuario_puntaje(String nombreUsuario) { 
-		return this.ticket.elegirUsuario_puntaje(nombreUsuario);
+	public void elegirUsuario_puntaje(String nombreUsuario) throws UsuarioNoEncontradoException{ 
+		 this.ticket.elegirUsuario_puntaje(nombreUsuario);
 	}
 	
 	public ListaDeAsignacion getListaDeAsignacion() {

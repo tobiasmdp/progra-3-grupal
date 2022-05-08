@@ -6,9 +6,17 @@ import java.util.Calendar;
 import capaDeNegocios.Usuario_puntaje;
 
 public class ListaDeAsignacion {
-	private ArrayList<Usuario_puntaje> listaAsignacion = new ArrayList<Usuario_puntaje>();
-	private Calendar fecha = Calendar.getInstance();
+	private ArrayList<Usuario_puntaje> listaAsignacion;
+	private Calendar fecha ;
 	
+	
+	
+	public ListaDeAsignacion() {
+		super();
+		this.listaAsignacion = new ArrayList<Usuario_puntaje>();
+		this.fecha = Calendar.getInstance();
+	}
+
 	
 	public Calendar getFecha() {
 		return fecha;

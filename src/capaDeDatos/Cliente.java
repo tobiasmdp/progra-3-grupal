@@ -1,5 +1,7 @@
 package capaDeDatos;
 
+import excepciones.UsuarioNoEncontradoException;
+
 public abstract class Cliente extends TiposDeUsuarios{
 
 	protected Cliente(String nombreUsuario, String password) {
@@ -7,7 +9,7 @@ public abstract class Cliente extends TiposDeUsuarios{
 		// TODO Auto-generated constructor stub
 	}
 	
-	public abstract boolean elegirUsuario_puntaje(String nombreUsuario);
+	public abstract void elegirUsuario_puntaje(String nombreUsuario) throws UsuarioNoEncontradoException;
 
 	public abstract ListaDeAsignacion getListaDeAsignacion();
 }

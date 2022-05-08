@@ -18,6 +18,7 @@ import capaDePresentacion.Usuario;
 import excepciones.ContraException;
 import excepciones.LoginException;
 import excepciones.NombreUsuarioException;
+import excepciones.UsuarioNoEncontradoException;
 
 public class Agencia {
 
@@ -162,10 +163,10 @@ public class Agencia {
 					throw new ContraException("la contraseña ingresada no es la correcta", contra);
 			else {
 				i = 0;
-				while (i < administradores.size() && (administradores.get(i).getNombreUsuario().equals(nombreUsuario)))
+				while (i < administradores.size() && !(administradores.get(i).getNombreUsuario().equals(nombreUsuario)))
 					i++;
 				if (i < administradores.size() && administradores.get(i).getNombreUsuario().equals(nombreUsuario)) // agrego a logeado
-					if (empleadores.get(i).getPassword().equals(contra)) {
+					if (administradores.get(i).getPassword().equals(contra)) {
 						addLogeoAdministrador(new NodoLogeoAdministrador(usuario, administradores.get(i)));
 						System.out.println("sesion iniciada correctamente");
 					} else
@@ -243,7 +244,7 @@ public class Agencia {
 
 	// Solicitudes Usuario
 
-	public void borrarCuenta(Usuario usuario) { // este esta raro
+	public void borrarCuenta(Usuario usuario) { 
 		int i = 0;
 		while (i < logeoempleados.size() && !usuario.equals(logeoempleados.get(i).getUsuario()))
 			i++;
@@ -280,7 +281,8 @@ public class Agencia {
 	 * @throws LoginException 
 	 */
 	public void registroEmpleador(String usuario, String contrasenia, UEmpleador uEmpleador) { 
-		new Empleador(usuario,contrasenia);
+		Empleador aux=new Empleador(usuario,contrasenia);
+		addEmpleador(aux);
 		try {
 			login(usuario,contrasenia,uEmpleador);
 		} catch (LoginException e) {
@@ -289,7 +291,8 @@ public class Agencia {
 	}
 
 	public void registroEmpleador(String usuario, String contrasenia, String nombre, String tPersona, String rubro, UEmpleador uEmpleador) {
-		new Empleador(usuario,contrasenia,nombre,tPersona,rubro);	
+		Empleador aux=new Empleador(usuario,contrasenia,nombre,tPersona,rubro);
+		addEmpleador(aux);
 		try {
 			login(usuario,contrasenia,uEmpleador);
 		} catch (LoginException e) {
@@ -311,7 +314,8 @@ public class Agencia {
 	// Solicitud UEmpleado
 
 	public void registroEmpleado(String usuario, String contrasenia, UEmpleado uEmpleado){
-		new EmpleadoPretenso(usuario,contrasenia);
+		EmpleadoPretenso aux =new EmpleadoPretenso(usuario,contrasenia);
+		addEmpleadoPretenso(aux);
 		try {
 			login(usuario,contrasenia,uEmpleado);
 		} catch (LoginException e) {
@@ -321,7 +325,8 @@ public class Agencia {
 
 	public void registroEmpleado(String usuario, String contrasenia, String nombre, String apellido, String telefono,
 			int edad,UEmpleado uEmpleado) {
-		new EmpleadoPretenso(usuario,contrasenia,nombre,apellido,telefono,edad);
+		EmpleadoPretenso aux=new EmpleadoPretenso(usuario,contrasenia,nombre,apellido,telefono,edad);
+		addEmpleadoPretenso(aux);
 		try {
 			login(usuario,contrasenia,uEmpleado);
 		} catch (LoginException e) {
@@ -341,7 +346,8 @@ public class Agencia {
 	// UAdministrador
 
 	public void registroAdministrador(String usuario, String contrasenia, UAdministrador uAdministrador) {
-		new Administrador(usuario,contrasenia);
+		Administrador aux=new Administrador(usuario,contrasenia);
+		addAdministrador(aux);
 		try {
 			login(usuario,contrasenia,uAdministrador);
 		} catch (LoginException e) {
@@ -358,14 +364,12 @@ public class Agencia {
 		for (int i = 0; i < empleadores.size(); i++) {
 			auxEmpleador = empleadores.get(i);
 			if(auxEmpleador.getTicket()!=null && auxEmpleador.getTicket().getEstado().equalsIgnoreCase("activo")) {
-	
+				auxEmpleador.getTicket().nuevaLista();
 				for (int j = 0; j < empleadosPretensos.size(); j++) {
 					auxEmpleado = empleadosPretensos.get(j);
 					if(auxEmpleado.getTicket()!=null  && auxEmpleado.getTicket().getEstado().equalsIgnoreCase("activo")) {
 						puntaje = zonaEmpleador.calculoPuntajes(auxEmpleador.getTicket(),auxEmpleado.getTicket().getFormulario());
 						aux = new Usuario_puntaje(auxEmpleado, puntaje);
-						auxEmpleador.getTicket().getListaAsignacion().getLista().clear();
-						auxEmpleador.getTicket().nuevaLista();
 						auxEmpleador.getTicket().addUsuarioAsignacion(aux);
 					}
 				}
@@ -379,13 +383,12 @@ public class Agencia {
 		for (int i = 0; i < empleadosPretensos.size(); i++) {
 			auxEmpleado = empleadosPretensos.get(i);
 			if(auxEmpleado.getTicket()!=null && auxEmpleado.getTicket().getEstado().equalsIgnoreCase("activo")) {
+				auxEmpleado.getTicket().nuevaLista();
 				for (int j = 0; j < empleadores.size(); j++) {
 					auxEmpleador = empleadores.get(j);
 					if(auxEmpleador.getTicket()!=null && auxEmpleador.getTicket().getEstado().equalsIgnoreCase("activo")) {
 						puntaje = zonaEmpleados.calculoPuntajes(auxEmpleado.getTicket().getFormulario(),auxEmpleador.getTicket().getFormulario());
 						aux = new Usuario_puntaje(auxEmpleador, puntaje);
-						auxEmpleado.getTicket().getListaAsignacion().getLista().clear();
-						auxEmpleado.getTicket().nuevaLista();
 						auxEmpleado.getTicket().addUsuarioAsignacion(aux);
 					}
 				}
@@ -451,12 +454,10 @@ public class Agencia {
 	}
 
 
-    public boolean elegirUsuario_puntaje(String nombreUsuario, UCliente uCliente) { 
-    	boolean resultado;
+    public void elegirUsuario_puntaje(String nombreUsuario, UCliente uCliente) throws UsuarioNoEncontradoException{ 
     	Cliente cliente;
         cliente = getCliente(uCliente);
-    	resultado = cliente.elegirUsuario_puntaje(nombreUsuario);
-    	return resultado;
+    	cliente.elegirUsuario_puntaje(nombreUsuario);
     }
     
     private Cliente getCliente(UCliente usuario) { //retorna cliente correspondiente a usuario
@@ -464,13 +465,13 @@ public class Agencia {
         Cliente cliente=null;
         while (i < logeoempleados.size() && !usuario.equals(logeoempleados.get(i).getUsuario()))
             i++;
-        if (usuario.equals(logeoempleados.get(i).getUsuario()))
+        if (i < logeoempleados.size() && usuario.equals(logeoempleados.get(i).getUsuario()))
             cliente = logeoempleados.get(i).getEmpleado();
         else {
             i = 0;
             while (i < logeoempleadores.size() && !usuario.equals(logeoempleadores.get(i).getUsuario()))
                 i++;
-            if (usuario.equals(logeoempleadores.get(i).getUsuario()))
+            if (i < logeoempleadores.size() && usuario.equals(logeoempleadores.get(i).getUsuario()))
                 cliente = logeoempleadores.get(i).getEmpleador();
         }
         return cliente;
