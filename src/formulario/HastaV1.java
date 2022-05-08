@@ -1,7 +1,5 @@
 package formulario;
 
-import capaDeNegocios.Agencia;
-
 public class HastaV1 implements Remuneracion {
 	
 	public double compara(Remuneracion otracaract) {
@@ -18,7 +16,7 @@ public class HastaV1 implements Remuneracion {
 	}
 	@Override
 	public String toString() {
-		return "Menos de "+ Agencia.getInstance().getV1()+"      ";
+		return "Hasta V1 ";
 	}
 	
 }

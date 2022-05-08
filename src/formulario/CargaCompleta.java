@@ -21,7 +21,7 @@ public class CargaCompleta implements CargaHoraria{
 
 	@Override
 	public String toString() {
-		return "Completa ";
+		return "Carga Completa";
 	}
 
 	

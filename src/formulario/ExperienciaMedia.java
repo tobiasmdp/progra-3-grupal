@@ -20,7 +20,7 @@ public class ExperienciaMedia implements ExperienciaPrevia{
 
 	@Override
 	public String toString() {
-		return "Media";
+		return "Experiencia Media";
 	}
     
 

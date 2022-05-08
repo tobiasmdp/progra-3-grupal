@@ -6,7 +6,6 @@ public class ExperienciaNada implements ExperienciaPrevia{
 		return otracaract.comparaNada();
 	}
 
-
 	public double comparaNada() {
 		return 1;
 	}
@@ -21,7 +20,7 @@ public class ExperienciaNada implements ExperienciaPrevia{
 
 	@Override
 	public String toString() {
-		return "Nada ";
+		return "Nada de experiencia";
 	}
     
 

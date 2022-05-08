@@ -15,7 +15,7 @@ public class Indistinto implements Locacion{
 	}
 	@Override
 	public String toString() {
-		return "Indistinto ";
+		return "Indistinto";
 	}
 	
 }

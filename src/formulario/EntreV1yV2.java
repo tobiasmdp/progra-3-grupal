@@ -1,7 +1,5 @@
 package formulario;
 
-import capaDeNegocios.Agencia;
-
 public class EntreV1yV2 implements Remuneracion{
 	
 	public double compara(Remuneracion otracaract) {
@@ -18,7 +16,7 @@ public class EntreV1yV2 implements Remuneracion{
 	}
 	@Override
 	public String toString() {
-		return "Entre "+  Agencia.getInstance().getV1() + " y " +Agencia.getInstance().getV2();
+		return "Entre V1 Y V2";
 	}
 	
 }

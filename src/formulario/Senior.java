@@ -23,9 +23,4 @@ public class Senior  implements TipodePuesto{
 		public String toString() {
 			return "Senior";
 		}
-
-		@Override
-		public double calculaComision() {
-			return 0.9;
-		}
 }
