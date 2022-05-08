@@ -1,7 +1,7 @@
 package formulario;
 
 public abstract class FactoryRangoEtario {
-	public static RangoEtario getRangoEtario(int tipo) {
+	public static RangoEtario getRangoEtario(double tipo) {
 		RangoEtario respuesta=null;
 		if(tipo<40)
 			respuesta = new Menosde40();

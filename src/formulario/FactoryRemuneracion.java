@@ -3,7 +3,7 @@ package formulario;
 import capaDeNegocios.Agencia;
 
 public class FactoryRemuneracion {
-	public static Remuneracion getRemuneracion(int tipo) {
+	public static Remuneracion getRemuneracion(double tipo) {
 		Remuneracion respuesta = null;
 		if (tipo<=Agencia.getInstance().getV1()) 
 			respuesta = new HastaV1();

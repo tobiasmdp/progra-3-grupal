@@ -1,7 +1,6 @@
 package capaDeNegocios;
 
 import capaDeDatos.Empleador;
-import capaDeDatos.TiposDeUsuarios;
 import capaDePresentacion.Usuario;
 
 

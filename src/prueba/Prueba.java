@@ -2,7 +2,6 @@ package prueba;
 
 
 
-import java.util.GregorianCalendar;
 
 import capaDeNegocios.Agencia;
 import capaDePresentacion.UAdministrador;
@@ -46,6 +45,8 @@ public class Prueba {
 		UAdministrador admin1= new UAdministrador("Mikel","Contra");
 		admin1.setV1(15000);
 		admin1.rondaEncuentrosLaborales();
+		
+		empleado1.elegirUsuario_puntaje("Usuario3");
 		
 	/*
 		

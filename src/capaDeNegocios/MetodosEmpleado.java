@@ -4,11 +4,8 @@ import java.util.ArrayList;
 import java.util.GregorianCalendar;
 
 import capaDeDatos.EmpleadoPretenso;
-import capaDeDatos.Empleador;
 import capaDeDatos.TicketEmpleado;
 import capaDePresentacion.UEmpleado;
-import comisiones.IPersona;
-import comisiones.IRubro;
 import formulario.TipodePuesto;
 
 public class MetodosEmpleado {
@@ -51,8 +48,8 @@ public class MetodosEmpleado {
 		Usuario_puntaje auxUsuario;
 		System.out.println(
 				"Puesto   Puntaje     Empleado       Apellido         Edad         Locacion          Remuneracion               Carga horaria      Tipo de puesto        Experiencia previa    Rango etario        Estudios cursados");
-		for (i = 0; i < empleado.getTicket().getEmpleadoresmatcheados().size(); i++) {
-			auxUsuario = empleado.getTicket().getEmpleadoresmatcheados().get(i);
+		for (i = 0; i < empleado.getTicket().getListaAsignacion().getLista().size(); i++) {
+			auxUsuario = empleado.getTicket().getListaAsignacion().getLista().get(i);
 			System.out.println((i + 1) + ":" + auxUsuario);
 		}
 	}
@@ -104,16 +101,5 @@ public class MetodosEmpleado {
 		
 	}
 	
-	public void elegir(String nombreUsuarioElegido,Empleado elector) {
-        int i = 0;
-        Empleador e;
-
-        do {
-            e = empleadores.index(i++); //acceso a ese indice devuelve empleados
-        }while(i<e.size() && !(nombreUsuarioElegido.equals(e.getNombre())))
-
-        if(i<e.size()) //lo encontre
-            elector.getTicket.usuariosElegidos.add(e);
-    }
 
 }

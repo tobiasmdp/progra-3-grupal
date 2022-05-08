@@ -11,7 +11,7 @@ import comisiones.IRubro;
  * @author mikel
  * los constructores de esta clase ya agregan a los arraylist de empleador de la agencia
  */
-public class Empleador extends TiposDeUsuarios {
+public class Empleador extends Cliente {
 	private String nombre;
 	private IPersona tPersona;
 	private IRubro rubro;
@@ -31,12 +31,12 @@ public class Empleador extends TiposDeUsuarios {
 		this.nombre = nombre;
 		this.tPersona = FactoryPersona.getPersona(tPersona);
 		this.rubro = FactoryRubro.getRubro(rubro);
-		
-		
 	}
 	
+	public boolean elegir(String nombreUsuario) { 
+		return this.ticket.elegir(nombreUsuario);
+	}
 	
-
 	/*public Empleador registro(String nombreUsuario,String contra,String nombre, IPersona tPersona, IRubro rubro) {//En el caso de validar el logeo
 		return new Empleador(nombreUsuario,contra,nombre,tPersona,rubro);
 	}
@@ -50,7 +50,6 @@ public class Empleador extends TiposDeUsuarios {
 		this.ticket = ticket;
 	}
 
-
 	public String getNombre() {
 		return nombre;
 	}
@@ -58,6 +57,7 @@ public class Empleador extends TiposDeUsuarios {
 	public IPersona gettPersona() {
 		return tPersona;
 	}
+	
 	public IRubro getRubro() {
 		return rubro;
 	}

@@ -5,12 +5,14 @@ import java.util.Collections;
 import java.util.GregorianCalendar;
 
 import capaDeDatos.Administrador;
+import capaDeDatos.Cliente;
 import capaDeDatos.EmpleadoPretenso;
 import capaDeDatos.Empleador;
 import capaDeDatos.TicketEmpleado;
 import capaDeDatos.TicketEmpleador;
 import capaDeDatos.TiposDeUsuarios;
 import capaDePresentacion.UAdministrador;
+import capaDePresentacion.UCliente;
 import capaDePresentacion.UEmpleado;
 import capaDePresentacion.UEmpleador;
 import capaDePresentacion.Usuario;
@@ -274,8 +276,9 @@ public class Agencia {
 			zonaEmpleador.crearTicketEmpleador(locacion, remuneracion, cargaHoraria, tipoPuesto, rangoEtario, experienciaPrevia, estudiosCursados, cantEmpleados,pLocacion,pRemuneracion,pCargaHoraria,pTipodePuesto,pExperienciaPrevia,pRangoEtario,pEstudiosCursados, uEmpleador);
 	}
 
-	public void cambiarEstadoTicket(String estado, UEmpleador uEmpleador) {
-		zonaEmpleador.cambiarEstadoTicket(estado, uEmpleador);
+	public void cambiarEstadoTicket(String estado, UCliente ucliente) {
+		Cliente cliente;
+		cliente = getCliente(ucliente);
 	}
 
 	public void elegirUsuario_puntaje(Usuario_puntaje usuario, UEmpleador uEmpleador) {
@@ -374,7 +377,7 @@ public class Agencia {
 	 * mejor puntaje
 	 */
 	
-	/*public void rondaContrataciones() {
+	public void rondaContrataciones() {
 		double comisionEmpleado, comisionEmpleador;
 		TicketEmpleador ticketEmpleador, ticketEmpleadorElegido;
 		TicketEmpleado ticketEmpleado;
@@ -405,18 +408,15 @@ public class Agencia {
 						zonaEmpleados.actualizarPuntaje(empleadoElegido,10);
 						zonaEmpleador.cobraComision(empleador);
 						zonaEmpleados.cobraComision(empleadoElegido);
-						
-						comisionEmpleado = 1;// calcular comision empleador
-						comisionEmpleador = 1;// calcular comision empleado
 
-						this.contrataciones.add(new Contratacion(empleadoElegido, empleador, comisionEmpleado, comisionEmpleador));
+						this.contrataciones.add(new Contratacion(empleadoElegido, empleador));
 
 						ticketEmpleador.setCantempleadosobtenidos(ticketEmpleador.getCantempleadosbuscados() + 1);
 						if (ticketEmpleador.getCantempleadosbuscados() == ticketEmpleador.getCantempleadosobtenidos()) {
 							ticketEmpleador.setEstado("finalizado");
 						}
 						ticketEmpleado.setEstado("finalizado");
-						//ticketEmpleado.setResultado(0); hay que poner un exito o fracaso?
+
 						// dar de baja "ticketEmpleador"
 						// dar de baja "ticketEmpleado"
 					}
@@ -425,21 +425,16 @@ public class Agencia {
 		}
 	}
 
-	*/
-	
-	public void elegir(String nombreUsuario,UEmpleador usuario) { 
-        tiposDeUsuarios elector = obtenerTiposDeUsuarios(usuario);//pasar de UEmpleador a empleador
-        if(elector!=null) zonaEmpleador.elegir(nombreUsuario,elector);
-    }
 
-    public void elegir(String nombreUsuario,UEmpleado usuario) { 
-        tiposDeUsuarios elector = obtenerTiposDeUsuarios(usuario);//pasar de UEmpleador a empleador
-        if(elector!=null) zonaEmpleado.elegir(nombreUsuario,elector);
+    public void elegir(String nombreUsuario, UCliente uCliente) { 
+    	Cliente cliente;
+        cliente = getCliente(uCliente);
+    	boolean aux=cliente.elegir(nombreUsuario);
     }
     
-    public tiposDeUsuarios obtenerTiposDeUsuarios(Usuario usuario) { //devuelve el tipo de usuario (EMPLEADO / EMPLEADOR / ADM)
+    private Cliente getCliente(UCliente usuario) { //devuelve el tipo de usuario (EMPLEADO / EMPLEADOR )
         int i = 0;
-        tiposDeUsuarios retorno;
+        Cliente retorno=null;
         while (i < logeoempleados.size() && !usuario.equals(logeoempleados.get(i).getUsuario()))
             i++;
         if (usuario.equals(logeoempleados.get(i).getUsuario()))
@@ -450,27 +445,15 @@ public class Agencia {
                 i++;
             if (usuario.equals(logeoempleadores.get(i).getUsuario()))
                 retorno = logeoempleadores.get(i).getEmpleador();
-            else {
-                i = 0;
-                while (i < logeoadministradores.size() && !usuario.equals(logeoadministradores.get(i).getUsuario()))
-                    i++;
-                if (usuario.equals(logeoadministradores.get(i).getUsuario()))
-                    retorno = logeoadministradores.get(i).getAdministrador();
-                else
-                    return null;
-            }
         }
         return retorno;
     }
-
-    
-    
 	public int getV1() {
-		return V1;
+		return this.V1;
 	}
 
 	public void setV1(int v1) {
-		V1 = v1;
+		this.V1 = v1;
 	}
 
 	public int getV2() {

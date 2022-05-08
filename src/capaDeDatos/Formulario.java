@@ -1,4 +1,6 @@
-package paqueteTickets;
+package capaDeDatos;
+
+import formulario.*;
 
 /**
  * @author mikel
@@ -15,20 +17,13 @@ public class Formulario {
 	
 	public Formulario(String locacion, double remuneracion, String cargaHoraria, String tipoPuesto, double rangoEtario,
 			String experienciaprevia, String cursados) {
-		this.locacion = locacion;
-		getLocacion(this.locacion);
-		this.remuneracion = remuneracion;
-		getRemuneracion(this.remuneracion);
-		this.cargaHoraria = cargaHoraria;
-		getCargaHoraria(this.cargaHoraria);
-		this.tipoPuesto = tipoPuesto;
-		getTipodePuesto(this.tipoPuesto);
-		this.rangoEtario = rangoEtario;
-		getRangoEtario(this.rangoEtario);
-		this.experienciaprevia = experienciaprevia;
-		getExperienciaPrevia(this.experienciaprevia);
-		this.cursados = cursados;
-		getEstudiosCursados(this.cursados);
+		this.locacion = FactoryLocacion.getLocacion(locacion);   
+        this.remuneracion = FactoryRemuneracion.getRemuneracion(remuneracion);
+        this.cargaHoraria = FactoryCargaHoraria.getCargaHoraria(cargaHoraria);
+        this.tipoPuesto = FactoryTipodePuesto.getTipodePuesto(tipoPuesto);
+        this.rangoEtario = FactoryRangoEtario.getRangoEtario(rangoEtario);
+        this.experienciaprevia = FactoryExperienciaPrevia.getExperienciaPrevia(experienciaprevia);
+        this.cursados = FactoryEstudiosCursados.getEstudiosCursados(cursados);
 	}
 
 	public Locacion getLocacion() {

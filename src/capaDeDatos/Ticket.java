@@ -19,6 +19,7 @@ public abstract class Ticket {
 	private String estado= "Activo";
 	protected Formulario formulario;
 	protected ListaDeAsignacion listaAsignacion=null; //permito que se pueda elegir varios tickets en empleado tmb, luego se limita desde su ticket
+	protected ArrayList<Usuario_puntaje> usuariosElegidos = new ArrayList<Usuario_puntaje>();
 	
 	/**
 	 *<b>Pos:</b> 
@@ -56,12 +57,27 @@ public abstract class Ticket {
 		return this.formulario;
 	}
 	
+	public boolean elegir(String nombreUsuario) {
+		boolean resultado = false;
+		for(Usuario_puntaje usuario: this.listaAsignacion.getLista()) {
+			if (nombreUsuario.equals(usuario.getUsuario().getNombreUsuario()))
+				this.usuariosElegidos.add(usuario);
+				resultado = true;
+		}
+		return resultado;
+	}
+	
+	public ArrayList<Usuario_puntaje> getUsuariosElegidos() {
+		return usuariosElegidos;
+	}
+
+
 	public void nuevaLista() {
 		this.listaAsignacion= new ListaDeAsignacion();
 	}
 
-	public void addUsuarioAsignacion(Usuario_puntaje elemento) { 
-		this.listaAsignacion.addlista(elemento);
+	public void addUsuarioAsignacion(Usuario_puntaje usuario) { 
+		this.listaAsignacion.addlista(usuario);
 	}
 	
 
@@ -69,6 +85,7 @@ public abstract class Ticket {
 		return listaAsignacion;
 	}
 
+	
 	@Override
 	public String toString() {
 		return ""+formulario ;

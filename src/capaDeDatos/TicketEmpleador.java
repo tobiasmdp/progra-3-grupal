@@ -3,12 +3,7 @@
  */
 package capaDeDatos;
 
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
-
 import capaDeNegocios.Formulario;
-import capaDeNegocios.Usuario_puntaje;
 
 /**
  * @author mikel
@@ -16,7 +11,6 @@ import capaDeNegocios.Usuario_puntaje;
  */
 public class TicketEmpleador extends Ticket {
     private int cantempleadosbuscados, cantempleadosobtenidos;
-    ArrayList<Usuario_puntaje> empleadosmatcheados= new ArrayList<Usuario_puntaje>();
   	private int pLocacion;
 	private int pRemuneracion;
 	private int pCargaHoraria;
@@ -104,23 +98,6 @@ public class TicketEmpleador extends Ticket {
 		}
 
 	}
-	
-	public void nuevoEmpleadoMatcheado(Usuario_puntaje usuario) {
-		this.empleadosmatcheados.add(usuario);
-	}
-	
-	/**
-	 * se usa para resetar la lista en el proximo llamado de matcheos
-	 */
-	public void resetListaEmpleados() {
-		this.empleadosmatcheados.clear();
-	}
-	
-
-	public ArrayList<Usuario_puntaje> getEmpleadosmatcheados() {
-		return empleadosmatcheados;
-	}
-
 
 	
 }

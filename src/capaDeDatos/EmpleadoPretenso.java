@@ -6,7 +6,7 @@ import capaDeNegocios.Agencia;
  * @author tobia
  *
  */
-public class EmpleadoPretenso extends TiposDeUsuarios{
+public class EmpleadoPretenso extends Cliente{
 	private String nombre,apellido,telefono;
 	private TicketEmpleado ticket;
 	private int puntaje,edad;
@@ -28,6 +28,10 @@ public class EmpleadoPretenso extends TiposDeUsuarios{
 		this.edad = edad;
 		//EmpleadoPretenso.codUsuario++;
 		Agencia.getInstance().addEmpleadoPretenso(this);
+	}
+	
+	public boolean elegir(String nombreUsuario) { 
+		return this.ticket.elegir(nombreUsuario);
 	}
 	
 	
