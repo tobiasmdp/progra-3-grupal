@@ -23,6 +23,9 @@ public class Junior implements TipodePuesto{
 		return "Junior";
 	}
 
-	
+	@Override
+	public double calculaComision() {
+		return 0.8;
+	}
 }
  

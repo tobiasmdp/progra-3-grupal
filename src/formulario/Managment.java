@@ -23,5 +23,8 @@ public class Managment implements TipodePuesto{
 		return "Managment";
 	}
 	
-	
+	@Override
+	public double calculaComision() {
+		return 1;
+	}
 }
