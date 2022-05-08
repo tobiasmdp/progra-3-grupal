@@ -21,6 +21,7 @@ public abstract class Ticket {
 	protected Formulario formulario;
 	protected ListaDeAsignacion listaAsignacion; //permito que se pueda elegir varios tickets en empleado tmb, luego se limita desde su ticket
 	protected ArrayList<Usuario_puntaje> usuariosElegidos = new ArrayList<Usuario_puntaje>();
+	protected int rondasTranscurridas;
 	
 	/**
 	 *<b>Pos:</b> 
@@ -33,6 +34,7 @@ public abstract class Ticket {
 		this.fecha = GregorianCalendar.getInstance();
 		this.formulario=formulario;
 		this.estado = "Activo";
+		this.rondasTranscurridas = 0;
 	}
 	
 	public String getEstado() {

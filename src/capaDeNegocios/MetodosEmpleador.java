@@ -93,20 +93,23 @@ public class MetodosEmpleador {
 	
 
 	public void cobraComision(Empleador empleador) {
-		double modificadorcomision,remuneracion,descuento;
-		IRubro rubro;
-		IPersona persona;
-		//*Extraigo datos*//
-		persona=empleador.gettPersona();
-		rubro=empleador.getRubro();
-		remuneracion=empleador.getTicket().getFormulario().getRemuneraciondoub();//problema ya que la remu no es int?
-		//*Calculo el modificador de la comision*//
-		modificadorcomision=persona.calcularComisiones(rubro);
-		//*Calculo el descuento por puntaje//*
-		descuento=empleador.getPuntaje()*0.01;
-		//*Seteo la comision*//
-		empleador.setComision(remuneracion*modificadorcomision*descuento);
-	}
+        double modificadorcomision,remuneracion,descuento;
+        IRubro rubro;
+        IPersona persona;
+        int puntaje;
+        persona=empleador.gettPersona();
+        rubro=empleador.getRubro();
+        remuneracion=empleador.getTicket().getFormulario().getRemuneraciondoub();
+
+        modificadorcomision=persona.calcularComisiones(rubro);
+        puntaje=empleador.getPuntaje();
+        if (puntaje>100)
+            descuento=1;
+        else
+            descuento=puntaje*0.01;//penalizacion de pagar mas de la remuneracion por tener negativo
+
+        empleador.setComision(remuneracion*modificadorcomision*(1-descuento));
+    }
 
 	public void actualizarPuntaje(Empleador empleador, int valor) {
 		empleador.setPuntaje(empleador.getPuntaje()+valor);

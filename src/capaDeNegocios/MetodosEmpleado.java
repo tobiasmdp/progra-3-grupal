@@ -93,20 +93,21 @@ public class MetodosEmpleado {
 	
 
 	public void cobraComision(EmpleadoPretenso empleado) {
-		double modificadorcomision,remuneracion,descuento;
-		TipodePuesto puesto;
-		//*Extraigo datos*//
-		puesto=empleado.getTicket().getFormulario().getTipoPuesto();
-		remuneracion=empleado.getTicket().getFormulario().getRemuneraciondoub();
-		//*Calculo el modificador de la comision*//
-		modificadorcomision=puesto.calculaComision();
-		//*Calculo el descuento por puntaje//*
-		descuento=empleado.getPuntaje()*0.01;
-		//*Seteo la comision*//
-		empleado.setComision(remuneracion*modificadorcomision*descuento);
-		
-		
-	}
+        double modificadorcomision,remuneracion,descuento;
+        TipodePuesto puesto;
+        int puntaje;
+        puesto=empleado.getTicket().getFormulario().getTipoPuesto();
+        remuneracion=empleado.getTicket().getFormulario().getRemuneraciondoub();
+        modificadorcomision=puesto.calculaComision();
+
+        puntaje=empleado.getPuntaje();
+        if (puntaje>100)
+            descuento=1;
+        else
+            descuento=puntaje*0.01;//penalizacion de pagar mas de la remuneracion por tener negativo
+
+        empleado.setComision(remuneracion*modificadorcomision*(1-descuento));
+    }
 	
 	public void actualizarPuntaje(EmpleadoPretenso empleado, int valor) {
 		empleado.setPuntaje(empleado.getPuntaje()+valor);

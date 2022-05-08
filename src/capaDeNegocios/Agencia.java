@@ -273,9 +273,9 @@ public class Agencia {
 			}
 		}
 	}
-	
-	public void miPuntaje (UCliente cliente) {
-	Cliente aux=getCliente(cliente);
+
+	public void miPuntaje(UCliente cliente) {
+		Cliente aux = getCliente(cliente);
 		aux.getPuntaje();
 	}
 
@@ -381,6 +381,7 @@ public class Agencia {
 		EmpleadoPretenso auxEmpleado;
 		double puntaje;
 		Usuario_puntaje aux;
+		int k;
 		for (int i = 0; i < empleadores.size(); i++) {
 			auxEmpleador = empleadores.get(i);
 			if (auxEmpleador.getTicket() != null && auxEmpleador.getTicket().getEstado().equalsIgnoreCase("activo")) {
@@ -399,9 +400,9 @@ public class Agencia {
 				Collections.sort(auxEmpleador.getTicket().getListaAsignacion().getLista(), new UsuarioComparator());// Le
 																													// paso
 																													// la
-				i = auxEmpleador.getTicket().getListaAsignacion().getLista().size() - 1;
+				k = auxEmpleador.getTicket().getListaAsignacion().getLista().size() - 1;
 				zonaEmpleados.actualizarPuntaje(
-						(EmpleadoPretenso) auxEmpleador.getTicket().getListaAsignacion().getLista().get(i).getUsuario(),
+						(EmpleadoPretenso) auxEmpleador.getTicket().getListaAsignacion().getLista().get(k).getUsuario(),
 						-5);
 				zonaEmpleados.actualizarPuntaje(
 						(EmpleadoPretenso) auxEmpleador.getTicket().getListaAsignacion().getLista().get(0).getUsuario(),
@@ -426,7 +427,7 @@ public class Agencia {
 				}
 				Collections.sort(auxEmpleado.getTicket().getListaAsignacion().getLista(), new UsuarioComparator());
 				zonaEmpleador.actualizarPuntaje(
-						(Empleador) auxEmpleado.getTicket().getListaAsignacion().getLista().get(i).getUsuario(), 10);
+						(Empleador) auxEmpleado.getTicket().getListaAsignacion().getLista().get(0).getUsuario(), 10);
 
 			}
 		}
@@ -437,7 +438,6 @@ public class Agencia {
 	 * empleado eligiese 2 empresas, siempre seria contratado por la que le dio
 	 * mejor puntaje
 	 */
-
 	public void rondaContrataciones() {
 		TicketEmpleador ticketEmpleador;
 		TicketEmpleado ticketEmpleado;
@@ -466,27 +466,24 @@ public class Agencia {
 							i++;
 						}
 						if (i < eleccionEmpleado.size()) {// el empleado eligio al empleador
-
-							zonaEmpleador.actualizarPuntaje(empleador, 10);
-							zonaEmpleados.actualizarPuntaje(empleadoElegido, 10);
-							zonaEmpleador.cobraComision(empleador);
-							zonaEmpleados.cobraComision(empleadoElegido);
-
+					
 							this.contrataciones.add(new Contratacion(empleadoElegido, empleador));
 
 							ticketEmpleador.setCantempleadosobtenidos(ticketEmpleador.getCantempleadosbuscados() + 1);
 							if (ticketEmpleador.getCantempleadosbuscados() == ticketEmpleador
 									.getCantempleadosobtenidos()) {
-								ticketEmpleador.setEstado("finalizado");
+								zonaEmpleador.cambiarEstadoTicket("finalizado",empleador);
 							}
-							ticketEmpleado.setEstado("finalizado");
+							zonaEmpleados.cambiarEstadoTicket("finalizado",empleadoElegido);
+							zonaEmpleador.cobraComision(empleador);
+							zonaEmpleados.cobraComision(empleadoElegido);
 						}
 					}
 				}
 			}
 		}
 	}
-
+	
 	private boolean checkElegido(Empleador empleador) {
 		int i = 0, j = 0;
 		boolean esta = false;
@@ -551,4 +548,6 @@ public class Agencia {
 		for (Empleador elemento : empleadores)
 			System.out.println(elemento);
 	}
+	
+	
 }
