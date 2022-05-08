@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
-import capaDeNegocios.Formulario;
 import capaDeNegocios.Usuario_puntaje;
 import excepciones.UsuarioNoEncontradoException;
 /**

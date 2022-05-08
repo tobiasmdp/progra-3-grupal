@@ -2,8 +2,6 @@ package capaDeDatos;
 
 import java.util.Calendar;
 
-import capaDeNegocios.Formulario;
-
 /**
  * <b>
  * El ticket busquedaEmpleo se encarga de completar si el resultado de la contratacion fue 	exitoso.

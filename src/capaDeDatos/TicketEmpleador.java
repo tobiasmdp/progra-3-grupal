@@ -3,8 +3,6 @@
  */
 package capaDeDatos;
 
-import capaDeNegocios.Formulario;
-
 /**
  * <b>
  * Se encarga de agregar los pesos para luego utilizarlos.

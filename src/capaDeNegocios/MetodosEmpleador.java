@@ -2,8 +2,8 @@ package capaDeNegocios;
 
 import java.util.ArrayList;
 
-import capaDeDatos.EmpleadoPretenso;
 import capaDeDatos.Empleador;
+import capaDeDatos.Formulario;
 import capaDeDatos.TicketEmpleador;
 import capaDePresentacion.UEmpleador;
 import comisiones.IPersona;
