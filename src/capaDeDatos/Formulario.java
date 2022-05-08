@@ -16,8 +16,8 @@ import formulario.Remuneracion;
 import formulario.TipodePuesto;
 
 /**
- * @author mikel
- * Crea la clase formulario, para que esta se cree en la funcion que lo invoca, se deben validar todos los datos
+ * <br>
+ * Formulario de busqueda con los datos necesarios para operar.
  */
 public class Formulario {
     private Locacion locacion;
@@ -50,7 +50,6 @@ public class Formulario {
     public double getRemuneraciondoub() {
 		return remuneraciondoub;
 	}
-
 
 	public Remuneracion getRemuneracion() {
         return remuneracion;
