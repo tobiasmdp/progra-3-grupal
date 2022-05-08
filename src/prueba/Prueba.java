@@ -10,14 +10,17 @@ public class Prueba {
 	public static void main(String[] args) {
 		//UAdministrador admin1= new UAdministrador("Mikel","Contra");
 		//admin1.setV1(15000);
-		Agencia.getInstance();
-		UEmpleado empleado1=new UEmpleado();
-		empleado1.registrarse("Usuario1","Contraseña1","Nombre1","Apellido1","Telefono1",35);
-		empleado1.crearTicket("Home Office", 15001, "CargaExtendida", "Senior", 35, "ExperienciaNada", "Primario");
+		
 		/*ORDEN DE LOS ATRIBUTOS
 		 * Home Office Indistinto Presencial // CargaExtendida CargaCompleta CargaMedia // Primario Secundario Terciario // ExperienciaNada ExperienciaMedia ExperienciaMucha
 		 * HastaV1 EntreV1yV2 MasdeV2 // Junior Senior Managment // Menosde40 Entre40Y50 Masde50 
 		 */
+		
+		Agencia.getInstance();
+		UEmpleado empleado1=new UEmpleado();
+		empleado1.registrarse("Usuario1","Contraseña1","Nombre1","Apellido1","Telefono1",35);
+		empleado1.crearTicket("Home Office", 15001, "CargaExtendida", "Senior", 35, "ExperienciaNada", "Primario");
+
 		
 		UEmpleado empleado2= new UEmpleado();
 		empleado2.registrarse("Usuario2","Contraseña2","Nombre2","Apellido2","Telefono2",51);
@@ -38,8 +41,12 @@ public class Prueba {
 		UEmpleador empleador3= new UEmpleador();
 		empleador3.registrarse("Usuario6","Contraseña6","Nombre6","Juridica","Salud");
 		empleador3.crearTicket("Indistinto", 120000, "CargaMedia", "senior", 25, "ExperienciaMedia", "secundario",2,4,6,8,10,12,14,16);
+		
+		//testeo del login y logout
 		empleador3.logout();
 		empleador3.login("Usuario7","Contraseña6");
+		
+		//testeo de borrado de cuenta
 		empleador3.borrarCuenta();
 		
 		UAdministrador admin1= new UAdministrador("Mikel","Contra");
