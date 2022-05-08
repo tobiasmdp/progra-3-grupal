@@ -2,6 +2,10 @@ package capaDeDatos;
 
 
 
+/**
+ * <br>
+ * Clase que se usa para el manejo de logeo/registros.
+ */
 public abstract class TiposDeUsuarios  {
 	private String nombreUsuario;
 	private String password;

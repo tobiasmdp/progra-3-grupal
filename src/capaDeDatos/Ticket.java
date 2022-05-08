@@ -8,12 +8,8 @@ import capaDeNegocios.Formulario;
 import capaDeNegocios.Usuario_puntaje;
 import excepciones.UsuarioNoEncontradoException;
 /**
- * @author mikel
- * la clase ticket es abstracta y es para generar los tickets de empleados y empleadores
- */
-/**
- * @author mikel
- *
+ * <br>
+ * La clase ticket es abstracta y es para generar los tickets de empleados y empleadores.
  */
 public abstract class Ticket { 
 	private Calendar fecha;
@@ -23,11 +19,9 @@ public abstract class Ticket {
 	protected ArrayList<Usuario_puntaje> usuariosElegidos = new ArrayList<Usuario_puntaje>();
 	protected int rondasTranscurridas;
 	
-	/**        
-	 *<b>Pos:</b> 
-	 * @param fecha en el constructor cada vez que se genera un  nuevo ticket, en el parametro fecha, crear siempre un nuevo objeto de Gregorian Calenadar
-	 * @param estado a la hora de crear el ticket, el estado esta en activo por defecto.
-	 * @param formulario, en el constructor cada vez que se genera un  nuevo ticket, en el parametro formulario, crear siempre un nuevo objeto de Formulario
+	/**
+	 * @param formulario
+	 * Para crear el ticket se pasa el formulario ya que este lo compone y ademas se le pone la fecha actual.
 	 */
 	
 	public Ticket(Formulario formulario) {  //inicializa el ticket en activo por default
@@ -67,6 +61,15 @@ public abstract class Ticket {
 	public Formulario getFormulario() {
 		return this.formulario;
 	}
+	
+	/**
+	 * <br>
+	 * Busca en la lista de asignacion el nombre de usuario pasado por parametro y si lo encuentra lo agrega a la lista usuario elegidos. <br>
+	 * <b>Pre: </b> Se tiene que haber ejecutado la ronda de contratacion.<br> 
+	 * @param nombreUsuario: el nombre del usuario a agregar.
+	 * @throws UsuarioNoEncontradoException: se lanza si no se encuentra el nombre de usuario pasado por parametro en la lista de asignacion.
+	 * 
+	 */
 	
 	public void elegirUsuario_puntaje(String nombreUsuario) throws UsuarioNoEncontradoException{
 		int i=0;

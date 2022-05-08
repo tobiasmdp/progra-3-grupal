@@ -3,8 +3,8 @@ package capaDeDatos;
 import formulario.*;
 
 /**
- * @author mikel
- * Crea la clase formulario, para que esta se cree en la funcion que lo invoca, se deben validar todos los datos
+ * <br>
+ * Formulario de busqueda con los datos necesarios para operar.
  */
 public class Formulario {
 	private Locacion locacion;

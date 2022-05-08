@@ -1,11 +1,10 @@
 package capaDeDatos;
 
-import capaDeNegocios.Agencia;
 import excepciones.UsuarioNoEncontradoException;
 
 /**
- * @author tobia
- *
+ *<br>
+ *Clase que representa al empleado pretenso con todos sus atributos.
  */
 public class EmpleadoPretenso extends Cliente {
 	private String nombre, apellido, telefono;
@@ -27,11 +26,21 @@ public class EmpleadoPretenso extends Cliente {
 		this.edad = edad;
 		// EmpleadoPretenso.codUsuario++;
 	}
-
+	
+	/**
+	 *Elige al empleador con nombre de usuario pasado por parametro.
+	 *<b>Pre:</b> Se usa este metodo luego de visualizar la lista de asignacion.<br>
+	 *<b>Post:</b> En el arrayList del ticket de este empleado pretenso se agrega, si existe, el empleador con el nombre de usuario del parametro.  
+	 *@param nombreUsuario: nombre de usuario del empleador elegido.
+	 */
 	public void elegirUsuario_puntaje(String nombreUsuario) throws UsuarioNoEncontradoException {
 		this.ticket.elegirUsuario_puntaje(nombreUsuario);
 	}
-
+	
+	/**
+	 *Devuelve la lista de asignacion del empleado pretenso con todos los empleadores y sus respectivos puntajes.
+	 *<b>Pre:</b> Se usa este metodo luego de realizar la ronda de contratacion.<br>
+	 */
 	public ListaDeAsignacion getListaDeAsignacion() {
 		ListaDeAsignacion listaDeAsignacion = null;
 		listaDeAsignacion = this.getTicket().getListaAsignacion();

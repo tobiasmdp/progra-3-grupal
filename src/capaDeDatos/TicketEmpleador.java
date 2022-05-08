@@ -6,8 +6,8 @@ package capaDeDatos;
 import capaDeNegocios.Formulario;
 
 /**
- * @author mikel
- *
+ * <b>
+ * Se encarga de agregar los pesos para luego utilizarlos.
  */
 public class TicketEmpleador extends Ticket {
     private int cantempleadosbuscados, cantempleadosobtenidos;
@@ -21,10 +21,12 @@ public class TicketEmpleador extends Ticket {
 	
 	
 	/**
-	 * @param calendar definido en la clase abstracta Ticket
-	 * @param formulario definido en la clase abstracta Ticket
-	 * @param cantempleadosbuscados aca el empleador debe poner al cantidad de empelados que busca, no tiene que ser menor a 1
-	 * canempleadosobtenidos se inicializa en 0 para todos los objetos, porque al recien crear el ticket, todavía no obtuvo ningun empleado
+	 * <b>
+	 * Al momento de crear el ticket de empleador se pasa el formulario ya que este lo compone y la cant de empleados que se busca contratar.
+	 * Los pesos se 
+	 * @param formulario: se pasa el formulario.
+	 * @param cantempleadosbuscados aca el empleador debe poner al cantidad de empelados que busca, no tiene que ser menor a 1.
+	 * cantempleadosobtenidos se inicializa en 0 para todos los tickets empleador porque al momento de crearlo no se contrato a nadie.
 	 */
 	
 	public TicketEmpleador(Formulario formulario, int cantempleadosbuscados) {
@@ -33,6 +35,13 @@ public class TicketEmpleador extends Ticket {
 		this.cantempleadosobtenidos=0;
 	}
 	
+	/**
+	 * <b>
+	 * Al momento de crear el ticket se le pasa el formulario y todos los pesos para poder operar mas adelante.
+	 * @param formulario: se pasa el formulario.
+	 * @param cantempleadosbuscados aca el empleador debe poner al cantidad de empelados que busca, no tiene que ser menor a 1.
+	 * cantempleadosobtenidos se inicializa en 0 para todos los tickets empleador porque al momento de crearlo no se contrato a nadie.
+	 */
 	public TicketEmpleador( Formulario formulario, int cantempleadosbuscados
 			, int pLocacion, int pRemuneracion, int pCargaHoraria,
 			int pTipodePuesto, int pExperienciaPrevia, int pRangoEtario, int pEstudiosCursados) {

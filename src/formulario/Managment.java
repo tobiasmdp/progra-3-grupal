@@ -1,5 +1,8 @@
 package formulario;
-
+/**
+ *<br>
+ *La clase Managment es parte del patron Double Dispatch para la categoria del formulario TipodePuesto
+ */
 public class Managment implements TipodePuesto{
 	
 	public double compara(TipodePuesto otracaract) {

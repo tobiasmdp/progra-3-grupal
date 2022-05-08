@@ -1,5 +1,8 @@
 package formulario;
-
+/**
+ *<br>
+ *La clase ExperienciaNada es parte del patron Double Dispatch para la categoria del formulario ExperienciaPrevia
+ */
 public class ExperienciaNada implements ExperienciaPrevia{
 	
 	public double compara(ExperienciaPrevia otracaract) {

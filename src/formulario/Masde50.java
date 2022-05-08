@@ -1,5 +1,8 @@
 package formulario;
-
+/**
+ *<br>
+ *La clase Masde50 es parte del patron Double Dispatch para la categoria del formulario RangoEtario
+ */
 public class Masde50 implements RangoEtario{
     
 	public double compara(RangoEtario otracaract) {

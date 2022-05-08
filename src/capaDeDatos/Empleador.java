@@ -1,7 +1,5 @@
 package capaDeDatos;
 
-
-import capaDeNegocios.Agencia;
 import comisiones.FactoryPersona;
 import comisiones.FactoryRubro;
 import comisiones.IPersona;
@@ -9,8 +7,8 @@ import comisiones.IRubro;
 import excepciones.UsuarioNoEncontradoException;
 
 /**
- * @author mikel
- * los constructores de esta clase ya agregan a los arraylist de empleador de la agencia
+ * <br>
+ * Clase que representa al empleador con todos sos atributos.
  */
 public class Empleador extends Cliente {
 	private String nombre;
@@ -31,10 +29,22 @@ public class Empleador extends Cliente {
 		this.rubro = FactoryRubro.getRubro(rubro);
 	}
 	
+	/**
+	 *Elige al empleado con nombre de usuario pasado por parametro.
+	 *<b>Pre:</b> Se usa este metodo luego de visualizar la lista de asignacion.<br>
+	 *<b>Post:</b> En el arrayList del ticket de este empleador se agrega, si existe, el empleado con el nombre de usuario del parametro.  
+	 *@param nombreUsuario: nombre de usuario del empleado elegido.
+	 */
 	public void elegirUsuario_puntaje(String nombreUsuario) throws UsuarioNoEncontradoException{ 
 		 this.ticket.elegirUsuario_puntaje(nombreUsuario);
 	}
 	
+	
+	
+	/**
+	 *Devuelve la lista de asignacion del empleador con todos los empleados y sus respectivos puntajes.
+	 *<b>Pre:</b> Se usa este metodo luego de realizar la ronda de contratacion.<br>
+	 */
 	public ListaDeAsignacion getListaDeAsignacion() {
 		ListaDeAsignacion listaDeAsignacion = null;
 		listaDeAsignacion = this.getTicket().getListaAsignacion();

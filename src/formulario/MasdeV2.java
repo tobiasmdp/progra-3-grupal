@@ -1,5 +1,8 @@
 package formulario;
-
+/**
+ *<br>
+ *La clase MasdeV2 es parte del patron Double Dispatch para la categoria del formulario Remuneracion
+ */
 public class MasdeV2 implements Remuneracion{
 	public double compara(Remuneracion otracaract) {
 		return otracaract.comparaMasdeV2();

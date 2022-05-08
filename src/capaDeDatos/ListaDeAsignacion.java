@@ -5,11 +5,13 @@ import java.util.Calendar;
 
 import capaDeNegocios.Usuario_puntaje;
 
+/**
+ * <br>
+ *Contiene el usuario (empleado pretenso/empleador),su puntaje luego de la ronda de contratacion y la fecha.
+ */
 public class ListaDeAsignacion {
 	private ArrayList<Usuario_puntaje> listaAsignacion;
 	private Calendar fecha ;
-	
-	
 	
 	public ListaDeAsignacion() {
 		super();

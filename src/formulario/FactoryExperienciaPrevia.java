@@ -1,5 +1,8 @@
 package formulario;
-
+/**
+ *<br>
+ *La clase utiliza el patron Factory para la creacion de categorias de ExperienciaPrevia.
+ */
 public class FactoryExperienciaPrevia {
 	public static ExperienciaPrevia getExperienciaPrevia(String tipo) {
 		ExperienciaPrevia respuesta = null;
