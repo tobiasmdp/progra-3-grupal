@@ -2,6 +2,7 @@ package capaDeNegocios;
 
 import java.util.ArrayList;
 
+import capaDeDatos.EmpleadoPretenso;
 import capaDeDatos.Empleador;
 import capaDeDatos.TicketEmpleador;
 import capaDePresentacion.UEmpleador;
@@ -56,7 +57,7 @@ public class MetodosEmpleador {
 	}
 	
 	
-	public void crearTicketEmpleador(String locacion, int remuneracion, String cargaHoraria, String tipoPuesto,
+	public void crearTicketEmpleador(String locacion, double remuneracion, String cargaHoraria, String tipoPuesto,
 			int rangoEtario, String experienciaPrevia, String estudiosCursados, int cantEmpleados,int pLocacion,int pRemuneracion,int pCargaHoraria,int pTipodePuesto,int pExperienciaPrevia,int pRangoEtario,int pEstudiosCursados,
 			UEmpleador uEmpleador){
 		Formulario nuevofor = new Formulario(locacion, remuneracion, cargaHoraria, tipoPuesto, rangoEtario,
@@ -82,6 +83,12 @@ public class MetodosEmpleador {
 			aux.get(i).getEmpleador().getTicket().setEstado(estado);
 		}
 	}
+	
+	public void cambiarEstadoTicket(String estado, Empleador empleador) {
+		empleador.getTicket().setEstado(estado);
+		if (empleador.getTicket().getEstado().equalsIgnoreCase("finalizado"))
+			actualizarPuntaje(empleador,50);
+}
 
 	
 
@@ -92,7 +99,7 @@ public class MetodosEmpleador {
 		//*Extraigo datos*//
 		persona=empleador.gettPersona();
 		rubro=empleador.getRubro();
-		remuneracion=empleador.getTicket().getFormulario().getRemuneracionint();//problema ya que la remu no es int?
+		remuneracion=empleador.getTicket().getFormulario().getRemuneraciondoub();//problema ya que la remu no es int?
 		//*Calculo el modificador de la comision*//
 		modificadorcomision=persona.calcularComisiones(rubro);
 		//*Calculo el descuento por puntaje//*

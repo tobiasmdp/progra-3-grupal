@@ -27,9 +27,9 @@ public class Formulario {
     private ExperienciaPrevia experienciaprevia;
     private RangoEtario rangoEtario;
     private EstudiosCursados cursados;
-    private double remuneracionint;
+    private double remuneraciondoub;
 
-    public Formulario(String locacion, int remuneracion, String cargaHoraria, String tipoPuesto, int rangoEtario,
+    public Formulario(String locacion, double remuneracion, String cargaHoraria, String tipoPuesto, int rangoEtario,
             String experienciaprevia, String cursados) {
 
         this.locacion = FactoryLocacion.getLocacion(locacion);   
@@ -39,7 +39,7 @@ public class Formulario {
         this.rangoEtario = FactoryRangoEtario.getRangoEtario(rangoEtario);
         this.experienciaprevia = FactoryExperienciaPrevia.getExperienciaPrevia(experienciaprevia);
         this.cursados = FactoryEstudiosCursados.getEstudiosCursados(cursados);
-        this.remuneracionint=remuneracion;
+        this.remuneraciondoub=remuneracion;
     }
 
     
@@ -47,8 +47,8 @@ public class Formulario {
         return locacion;
     }
 
-    public double getRemuneracionint() {
-		return remuneracionint;
+    public double getRemuneraciondoub() {
+		return remuneraciondoub;
 	}
 
 

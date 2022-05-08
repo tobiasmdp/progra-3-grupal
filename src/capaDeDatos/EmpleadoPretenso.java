@@ -10,7 +10,7 @@ import excepciones.UsuarioNoEncontradoException;
 public class EmpleadoPretenso extends Cliente {
 	private String nombre, apellido, telefono;
 	private TicketEmpleado ticket;
-	private int puntaje, edad;
+	private int edad;
 	private double comision;
 	// private static int codUsuario;
 
@@ -37,7 +37,7 @@ public class EmpleadoPretenso extends Cliente {
 		listaDeAsignacion = this.getTicket().getListaAsignacion();
 		return listaDeAsignacion;
 	}
-
+	
 	public String getNombre() {
 		return nombre;
 	}
@@ -64,14 +64,6 @@ public class EmpleadoPretenso extends Cliente {
 
 	public void setTicket(TicketEmpleado ticket) {
 		this.ticket = ticket;
-	}
-
-	public int getPuntaje() {
-		return puntaje;
-	}
-
-	public void setPuntaje(int puntaje) {
-		this.puntaje = puntaje;
 	}
 
 	public TicketEmpleado getTicket() {

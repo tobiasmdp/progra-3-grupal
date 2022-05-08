@@ -54,7 +54,7 @@ public class MetodosEmpleado {
 		}
 	}
 
-	public void crearTicketEmpleado(String locacion, int remuneracion, String cargaHoraria, String tipoPuesto,
+	public void crearTicketEmpleado(String locacion, double remuneracion, String cargaHoraria, String tipoPuesto,
 			int rangoEtario, String experienciaPrevia, String estudiosCursados, UEmpleado uEmpleado) {
 		Formulario nuevofor = new Formulario(locacion, remuneracion, cargaHoraria, tipoPuesto, rangoEtario,
 				experienciaPrevia, estudiosCursados);
@@ -77,15 +77,27 @@ public class MetodosEmpleado {
 			while (i < aux.size() && !uEmpleado.equals(aux.get(i).getUsuario()))
 				i++;
 			aux.get(i).getEmpleado().getTicket().setEstado(estado);
+			if (aux.get(i).getEmpleado().getTicket().getEstado().equalsIgnoreCase("cancelado"))
+				actualizarPuntaje(aux.get(i).getEmpleado(),-1);
 		}
 	}
+	
+	public void cambiarEstadoTicket(String estado, EmpleadoPretenso empleado) {
+			empleado.getTicket().setEstado(estado);
+			if (empleado.getTicket().getEstado().equalsIgnoreCase("cancelado"))
+				actualizarPuntaje(empleado,-1);
+			if (empleado.getTicket().getEstado().equalsIgnoreCase("finalizado"))
+				actualizarPuntaje(empleado,10);
+	}
+	
+	
 
 	public void cobraComision(EmpleadoPretenso empleado) {
 		double modificadorcomision,remuneracion,descuento;
 		TipodePuesto puesto;
 		//*Extraigo datos*//
 		puesto=empleado.getTicket().getFormulario().getTipoPuesto();
-		remuneracion=empleado.getTicket().getFormulario().getRemuneracionint();
+		remuneracion=empleado.getTicket().getFormulario().getRemuneraciondoub();
 		//*Calculo el modificador de la comision*//
 		modificadorcomision=puesto.calculaComision();
 		//*Calculo el descuento por puntaje//*
@@ -98,7 +110,6 @@ public class MetodosEmpleado {
 	
 	public void actualizarPuntaje(EmpleadoPretenso empleado, int valor) {
 		empleado.setPuntaje(empleado.getPuntaje()+valor);
-		
 	}
 	
 

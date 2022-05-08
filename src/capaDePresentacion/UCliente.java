@@ -6,9 +6,7 @@ import excepciones.UsuarioNoEncontradoException;
 
 public abstract class UCliente extends Usuario{
 	
-	public void cambiarEstadoTicket(String estado) {
-		Agencia.getInstance().cambiarEstadoTicket(estado, this);
-	}
+	public abstract void cambiarEstadoTicket(String estado);
 	
 	public void elegirUsuario_puntaje(String nombreUsuario) {
         try {
@@ -18,6 +16,10 @@ public abstract class UCliente extends Usuario{
 		}
         
     }
+	
+	public void miPuntaje() {
+		Agencia.getInstance().miPuntaje(this);
+	}
 	
 	public void mostrarListaAsignaciones() {
 		for(Usuario_puntaje listaDeAsignacion:Agencia.getInstance().getListaDeAsignacion(this).getLista()) {

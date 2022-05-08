@@ -17,7 +17,6 @@ public class Empleador extends Cliente {
 	private IPersona tPersona;
 	private IRubro rubro;
 	private TicketEmpleador ticket;
-	private int puntaje;
 	private double comision;
 	
 	public Empleador(String nombreUsuario,String contra) {
@@ -81,15 +80,7 @@ public class Empleador extends Cliente {
 	public TicketEmpleador getTicket() {
 		return ticket;
 	}
-	
-	public int getPuntaje() {
-		return puntaje;
-	}
 
-	public void setPuntaje(int puntaje) {
-		this.puntaje = puntaje;
-	}
-	
 	@Override
 	public String toString() {
 		return  nombre + "       " + tPersona + "         " + rubro + "         " + ticket;

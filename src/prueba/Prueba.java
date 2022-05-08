@@ -63,6 +63,8 @@ public class Prueba {
 		admin1.mostrarListaContrataciones();
 		empleado1.mostrarListaContrataciones();
 		empleador1.mostrarListaContrataciones();
+		
+		
 		//Agencia.getInstance().Mostrararreglodebug(Agencia.getInstance().getEmpleadosPretensos());
 		//Agencia.getInstance().Mostrararreglodebug2(Agencia.getInstance().getEmpleadores());
 	

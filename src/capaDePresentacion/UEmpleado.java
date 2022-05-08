@@ -12,9 +12,14 @@ public class UEmpleado extends UCliente{
 		Agencia.getInstance().registroEmpleado(nombreUsuario, contrasenia, nombre, apellido, telefono, edad,this);
 	}
 	
-	public void crearTicket(String locacion, int remuneracion, String cargaHoraria, String tipoPuesto, 
+	public void crearTicket(String locacion, double remuneracion, String cargaHoraria, String tipoPuesto, 
 			int rangoEtario, String experienciaPrevia, String estudiosCursados) {
 		Agencia.getInstance().crearTicketEmpleado(locacion, remuneracion, cargaHoraria, tipoPuesto, rangoEtario, experienciaPrevia, estudiosCursados, this);
+	}
+
+	@Override
+	public void cambiarEstadoTicket(String estado) {
+		Agencia.getInstance().cambiarEstadoTicket(estado, this);
 	}
 	
 }
