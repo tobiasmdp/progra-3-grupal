@@ -9,12 +9,10 @@ package capaDeDatos;
 public abstract class TiposDeUsuarios  {
 	private String nombreUsuario;
 	private String password;
-	protected boolean logeado;
 	
 	protected TiposDeUsuarios(String nombreUsuario, String password) {
 		this.nombreUsuario = nombreUsuario;
 		this.password = password;
-		this.logeado=true;
 	}
 	
 	public String getNombreUsuario() {
@@ -31,10 +29,5 @@ public abstract class TiposDeUsuarios  {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-
-	public void setLogeado(boolean logeado) {
-		this.logeado = logeado;
-	}
-	
 	
 }

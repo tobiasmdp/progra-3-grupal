@@ -45,16 +45,20 @@ public class Prueba {
 		empleador6.registrarse("Usuario6","Contraseña6","Nombre6","Juridica","Salud");
 		empleador6.crearTicket("Indistinto", 120000, "CargaMedia", "senior", 25, "ExperienciaMedia", "secundario",2,4,6,8,10,12,14,16);
 		
+		UEmpleado empleado8= new UEmpleado();
+		empleado8.registrarse("Usuario8","Contraseña8","Nombre8","Apellido8","Telefono8",53);
+		empleado8.crearTicket("Indistinto", 80000, "CargaMedia", "senior", 53, "ExperienciaMedia", "primario");
+		
 		UAdministrador admin7= new UAdministrador("Usuario7","Contraseña7");
-		admin7.setV1(15000);
+		admin7.setV1(80000);
+		admin7.setV2(350000);
 		admin7.setVencimientoTicket(3);
 		
-		empleado1.mostrarListaAsignaciones();
-		empleado2.mostrarListaAsignaciones();
-		
-		//------------------ RONDA DE ENCUENTROS LABORALES ------------------		
+		//------------------ RONDA DE ENCUENTROS LABORALES ------------------1
 		admin7.rondaEncuentrosLaborales();
 		
+		empleado1.mostrarListaAsignaciones();
+		empleador4.mostrarListaAsignaciones();
 		
 		//testeo del login y logout
 		empleador6.logout();
@@ -64,7 +68,7 @@ public class Prueba {
 		empleador6.borrarCuenta();
 
 		//El empleado 1 elige al usuario4, luego el usuario 5 pausa su ticket,
-		//el empleado 1 lo intenta elegir, luego el usuario 5 se reactiva y el empleado lo elige
+		//el empleado 1 lo intenta elegir, luego el usuario 5 se reactiva y el empleado 1 lo elige
 		empleado1.elegirUsuario_puntaje("Usuario4");
 		empleador5.cambiarEstadoTicket("suspendido");
 		empleado1.elegirUsuario_puntaje("Usuario5");
@@ -72,26 +76,39 @@ public class Prueba {
 		empleado1.elegirUsuario_puntaje("Usuario5");
 		
 		
-		//mas operaciones 	ACA CONTINUAR
+		//se forman 2 contrataciones 
 		empleado1.elegirUsuario_puntaje("Usuario4");
-		empleado2.elegirUsuario_puntaje("Usuario6");
+		empleado2.elegirUsuario_puntaje("Usuario5");
 		
 		empleador4.elegirUsuario_puntaje("Usuario1");
 		empleador5.elegirUsuario_puntaje("Usuario2");
-		empleador5.elegirUsuario_puntaje("Usuario3");
 		
-		//------------------ RONDA DE CONTRATACIONES  ------------------	
+		empleador5.elegirUsuario_puntaje("Usuario3"); //este deberia no ser contratado
+		
+		//------------------ RONDA DE CONTRATACIONES  ------------------1
 		
 		admin7.rondaContrataciones();
+		
+		//ver la lista de contratacion para todos
 		admin7.mostrarListaContrataciones();
 		empleado1.mostrarListaContrataciones();	
 		empleador4.mostrarListaContrataciones();
+
+		//------------------ RONDA DE ENCUENTROS LABORALES ------------------2
 		
+		admin7.rondaEncuentrosLaborales();
 		
-		//Agencia.getInstance().Mostrararreglodebug(Agencia.getInstance().getEmpleadosPretensos());
-		//Agencia.getInstance().Mostrararreglodebug2(Agencia.getInstance().getEmpleadores());
+		//prueba de cambio de estado para un empleado
+		empleado8.cambiarEstadoTicket("suspendido");
+		empleador5.elegirUsuario_puntaje("Usuario8"); //no deberia poder elegirlo
+		empleado8.cambiarEstadoTicket("activo");
+		
+		//------------------ RONDA DE CONTRATACIONES  ------------------2
+		
+		admin7.rondaContrataciones();
+		
+		//------------------ RONDA DE ENCUENTROS LABORALES ------------------3
+		admin7.rondaEncuentrosLaborales();
 	
 	}
-
-	
 }
