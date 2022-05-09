@@ -390,8 +390,7 @@ public class Agencia {
 				auxEmpleador.getTicket().nuevaLista();
 				for (int j = 0; j < empleadosPretensos.size(); j++) {
 					auxEmpleado = empleadosPretensos.get(j);
-					if (auxEmpleado.getTicket() != null
-							&& auxEmpleado.getTicket().getEstado().equalsIgnoreCase("activo")) {
+					if (auxEmpleado.getTicket() != null && auxEmpleado.getTicket().getEstado().equalsIgnoreCase("activo")) {
 						puntaje = zonaEmpleador.calculoPuntajes(auxEmpleador.getTicket(),
 								auxEmpleado.getTicket().getFormulario());
 						aux = new Usuario_puntaje(auxEmpleado, puntaje);
