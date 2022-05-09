@@ -398,17 +398,18 @@ public class Agencia {
 					}
 				}
 				Collections.sort(auxEmpleador.getTicket().getListaAsignacion().getLista(), new UsuarioComparator());																								
-				
-                k = auxEmpleador.getTicket().getListaAsignacion().getLista().size() - 1;
-				zonaEmpleados.actualizarPuntaje((EmpleadoPretenso) auxEmpleador.getTicket().getListaAsignacion().getLista().get(k).getUsuario(),-5);
-				zonaEmpleados.actualizarPuntaje((EmpleadoPretenso) auxEmpleador.getTicket().getListaAsignacion().getLista().get(0).getUsuario(),5);
+				if(auxEmpleador.getTicket().getListaAsignacion().getLista()!=null) {
+	                k = auxEmpleador.getTicket().getListaAsignacion().getLista().size() - 1;
+					zonaEmpleados.actualizarPuntaje((EmpleadoPretenso) auxEmpleador.getTicket().getListaAsignacion().getLista().get(k).getUsuario(),-5);
+					zonaEmpleados.actualizarPuntaje((EmpleadoPretenso) auxEmpleador.getTicket().getListaAsignacion().getLista().get(0).getUsuario(),5);
+				}
 			}
 		}
 		for (int i = 0; i < empleadosPretensos.size(); i++) {
 			auxEmpleado = empleadosPretensos.get(i);
 			if (auxEmpleado.getTicket() != null && auxEmpleado.getTicket().getEstado().equalsIgnoreCase("activo")) {
 				auxEmpleado.getTicket().nuevaLista();
-				if (this.vencimientoTicket < auxEmpleado.getTicket().getRondasTranscurridas())
+				if (this.vencimientoTicket > auxEmpleado.getTicket().getRondasTranscurridas())
 					auxEmpleado.getTicket().setRondasTranscurridas(auxEmpleado.getTicket().getRondasTranscurridas()+1);
 				else
 					zonaEmpleados.cambiarEstadoTicket("cancelado",auxEmpleado);
@@ -510,7 +511,10 @@ public class Agencia {
 	public void elegirUsuario_puntaje(String nombreUsuario, UCliente uCliente) throws UsuarioNoEncontradoException {
 		Cliente cliente;
 		cliente = getCliente(uCliente);
-		cliente.elegirUsuario_puntaje(nombreUsuario);
+		if(cliente!=null)
+            cliente.elegirUsuario_puntaje(nombreUsuario);
+        else
+            throw new UsuarioNoEncontradoException(nombreUsuario);
 	}
 
 	private Cliente getCliente(UCliente usuario) { // retorna cliente correspondiente a usuario

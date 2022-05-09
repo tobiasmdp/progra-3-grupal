@@ -12,5 +12,4 @@ public class Administrador extends TiposDeUsuarios{
 		super(nombreUsuario, password);
 		Agencia.getInstance().addAdministrador(this);
 	}
-
 }

@@ -48,8 +48,7 @@ public abstract class Ticket {
 		if (this.estado.equalsIgnoreCase("Cancelado")) // asi haria que no se cambie a otro si fue cancelado
 			this.estado="Cancelado";
 		else
-			if (this.estado.equalsIgnoreCase("Activo") || this.estado.equalsIgnoreCase("Finalizado")) 
-				this.estado=estado;
+			this.estado=estado;
 	}
 	
 	public Calendar getFecha() {

@@ -93,13 +93,13 @@ public class Prueba {
 		admin7.mostrarListaContrataciones();
 		empleado1.mostrarListaContrataciones();	
 		empleador4.mostrarListaContrataciones();
-
+		empleado8.cambiarEstadoTicket("suspendido");
 		//------------------ RONDA DE ENCUENTROS LABORALES ------------------2
 		
 		admin7.rondaEncuentrosLaborales();
 		
 		//prueba de cambio de estado para un empleado
-		empleado8.cambiarEstadoTicket("suspendido");
+		empleador5.mostrarListaAsignaciones();
 		empleador5.elegirUsuario_puntaje("Usuario8"); //no deberia poder elegirlo
 		empleado8.cambiarEstadoTicket("activo");
 		
@@ -109,6 +109,25 @@ public class Prueba {
 		
 		//------------------ RONDA DE ENCUENTROS LABORALES ------------------3
 		admin7.rondaEncuentrosLaborales();
-	
+		
+		
+		//------------------ RONDA DE CONTRATACIONES  ------------------3
+		
+		admin7.rondaContrataciones();
+				
+		//------------------ RONDA DE ENCUENTROS LABORALES ------------------4
+		admin7.rondaEncuentrosLaborales();
+			
+		//------------------ RONDA DE CONTRATACIONES  ------------------4
+				
+		admin7.rondaContrataciones();	
+		//------------------ RONDA DE ENCUENTROS LABORALES ------------------5
+		admin7.rondaEncuentrosLaborales();
+				
+				
+		//------------------ RONDA DE CONTRATACIONES  ------------------5
+				
+		admin7.rondaContrataciones();
+						
 	}
 }

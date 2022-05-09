@@ -14,18 +14,14 @@ public abstract class Usuario {
 	/**
 	 * <b>
 	 * Se logea el usuario en el sistema.
-	 * @return devuelve true si pudo, sino false.
 	 */
-	public boolean login(String nombreUsuario, String contrasenia) {
-		boolean resultado = true;
+	public void login(String nombreUsuario, String contrasenia) {
 		try {
 			Agencia.getInstance().login(nombreUsuario, contrasenia, this);
 		}
 		catch (LoginException e) {
 			System.out.println(e.getMessage());
-			resultado = false;
 		}
-		return resultado;
 	}
 	
 	public void mostrarListaContrataciones() {
