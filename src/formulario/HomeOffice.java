@@ -1,5 +1,8 @@
 package formulario;
-
+/**
+ *<br>
+ *La clase HomeOffice es parte del patron Double Dispatch para la categoria del formulario Locacion
+ */
 public class HomeOffice implements Locacion{
 
 	

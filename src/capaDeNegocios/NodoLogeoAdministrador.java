@@ -3,11 +3,13 @@ package capaDeNegocios;
 import capaDeDatos.Administrador;
 import capaDePresentacion.Usuario;
 
+/**
+ *<b>
+ * Clase nexo entre la capa de presentacion y la capa de datos que se usa en la capa de negocios.
+ */
 public class NodoLogeoAdministrador {
 	private Usuario usuario;
 	private Administrador administrador;
-	
-	
 	
 	public NodoLogeoAdministrador(Usuario usuario, Administrador administrador) {
 		this.usuario = usuario;

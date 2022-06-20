@@ -1,5 +1,8 @@
 package formulario;
-
+/**
+ *<br>
+ *La clase CargaExtendida es parte del patron Double Dispatch para la categoria del formulario CargaHoraria
+ */
 public class CargaExtendida implements CargaHoraria{
 
 	public double compara(CargaHoraria otracaract) {

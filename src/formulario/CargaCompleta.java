@@ -1,8 +1,14 @@
 package formulario;
+/**
+ *<br>
+ *La clase CargaCompleta es parte del patron Double Dispatch para la categoria del formulario CargaHoraria
+ */
+public class CargaCompleta implements CargaHoraria {
 
-public class CargaCompleta implements CargaHoraria{
-
-
+	
+	/**
+	 *@param otracaract : Parametro String que contiene la clase que invoca el patron Double Dispatch
+	 */
 	public double compara(CargaHoraria otracaract) {
 		return otracaract.completa();
 	}
@@ -24,5 +30,4 @@ public class CargaCompleta implements CargaHoraria{
 		return "Completa ";
 	}
 
-	
 }

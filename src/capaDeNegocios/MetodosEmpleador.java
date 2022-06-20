@@ -3,11 +3,17 @@ package capaDeNegocios;
 import java.util.ArrayList;
 
 import capaDeDatos.Empleador;
+import capaDeDatos.Formulario;
 import capaDeDatos.TicketEmpleador;
 import capaDePresentacion.UEmpleador;
 import comisiones.IPersona;
 import comisiones.IRubro;
 
+
+/**
+ *<b>
+ *Clase que contiene todos los metodos de los empleadores.
+ */
 public class MetodosEmpleador {
 	private static MetodosEmpleador instance = null;
 
@@ -56,7 +62,7 @@ public class MetodosEmpleador {
 	}
 	
 	
-	public void crearTicketEmpleador(String locacion, int remuneracion, String cargaHoraria, String tipoPuesto,
+	public void crearTicketEmpleador(String locacion, double remuneracion, String cargaHoraria, String tipoPuesto,
 			int rangoEtario, String experienciaPrevia, String estudiosCursados, int cantEmpleados,int pLocacion,int pRemuneracion,int pCargaHoraria,int pTipodePuesto,int pExperienciaPrevia,int pRangoEtario,int pEstudiosCursados,
 			UEmpleador uEmpleador){
 		Formulario nuevofor = new Formulario(locacion, remuneracion, cargaHoraria, tipoPuesto, rangoEtario,
@@ -82,24 +88,36 @@ public class MetodosEmpleador {
 			aux.get(i).getEmpleador().getTicket().setEstado(estado);
 		}
 	}
-
 	
-
+	public void cambiarEstadoTicket(String estado, Empleador empleador) {
+		empleador.getTicket().setEstado(estado);
+		if (empleador.getTicket().getEstado().equalsIgnoreCase("finalizado"))
+			actualizarPuntaje(empleador,50);
+}
+	
+	/**
+	 * Calcula la comision a cobrar para el empleador. Utiliza los atributos del empleador(tPersona y rubro) para calcular.
+	 * <b>Pre: </b> Se tiene que haber gatillado la ronda de contrataciones.
+	 * @param empleador: empleador a calcular la comision.
+	 */
 	public void cobraComision(Empleador empleador) {
-		double modificadorcomision,remuneracion,descuento;
-		IRubro rubro;
-		IPersona persona;
-		//*Extraigo datos*//
-		persona=empleador.gettPersona();
-		rubro=empleador.getRubro();
-		remuneracion=empleador.getTicket().getFormulario().getRemuneracionint();//problema ya que la remu no es int?
-		//*Calculo el modificador de la comision*//
-		modificadorcomision=persona.calcularComisiones(rubro);
-		//*Calculo el descuento por puntaje//*
-		descuento=empleador.getPuntaje()*0.01;
-		//*Seteo la comision*//
-		empleador.setComision(remuneracion*modificadorcomision*descuento);
-	}
+        double modificadorcomision,remuneracion,descuento;
+        IRubro rubro;
+        IPersona persona;
+        int puntaje;
+        persona=empleador.gettPersona();
+        rubro=empleador.getRubro();
+        remuneracion=empleador.getTicket().getFormulario().getRemuneraciondoub();
+
+        modificadorcomision=persona.calcularComisiones(rubro);
+        puntaje=empleador.getPuntaje();
+        if (puntaje>100)
+            descuento=1;
+        else
+            descuento=puntaje*0.01;//penalizacion de pagar mas de la remuneracion por tener negativo
+
+        empleador.setComision(remuneracion*modificadorcomision*(1-descuento));
+    }
 
 	public void actualizarPuntaje(Empleador empleador, int valor) {
 		empleador.setPuntaje(empleador.getPuntaje()+valor);

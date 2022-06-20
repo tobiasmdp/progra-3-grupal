@@ -4,10 +4,15 @@ import java.util.ArrayList;
 import java.util.GregorianCalendar;
 
 import capaDeDatos.EmpleadoPretenso;
+import capaDeDatos.Formulario;
 import capaDeDatos.TicketEmpleado;
 import capaDePresentacion.UEmpleado;
 import formulario.TipodePuesto;
 
+/**
+ *<b>
+ *Clase que contiene los metodos de los empleados.
+ */
 public class MetodosEmpleado {
 	private static MetodosEmpleado instance = null;
 
@@ -54,7 +59,7 @@ public class MetodosEmpleado {
 		}
 	}
 
-	public void crearTicketEmpleado(String locacion, int remuneracion, String cargaHoraria, String tipoPuesto,
+	public void crearTicketEmpleado(String locacion, double remuneracion, String cargaHoraria, String tipoPuesto,
 			int rangoEtario, String experienciaPrevia, String estudiosCursados, UEmpleado uEmpleado) {
 		Formulario nuevofor = new Formulario(locacion, remuneracion, cargaHoraria, tipoPuesto, rangoEtario,
 				experienciaPrevia, estudiosCursados);
@@ -77,28 +82,45 @@ public class MetodosEmpleado {
 			while (i < aux.size() && !uEmpleado.equals(aux.get(i).getUsuario()))
 				i++;
 			aux.get(i).getEmpleado().getTicket().setEstado(estado);
+			if (aux.get(i).getEmpleado().getTicket().getEstado().equalsIgnoreCase("cancelado"))
+				actualizarPuntaje(aux.get(i).getEmpleado(),-1);
 		}
 	}
-
-	public void cobraComision(EmpleadoPretenso empleado) {
-		double modificadorcomision,remuneracion,descuento;
-		TipodePuesto puesto;
-		//*Extraigo datos*//
-		puesto=empleado.getTicket().getFormulario().getTipoPuesto();
-		remuneracion=empleado.getTicket().getFormulario().getRemuneracionint();
-		//*Calculo el modificador de la comision*//
-		modificadorcomision=puesto.calculaComision();
-		//*Calculo el descuento por puntaje//*
-		descuento=empleado.getPuntaje()*0.01;
-		//*Seteo la comision*//
-		empleado.setComision(remuneracion*modificadorcomision*descuento);
-		
-		
+	
+	public void cambiarEstadoTicket(String estado, EmpleadoPretenso empleado) {
+			empleado.getTicket().setEstado(estado);
+			if (empleado.getTicket().getEstado().equalsIgnoreCase("cancelado"))
+				actualizarPuntaje(empleado,-1);
+			if (empleado.getTicket().getEstado().equalsIgnoreCase("finalizado"))
+				actualizarPuntaje(empleado,10);
 	}
+	
+	
+
+	/**
+	 * Calcula la comision a cobrar para el empleado. Usa el tipo de puesto que esta en el formulario del ticket.
+	 * <b>Pre: </b> Se tiene que haber gatillado la ronda de contrataciones.
+	 * @param empleado: empleado a calcular la comision.
+	 */
+	public void cobraComision(EmpleadoPretenso empleado) {
+        double modificadorcomision,remuneracion,descuento;
+        TipodePuesto puesto;
+        int puntaje;
+        puesto=empleado.getTicket().getFormulario().getTipoPuesto();
+        remuneracion=empleado.getTicket().getFormulario().getRemuneraciondoub();
+        modificadorcomision=puesto.calculaComision();
+
+        puntaje=empleado.getPuntaje();
+        if (puntaje>100)
+            descuento=1;
+        else
+            descuento=puntaje*0.01;//penalizacion de pagar mas de la remuneracion por tener negativo
+
+        empleado.setComision(remuneracion*modificadorcomision*(1-descuento));
+    }
 	
 	public void actualizarPuntaje(EmpleadoPretenso empleado, int valor) {
 		empleado.setPuntaje(empleado.getPuntaje()+valor);
-		
 	}
 	
 

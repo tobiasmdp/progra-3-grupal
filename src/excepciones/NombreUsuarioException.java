@@ -1,5 +1,9 @@
 package excepciones;
 
+/**
+ * Esta excepcion es cuando el nombre de usuario ingresado es incorrecto y se extiende de las excepcion de login
+ *
+ */
 public class NombreUsuarioException extends LoginException {
 	private String nombreUsuario;
 	

@@ -4,22 +4,24 @@ import capaDeNegocios.Agencia;
 import capaDeNegocios.Contratacion;
 import excepciones.LoginException;
 
-// crear los metodos para visualizar las lista de asignaciones Usuario_puntaje
-
-// crear clase astracta UCliente con cambiarEStadoTicket, elegirUsuario_puntaje y listaDeAsignaciones
-
+/**
+ *<b>
+ *Clase abstracta con los metodos comunes cambiarEStadoTicket, elegirUsuario_puntaje y listaDeAsignaciones.
+ *
+ */
 public abstract class Usuario {
 	
-	public boolean login(String nombreUsuario, String contrasenia) {
-		boolean resultado = true;
+	/**
+	 * <b>
+	 * Se logea el usuario en el sistema.
+	 */
+	public void login(String nombreUsuario, String contrasenia) {
 		try {
 			Agencia.getInstance().login(nombreUsuario, contrasenia, this);
 		}
 		catch (LoginException e) {
 			System.out.println(e.getMessage());
-			resultado = false;
 		}
-		return resultado;
 	}
 	
 	public void mostrarListaContrataciones() {
@@ -28,10 +30,18 @@ public abstract class Usuario {
 		}
 	}
 	
+	/**
+	 * <b>
+	 * Se deslogea el usuario del sistema.
+	 */
 	public void logout() {
 		Agencia.getInstance().logout(this); 
 	}
 	
+	/**
+	 * <b>
+	 * Borra la cuenta del sistema.
+	 */
 	public void borrarCuenta() {
 		Agencia.getInstance().borrarCuenta(this);
 	}

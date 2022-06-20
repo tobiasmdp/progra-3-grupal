@@ -1,7 +1,10 @@
 package formulario;
 
 import capaDeNegocios.Agencia;
-
+/**
+ *<br>
+ *La clase HastaV1 es parte del patron Double Dispatch para la categoria del formulario Remuneracion
+ */
 public class HastaV1 implements Remuneracion {
 	
 	public double compara(Remuneracion otracaract) {

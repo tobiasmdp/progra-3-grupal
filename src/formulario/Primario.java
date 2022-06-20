@@ -1,5 +1,8 @@
 package formulario;
-
+/**
+ *<br>
+ *La clase Primario es parte del patron Double Dispatch para la categoria del formulario EstudiosCursados
+ */
 public class Primario implements EstudiosCursados{
 
 	public double compara(EstudiosCursados otracaract) {

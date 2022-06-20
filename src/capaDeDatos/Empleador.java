@@ -1,42 +1,50 @@
 package capaDeDatos;
 
-
-import capaDeNegocios.Agencia;
 import comisiones.FactoryPersona;
 import comisiones.FactoryRubro;
 import comisiones.IPersona;
 import comisiones.IRubro;
+import excepciones.UsuarioNoEncontradoException;
 
 /**
- * @author mikel
- * los constructores de esta clase ya agregan a los arraylist de empleador de la agencia
+ * <br>
+ * Clase que representa al empleador con todos sos atributos.
  */
 public class Empleador extends Cliente {
 	private String nombre;
 	private IPersona tPersona;
 	private IRubro rubro;
 	private TicketEmpleador ticket;
-	private int puntaje;
 	private double comision;
 	
 	public Empleador(String nombreUsuario,String contra) {
 		super(nombreUsuario,contra);
-		Agencia.getInstance().addEmpleador(this);
 	}
 	
 	
 	public Empleador(String nombreUsuario,String contra,String nombre, String tPersona, String rubro) {
 		super(nombreUsuario,contra);
-		Agencia.getInstance().addEmpleador(this);
 		this.nombre = nombre;
 		this.tPersona = FactoryPersona.getPersona(tPersona);
 		this.rubro = FactoryRubro.getRubro(rubro);
 	}
 	
-	public boolean elegirUsuario_puntaje(String nombreUsuario) { 
-		return this.ticket.elegirUsuario_puntaje(nombreUsuario);
+	/**
+	 *Elige al empleado con nombre de usuario pasado por parametro.
+	 *<b>Pre:</b> Se usa este metodo luego de visualizar la lista de asignacion.<br>
+	 *<b>Post:</b> En el arrayList del ticket de este empleador se agrega, si existe, el empleado con el nombre de usuario del parametro.  
+	 *@param nombreUsuario: nombre de usuario del empleado elegido.
+	 */
+	public void elegirUsuario_puntaje(String nombreUsuario) throws UsuarioNoEncontradoException{ 
+		 this.ticket.elegirUsuario_puntaje(nombreUsuario);
 	}
 	
+	
+	
+	/**
+	 *Devuelve la lista de asignacion del empleador con todos los empleados y sus respectivos puntajes.
+	 *<b>Pre:</b> Se usa este metodo luego de realizar la ronda de contratacion.<br>
+	 */
 	public ListaDeAsignacion getListaDeAsignacion() {
 		ListaDeAsignacion listaDeAsignacion = null;
 		listaDeAsignacion = this.getTicket().getListaAsignacion();
@@ -82,15 +90,7 @@ public class Empleador extends Cliente {
 	public TicketEmpleador getTicket() {
 		return ticket;
 	}
-	
-	public int getPuntaje() {
-		return puntaje;
-	}
 
-	public void setPuntaje(int puntaje) {
-		this.puntaje = puntaje;
-	}
-	
 	@Override
 	public String toString() {
 		return  nombre + "       " + tPersona + "         " + rubro + "         " + ticket;

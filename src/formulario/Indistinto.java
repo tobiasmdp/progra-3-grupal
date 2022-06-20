@@ -1,5 +1,8 @@
 package formulario;
-
+/**
+ *<br>
+ *La clase Indistinto es parte del patron Double Dispatch para la categoria del formulario Locacion
+ */
 public class Indistinto implements Locacion{
 	public double compara(Locacion otracaract) {
 		return otracaract.comparaIndistinto();

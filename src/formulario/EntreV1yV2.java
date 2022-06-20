@@ -1,7 +1,10 @@
 package formulario;
 
 import capaDeNegocios.Agencia;
-
+/**
+ *<br>
+ *La clase EntreV1YV2 es parte del patron Double Dispatch para la categoria del formulario Remuneracion
+ */
 public class EntreV1yV2 implements Remuneracion{
 	
 	public double compara(Remuneracion otracaract) {
