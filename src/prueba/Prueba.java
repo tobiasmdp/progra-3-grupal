@@ -103,6 +103,10 @@ public class Prueba {
 		empleador5.elegirUsuario_puntaje("Usuario8"); //no deberia poder elegirlo
 		empleado8.cambiarEstadoTicket("activo");
 		
+		//------------------  Prueba de persistencia  ------------------//
+		
+		Agencia.getInstance().persistirEmpleador(empleador5);
+		
 		//------------------ RONDA DE CONTRATACIONES  ------------------2
 		
 		admin7.rondaContrataciones();
@@ -120,7 +124,8 @@ public class Prueba {
 			
 		//------------------ RONDA DE CONTRATACIONES  ------------------4
 				
-		admin7.rondaContrataciones();	
+		admin7.rondaContrataciones();
+		empleador4.mostrarListaContrataciones();
 		//------------------ RONDA DE ENCUENTROS LABORALES ------------------5
 		admin7.rondaEncuentrosLaborales();
 				

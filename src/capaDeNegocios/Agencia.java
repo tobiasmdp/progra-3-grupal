@@ -1,8 +1,14 @@
 package capaDeNegocios;
 
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 
+import Persistencia.EmpleadorDTO;
+import Persistencia.IPersistencia;
+import Persistencia.PersistenciaXML;
+import Persistencia.UtilEmpleador;
 import capaDeDatos.Administrador;
 import capaDeDatos.Cliente;
 import capaDeDatos.EmpleadoPretenso;
@@ -150,7 +156,7 @@ public class Agencia {
 				addLogeoEmpleadoPretenso(new NodoLogeoEmpleado(usuario, empleadosPretensos.get(i)));
 				System.out.println("sesion iniciada correctamente");
 			} else
-				throw new ContraException("la contrase�a ingresada no es la correcta", contra);
+				throw new ContraException("la contrasenia ingresada no es la correcta", contra);
 		else {
 			i = 0;
 			while (i < empleadores.size() && !(empleadores.get(i).getNombreUsuario().equals(nombreUsuario)))
@@ -160,7 +166,7 @@ public class Agencia {
 					addLogeoEmpleadores(new NodoLogeoEmpleador(usuario, empleadores.get(i)));
 					System.out.println("sesion iniciada correctamente");
 				} else
-					throw new ContraException("la contrase�a ingresada no es la correcta", contra);
+					throw new ContraException("la contrasenia ingresada no es la correcta", contra);
 			else {
 				i = 0;
 				while (i < administradores.size() && !(administradores.get(i).getNombreUsuario().equals(nombreUsuario)))
@@ -170,7 +176,7 @@ public class Agencia {
 						addLogeoAdministrador(new NodoLogeoAdministrador(usuario, administradores.get(i)));
 						System.out.println("sesion iniciada correctamente");
 					} else
-						throw new ContraException("la contrase�a ingresada no es la correcta", contra);
+						throw new ContraException("la contrasenia ingresada no es la correcta", contra);
 				else
 					throw new NombreUsuarioException("el nombre de usuario ingresado no coincide", nombreUsuario); // si llego hasta aca 
 																							//es que no lo encontro en ningun lado
@@ -566,7 +572,29 @@ public class Agencia {
 	public void setVencimientoTicket(int vencimientoTicket) {
 		this.vencimientoTicket = vencimientoTicket;
 	}
+	
+	
+	//------------------  Prueba de persistencia  ------------------//
+	
+	public void persistirEmpleador(UEmpleador uEmpleador)
+	{
+		Empleador empleador =  (Empleador) getCliente(uEmpleador); //encuentra el Empleador, pero devuelve tipo Cliente.
+		String nombreArchivo = "Empleador-" + empleador.getNombre();
+		try {
+			IPersistencia persistencia= new PersistenciaXML();
+			persistencia.abrirOutput(nombreArchivo + ".xml");
+			System.out.println(nombreArchivo + ".xml creado y abierto correctamente.");
+			EmpleadorDTO empleadorDTO = UtilEmpleador.EmpleadorDTOFromEmpleador(empleador);
+			persistencia.escribir(empleadorDTO);
+			System.out.println("Exito la grabar.");
+			persistencia.cerrarOutput();
+			System.out.println("Exito al cerrar.");
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
-
+	}
 	
 }
