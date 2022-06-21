@@ -8,8 +8,8 @@ public class UtilEmpleador {
 		EmpleadorDTO empleadorDTO = new EmpleadorDTO();
 		empleadorDTO.setNombre(empleador.getNombre());
 		empleadorDTO.setComision(empleador.getComision());
-		empleadorDTO.setRubro(empleador.getRubro());
-		empleadorDTO.settPersona(empleador.gettPersona());
+		empleadorDTO.setRubro(empleador.getRubro().toString());
+		empleadorDTO.settPersona(empleador.gettPersona().toString());
 		return empleadorDTO;
 	}
 }

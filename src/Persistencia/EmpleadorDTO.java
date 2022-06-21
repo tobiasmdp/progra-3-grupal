@@ -6,8 +6,10 @@ import comisiones.IRubro;
 
 public class EmpleadorDTO {
 	private String nombre;
-	private IPersona tPersona;
-	private IRubro rubro;
+//	private IPersona tPersona;
+//	private IRubro rubro;
+	private String tPersona;
+	private String rubro;
 	//private TicketEmpleador ticket;
 	private double comision;
 	
@@ -23,21 +25,21 @@ public class EmpleadorDTO {
 		this.nombre = nombre;
 	}
 
-	public IPersona gettPersona() {
-		return tPersona;
-	}
-
-	public void settPersona(IPersona tPersona) {
-		this.tPersona = tPersona;
-	}
-
-	public IRubro getRubro() {
-		return rubro;
-	}
-
-	public void setRubro(IRubro rubro) {
-		this.rubro = rubro;
-	}
+//	public IPersona gettPersona() {
+//		return tPersona;
+//	}
+//
+//	public void settPersona(IPersona tPersona) {
+//		this.tPersona = tPersona;
+//	}
+//
+//	public IRubro getRubro() {
+//		return rubro;
+//	}
+//
+//	public void setRubro(IRubro rubro) {
+//		this.rubro = rubro;
+//	}
 
 //	public TicketEmpleador getTicket() {
 //		return ticket;
@@ -46,6 +48,22 @@ public class EmpleadorDTO {
 //	public void setTicket(TicketEmpleador ticket) {
 //		this.ticket = ticket;
 //	}
+
+	public String gettPersona() {
+		return tPersona;
+	}
+
+	public void settPersona(String tPersona) {
+		this.tPersona = tPersona;
+	}
+
+	public String getRubro() {
+		return rubro;
+	}
+
+	public void setRubro(String rubro) {
+		this.rubro = rubro;
+	}
 
 	public double getComision() {
 		return comision;

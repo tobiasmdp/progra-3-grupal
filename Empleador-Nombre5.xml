@@ -8,10 +8,10 @@
    <string>Nombre5</string>
   </void>
   <void property="rubro">
-   <object class="comisiones.Salud"/>
+   <string>Salud</string>
   </void>
   <void property="tPersona">
-   <object class="comisiones.Juridica"/>
+   <string>Juridica</string>
   </void>
  </object>
 </java>
