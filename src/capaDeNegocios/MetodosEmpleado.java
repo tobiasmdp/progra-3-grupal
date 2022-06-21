@@ -5,6 +5,7 @@ import java.util.GregorianCalendar;
 
 import capaDeDatos.EmpleadoPretenso;
 import capaDeDatos.Formulario;
+import capaDeDatos.PuestoTrabajo;
 import capaDeDatos.TicketEmpleado;
 import capaDePresentacion.UEmpleado;
 import formulario.TipodePuesto;
@@ -13,9 +14,9 @@ import formulario.TipodePuesto;
  *<b>
  *Clase que contiene los metodos de los empleados.
  */
-public class MetodosEmpleado {
+public class MetodosEmpleado extends Thread{
 	private static MetodosEmpleado instance = null;
-
+	
 	private MetodosEmpleado() {
 	}
 
@@ -123,5 +124,9 @@ public class MetodosEmpleado {
 		empleado.setPuntaje(empleado.getPuntaje()+valor);
 	}
 	
+	//------------------------------------Parte 2 ------------------------------------------------------------	
+		public void run () {
+			
+		}
 
 }

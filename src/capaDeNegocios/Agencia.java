@@ -2,6 +2,7 @@ package capaDeNegocios;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Random;
 
 import capaDeDatos.Administrador;
 import capaDeDatos.Cliente;
@@ -35,7 +36,9 @@ public class Agencia {
 	private ArrayList<NodoLogeoEmpleado> logeoempleados = new ArrayList<NodoLogeoEmpleado>();
 	private ArrayList<NodoLogeoEmpleador> logeoempleadores = new ArrayList<NodoLogeoEmpleador>();
 	private ArrayList<NodoLogeoAdministrador> logeoadministradores = new ArrayList<NodoLogeoAdministrador>();
-	private ArrayList <PuestoTrabajo> puestotrabajos = new ArrayList<PuestoTrabajo>();
+	//nuevo
+	private Random rand= new Random();
+	private BolsaDeTrabajo bolsatrabajo;
 
 	public ListaDeAsignacion getListaDeAsignacion(UCliente uCliente) {
 		ListaDeAsignacion listaDeAsignacion;
@@ -568,14 +571,45 @@ public class Agencia {
 	public void setVencimientoTicket(int vencimientoTicket) {
 		this.vencimientoTicket = vencimientoTicket;
 	}
+	
+	//parte 2
 
-//------------------------------------Parte 2 -------------------------------------------------
-	public synchronized void putBolsaTrabajo(PuestoTrabajo laburo) { // recurso compartido por empleado y empleador
-		
+	public BolsaDeTrabajo getBolsatrabajo() {
+		return bolsatrabajo;
+	}
+
+	public void setBolsatrabajo(BolsaDeTrabajo bolsatrabajo) {
+		this.bolsatrabajo = bolsatrabajo;
 	}
 	
-	public synchronized void getBolsaTrabajo(PuestoTrabajo laburo) {
+	public void simulacion() {
+	int cantempleadores=rand.nextInt(10);
+	int cantempleados=rand.nextInt(10);
+	int i,j, cantpuestos;
+	Empleador auxempleador;
+	EmpleadoPretenso auxempleado;
+	String empleado="Empleado";
+	String empleador="Empleador";
+	ArrayList <Empleador> simempleadores= new ArrayList <Empleador>();
+	ArrayList <EmpleadoPretenso> simempleado= new ArrayList <EmpleadoPretenso>();
+		setBolsatrabajo(new BolsaDeTrabajo());
+		for(i=0;i<=cantempleadores;i++) {
+			auxempleador=new Empleador(empleador+i,"contraseña",this.bolsatrabajo);
+			simempleadores.add(auxempleador);
+			cantpuestos=rand.nextInt(4);
+			for (j=0;j<=cantpuestos;j++)
+				zonaEmpleador.NuevoPuesto(auxempleador,new PuestoTrabajo(auxempleador,"locacion","rubro"));
+		}
+		
+		for(i=0;i<=cantempleados;i++) {
+			auxempleado=new EmpleadoPretenso(empleado+i,"contraseña","rubro",this.bolsatrabajo);
+			simempleado.add(auxempleado);
+		}
+		
+		//ver bien los start
+		
+		
 		
 	}
-	
+
 }

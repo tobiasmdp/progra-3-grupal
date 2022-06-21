@@ -4,26 +4,36 @@ import comisiones.IRubro;
 import formulario.Locacion;
 
 public class PuestoTrabajo { //lo crea empleador
-private Locacion locacion;
-private IRubro rubro;
+private String locacion;
+private String rubro;
 private Empleador empleador;
+private int estado; // 3 estados: 0 disponible, 1 en consulta, 2 finalizado
 
-	public PuestoTrabajo(Empleador empleador) {
+	public PuestoTrabajo(Empleador empleador, String locacion, String rubro) { //se hicieron string porque sino hay que generar todo el ticket completo, y para la simulacion no me parece necesario
 		this.empleador=empleador;
-		this.locacion= empleador.getTicket().formulario.getLocacion();
-		this.rubro=empleador.getRubro();
+		this.locacion= locacion;
+		this.rubro=rubro;
+		this.estado=0;
 	}
 	
-	public Locacion getLocacion() {
+	public String getLocacion() {
 		return locacion;
 	}
 
-	public IRubro getRubro() {
+	public String getRubro() {
 		return rubro;
 	}
 
 	public Empleador getEmpleador() {
 		return empleador;
+	}
+	
+	public int getEstado() {
+		return estado;
+	}
+	
+	public int setEstado() {
+		return estado;
 	}
 
 }
