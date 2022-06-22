@@ -1,16 +1,13 @@
 package Persistencia;
 
-import capaDeDatos.TicketEmpleador;
 import comisiones.IPersona;
 import comisiones.IRubro;
 
-public class EmpleadorDTO {
+public class EmpleadorDTO extends ClienteDTO{
 	private String nombre;
-//	private IPersona tPersona;
-//	private IRubro rubro;
-	private String tPersona;
+	private String tPersona; //se persiste como String para levantarlo con un Factory
 	private String rubro;
-	//private TicketEmpleador ticket;
+	private TicketEmpleadorDTO ticketDTO;
 	private double comision;
 	
 	public EmpleadorDTO() {
@@ -25,29 +22,13 @@ public class EmpleadorDTO {
 		this.nombre = nombre;
 	}
 
-//	public IPersona gettPersona() {
-//		return tPersona;
-//	}
-//
-//	public void settPersona(IPersona tPersona) {
-//		this.tPersona = tPersona;
-//	}
-//
-//	public IRubro getRubro() {
-//		return rubro;
-//	}
-//
-//	public void setRubro(IRubro rubro) {
-//		this.rubro = rubro;
-//	}
+	public TicketEmpleadorDTO getTicket() {
+		return ticketDTO;
+	}
 
-//	public TicketEmpleador getTicket() {
-//		return ticket;
-//	}
-//
-//	public void setTicket(TicketEmpleador ticket) {
-//		this.ticket = ticket;
-//	}
+	public void setTicket(TicketEmpleadorDTO ticket) {
+		this.ticketDTO = ticket;
+	}
 
 	public String gettPersona() {
 		return tPersona;
