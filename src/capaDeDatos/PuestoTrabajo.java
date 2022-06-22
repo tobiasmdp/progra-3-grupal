@@ -13,7 +13,6 @@ private int estado; // 3 estados: 0 disponible, 1 en consulta, 2 finalizado
 		this.empleador=empleador;
 		this.locacion= locacion;
 		this.rubro=rubro;
-		this.estado=0;
 	}
 	
 	public String getLocacion() {
@@ -31,9 +30,11 @@ private int estado; // 3 estados: 0 disponible, 1 en consulta, 2 finalizado
 	public int getEstado() {
 		return estado;
 	}
-	
-	public int setEstado() {
-		return estado;
+
+	public void setEstado(int estado) {
+		this.estado = estado;
 	}
+	
+	
 
 }

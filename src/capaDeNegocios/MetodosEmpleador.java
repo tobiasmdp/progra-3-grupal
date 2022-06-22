@@ -129,9 +129,9 @@ public class MetodosEmpleador extends Thread {
 		empleador.nuevosPuestosTrabajos(puesto);
 	}
 	
-	public void run (Empleador empleador, PuestoTrabajo puesto) {
+	public void run (Empleador empleador, PuestoTrabajo puesto) { //ver bien
 		for (int i=0;i< empleador.getMispuestotrabajo().size();i++) {
-			Agencia.getInstance().getBolsatrabajo().putPuestoTrabajo(puesto);   
+			Agencia.getInstance().getBolsatrabajo().putPuestoTrabajoEmpleador(puesto);   
 		}
 	}
 	

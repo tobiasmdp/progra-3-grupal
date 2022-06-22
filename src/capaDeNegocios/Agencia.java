@@ -572,7 +572,7 @@ public class Agencia {
 		this.vencimientoTicket = vencimientoTicket;
 	}
 	
-	//parte 2
+	//-------------------------------------------------------------parte 2------------------------------------------------------
 
 	public BolsaDeTrabajo getBolsatrabajo() {
 		return bolsatrabajo;
