@@ -14,13 +14,15 @@ public class EmpleadoPretenso extends Cliente{
 	private double comision;
 	//parte 2
 	private String rubro;
+	private String locacion;
 	private BolsaDeTrabajo bolsa;
 	// private static int codUsuario;
 
-	public EmpleadoPretenso(String nombreUsuario, String contra, String rubro, BolsaDeTrabajo bolsa) {  //para no tener que crear el ticket de 0
+	public EmpleadoPretenso(String nombreUsuario, String contra, String rubro, BolsaDeTrabajo bolsa, String locacion) {  //para no tener que crear el ticket de 0
 		super(nombreUsuario, contra);
 		this.rubro=rubro;
 		this.bolsa=bolsa;
+		this.locacion=locacion;
 	}
 	
 	public EmpleadoPretenso(String nombreUsuario, String contra) {
@@ -107,6 +109,16 @@ public class EmpleadoPretenso extends Cliente{
 	public void setBolsa(BolsaDeTrabajo bolsa) {
 		this.bolsa = bolsa;
 	}
+
+	public String getLocacion() {
+		return locacion;
+	}
+
+	public void setLocacion(String locacion) {
+		this.locacion = locacion;
+	}
+	
+	
 
 
 }

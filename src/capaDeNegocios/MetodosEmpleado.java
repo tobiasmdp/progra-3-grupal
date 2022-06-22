@@ -126,7 +126,15 @@ public class MetodosEmpleado extends Thread{
 	
 	//------------------------------------Parte 2 ------------------------------------------------------------	
 		public void run () {
-			
+		int i=0, bandera=0;
+		PuestoTrabajo aux;
+			while (i<=10 && bandera==0) {
+				aux==Agencia.getInstance().getBolsatrabajo().getPuestoTrabajo(null); // en el null tendria que llamar al empleado que usa este metodo
+				if (aux.equals(null))
+					bandera==1;
+				i++;
+			}
+			//mensaje de si lo encontro o no lo encontro
 		}
 
 }

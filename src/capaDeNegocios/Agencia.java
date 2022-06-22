@@ -602,7 +602,7 @@ public class Agencia {
 		}
 		
 		for(i=0;i<=cantempleados;i++) {
-			auxempleado=new EmpleadoPretenso(empleado+i,"contraseña","rubro",this.bolsatrabajo);
+			auxempleado=new EmpleadoPretenso(empleado+i,"contraseña","rubro",this.bolsatrabajo,"locacion");
 			simempleado.add(auxempleado);
 		}
 		
