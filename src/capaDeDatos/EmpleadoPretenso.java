@@ -7,7 +7,7 @@ import excepciones.UsuarioNoEncontradoException;
  *<br>
  *Clase que representa al empleado pretenso con todos sus atributos.
  */
-public class EmpleadoPretenso extends Cliente{
+public class EmpleadoPretenso extends Cliente {
 	private String nombre, apellido, telefono;
 	private TicketEmpleado ticket;
 	private int edad;
@@ -90,11 +90,11 @@ public class EmpleadoPretenso extends Cliente{
 	public TicketEmpleado getTicket() {
 		return ticket;
 	}
-
+/*
 	@Override
 	public String toString() {
 		return nombre + "         " + apellido + "         " + edad + "         " + ticket;
-	}
+	}*/
 	// parte 2
 
 	public String getRubro() {
@@ -117,8 +117,10 @@ public class EmpleadoPretenso extends Cliente{
 	public void setLocacion(String locacion) {
 		this.locacion = locacion;
 	}
-	
-	
 
-
+	@Override
+	public String toString() {
+		return nombre + rubro + locacion ;
+	}
 }
+	

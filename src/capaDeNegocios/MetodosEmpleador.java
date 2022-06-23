@@ -5,7 +5,9 @@ import java.util.ArrayList;
 import capaDeDatos.Empleador;
 import capaDeDatos.Formulario;
 import capaDeDatos.PuestoTrabajo;
+import capaDeDatos.TicketEmpleado;
 import capaDeDatos.TicketEmpleador;
+import capaDePresentacion.UEmpleado;
 import capaDePresentacion.UEmpleador;
 import comisiones.IPersona;
 import comisiones.IRubro;
@@ -78,6 +80,7 @@ public class MetodosEmpleador extends Thread {
 		}
 	}
 	
+	
 	public void cambiarEstadoTicket(String estado, UEmpleador uEmpleador) {
 		ArrayList <NodoLogeoEmpleador> aux = Agencia.getInstance().getLogeoempleadores();
 		int i=0;
@@ -128,11 +131,21 @@ public class MetodosEmpleador extends Thread {
 	public void NuevoPuesto(Empleador empleador, PuestoTrabajo puesto) {
 		empleador.nuevosPuestosTrabajos(puesto);
 	}
-	
-	public void run (Empleador empleador, PuestoTrabajo puesto) {
-		for (int i=0;i< empleador.getMispuestotrabajo().size();i++) {
-			Agencia.getInstance().getBolsatrabajo().putPuestoTrabajo(puesto);   
+
+	public TicketEmpleador getTicket(UEmpleador uEmpleador) {
+		int i=0;
+		TicketEmpleador ticket=null;
+		ArrayList <NodoLogeoEmpleador> aux = Agencia.getInstance().getLogeoempleadores();
+		int arreglologeado = Agencia.getInstance().logged(uEmpleador);
+		if (arreglologeado==2) {
+			while (i < aux.size() && !uEmpleador.equals(aux.get(i).getUsuario()))
+				i++;
+			if (aux.get(i).getEmpleador().getTicket()!=null)
+				ticket=aux.get(i).getEmpleador().getTicket();
+				
 		}
+		return ticket;
 	}
+	
 	
 }

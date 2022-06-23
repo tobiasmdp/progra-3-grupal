@@ -102,7 +102,7 @@ public abstract class Ticket {
 	
 	@Override
 	public String toString() {
-		return ""+formulario ;
+		return "Fecha de generacion: "+fecha.get(fecha.DATE)+ " / "+ fecha.get(fecha.MONTH)+ " / "+fecha.get(fecha.YEAR)+"\nEstado: " +estado+"\nRondas sin ser elegido:" + rondasTranscurridas + formulario ;
 	}
 	
 	

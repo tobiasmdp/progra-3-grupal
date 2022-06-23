@@ -16,7 +16,7 @@ public class UEmpleador extends UCliente{
 	 */
 	public void registrarse(String usuario, String contrasenia, String nombre, 
 			String tPersona, String rubro) {
-		Agencia.getInstance().registroEmpleador(usuario, contrasenia, nombre, tPersona, rubro,this);
+		Agencia.getInstance().registroEmpleador(usuario, contrasenia, nombre, tPersona, rubro);
 	}
 	
 	/**

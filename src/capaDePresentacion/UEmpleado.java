@@ -15,9 +15,9 @@ public class UEmpleado extends UCliente{
 	 * <b>
 	 * Registra al empleado en el sistema.
 	 */
-	public void registrarse(String nombreUsuario, String contrasenia, String nombre, 
+	public Usuario registrarse(String nombreUsuario, String contrasenia, String nombre, 
 			String apellido, String telefono, int edad) {
-		Agencia.getInstance().registroEmpleado(nombreUsuario, contrasenia, nombre, apellido, telefono, edad,this);
+		return Agencia.getInstance().registroEmpleado(nombreUsuario, contrasenia, nombre, apellido, telefono, edad);
 	}
 	
 	/**

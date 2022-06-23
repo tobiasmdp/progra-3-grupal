@@ -17,8 +17,7 @@ public class UAdministrador extends Usuario {
 	 * @param contrasenia: contrasenia del usuario.
 	 */
 	
-	public UAdministrador(String usuario, String contrasenia) {
-		Agencia.getInstance().registroAdministrador(usuario, contrasenia, this);
+	public UAdministrador() {
 	}
 
 	public void setV1(int valor) {

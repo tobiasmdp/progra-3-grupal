@@ -88,6 +88,22 @@ public class MetodosEmpleado extends Thread{
 		}
 	}
 	
+	public TicketEmpleado getTicket(UEmpleado uEmpleado) {
+		int i=0;
+		TicketEmpleado ticket=null;
+		ArrayList <NodoLogeoEmpleado> aux = Agencia.getInstance().getLogeoempleados();
+		int arreglologeado = Agencia.getInstance().logged(uEmpleado);
+		if (arreglologeado==1) {
+			while (i < aux.size() && !uEmpleado.equals(aux.get(i).getUsuario()))
+				i++;
+			if (aux.get(i).getEmpleado().getTicket()!=null)
+				ticket=aux.get(i).getEmpleado().getTicket();
+				
+		}
+		return ticket;
+	}
+	
+	
 	public void cambiarEstadoTicket(String estado, EmpleadoPretenso empleado) {
 			empleado.getTicket().setEstado(estado);
 			if (empleado.getTicket().getEstado().equalsIgnoreCase("cancelado"))
@@ -129,9 +145,9 @@ public class MetodosEmpleado extends Thread{
 		int i=0, bandera=0;
 		PuestoTrabajo aux;
 			while (i<=10 && bandera==0) {
-				aux==Agencia.getInstance().getBolsatrabajo().getPuestoTrabajo(null); // en el null tendria que llamar al empleado que usa este metodo
+				aux=Agencia.getInstance().getBolsatrabajo().getPuestoTrabajo(null); // en el null tendria que llamar al empleado que usa este metodo
 				if (aux.equals(null))
-					bandera==1;
+					bandera=1;
 				i++;
 			}
 			//mensaje de si lo encontro o no lo encontro

@@ -31,9 +31,10 @@ private int estado; // 3 estados: 0 disponible, 1 en consulta, 2 finalizado
 	public int getEstado() {
 		return estado;
 	}
-	
-	public int setEstado() {
-		return estado;
-	}
 
+	public void setEstado(int estado) {
+		this.estado = estado;
+	}
+	
+	
 }
