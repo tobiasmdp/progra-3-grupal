@@ -1,9 +1,12 @@
 package formulario;
 
+<<<<<<< HEAD
 /**
  *<br>
  *La clase Entre40y50 es parte del patron Double Dispatch para la categoria del formulario RangoEtario
  */
+=======
+>>>>>>> 82225852a058ccbc322004c7f559462455d4ff81
 public class Entre40Y50 implements RangoEtario{
     
 	public double compara(RangoEtario otracaract) {

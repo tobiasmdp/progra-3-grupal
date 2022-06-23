@@ -1,8 +1,12 @@
 package formulario;
+<<<<<<< HEAD
 /**
  *<br>
  *La clase Junior es parte del patron Double Dispatch para la categoria del formulario TipodePuesto
  */
+=======
+
+>>>>>>> 82225852a058ccbc322004c7f559462455d4ff81
 public class Junior implements TipodePuesto{
 	
 	public double compara(TipodePuesto otracaract) {
@@ -26,9 +30,13 @@ public class Junior implements TipodePuesto{
 		return "Junior";
 	}
 
+<<<<<<< HEAD
 	@Override
 	public double calculaComision() {
 		return 0.8;
 	}
+=======
+	
+>>>>>>> 82225852a058ccbc322004c7f559462455d4ff81
 }
  

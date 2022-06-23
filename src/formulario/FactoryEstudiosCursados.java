@@ -1,4 +1,5 @@
 package formulario;
+<<<<<<< HEAD
 /**
  *<br>
  *La clase utiliza el patron Factory para la creacion de categorias de EstudiosCursados.
@@ -9,6 +10,10 @@ public class FactoryEstudiosCursados {
 	 * <b>Pre: </b> Debe recibir como parametros "Primario", "Secundario" o "Terciario"<br>
 	 * <b>Pos: </b> Devuelve un objeto de tipo Primario, Secundario o Terciario<br>
 	 */
+=======
+
+public class FactoryEstudiosCursados {
+>>>>>>> 82225852a058ccbc322004c7f559462455d4ff81
 	public static EstudiosCursados getEstudiosCursados(String tipo) {
 		EstudiosCursados respuesta = null;
 		if (tipo.equalsIgnoreCase("Primario")) 

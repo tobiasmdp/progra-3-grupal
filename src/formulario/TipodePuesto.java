@@ -14,5 +14,8 @@ public interface TipodePuesto {
 	double comparaJunior();
 	double comparaSenior();
 	double comparaManagment();
+<<<<<<< HEAD
 	double calculaComision();
+=======
+>>>>>>> 82225852a058ccbc322004c7f559462455d4ff81
 }

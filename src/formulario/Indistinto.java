@@ -1,8 +1,12 @@
 package formulario;
+<<<<<<< HEAD
 /**
  *<br>
  *La clase Indistinto es parte del patron Double Dispatch para la categoria del formulario Locacion
  */
+=======
+
+>>>>>>> 82225852a058ccbc322004c7f559462455d4ff81
 public class Indistinto implements Locacion{
 	public double compara(Locacion otracaract) {
 		return otracaract.comparaIndistinto();
@@ -18,7 +22,11 @@ public class Indistinto implements Locacion{
 	}
 	@Override
 	public String toString() {
+<<<<<<< HEAD
 		return "Indistinto ";
+=======
+		return "Indistinto";
+>>>>>>> 82225852a058ccbc322004c7f559462455d4ff81
 	}
 	
 }
