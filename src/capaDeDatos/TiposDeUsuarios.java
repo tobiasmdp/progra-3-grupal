@@ -10,7 +10,7 @@ public abstract class TiposDeUsuarios  {
 	private String nombreUsuario;
 	private String password;
 	
-	protected TiposDeUsuarios(String nombreUsuario, String password) {
+	public TiposDeUsuarios(String nombreUsuario, String password) {
 		this.nombreUsuario = nombreUsuario;
 		this.password = password;
 	}

@@ -32,6 +32,12 @@ public class ListaDeAsignacion {
 		return listaAsignacion;
 	}
 	
+	
+	public void setFecha(Calendar fecha) {
+		this.fecha = fecha;
+	}
+
+
 	public void removelista(Usuario_puntaje usuario) {
 		this.listaAsignacion.remove(usuario);
 	}

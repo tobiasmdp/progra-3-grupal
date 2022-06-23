@@ -1,8 +1,5 @@
 package Persistencia;
 
-import comisiones.IPersona;
-import comisiones.IRubro;
-
 public class EmpleadorDTO extends ClienteDTO{
 	private String nombre;
 	private String tPersona; //se persiste como String para levantarlo con un Factory

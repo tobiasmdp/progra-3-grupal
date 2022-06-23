@@ -41,7 +41,6 @@ public class Formulario {
         this.cursados = FactoryEstudiosCursados.getEstudiosCursados(cursados);
         this.remuneraciondoub=remuneracion;
     }
-
     
     public Locacion getLocacion() {
         return locacion;
