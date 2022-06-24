@@ -46,13 +46,6 @@ public class UtilEmpleador {
 		return ticketDTO;
 	}
 	
-	public static Ticket TicketFromTicketDTO(TicketDTO ticketDTO) {
-		Calendar fecha = ticketDTO.getFecha();
-		String estado = ticketDTO.getEstado();
-		Formulario formulario = FormularioFromFormularioDTO(ticketDTO.getFormulario());
-		ListaDeAsignacionDTO lista
-	}
-	
 	public static FormularioDTO FormularioDTOFromFormulario(Formulario formulario) {
 		FormularioDTO formularioDTO = new FormularioDTO();
 		formularioDTO.setCargaHoraria(formulario.getCargaHoraria().toString());
@@ -98,14 +91,6 @@ public class UtilEmpleador {
 			listaAsignacion.add(Usuario_puntajeDTOFromUsuario_puntaje(usuario_puntaje));
 		listaDeAsignacionDTO.setListaAsignacion(listaAsignacion);
 		return listaDeAsignacionDTO;
-	}
-	
-	public static ListaDeAsignacion ListaDeAsignacionFromListaDeAsignacionDTO (ListaDeAsignacionDTO listaDeAsignacionDTO) {
-		ListaDeAsignacion listaDeAsignacion = new ListaDeAsignacion();
-		listaDeAsignacion.setFecha(listaDeAsignacionDTO.getFecha());
-		for (Usuario_puntajeDTO usuario_puntajeDTO : listaDeAsignacionDTO.getListaAsignacion())
-			listaDeAsignacion.addlista(Usuario_puntajeFromUsuario_puntajeDTO(usuario_puntajeDTO));
-		return listaDeAsignacion;
 	}
 	
 	public static Usuario_puntajeDTO Usuario_puntajeDTOFromUsuario_puntaje(Usuario_puntaje usuario_puntaje) {
