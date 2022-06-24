@@ -15,6 +15,7 @@ import javax.swing.ButtonGroup;
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
@@ -54,8 +55,11 @@ public class VentanaEmpleos extends JFrame implements InterfazVista,KeyListener,
 	private JPanel panelSimuladorNorte;
 	private JPanel panelSimuladorCentral;
 	private JPanel panelSimuladorSur;
-	
+	private JComboBox<String> ComboBoxEstadoTickets;
 
+
+	private JTextArea acciones=new JTextArea();
+	
 	private JList<String> ListaEmpleadosBolsaTrabajo = new JList<String>();
 	private JList<String> ListaBolsaTrabajo = new JList<String>();
 	private JList<String> ListaEmpleadosPretensos = new JList<String>();
@@ -64,7 +68,7 @@ public class VentanaEmpleos extends JFrame implements InterfazVista,KeyListener,
 
 	private JScrollPane scrollListaEmpleadosBolsaTrabajo = new JScrollPane(ListaEmpleadosBolsaTrabajo);
 	private JScrollPane scrollListaBolsaTrabajo = new JScrollPane(ListaBolsaTrabajo);
-	private JScrollPane scrollListaEmpleadores = new JScrollPane(ListaEmpleadores);
+	private JScrollPane scrollListaAcciones = new JScrollPane(acciones);
 	private JScrollPane scrollListaTicketEmpleado = new JScrollPane(ListaTicketEmpleado);
 	
 	private JButton botonLogin;
@@ -83,7 +87,7 @@ public class VentanaEmpleos extends JFrame implements InterfazVista,KeyListener,
 
 	private JButton botonCrearTicket;
 	private JButton botonDarTicketBaja;
-	private JButton botonCancelarTicket;
+	private JButton botonConfirmaCambioTicket;
 	private JButton botonModificarTicket;
 	private JButton botonMirarLista;
 	private JButton botonElegirTrabajo;
@@ -125,14 +129,14 @@ public class VentanaEmpleos extends JFrame implements InterfazVista,KeyListener,
 	
 
 	private JTextArea ticket;
-	private JTextArea acciones;
 	
 
 	private JTextField textovalorMinimo;
 	private JTextField textovalorMaximo;
 	private JLabel labelvalorMinimo;
 	private JLabel labelvalorMaximo;
-	
+
+	private JLabel labelElegirTicket;
 	private JLabel labelRegistro;
 	private JLabel labelUsuario;
 	private JLabel labelErrorUsuario;
@@ -206,7 +210,10 @@ public class VentanaEmpleos extends JFrame implements InterfazVista,KeyListener,
 		
 		this.logoEmpresa= new JLabel(new ImageIcon("LogoJobsProg.jpg"));
 		
-
+		this.ComboBoxEstadoTickets=new JComboBox<String>();
+		this.ComboBoxEstadoTickets.setBounds(10,10,80,20);
+		this.ComboBoxEstadoTickets.addItem("Cancelado");
+		this.ComboBoxEstadoTickets.addItem("Activo");
 		
 		this.labelUsuario= new JLabel();
 		this.textoUsuario = new JTextField();
@@ -253,11 +260,11 @@ public class VentanaEmpleos extends JFrame implements InterfazVista,KeyListener,
 		this.textovalorMaximo= new JTextField();
 		this.labelvalorMinimo= new JLabel();
 		this.labelvalorMaximo= new JLabel();
+		this.labelElegirTicket= new JLabel();
 		
-		
+
 		this.ticket= new JTextArea();
 		this.ticket.setEditable(false);
-		this.acciones= new JTextArea();
 		this.acciones.setEditable(false);
 		this.labelCargaHoraria= new JLabel();
 		this.labelLocacion= new JLabel();
@@ -277,21 +284,23 @@ public class VentanaEmpleos extends JFrame implements InterfazVista,KeyListener,
 		this.textoRepetirContraseña = new JPasswordField();
 		this.botonCrearTicket = new JButton("Crear Ticket de busqueda ");
 		this.botonDarTicketBaja = new JButton("Dar ticket de baja");
-		this.botonCancelarTicket = new JButton("Cancelar ticket");
-		this.botonModificarTicket = new JButton("Modificar ticket");
+		this.botonConfirmaCambioTicket = new JButton("Aceptar cambios");
+		this.botonModificarTicket = new JButton("Cambiar estado del ticket");
 		this.botonMirarLista = new JButton("Mirar lista");
 		this.botonElegirTrabajo = new JButton("Elegir Trabajo");
 		this.botonVerResultados = new JButton("Ver resultados");
 		this.botonBolsaTrabajo = new JButton("Bolsa de trabajo");
 		this.botonCrearTicket.setFont(new Font("Arial",Font.PLAIN,20));
 		this.botonDarTicketBaja.setFont(new Font("Arial",Font.PLAIN,20));
-		this.botonCancelarTicket.setFont(new Font("Arial",Font.PLAIN,20));
+		this.botonConfirmaCambioTicket.setFont(new Font("Arial",Font.PLAIN,20));
 		this.botonModificarTicket.setFont(new Font("Arial",Font.PLAIN,20));
 		this.botonMirarLista.setFont(new Font("Arial",Font.PLAIN,20));
 		this.botonElegirTrabajo.setFont(new Font("Arial",Font.PLAIN,20));
 		this.botonVerResultados.setFont(new Font("Arial",Font.PLAIN,20));
 		this.botonBolsaTrabajo.setFont(new Font("Arial",Font.PLAIN,20));
 		this.botonCrearTicket.setEnabled(false);
+
+		this.botonModificarTicket.setActionCommand(ELEGIRTICKET);
 		this.pantallaPrincipal();
 		this.arranca();
 	}
@@ -411,7 +420,7 @@ public class VentanaEmpleos extends JFrame implements InterfazVista,KeyListener,
 		this.botonSiguienteEmpleador.addActionListener(controladorSistema);
 		this.botonCrearTicket.addActionListener(controladorSistema);
 		this.botonDarTicketBaja.addActionListener(controladorSistema);
-		this.botonCancelarTicket.addActionListener(controladorSistema);
+		this.botonConfirmaCambioTicket.addActionListener(controladorSistema);
 		this.botonModificarTicket.addActionListener(controladorSistema);
 		this.botonMirarLista.addActionListener(controladorSistema);
 		this.botonElegirTrabajo.addActionListener(controladorSistema);
@@ -697,7 +706,7 @@ public class VentanaEmpleos extends JFrame implements InterfazVista,KeyListener,
 		revalidate();
 		repaint();
 	}
-	
+	//*MENUEMPLEADO
 	
 	@Override
 	public void MenuPrincipalEmpleado() {
@@ -729,8 +738,19 @@ public class VentanaEmpleos extends JFrame implements InterfazVista,KeyListener,
 		repaint();
 		
 	}
-	
+	@Override
+	public void elegirticket() {
+		this.labelElegirTicket.setText("Cambiar Estado del ticket");
+		this.botonConfirmaCambioTicket.setActionCommand(CONFIRMARELEGIRTICKETEMPLEADO);
+		this.labelElegirTicket.setVisible(true);
+		this.panelPrincipalCentral.add(labelElegirTicket);
+		this.panelPrincipalCentral.add(ComboBoxEstadoTickets);
+		this.panelPrincipalCentral.add(botonConfirmaCambioTicket);
+		revalidate();
+		repaint();
+	}
 
+	//*MENUADMINISTRADOR
 	@Override
 	public void MenuPrincipalAdministrador() {
 		this.panelPrincipal.removeAll();
@@ -873,16 +893,15 @@ public class VentanaEmpleos extends JFrame implements InterfazVista,KeyListener,
 		this.labelSimulador__empleados.setText("Empleados buscando trabajo:");
 		this.labelSimulador__bolsaTrabajo.setText("Bolsa de trabajo:");
 		this.labelSimulador__acciones.setText("Acciones:");
-		this.acciones.setText("HOLA");
 		this.panelSimuladorCentral.add(this.labelSimulador__empleados);
-		this.panelSimuladorCentral.add(scrollListaEmpleadosBolsaTrabajo);
+		//this.panelSimuladorCentral.add(scrollListaEmpleadosBolsaTrabajo);
 		this.panelSimuladorCentral.setLayout(new GridLayout(0,1));
 		this.panelSimuladorCentral.add(this.labelSimulador__bolsaTrabajo);
 		//this.panelSimuladorCentral.add(ListaBolsaTrabajo);
 		this.panelSimuladorCentral.add(this.labelSimulador__acciones);
-		this.panelSimuladorCentral.add(acciones);
+		this.panelSimuladorCentral.add(scrollListaAcciones);
 		this.panelPrincipal.add(panelSimuladorCentral,BorderLayout.CENTER);
-		
+
 		revalidate();
 		repaint();
 	}
@@ -1033,6 +1052,17 @@ public class VentanaEmpleos extends JFrame implements InterfazVista,KeyListener,
 	public ButtonGroup getGrupoTipoRubro() {
 		return grupoTipoRubro;
 	}
+
+	public JComboBox<String> getComboBoxEstadoTickets() {
+		return ComboBoxEstadoTickets;
+	}
+
+	@Override
+	public void actualizar() {
+		revalidate();
+		repaint();
+	}
+
 
 	
 

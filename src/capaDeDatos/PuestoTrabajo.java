@@ -1,19 +1,18 @@
 package capaDeDatos;
 
-import comisiones.IRubro;
-import formulario.Locacion;
+import capaDeNegocios.EmpleadorSimulado;
 
 public class PuestoTrabajo { //lo crea empleador
 private String locacion;
 private String rubro;
-private Empleador empleador;
-private int estado; // 3 estados: 0 disponible, 1 en consulta, 2 finalizado
+private EmpleadorSimulado empleador;
+private String estado; // 3 estados: 0 disponible, 1 en consulta, 2 finalizado
 
-	public PuestoTrabajo(Empleador empleador, String locacion, String rubro) { //se hicieron string porque sino hay que generar todo el ticket completo, y para la simulacion no me parece necesario
-		this.empleador=empleador;
+	public PuestoTrabajo(EmpleadorSimulado auxempleador, String locacion, String rubro) { //se hicieron string porque sino hay que generar todo el ticket completo, y para la simulacion no me parece necesario
+		this.empleador=auxempleador;
 		this.locacion= locacion;
 		this.rubro=rubro;
-		this.estado=0;
+		this.estado="disponible";
 	}
 	
 	public String getLocacion() {
@@ -24,17 +23,18 @@ private int estado; // 3 estados: 0 disponible, 1 en consulta, 2 finalizado
 		return rubro;
 	}
 
-	public Empleador getEmpleador() {
+	public EmpleadorSimulado getEmpleador() {
 		return empleador;
 	}
 	
-	public int getEstado() {
+	public String getEstado() {
 		return estado;
 	}
 
-	public void setEstado(int estado) {
+	public void setEstado(String estado) {
 		this.estado = estado;
 	}
 	
 	
+
 }

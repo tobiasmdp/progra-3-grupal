@@ -10,6 +10,9 @@ import java.util.Observable;
 import java.util.Observer;
 
 import capaDeNegocios.Agencia;
+import capaDeNegocios.BolsaDeTrabajo;
+import capaDeNegocios.EmpleadoSimulado;
+import capaDeNegocios.EmpleadorSimulado;
 import excepciones.ContraException;
 import excepciones.LoginException;
 import excepciones.NombreUsuarioException;
@@ -26,6 +29,7 @@ public class ControladorSistema implements ActionListener, Observer, KeyListener
 		this.vista.setActionListener(this);
 		this.modelo = Agencia.getInstance();
 		this.modelo.addObserver(this);
+		this.modelo.getBolsatrabajo().addObserver(this);
 	}
 
 	@Override
@@ -86,6 +90,11 @@ public class ControladorSistema implements ActionListener, Observer, KeyListener
 			modelo.setV1(Integer.parseInt(vista.getTextovalorMinimo().getText() ) );
 			modelo.setV2(Integer.parseInt(vista.getTextovalorMaximo().getText() ) );
 			vista.menuValoresRemuneracion();
+		}else if (evento.getActionCommand().equals(InterfazVista.ELEGIRTICKET)) {
+			vista.elegirticket();
+		}else if (evento.getActionCommand().equals(InterfazVista.CONFIRMARELEGIRTICKETEMPLEADO)) {
+			modelo.cambiarEstadoTicket((String)vista.getComboBoxEstadoTickets().getSelectedItem(), (UEmpleado)usuario);
+			InicioSesionEmpleado();
 		}
 		
 
@@ -93,6 +102,11 @@ public class ControladorSistema implements ActionListener, Observer, KeyListener
 
 			vista.simulador();
 			modelo.simulacion();
+			for (int i = 0 ; i < this.modelo.getSimempleado().size() ; i++)
+				this.modelo.getSimempleado().get(i).addObserver(this);
+			for (int i = 0 ; i < this.modelo.getSimempleadores().size() ; i++)
+				this.modelo.getSimempleadores().get(i).addObserver(this);
+			modelo.iniciarSimulacion();
 			
 			ModeloListaEmpleadoBolsaTrabajo modeloListaEmpleadoBolsaTrabajo= new ModeloListaEmpleadoBolsaTrabajo();
 			//ModeloListaEmpleadoBolsaTrabajo modeloListaBolsaTrabajo= new ModeloListaEmpleadoBolsaTrabajo();
@@ -110,9 +124,9 @@ public class ControladorSistema implements ActionListener, Observer, KeyListener
 
 	@Override
 	public void update(Observable o, Object arg) {
-		if(o !=this.modelo) {
-			throw new InvalidParameterException();
-		}
+		EmpleadoSimulado empleadoSimulado;
+		EmpleadorSimulado empleadorSimulado;
+		BolsaDeTrabajo bolsaTrabajo;
 		if(arg.equals("Empleado")) {
 			this.tipoUsuario=0;
 		}
@@ -122,6 +136,19 @@ public class ControladorSistema implements ActionListener, Observer, KeyListener
 		else if(arg.equals("Administrador")) {
 			this.tipoUsuario=2;
 		} 
+		else if(arg.equals("EstadoEmpleado")) {
+			empleadoSimulado=(EmpleadoSimulado)o;
+			this.vista.getAcciones().append(empleadoSimulado.getEstado()+"\n");
+		} 
+		else if(arg.equals("EstadoEmpleador")) {
+			empleadorSimulado=(EmpleadorSimulado)o;
+			this.vista.getAcciones().append(empleadorSimulado.getEstado()+"\n");
+		} 
+		else if(arg.equals("EstadoBolsa")) {
+			bolsaTrabajo=(BolsaDeTrabajo)o;
+			this.vista.getAcciones().append(bolsaTrabajo.getEstado()+"\n");
+		} 
+		this.vista.actualizar();
 	}
 
 	@Override

@@ -1,6 +1,7 @@
 package capaDePresentacion;
 
 import javax.swing.ButtonGroup;
+import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JTextArea;
@@ -23,7 +24,9 @@ public interface InterfazVista {
 	static final String RONDAENCUENTROS = "RONDAENCUENTROS";
 	static final String RONDACONTRATACION = "RONDACONTRATACION";
 	static final String VALORESREMUNERACION = "VALORESREMUNERACION";
-
+	static final String ELEGIRTICKET = "ELEGIRTICKET";
+	static final String CONFIRMARELEGIRTICKETEMPLEADO = "CONFIRMARELEGIRTICKETEMPLEADO";
+	
 	public void setActionListener(ControladorSistema controladorSistema);
 	public void registroPasoUno();
 	public void cambioALogin();
@@ -61,7 +64,10 @@ public interface InterfazVista {
 	public void menuValoresRemuneracion();
 	public JTextField getTextovalorMinimo();
 	public ButtonGroup getGrupoTipoPersona();
-
+	public JTextArea getAcciones();
 	public ButtonGroup getGrupoTipoRubro();
 	public JTextField getTextovalorMaximo();
+	public void elegirticket();
+	public JComboBox<String> getComboBoxEstadoTickets();
+	public void actualizar();
 }

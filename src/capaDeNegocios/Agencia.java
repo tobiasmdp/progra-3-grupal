@@ -38,10 +38,12 @@ public class Agencia extends Observable{
 	private ArrayList<NodoLogeoEmpleador> logeoempleadores = new ArrayList<NodoLogeoEmpleador>();
 	private ArrayList<NodoLogeoAdministrador> logeoadministradores = new ArrayList<NodoLogeoAdministrador>();
 	//nuevo
-	private Random rand= new Random();
-	private BolsaDeTrabajo bolsatrabajo;
-	private ArrayList <Empleador> simempleadores= new ArrayList <Empleador>();
-	private ArrayList <EmpleadoPretenso> simempleado= new ArrayList <EmpleadoPretenso>();
+	private Random rand = new Random();
+    private BolsaDeTrabajo bolsatrabajo=new BolsaDeTrabajo(); //nueva y unica bolsa;
+    private ArrayList<Thread> simempleadoresT = new ArrayList<Thread>();
+    private ArrayList<Thread> simempleadoT = new ArrayList<Thread>();
+    private ArrayList<EmpleadorSimulado> simempleadores = new ArrayList<EmpleadorSimulado>();
+    private ArrayList<EmpleadoSimulado> simempleado = new ArrayList<EmpleadoSimulado>();
 	
 	
 	public ListaDeAsignacion getListaDeAsignacion(UCliente uCliente) {
@@ -304,15 +306,16 @@ public class Agencia extends Observable{
 	}
 
 	public Usuario registroEmpleador(String usuario, String contrasenia, String nombre, String tPersona, String rubro) {
+		
 		Empleador aux = new Empleador(usuario, contrasenia, nombre, tPersona, rubro);
 		addEmpleador(aux);
-		Usuario uEmpleado=null;
+		Usuario uEmpleador=null;
 		try {
-			uEmpleado=login(usuario, contrasenia);
+			uEmpleador=login(usuario, contrasenia);
 		} catch (LoginException e) {
 			System.out.println(e.getMessage());
 		}
-		return uEmpleado;
+		return uEmpleador;
 	}
 
 	public void crearTicketEmpleador(String locacion, double remuneracion, String cargaHoraria, String tipoPuesto,
@@ -492,7 +495,7 @@ public class Agencia extends Observable{
 
 		for (Empleador empleador : this.empleadores) {
 			ticketEmpleador = empleador.getTicket();
-			if (ticketEmpleador.getEstado().equalsIgnoreCase("activo")) {
+			if (ticketEmpleador!=null && ticketEmpleador.getEstado().equalsIgnoreCase("activo")) {
 				if (checkElegido(empleador) == false)
 					zonaEmpleador.actualizarPuntaje(empleador, -20);
 				eleccionEmpleador = ticketEmpleador.getUsuariosElegidos(); // tomo el array de empleados elegidos por el
@@ -503,7 +506,7 @@ public class Agencia extends Observable{
 																						// empleador
 					empleadoElegido = (EmpleadoPretenso) usuarioElegidoPorEmpleador.getUsuario();
 					ticketEmpleado = empleadoElegido.getTicket();
-					if (ticketEmpleado.getEstado().equalsIgnoreCase("activo")) {
+					if (ticketEmpleado!=null && ticketEmpleado.getEstado().equalsIgnoreCase("activo")) {
 						eleccionEmpleado = ticketEmpleado.getUsuariosElegidos(); // todos los empleadores elegidos
 						Collections.sort(eleccionEmpleado, new UsuarioComparator());
 						i = 0;
@@ -616,48 +619,54 @@ public class Agencia extends Observable{
 	
 	//parte 2
 
-	public BolsaDeTrabajo getBolsatrabajo() {
-		return bolsatrabajo;
-	}
-
-	public void setBolsatrabajo(BolsaDeTrabajo bolsatrabajo) {
-		this.bolsatrabajo = bolsatrabajo;
-	}
-	
-	public void simulacion() {
-	int cantempleadores=rand.nextInt(10);
-	int cantempleados=rand.nextInt(10);
-	int i,j, cantpuestos;
-	Empleador auxempleador;
-	EmpleadoPretenso auxempleado;
-	String empleado="Empleado";
-	String empleador="Empleador";
-		setBolsatrabajo(new BolsaDeTrabajo());
-		for(i=0;i<=cantempleadores;i++) {
-			auxempleador=new Empleador(empleador+i,"contraseña",this.bolsatrabajo);
-			simempleadores.add(auxempleador);
-			cantpuestos=rand.nextInt(4);
-			for (j=0;j<=cantpuestos;j++)
-				zonaEmpleador.NuevoPuesto(auxempleador,new PuestoTrabajo(auxempleador,"locacion","rubro"));
-		}
-		
-		for(i=0;i<=cantempleados;i++) {
-			auxempleado=new EmpleadoPretenso(empleado+i,"contraseña","rubro",this.bolsatrabajo,"locacion");
-			simempleado.add(auxempleado);
-		}
-		
-		//ver bien los start
-		
-		
-		
-	}
-
-	public ArrayList<Empleador> getSimempleadores() {
+	public ArrayList<EmpleadorSimulado> getSimempleadores() {
 		return simempleadores;
 	}
 
-	public ArrayList<EmpleadoPretenso> getSimempleado() {
+	public ArrayList<EmpleadoSimulado> getSimempleado() {
 		return simempleado;
 	}
 
+	
+	public BolsaDeTrabajo getBolsatrabajo() {
+        return bolsatrabajo;
+    }
+
+    public void setBolsatrabajo(BolsaDeTrabajo bolsatrabajo) {
+        this.bolsatrabajo = bolsatrabajo;
+    }
+
+    public void simulacion() { //el nombre es bastante descriptivo
+        int cantempleadores = rand.nextInt(10);
+        int cantempleados = rand.nextInt(10);
+        int i, j, cantpuestos;
+        EmpleadorSimulado auxempleador;
+        EmpleadoSimulado auxempleado;
+        String empleado = "Empleado";
+        String empleador = "Empleador";
+        String rubros[]= {"salud","local","internacional"};
+        String locaciones[]={"home office","presencial","indistinto"};
+        for (i = 0; i <= cantempleadores; i++) {
+            auxempleador = new EmpleadorSimulado(empleador + i, this.bolsatrabajo);
+            simempleadores.add(auxempleador);
+            simempleadoresT.add(new Thread(auxempleador));
+            cantpuestos = rand.nextInt(4);
+            for (j = 0; j < cantpuestos; j++)
+                auxempleador.nuevosPuestosTrabajos(new PuestoTrabajo(auxempleador,locaciones[rand.nextInt(3)],rubros[rand.nextInt(3)]));
+        }
+        for (i = 0; i <= cantempleados; i++) {
+            auxempleado = new EmpleadoSimulado(empleado + i, rubros[rand.nextInt(3)], this.bolsatrabajo, locaciones[rand.nextInt(3)]);
+            simempleado.add(auxempleado);
+            simempleadoT.add(new Thread(auxempleado));
+        }
+       
+    }
+    public void iniciarSimulacion() {
+    	 int i;
+    	 for(i=0;i<simempleadores.size();i++)
+             simempleadoresT.get(i).start();
+         for(i=0;i<simempleado.size();i++)
+             simempleadoT.get(i).start();
+
+    }
 }
