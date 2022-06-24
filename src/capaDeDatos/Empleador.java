@@ -1,8 +1,5 @@
 package capaDeDatos;
 
-import java.util.ArrayList;
-
-import capaDeNegocios.BolsaDeTrabajo;
 import comisiones.FactoryPersona;
 import comisiones.FactoryRubro;
 import comisiones.IPersona;
@@ -18,16 +15,8 @@ public class Empleador extends Cliente {
 	private IPersona tPersona;
 	private IRubro rubro;
 	private TicketEmpleador ticket;
-	private ArrayList<PuestoTrabajo> mispuestotrabajo=new ArrayList<PuestoTrabajo>();
 	private double comision;
 	private int cantpuestos;
-	//parte 2 
-	private BolsaDeTrabajo bolsa;
-	
-	public Empleador(String nombreUsuario,String contra,BolsaDeTrabajo bolsa) {
-		super(nombreUsuario,contra);
-		this.bolsa=bolsa;
-	}
 	
 	public Empleador(String nombreUsuario,String contra) {
 		super(nombreUsuario,contra);;
@@ -117,30 +106,4 @@ public class Empleador extends Cliente {
 		return  nombre + "       " + tPersona + "         " + rubro + "         " + ticket;
 	}
 
-	//----------------------------------------Parte 2--------------------------------------------------
-	
-	public void nuevosPuestosTrabajos(PuestoTrabajo trabajo) { 
-			mispuestotrabajo.add(trabajo);
-		}
-
-	
-	public BolsaDeTrabajo getBolsa() {
-		return bolsa;
-	}
-
-
-	public void setBolsa(BolsaDeTrabajo bolsa) {
-		this.bolsa = bolsa;
-	}
-
-
-	public ArrayList<PuestoTrabajo> getMispuestotrabajo() {
-		return mispuestotrabajo;
-	}
-
-
-	public void setMispuestotrabajo(ArrayList<PuestoTrabajo> mispuestotrabajo) {
-		this.mispuestotrabajo = mispuestotrabajo;
-	}
-	
 }

@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import capaDeDatos.Empleador;
 import capaDeDatos.Formulario;
-import capaDeDatos.PuestoTrabajo;
 import capaDeDatos.TicketEmpleador;
 import capaDePresentacion.UEmpleador;
 import comisiones.IPersona;
@@ -15,7 +14,7 @@ import comisiones.IRubro;
  *<b>
  *Clase que contiene todos los metodos de los empleadores.
  */
-public class MetodosEmpleador extends Thread {
+public class MetodosEmpleador {
 	private static MetodosEmpleador instance = null;
 	
 	public MetodosEmpleador() {//Constructor
@@ -125,14 +124,5 @@ public class MetodosEmpleador extends Thread {
 	}
 	
 //------------------------------------Parte 2 ------------------------------------------------------------	
-	public void NuevoPuesto(Empleador empleador, PuestoTrabajo puesto) {
-		empleador.nuevosPuestosTrabajos(puesto);
-	}
-	
-	public void run (Empleador empleador, PuestoTrabajo puesto) { //ver bien
-		for (int i=0;i< empleador.getMispuestotrabajo().size();i++) {
-			Agencia.getInstance().getBolsatrabajo().putPuestoTrabajoEmpleador(puesto);   
-		}
-	}
 	
 }

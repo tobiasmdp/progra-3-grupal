@@ -5,7 +5,6 @@ import java.util.GregorianCalendar;
 
 import capaDeDatos.EmpleadoPretenso;
 import capaDeDatos.Formulario;
-import capaDeDatos.PuestoTrabajo;
 import capaDeDatos.TicketEmpleado;
 import capaDePresentacion.UEmpleado;
 import formulario.TipodePuesto;
@@ -14,7 +13,7 @@ import formulario.TipodePuesto;
  *<b>
  *Clase que contiene los metodos de los empleados.
  */
-public class MetodosEmpleado extends Thread{
+public class MetodosEmpleado {
 	private static MetodosEmpleado instance = null;
 	
 	private MetodosEmpleado() {
@@ -123,30 +122,5 @@ public class MetodosEmpleado extends Thread{
 	public void actualizarPuntaje(EmpleadoPretenso empleado, int valor) {
 		empleado.setPuntaje(empleado.getPuntaje()+valor);
 	}
-	
-	//------------------------------------Parte 2 ------------------------------------------------------------	
-		public void run () {
-		int i=0, bandera=0;
-		PuestoTrabajo aux=null;
-			while (i<=10 && aux==null) {
-				aux=Agencia.getInstance().getBolsatrabajo().getPuestoTrabajo(null); // en el null tendria que llamar al empleado que usa este metodo
-				if (aux != null)
-					if (aux.getLocacion().equals(aux)) //si es igual a la locacion del empleado, lo borro del recurso compartido
-						Agencia.getInstance().getBolsatrabajo().removePuestoTrabajo(aux);
-					else {
-						Agencia.getInstance().getBolsatrabajo().putPuestoTrabajoEmpleado(aux);
-						aux=null;
-						i++;
-					}
-				else
-					i++;
-				
-			}
-			if (i>10)
-				//mensaje no encontro;
-			else
-				//mensaje de lo que encontro
-			//mensaje de si lo encontro o no lo encontro
-		}
 
 }
