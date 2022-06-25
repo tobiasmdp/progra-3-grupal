@@ -7,8 +7,6 @@ public class TicketDTO {
 	private Calendar fecha;
 	private String estado;
 	protected FormularioDTO formulario;
-	protected ListaDeAsignacionDTO listaAsignacion; //permito que se pueda elegir varios tickets en empleado tmb, luego se limita desde su ticket
-	protected ArrayList<Usuario_puntajeDTO> usuariosElegidos;
 	protected int rondasTranscurridas;
 	
 	public TicketDTO() {
@@ -31,18 +29,6 @@ public class TicketDTO {
 	}
 	public void setFormulario(FormularioDTO formulario) {
 		this.formulario = formulario;
-	}
-	public ListaDeAsignacionDTO getListaAsignacion() {
-		return listaAsignacion;
-	}
-	public void setListaAsignacion(ListaDeAsignacionDTO listaAsignacion) {
-		this.listaAsignacion = listaAsignacion;
-	}
-	public ArrayList<Usuario_puntajeDTO> getUsuariosElegidos() {
-		return usuariosElegidos;
-	}
-	public void setUsuariosElegidos(ArrayList<Usuario_puntajeDTO> usuariosElegidos) {
-		this.usuariosElegidos = usuariosElegidos;
 	}
 	public int getRondasTranscurridas() {
 		return rondasTranscurridas;

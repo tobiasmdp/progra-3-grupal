@@ -4,11 +4,12 @@ package capaDeNegocios;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.GregorianCalendar;
 
 import Persistencia.EmpleadorDTO;
 import Persistencia.IPersistencia;
 import Persistencia.PersistenciaXML;
-import Persistencia.UtilEmpleador;
+import Persistencia.UtilAgencia;
 import capaDeDatos.Administrador;
 import capaDeDatos.Cliente;
 import capaDeDatos.EmpleadoPretenso;
@@ -584,7 +585,7 @@ public class Agencia {
 			IPersistencia persistencia= new PersistenciaXML();
 			persistencia.abrirOutput(nombreArchivo + ".xml");
 			System.out.println(nombreArchivo + ".xml creado y abierto correctamente.");
-			EmpleadorDTO empleadorDTO = UtilEmpleador.EmpleadorDTOFromEmpleador(empleador);
+			EmpleadorDTO empleadorDTO = UtilAgencia.EmpleadorDTOFromEmpleador(empleador);
 			persistencia.escribir(empleadorDTO);
 			System.out.println("Exito la grabar.");
 			persistencia.cerrarOutput();
@@ -597,4 +598,19 @@ public class Agencia {
 
 	}
 	
+	public void persistirEmpleadores() {
+		String nombreArchivo = "Empleadores-" + GregorianCalendar.getInstance();
+		try {
+			IPersistencia persistencia = new PersistenciaXML();
+			persistencia.abrirOutput(nombreArchivo + ".xml");
+			System.out.println(nombreArchivo + ".xml creado y abierto correctamente.");
+			
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+
 }

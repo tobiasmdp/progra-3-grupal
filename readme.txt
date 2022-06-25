@@ -13,3 +13,5 @@ Para generar la lista de asignaciones y cargar la elecciones se debe gatillar un
 para hacer la
 
 ya que listaDeAsignaciones es un array de referencias a otros usuarios_puntaje, deben crearse todos los empleados y empleados con sus respectivos tickets, para que luego la agencia mediante una ronda de asignacion genere las referencias, y finalmente se realicen las elecciones persistidas previamente
+
+//resta hacer el DTO de la agencia

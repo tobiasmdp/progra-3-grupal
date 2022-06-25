@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 import capaDeDatos.Empleador;
+import capaDeDatos.EmpleadoPretenso;
 import capaDeDatos.ListaDeAsignacion;
 import capaDeDatos.Ticket;
 import capaDeDatos.TicketEmpleador;
@@ -11,39 +12,59 @@ import capaDeDatos.TiposDeUsuarios;
 import capaDeDatos.Formulario;
 import capaDeNegocios.Usuario_puntaje;
 
-public class UtilEmpleador {
+public class UtilAgencia {
 	
 	
 	public static EmpleadorDTO EmpleadorDTOFromEmpleador(Empleador empleador) {
 		EmpleadorDTO empleadorDTO = new EmpleadorDTO();
-		TicketDTO ticketDTO;// = UtilEmpleador.TicketDTOFromTicket(empleador.getTicket())
-		//usuarioDTO
+		//TiposDeUsuariosDTO
 		empleadorDTO.setNombreUsuario(empleador.getNombreUsuario());
 		empleadorDTO.setPassword(empleador.getPassword());
-		//clienteDTO
+		//ClienteDTO
 		empleadorDTO.setPuntaje(empleador.getPuntaje());
-		//empledorDTO
+		//EmpledorDTO
 		empleadorDTO.setNombre(empleador.getNombre());
 		empleadorDTO.settPersona(empleador.gettPersona().toString());
 		empleadorDTO.setRubro(empleador.getRubro().toString());
 		empleadorDTO.setComision(empleador.getComision());	
-		
-		empleadorDTO.setTicket( );
+		empleadorDTO.setTicket(TicketEmpleadorDTOFromTicketEmpleador(empleador.getTicket()));
 		return empleadorDTO;
 	}
 	
+	public static Empleador EmpleadorFromEmpleadorDTO(EmpleadorDTO empleadorDTO) {
+		String nombreUsuario, password, nombre, tPersona, rubro;
+		//TiposDeUsuariosDTO
+		nombreUsuario = empleadorDTO.getNombreUsuario();
+		password = empleadorDTO.getPassword();
+		//EmpleadorDTO
+		nombre = empleadorDTO.getNombre();
+		tPersona = empleadorDTO.gettPersona();
+		rubro = empleadorDTO.getRubro();
+	
+		Empleador empleador = new Empleador(nombreUsuario, password, nombre, tPersona, rubro);
+		
+		//Cliente
+		empleador.setPuntaje(empleadorDTO.getPuntaje());
+		//Empleador
+		empleador.setTicket(TicketEmpleadorFromTicketEmpleadorDTO(empleadorDTO.getTicket()));
+		empleador.setComision(empleadorDTO.getComision());
+		
+		return empleador;
+	}
+	
+
 	public static TicketEmpleadorDTO TicketEmpleadorDTOFromTicketEmpleador(TicketEmpleador ticketEmpleador) {
 		TicketEmpleadorDTO ticketEmpleadorDTO = new TicketEmpleadorDTO();
 		//ticketDTO
 		ticketEmpleadorDTO.setFecha(ticketEmpleador.getFecha());
 		ticketEmpleadorDTO.setEstado(ticketEmpleador.getEstado());
 		ticketEmpleadorDTO.setFormulario(FormularioDTOFromFormulario(ticketEmpleador.getFormulario()));
-		ticketEmpleadorDTO.setListaAsignacion(ListaDeAsignacionDTOFromListaDeAsignacion(ticketEmpleador.getListaAsignacion()));
-
-		ArrayList<Usuario_puntajeDTO> usuariosElegidos = new ArrayList<Usuario_puntajeDTO>();
-		for (Usuario_puntaje usuario_puntaje : ticketEmpleador.getUsuariosElegidos())
-			usuariosElegidos.add(Usuario_puntajeDTOFromUsuario_puntaje(usuario_puntaje));
-		ticketEmpleadorDTO.setUsuariosElegidos(usuariosElegidos);
+//		ticketEmpleadorDTO.setListaAsignacion(ListaDeAsignacionDTOFromListaDeAsignacion(ticketEmpleador.getListaAsignacion()));
+//
+//		ArrayList<Usuario_puntajeDTO> usuariosElegidos = new ArrayList<Usuario_puntajeDTO>();
+//		for (Usuario_puntaje usuario_puntaje : ticketEmpleador.getUsuariosElegidos())
+//			usuariosElegidos.add(Usuario_puntajeDTOFromUsuario_puntaje(usuario_puntaje));
+//		ticketEmpleadorDTO.setUsuariosElegidos(usuariosElegidos);
 
 		ticketEmpleadorDTO.setRondasTranscurridas(ticketEmpleador.getRondasTranscurridas());
 		//ticketEmpleadorDTO
@@ -62,7 +83,7 @@ public class UtilEmpleador {
 
 	public static TicketEmpleador TicketEmpleadorFromTicketEmpleadorDTO (TicketEmpleadorDTO ticketEmpleadorDTO) {
 		//ticketEmpleador
-		int cantempleadosbuscados, cantempleadosobtenidos, pLocacion, pRemuneracion, pCargaHoraria, pTipodePuesto, pExperienciaPrevia, pRangoEtario, pEstudiosCursados;
+		int cantempleadosbuscados, pLocacion, pRemuneracion, pCargaHoraria, pTipodePuesto, pExperienciaPrevia, pRangoEtario, pEstudiosCursados;
 		cantempleadosbuscados = ticketEmpleadorDTO.getCantempleadosbuscados();
 		pLocacion = ticketEmpleadorDTO.getpLocacion();
 		pRemuneracion = ticketEmpleadorDTO.getpRemuneracion();
@@ -84,18 +105,20 @@ public class UtilEmpleador {
 		ticketEmpleador.setFecha(ticketEmpleadorDTO.getFecha());
 		ticketEmpleador.setEstado(ticketEmpleadorDTO.getEstado());
 		
-		for (Usuario_puntajeDTO usuario_PuntajeDTO : ticketEmpleadorDTO.getListaAsignacion().getListaAsignacion()) {
-			Usuario_puntaje usuario_Puntaje = Usuario_puntajeFromUsuario_puntajeDTO(usuario_PuntajeDTO); 
-			ticketEmpleador.addUsuarioAsignacion(usuario_Puntaje);
-			ticketEmpleador.elegirUsuario_puntaje(usuario_Puntaje);
-			// se agregan por nombre, no por usuario_Puntaje
-			// se agregan aca porque no es instancia a uno nuevo, sino q tenes q elegir a los de la lista de asignacion 
-			// puede q este todo mal hecho o parciamente, porque las listas de asignacion se hacen referencia a otros usuarios, aca cyo estoy instanciando nuevos
-			// las elecciones creo que tendria q ser un proceso aparte, porque es hacer referencia a otros tmb, creo que tendria q tener un array con los nombres, auxiliar del Util.
-		
-		}
+//		for (Usuario_puntajeDTO usuario_PuntajeDTO : ticketEmpleadorDTO.getListaAsignacion().getListaAsignacion()) {
+//			Usuario_puntaje usuario_Puntaje = Usuario_puntajeFromUsuario_puntajeDTO(usuario_PuntajeDTO); 
+//			ticketEmpleador.addUsuarioAsignacion(usuario_Puntaje);
+//			ticketEmpleador.elegirUsuario_puntaje(usuario_Puntaje);
+//			// se agregan por nombre, no por usuario_Puntaje
+//			// se agregan aca porque no es instancia a uno nuevo, sino q tenes q elegir a los de la lista de asignacion 
+//			// puede q este todo mal hecho o parciamente, porque las listas de asignacion se hacen referencia a otros usuarios, aca cyo estoy instanciando nuevos
+//			// las elecciones creo que tendria q ser un proceso aparte, porque es hacer referencia a otros tmb, creo que tendria q tener un array con los nombres, auxiliar del Util.
+//		
+//		}
 		
 		ticketEmpleador.setRondasTranscurridas(ticketEmpleador.getRondasTranscurridas());
+		
+		return ticketEmpleador;
 	}
 	
 	public static FormularioDTO FormularioDTOFromFormulario(Formulario formulario) {
@@ -136,53 +159,51 @@ public class UtilEmpleador {
 	}
 	
 	//======================================================================================
-	//capaz se usa para persistir pero requiere cambios
-	public static ListaDeAsignacionDTO ListaDeAsignacionDTOFromListaDeAsignacion(ListaDeAsignacion listaDeAsignacion) {
-		ListaDeAsignacionDTO listaDeAsignacionDTO = new ListaDeAsignacionDTO();
-		listaDeAsignacionDTO.setFecha(listaDeAsignacion.getFecha());
-		ArrayList<Usuario_puntajeDTO> listaAsignacion = new ArrayList<Usuario_puntajeDTO>();
-		for (Usuario_puntaje usuario_puntaje : listaDeAsignacion.getLista())
-			listaAsignacion.add(Usuario_puntajeDTOFromUsuario_puntaje(usuario_puntaje));
-		listaDeAsignacionDTO.setListaAsignacion(listaAsignacion);
-		return listaDeAsignacionDTO;
-	}
+//	public static ListaDeAsignacionDTO ListaDeAsignacionDTOFromListaDeAsignacion(ListaDeAsignacion listaDeAsignacion) {
+//		ListaDeAsignacionDTO listaDeAsignacionDTO = new ListaDeAsignacionDTO();
+//		listaDeAsignacionDTO.setFecha(listaDeAsignacion.getFecha());
+//		ArrayList<Usuario_puntajeDTO> listaAsignacion = new ArrayList<Usuario_puntajeDTO>();
+//		for (Usuario_puntaje usuario_puntaje : listaDeAsignacion.getLista())
+//			listaAsignacion.add(Usuario_puntajeDTOFromUsuario_puntaje(usuario_puntaje));
+//		listaDeAsignacionDTO.setListaAsignacion(listaAsignacion);
+//		return listaDeAsignacionDTO;
+//	}
+//	
+//	public static ListaDeAsignacion ListaDeAsignacionFromListaDeAsignacionDTO(ListaDeAsignacionDTO listaDeAsignacionDTO) {
+//		ListaDeAsignacion listaDeAsignacion = new ListaDeAsignacion();
+//		listaDeAsignacion.setFecha(listaDeAsignacionDTO.getFecha());
+//		for (Usuario_puntajeDTO usuario_puntajeDTO : listaDeAsignacionDTO.getListaAsignacion())
+//			listaDeAsignacion.addlista(Usuario_puntajeFromUsuario_puntajeDTO(usuario_puntajeDTO));
+//		return listaDeAsignacion;
+//	}
 	//======================================================================================
 	
-	//probablemente no se use
-	public static ListaDeAsignacion ListaDeAsignacionFromListaDeAsignacionDTO(ListaDeAsignacionDTO listaDeAsignacionDTO) {
-		ListaDeAsignacion listaDeAsignacion = new ListaDeAsignacion();
-		listaDeAsignacion.setFecha(listaDeAsignacionDTO.getFecha());
-		for (Usuario_puntajeDTO usuario_puntajeDTO : listaDeAsignacionDTO.getListaAsignacion())
-			listaDeAsignacion.addlista(Usuario_puntajeFromUsuario_puntajeDTO(usuario_puntajeDTO));
-		return listaDeAsignacion;
-	}
-	
-	public static Usuario_puntajeDTO Usuario_puntajeDTOFromUsuario_puntaje(Usuario_puntaje usuario_puntaje) {
-		Usuario_puntajeDTO usuario_puntajeDTO = new Usuario_puntajeDTO();
-		usuario_puntajeDTO.setPuntaje(usuario_puntaje.getPuntaje());
-		usuario_puntajeDTO.setUsuario(TiposDeUsuariosDTOFromTiposDeUsuarios(usuario_puntaje.getUsuario()));
-		return usuario_puntajeDTO;
-	}
-	
-	public static Usuario_puntaje Usuario_puntajeFromUsuario_puntajeDTO(Usuario_puntajeDTO usuario_puntajeDTO) {
-		TiposDeUsuarios tiposDeUsuarios= TiposDeUsuariosFromTiposDeUsuariosDTO(usuario_puntajeDTO.getUsuario());
-		double puntaje = usuario_puntajeDTO.getPuntaje();
-		Usuario_puntaje usuario_puntaje = new Usuario_puntaje(tiposDeUsuarios, puntaje);
-		return usuario_puntaje;
-	}
-	
-	public static TiposDeUsuariosDTO TiposDeUsuariosDTOFromTiposDeUsuarios(TiposDeUsuarios tiposDeUsuarios) {
-		TiposDeUsuariosDTO tiposDeUsuariosDTO = new TiposDeUsuariosDTO();
-		tiposDeUsuariosDTO.setNombreUsuario(tiposDeUsuarios.getNombreUsuario());
-		tiposDeUsuariosDTO.setPassword(tiposDeUsuarios.getPassword());
-		return tiposDeUsuariosDTO;
-	}
-	
-	public static TiposDeUsuarios TiposDeUsuariosFromTiposDeUsuariosDTO(TiposDeUsuariosDTO tiposDeUsuariosDTO) {
-		String nombreUsuario, password;
-		nombreUsuario = tiposDeUsuariosDTO.getNombreUsuario();
-		password = tiposDeUsuariosDTO.getPassword();
-		TiposDeUsuarios tiposDeUsuarios = new TiposDeUsuarios(nombreUsuario, password);  
-		return tiposDeUsuarios;
-	}
+//	public static Usuario_puntajeDTO Usuario_puntajeDTOFromUsuario_puntaje(Usuario_puntaje usuario_puntaje) {
+//		Usuario_puntajeDTO usuario_puntajeDTO = new Usuario_puntajeDTO();
+//		usuario_puntajeDTO.setPuntaje(usuario_puntaje.getPuntaje());
+//		usuario_puntajeDTO.setUsuario(TiposDeUsuariosDTOFromTiposDeUsuarios(usuario_puntaje.getUsuario()));
+//		return usuario_puntajeDTO;
+//	}
+//	
+//	public static Usuario_puntaje Usuario_puntajeFromUsuario_puntajeDTO(Usuario_puntajeDTO usuario_puntajeDTO) {
+//		TiposDeUsuarios tiposDeUsuarios= TiposDeUsuariosFromTiposDeUsuariosDTO(usuario_puntajeDTO.getUsuario());
+//		double puntaje = usuario_puntajeDTO.getPuntaje();
+//		Usuario_puntaje usuario_puntaje = new Usuario_puntaje(tiposDeUsuarios, puntaje);
+//		return usuario_puntaje;
+//	}
+//	
+//	public static TiposDeUsuariosDTO TiposDeUsuariosDTOFromTiposDeUsuarios(TiposDeUsuarios tiposDeUsuarios) {
+//		TiposDeUsuariosDTO tiposDeUsuariosDTO = new TiposDeUsuariosDTO();
+//		tiposDeUsuariosDTO.setNombreUsuario(tiposDeUsuarios.getNombreUsuario());
+//		tiposDeUsuariosDTO.setPassword(tiposDeUsuarios.getPassword());
+//		return tiposDeUsuariosDTO;
+//	}
+//	
+//	public static TiposDeUsuarios TiposDeUsuariosFromTiposDeUsuariosDTO(TiposDeUsuariosDTO tiposDeUsuariosDTO) {
+//		String nombreUsuario, password;
+//		nombreUsuario = tiposDeUsuariosDTO.getNombreUsuario();
+//		password = tiposDeUsuariosDTO.getPassword();
+//		TiposDeUsuarios tiposDeUsuarios = new TiposDeUsuarios(nombreUsuario, password);  
+//		return tiposDeUsuarios;
+//	}
 }
