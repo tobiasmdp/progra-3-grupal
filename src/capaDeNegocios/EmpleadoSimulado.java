@@ -68,6 +68,7 @@ public class EmpleadoSimulado extends Observable implements Runnable{
 			Util.espera();
 			if (aux.getLocacion().equalsIgnoreCase(this.locacion) || aux.getLocacion().equalsIgnoreCase("indistinto")) {
 				setMinuevopuesto(aux);
+				Util.espera();
 				bolsa.removePuestoTrabajo(aux);
 				encontre = 1;
 				this.estado=this.nombre +" fue contratado por "+ aux.getEmpleador().getNombre();

@@ -56,4 +56,11 @@ public class EmpleadorSimulado extends Observable implements Runnable {
 	public String getEstado() {
 		return estado;
 	}
+
+	@Override
+	public String toString() {
+		return "Bolsa=" + bolsa + ", Mispuestotrabajo=" + mispuestotrabajo + ", Nombre=" + nombre
+				+ ", Estado=" + estado + "]";
+	}
+	
 }

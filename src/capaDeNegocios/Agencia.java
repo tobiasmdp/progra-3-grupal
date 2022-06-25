@@ -20,6 +20,7 @@ import capaDePresentacion.UEmpleador;
 import capaDePresentacion.Usuario;
 import excepciones.ContraException;
 import excepciones.LoginException;
+import excepciones.NewRegisterException;
 import excepciones.NombreUsuarioException;
 import excepciones.UsuarioNoEncontradoException;
 
@@ -637,8 +638,8 @@ public class Agencia extends Observable{
     }
 
     public void simulacion() { //el nombre es bastante descriptivo
-        int cantempleadores = rand.nextInt(10);
-        int cantempleados = rand.nextInt(10);
+        int cantempleadores = rand.nextInt(35);
+        int cantempleados = rand.nextInt(35);
         int i, j, cantpuestos;
         EmpleadorSimulado auxempleador;
         EmpleadoSimulado auxempleado;
@@ -668,5 +669,29 @@ public class Agencia extends Observable{
          for(i=0;i<simempleado.size();i++)
              simempleadoT.get(i).start();
 
+    }
+    
+    public void checkRegister(String nombreregistro) throws NewRegisterException {
+        int i=0;
+            while(i<empleadosPretensos.size() && !empleadosPretensos.get(i).getNombreUsuario().equalsIgnoreCase(nombreregistro))
+                i++;
+            if (i<empleadosPretensos.size()) 
+                throw new NewRegisterException("el nombre de usuario ingresado ya existe");
+            else {
+                i=0;
+                while(i<empleadores.size() && !empleadores.get(i).getNombreUsuario().equalsIgnoreCase(nombreregistro))
+                    i++;
+                if (i<empleadores.size())
+                    throw new NewRegisterException("el nombre de usuario ingresado ya existe");
+                else {
+                    i=0;
+                    while(i<administradores.size() && !administradores.get(i).getNombreUsuario().equalsIgnoreCase(nombreregistro))
+                        i++;
+                    if (i<administradores.size())
+                        throw new NewRegisterException("el nombre de usuario ingresado ya existe");
+                    	
+                }
+            }
+            
     }
 }

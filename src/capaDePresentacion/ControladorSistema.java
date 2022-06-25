@@ -9,12 +9,18 @@ import java.security.InvalidParameterException;
 import java.util.Observable;
 import java.util.Observer;
 
+import javax.swing.table.DefaultTableModel;
+
+import capaDeDatos.EmpleadoPretenso;
+import capaDeDatos.Empleador;
+import capaDeDatos.ListaDeAsignacion;
 import capaDeNegocios.Agencia;
 import capaDeNegocios.BolsaDeTrabajo;
 import capaDeNegocios.EmpleadoSimulado;
 import capaDeNegocios.EmpleadorSimulado;
 import excepciones.ContraException;
 import excepciones.LoginException;
+import excepciones.NewRegisterException;
 import excepciones.NombreUsuarioException;
 
 public class ControladorSistema implements ActionListener, Observer, KeyListener{
@@ -34,6 +40,9 @@ public class ControladorSistema implements ActionListener, Observer, KeyListener
 
 	@Override
 	public void actionPerformed(ActionEvent evento) {
+		ListaDeAsignacion listaAsignacion;
+		EmpleadoPretenso empleado;
+		Empleador empleador;
 		if (evento.getActionCommand().equals(InterfazVista.REGISTRAR)) {//registrar en la principal
 			vista.Maximizar();
 			vista.registroPasoUno();
@@ -55,7 +64,14 @@ public class ControladorSistema implements ActionListener, Observer, KeyListener
 			} 
 		}
 		else if (evento.getActionCommand().equals(InterfazVista.UNIRSE)) {//primer campo para completar datos comunes, contrasenia, etc
-			vista.registroPasoDos();
+			try {
+                modelo.checkRegister(this.vista.getTextoUsuarioRegistro().getText()); 
+                vista.registroPasoDos();
+            } catch (NewRegisterException e) {
+				vista.getLabelErrorUsuarioRepetido().setVisible(true);
+            }
+			
+			
 		}
 		else if (evento.getActionCommand().equals(InterfazVista.EMPLEADOR)) {//si elige soy empleador
 			vista.registroEmpleador();
@@ -65,11 +81,11 @@ public class ControladorSistema implements ActionListener, Observer, KeyListener
 		}
 
 		else if (evento.getActionCommand().equals(InterfazVista.SIGUIENTEEMPLEADOR)) {//campo de datos personales de tipo empresa 
-			this.usuario=modelo.registroEmpleador(vista.getTextoUsuario().getText(), vista.getTextoContraseña().getText(), vista.getTextoNombre().getText() , vista.getGrupoTipoPersona().getSelection().getActionCommand(), vista.getGrupoTipoRubro().getSelection().getActionCommand());
+			this.usuario=modelo.registroEmpleador(vista.getTextoUsuarioRegistro().getText(), vista.getTextoContraseñaRegistro().getText(), vista.getTextoNombre().getText() , vista.getGrupoTipoPersona().getSelection().getActionCommand(), vista.getGrupoTipoRubro().getSelection().getActionCommand());
 			InicioSesionEmpleador();
 		}
 		else if (evento.getActionCommand().equals(InterfazVista.SIGUIENTEEMPLEADO)) {//campo de datos personales de tipo empleador
-			this.usuario=modelo.registroEmpleado(vista.getTextoUsuario().getText(), vista.getTextoContraseña().getText(), vista.getTextoNombre().getText() , vista.getTextoApellido().getText(), vista.getTextoTelefono().getText(), Integer.parseInt(vista.getTextoEdad().getText()));
+			this.usuario=modelo.registroEmpleado(vista.getTextoUsuarioRegistro().getText(), vista.getTextoContraseñaRegistro().getText(), vista.getTextoNombre().getText() , vista.getTextoApellido().getText(), vista.getTextoTelefono().getText(), Integer.parseInt(vista.getTextoEdad().getText()));
 			InicioSesionEmpleado();
 		}
 		else if (evento.getActionCommand().equals(InterfazVista.NUEVOTICKETEMPLEADOR)) {//creacion de ticket de empresa 
@@ -95,8 +111,31 @@ public class ControladorSistema implements ActionListener, Observer, KeyListener
 		}else if (evento.getActionCommand().equals(InterfazVista.CONFIRMARELEGIRTICKETEMPLEADO)) {
 			modelo.cambiarEstadoTicket((String)vista.getComboBoxEstadoTickets().getSelectedItem(), (UEmpleado)usuario);
 			InicioSesionEmpleado();
+		}else if (evento.getActionCommand().equals(InterfazVista.CERRARSESION)) {
+			this.usuario=null;
+			vista.pantallaPrincipal();
 		}
-		
+		else if (evento.getActionCommand().equals(InterfazVista.MOSTRARLISTAEMPLEADO)) {
+			this.vista.getModeloTableListaEmpleado().setRowCount(0);
+			listaAsignacion=this.modelo.getListaDeAsignacion((UCliente)usuario);
+			for(int i=0; i<listaAsignacion.getLista().size();i++){
+				empleador= (Empleador)listaAsignacion.getLista().get(i).getUsuario();
+				Object[] fila= {
+					empleador.getNombre(),
+					listaAsignacion.getLista().get(i).getPuntaje(),
+					empleador.getRubro(),
+					empleador.getTicket().getFormulario().getCargaHoraria(),
+					empleador.getTicket().getFormulario().getRemuneracion(),
+					empleador.getTicket().getFormulario().getLocacion(),
+					empleador.getTicket().getFormulario().getTipoPuesto(),
+					empleador.getTicket().getFormulario().getEstudiosCursados(),
+					empleador.getTicket().getFormulario().getExperienciaPrevia(),
+					empleador.getTicket().getFormulario().getRangoEtario(),
+				};
+				this.vista.getModeloTableListaEmpleado().addRow(fila);
+			}
+			this.vista.mirarlistaEmpleado();
+		}
 
 		else if (evento.getActionCommand().equals(InterfazVista.SIMULADOR)) {//entra al simulador
 
@@ -108,15 +147,7 @@ public class ControladorSistema implements ActionListener, Observer, KeyListener
 				this.modelo.getSimempleadores().get(i).addObserver(this);
 			modelo.iniciarSimulacion();
 			
-			ModeloListaEmpleadoBolsaTrabajo modeloListaEmpleadoBolsaTrabajo= new ModeloListaEmpleadoBolsaTrabajo();
-			//ModeloListaEmpleadoBolsaTrabajo modeloListaBolsaTrabajo= new ModeloListaEmpleadoBolsaTrabajo();
-			//ModeloListaEmpleadoBolsaTrabajo modeloListaAcciones= new ModeloListaEmpleadoBolsaTrabajo();
-			
-			
-
-			vista.getListaEmpleadosBolsaTrabajo().setModel(modeloListaEmpleadoBolsaTrabajo);
-			//vista.getListaBolsaTrabajo().setModel(modeloListaBolsaTrabajo);
-			//vista.getListaEmpleadosBolsaTrabajo().setModel(modeloListaAcciones);
+			this.vista.actualizar();
 		}
 	}
 
@@ -127,6 +158,7 @@ public class ControladorSistema implements ActionListener, Observer, KeyListener
 		EmpleadoSimulado empleadoSimulado;
 		EmpleadorSimulado empleadorSimulado;
 		BolsaDeTrabajo bolsaTrabajo;
+		ModeloTableBolsaTrabajo modeloListaBolsaTrabajo= new ModeloTableBolsaTrabajo();
 		if(arg.equals("Empleado")) {
 			this.tipoUsuario=0;
 		}
@@ -147,6 +179,20 @@ public class ControladorSistema implements ActionListener, Observer, KeyListener
 		else if(arg.equals("EstadoBolsa")) {
 			bolsaTrabajo=(BolsaDeTrabajo)o;
 			this.vista.getAcciones().append(bolsaTrabajo.getEstado()+"\n");
+		} 
+		else if(arg.equals("EstadoBolsaTrabajo")) {
+			this.vista.getModeloTableBolsaTrabajo().setRowCount(0);
+			for(int i=0; i<this.modelo.getBolsatrabajo().getPuestoTrabajos().size();i++) {
+				Object[] fila= {
+					this.modelo.getBolsatrabajo().getPuestoTrabajos().get(i).getEmpleador().getNombre(),
+					this.modelo.getBolsatrabajo().getPuestoTrabajos().get(i).getLocacion(),
+					this.modelo.getBolsatrabajo().getPuestoTrabajos().get(i).getRubro(),
+					this.modelo.getBolsatrabajo().getPuestoTrabajos().get(i).getEstado(),
+				};
+				this.vista.getModeloTableBolsaTrabajo().addRow(fila);
+			}
+			
+			
 		} 
 		this.vista.actualizar();
 	}

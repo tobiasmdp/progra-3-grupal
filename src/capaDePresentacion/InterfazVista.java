@@ -4,8 +4,10 @@ import javax.swing.ButtonGroup;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JPasswordField;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.table.DefaultTableModel;
 
 public interface InterfazVista {
 	public void arranca(); //Se encarga de arrancar la visualizacion de la vista
@@ -26,6 +28,9 @@ public interface InterfazVista {
 	static final String VALORESREMUNERACION = "VALORESREMUNERACION";
 	static final String ELEGIRTICKET = "ELEGIRTICKET";
 	static final String CONFIRMARELEGIRTICKETEMPLEADO = "CONFIRMARELEGIRTICKETEMPLEADO";
+	static final String MOSTRARLISTAEMPLEADO = "MOSTRARLISTAEMPLEADO";
+	static final String MOSTRARLISTAEMPLEADOR = "MOSTRARLISTAEMPLEADOR";
+	static final String CERRARSESION = "CERRARSESION";
 	
 	public void setActionListener(ControladorSistema controladorSistema);
 	public void registroPasoUno();
@@ -40,10 +45,11 @@ public interface InterfazVista {
 	public void NuevoTicketEmpleador();
 	public void NuevoTicketEmpleado();
 	public void simulador();
+	public void pantallaPrincipal();
 	public JList<String> getListaEmpleadosBolsaTrabajo();
-	public JList<String> getListaBolsaTrabajo() ;
 	
 	public JTextField getTextoUsuario() ;
+	public JTextField getTextoUsuarioRegistro() ;
 	public JTextField getTextoContraseña();
 	public JTextField getTextoRepetirContraseña();
 	public JTextField getTextoEmail();
@@ -70,4 +76,9 @@ public interface InterfazVista {
 	public void elegirticket();
 	public JComboBox<String> getComboBoxEstadoTickets();
 	public void actualizar();
+	public DefaultTableModel getModeloTableBolsaTrabajo();
+	public DefaultTableModel getModeloTableListaEmpleado();
+	public void mirarlistaEmpleado();
+	public JLabel getLabelErrorUsuarioRepetido();
+	public JPasswordField  getTextoContraseñaRegistro();
 }

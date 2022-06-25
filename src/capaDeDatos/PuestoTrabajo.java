@@ -34,6 +34,12 @@ private String estado; // 3 estados: 0 disponible, 1 en consulta, 2 finalizado
 	public void setEstado(String estado) {
 		this.estado = estado;
 	}
+
+	@Override
+	public String toString() {
+		return "Locacion=" + locacion + ", rubro=" + rubro + ", empleador=" + empleador + ", estado="
+				+ estado;
+	}
 	
 	
 

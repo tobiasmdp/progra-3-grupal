@@ -21,7 +21,7 @@ public abstract class Util
 
 	public static void espera()
 	{
-		Util.espera(r.nextInt(3000));
+		Util.espera(r.nextInt(4000));
 	}
 
 }

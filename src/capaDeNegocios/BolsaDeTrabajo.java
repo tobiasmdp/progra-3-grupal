@@ -15,6 +15,8 @@ public class BolsaDeTrabajo extends Observable{
 
 	public synchronized void removePuestoTrabajo(PuestoTrabajo nuevo) {
 		puestoTrabajos.remove(nuevo);
+		setChanged();
+		notifyObservers("EstadoBolsaTrabajo");
 		notifyAll(); // eliminamos de la bolsa el ticket que tiene un empleado
 	}
 
@@ -27,6 +29,8 @@ public class BolsaDeTrabajo extends Observable{
 		else
 			cantinternacional += 1;
 		puestoTrabajos.add(nuevo);
+		setChanged();
+		notifyObservers("EstadoBolsaTrabajo");
 		notifyAll(); // avisamos que hay nuevos tickets en la bolsa
 	}
 
@@ -45,6 +49,9 @@ public class BolsaDeTrabajo extends Observable{
 		else
 			cantinternacional += 1;
 		notifyAll();// avisamos que el ticket en suspenso vuelve a estar disponible
+
+		setChanged();
+		notifyObservers("EstadoBolsaTrabajo");
 	}
 
 	/**
@@ -116,10 +123,18 @@ public class BolsaDeTrabajo extends Observable{
 		else
 			cantinternacional -= 1;
 		puestoTrabajos.get(i).setEstado("consulta");
+
+		setChanged();
+		notifyObservers("EstadoBolsaTrabajo");
 		return puestoTrabajos.get(i);
 	}
 	
 	public String getEstado() {
 		return estado;
 	}
+
+	public ArrayList<PuestoTrabajo> getPuestoTrabajos() {
+		return puestoTrabajos;
+	}
+	
 }
