@@ -104,6 +104,10 @@ public abstract class Ticket {
 	public String toString() {
 		return ""+formulario ;
 	}
+
+	public void setFecha(Calendar fecha) {
+		this.fecha = fecha;
+	}
 	
 	
 	
