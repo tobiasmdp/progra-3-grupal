@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.GregorianCalendar;
 
+import Persistencia.AgenciaDTO;
 import Persistencia.EmpleadorDTO;
 import Persistencia.IPersistencia;
 import Persistencia.PersistenciaXML;
@@ -598,15 +599,38 @@ public class Agencia {
 
 	}
 	
-	public void persistirEmpleadores() {
-		String nombreArchivo = "Empleadores-" + GregorianCalendar.getInstance();
+	public void guardarAgencia(String nombreArchivo) {
+		IPersistencia persistencia = new PersistenciaXML();
 		try {
-			IPersistencia persistencia = new PersistenciaXML();
 			persistencia.abrirOutput(nombreArchivo + ".xml");
 			System.out.println(nombreArchivo + ".xml creado y abierto correctamente.");
-			
+			AgenciaDTO agenciaDTO = UtilAgencia.AgenciaDTOFromAgencia();
+			persistencia.escribir(agenciaDTO);
+			System.out.println("Exito al grabar.");
+			persistencia.cerrarOutput();
+			System.out.println("Exito al cerrar.");
 			
 		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public void cargarAgencia(String nombreArchivo) {
+		IPersistencia persistencia = new PersistenciaXML();
+		try {
+			persistencia.abrirOutput(nombreArchivo);
+			System.out.println(nombreArchivo + ".xml creado y abierto correctamente.");
+			AgenciaDTO agenciaDTO = (AgenciaDTO) persistencia.leer();
+			UtilAgencia.AgenciaFromAgenciaDTO(agenciaDTO);
+			System.out.println("Exito al leer.");
+			persistencia.cerrarOutput();
+			System.out.println("Exito al cerrar.");
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

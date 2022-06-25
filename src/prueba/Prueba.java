@@ -1,5 +1,7 @@
 package prueba;
 
+import java.util.GregorianCalendar;
+
 import capaDeNegocios.Agencia;
 import capaDePresentacion.UAdministrador;
 import capaDePresentacion.UEmpleado;
@@ -59,6 +61,11 @@ public class Prueba {
 		
 		empleado1.mostrarListaAsignaciones();
 		empleador4.mostrarListaAsignaciones();
+		
+		String nombreArchivo = "Agencia-EmpleadorNadaMas" ;
+		Agencia.getInstance().guardarAgencia(nombreArchivo);
+		Agencia.getInstance().cargarAgencia(nombreArchivo);
+		
 		
 		//testeo del login y logout
 		empleador6.logout();

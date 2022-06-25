@@ -7,11 +7,88 @@
   <void property="nombre">
    <string>Nombre5</string>
   </void>
+  <void property="nombreUsuario">
+   <string>Usuario5</string>
+  </void>
+  <void property="password">
+   <string>Contraseña5</string>
+  </void>
+  <void property="puntaje">
+   <int>50</int>
+  </void>
   <void property="rubro">
    <string>Salud</string>
   </void>
   <void property="tPersona">
    <string>Juridica</string>
+  </void>
+  <void property="ticket">
+   <object class="Persistencia.TicketEmpleadorDTO">
+    <void property="cantempleadosbuscados">
+     <int>8</int>
+    </void>
+    <void property="cantempleadosobtenidos">
+     <int>9</int>
+    </void>
+    <void property="estado">
+     <string>Activo</string>
+    </void>
+    <void property="fecha">
+     <object class="java.util.GregorianCalendar">
+      <void property="time">
+       <object class="java.util.Date">
+        <long>1656181675680</long>
+       </object>
+      </void>
+     </object>
+    </void>
+    <void property="formulario">
+     <object class="Persistencia.FormularioDTO">
+      <void property="cargaHoraria">
+       <string>Media    </string>
+      </void>
+      <void property="cursados">
+       <string>Secundario </string>
+      </void>
+      <void property="experienciaprevia">
+       <string>Media</string>
+      </void>
+      <void property="locacion">
+       <string>Indistinto </string>
+      </void>
+      <void property="rangoEtario">
+       <string>Entre 40 y 50 años</string>
+      </void>
+      <void property="remuneracion">
+       <double>100000.0</double>
+      </void>
+      <void property="tipoPuesto">
+       <string>Senior</string>
+      </void>
+     </object>
+    </void>
+    <void property="pCargaHoraria">
+     <int>5</int>
+    </void>
+    <void property="pEstudiosCursados">
+     <int>1</int>
+    </void>
+    <void property="pExperienciaPrevia">
+     <int>3</int>
+    </void>
+    <void property="pLocacion">
+     <int>7</int>
+    </void>
+    <void property="pRangoEtario">
+     <int>2</int>
+    </void>
+    <void property="pRemuneracion">
+     <int>6</int>
+    </void>
+    <void property="pTipodePuesto">
+     <int>4</int>
+    </void>
+   </object>
   </void>
  </object>
 </java>

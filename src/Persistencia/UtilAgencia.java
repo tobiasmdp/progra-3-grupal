@@ -10,10 +10,29 @@ import capaDeDatos.Ticket;
 import capaDeDatos.TicketEmpleador;
 import capaDeDatos.TiposDeUsuarios;
 import capaDeDatos.Formulario;
+import capaDeNegocios.Agencia;
 import capaDeNegocios.Usuario_puntaje;
 
 public class UtilAgencia {
 	
+	
+	public static AgenciaDTO AgenciaDTOFromAgencia() {
+		AgenciaDTO agenciaDTO = new AgenciaDTO();
+		//Empleadores
+		ArrayList<EmpleadorDTO> empleadores = new ArrayList<EmpleadorDTO>();
+		for (Empleador empleador : Agencia.getInstance().getEmpleadores())
+			empleadores.add(EmpleadorDTOFromEmpleador(empleador));
+		agenciaDTO.setEmpleadores(empleadores);
+		
+		return agenciaDTO;
+	}
+	
+	public static void AgenciaFromAgenciaDTO(AgenciaDTO agenciaDTO) {
+		//Empleadores
+		for (EmpleadorDTO empleadorDTO : agenciaDTO.getEmpleadores())
+			Agencia.getInstance().addEmpleador(EmpleadorFromEmpleadorDTO(empleadorDTO));
+		
+	}
 	
 	public static EmpleadorDTO EmpleadorDTOFromEmpleador(Empleador empleador) {
 		EmpleadorDTO empleadorDTO = new EmpleadorDTO();

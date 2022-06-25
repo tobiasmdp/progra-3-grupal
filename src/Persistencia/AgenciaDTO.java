@@ -8,46 +8,47 @@ import capaDeDatos.Empleador;
 import capaDeNegocios.Contratacion;
 
 public class AgenciaDTO {
-	private ArrayList<EmpleadoPretenso> empleadosPretensos = new ArrayList<EmpleadoPretenso>();
-	private ArrayList<Empleador> empleadores = new ArrayList<Empleador>();
-	private ArrayList<Administrador> administradores = new ArrayList<Administrador>();
-	private ArrayList<Contratacion> contrataciones = new ArrayList<Contratacion>();
+//	private ArrayList<EmpleadoPretensoDTO> empleadosPretensos = new ArrayList<EmpleadoPretensoDTO>();
+	private ArrayList<EmpleadorDTO> empleadores = new ArrayList<EmpleadorDTO>();
+//	private ArrayList<AdministradorDTO> administradores = new ArrayList<AdministradorDTO>();
+//	private ArrayList<ContratacionDTO> contrataciones = new ArrayList<ContratacionDTO>();
 	
 	public AgenciaDTO() {
 		super();
 	}
 
-	public ArrayList<EmpleadoPretenso> getEmpleadosPretensos() {
-		return empleadosPretensos;
-	}
-
-	public void setEmpleadosPretensos(ArrayList<EmpleadoPretenso> empleadosPretensos) {
-		this.empleadosPretensos = empleadosPretensos;
-	}
-
-	public ArrayList<Empleador> getEmpleadores() {
+//	public ArrayList<EmpleadoPretensoDTO> getEmpleadosPretensos() {
+//		return empleadosPretensos;
+//	}
+//
+//	public void setEmpleadosPretensos(ArrayList<EmpleadoPretensoDTO> empleadosPretensos) {
+//		this.empleadosPretensos = empleadosPretensos;
+//	}
+//
+//	
+//
+//	public ArrayList<AdministradorDTO> getAdministradores() {
+//		return administradores;
+//	}
+//
+//	public void setAdministradores(ArrayList<AdministradorDTO> administradores) {
+//		this.administradores = administradores;
+//	}
+//
+//	public ArrayList<ContratacionDTO> getContrataciones() {
+//		return contrataciones;
+//	}
+//
+//	public void setContrataciones(ArrayList<ContratacionDTO> contrataciones) {
+//		this.contrataciones = contrataciones;
+//	}
+//	
+	public ArrayList<EmpleadorDTO> getEmpleadores() {
 		return empleadores;
 	}
 
-	public void setEmpleadores(ArrayList<Empleador> empleadores) {
+	public void setEmpleadores(ArrayList<EmpleadorDTO> empleadores) {
 		this.empleadores = empleadores;
 	}
-
-	public ArrayList<Administrador> getAdministradores() {
-		return administradores;
-	}
-
-	public void setAdministradores(ArrayList<Administrador> administradores) {
-		this.administradores = administradores;
-	}
-
-	public ArrayList<Contratacion> getContrataciones() {
-		return contrataciones;
-	}
-
-	public void setContrataciones(ArrayList<Contratacion> contrataciones) {
-		this.contrataciones = contrataciones;
-	}
-	
 	
 }
