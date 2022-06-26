@@ -22,7 +22,10 @@ public class Prueba {
 		//cada instancia de una sub clase de Usuario se llamara = nombre-de-la-clase + nro de usuario
 		//el usuario numero 10 si es empleado, se llamara empleado10
 		
-		UEmpleado empleado=(UEmpleado)Agencia.getInstance().registroEmpleado("1","1");
+		UEmpleado empleado=(UEmpleado)Agencia.getInstance().registroEmpleado("1","1","nahuel","nievas","223444444",23);
+		Agencia.getInstance().crearTicketEmpleado("Indistinto", 80000, "CargaMedia", "senior", 53, "ExperienciaMedia", "primario",empleado);
+		UEmpleado empleado2=(UEmpleado)Agencia.getInstance().registroEmpleado("2","2","nahuel","nievas","223444444",24);
+		Agencia.getInstance().crearTicketEmpleado("Indistinto", 80000, "CargaMedia", "senior", 53, "ExperienciaMedia", "primario",empleado2);
 		UAdministrador admin=(UAdministrador)Agencia.getInstance().registroAdministrador("pepe", "pepe");
 		Agencia.getInstance().crearTicketEmpleado("Indistinto", 80000, "CargaMedia", "senior", 53, "ExperienciaMedia", "primario",empleado);
 		Agencia.getInstance().registroEmpleado("2","2");
@@ -33,6 +36,7 @@ public class Prueba {
 		Agencia.getInstance().crearTicketEmpleador("Indistinto", 100000, "CargaMedia", "senior", 20, "ExperienciaMedia", "secundario",8,7,6,5,4,3,2,1,empleador);
 		Agencia.getInstance().registroEmpleador("7","7");
 		Agencia.getInstance().registroEmpleador("8","8");
+		Agencia.getInstance().rondaEncuentrosLaborales();
 		ControladorSistema controlador=new ControladorSistema();
 	}
 }

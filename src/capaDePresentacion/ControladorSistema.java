@@ -22,13 +22,15 @@ import excepciones.ContraException;
 import excepciones.LoginException;
 import excepciones.NewRegisterException;
 import excepciones.NombreUsuarioException;
+import excepciones.UsuarioNoEncontradoException;
 
 public class ControladorSistema implements ActionListener, Observer, KeyListener{
 	private InterfazVista vista;
 	private Agencia modelo= Agencia.getInstance();
 	private Usuario usuario=null; //Usuario que controla la interfaz una vez se logea
 	private int tipoUsuario=0; //0 empleado //1 empleador //2 administrador
-	
+	private EmergenteTicket emergenteticket;
+	private EmergenteListaDeAsignacion emergenteListaDeAsignacion;
 	public ControladorSistema() {
 		super();
 		this.vista = new VentanaEmpleos();
@@ -43,6 +45,7 @@ public class ControladorSistema implements ActionListener, Observer, KeyListener
 		ListaDeAsignacion listaAsignacion;
 		EmpleadoPretenso empleado;
 		Empleador empleador;
+		int numfila;
 		if (evento.getActionCommand().equals(InterfazVista.REGISTRAR)) {//registrar en la principal
 			vista.Maximizar();
 			vista.registroPasoUno();
@@ -106,38 +109,55 @@ public class ControladorSistema implements ActionListener, Observer, KeyListener
 			modelo.setV1(Integer.parseInt(vista.getTextovalorMinimo().getText() ) );
 			modelo.setV2(Integer.parseInt(vista.getTextovalorMaximo().getText() ) );
 			vista.menuValoresRemuneracion();
-		}else if (evento.getActionCommand().equals(InterfazVista.ELEGIRTICKET)) {
+		}else if (evento.getActionCommand().equals(InterfazVista.ELEGIRTICKETEMPLEADO)) {
+			emergenteticket= new EmergenteTicket(this,this.vista,true);
+			emergenteticket.setVisible(true);
 			vista.elegirticket();
 		}else if (evento.getActionCommand().equals(InterfazVista.CONFIRMARELEGIRTICKETEMPLEADO)) {
-			modelo.cambiarEstadoTicket((String)vista.getComboBoxEstadoTickets().getSelectedItem(), (UEmpleado)usuario);
+			emergenteticket.setVisible(false);
+			modelo.cambiarEstadoTicket((String)emergenteticket.getComboBox().getSelectedItem(), (UEmpleado)usuario);
 			InicioSesionEmpleado();
 		}else if (evento.getActionCommand().equals(InterfazVista.CERRARSESION)) {
 			this.usuario=null;
+			vista.InicializarPaneles();
 			vista.pantallaPrincipal();
 		}
-		else if (evento.getActionCommand().equals(InterfazVista.MOSTRARLISTAEMPLEADO)) {
-			this.vista.getModeloTableListaEmpleado().setRowCount(0);
+		else if (evento.getActionCommand().equals(InterfazVista.MOSTRARLISTAEMPLEADO)) { //ACA ENTRA EL USUARIO DE TIPO EMPLEADOR
+			emergenteListaDeAsignacion= new EmergenteListaDeAsignacion(this,this.vista,true);
+			emergenteListaDeAsignacion.setVisible(true);
+			emergenteListaDeAsignacion.mirarlistaEmpleado();
+			
+			this.emergenteListaDeAsignacion.getModeloTableListaEmpleado().setRowCount(0);
 			listaAsignacion=this.modelo.getListaDeAsignacion((UCliente)usuario);
 			for(int i=0; i<listaAsignacion.getLista().size();i++){
-				empleador= (Empleador)listaAsignacion.getLista().get(i).getUsuario();
+				empleado= (EmpleadoPretenso)listaAsignacion.getLista().get(i).getUsuario();
 				Object[] fila= {
-					empleador.getNombre(),
+					empleado.getNombre(),
 					listaAsignacion.getLista().get(i).getPuntaje(),
-					empleador.getRubro(),
-					empleador.getTicket().getFormulario().getCargaHoraria(),
-					empleador.getTicket().getFormulario().getRemuneracion(),
-					empleador.getTicket().getFormulario().getLocacion(),
-					empleador.getTicket().getFormulario().getTipoPuesto(),
-					empleador.getTicket().getFormulario().getEstudiosCursados(),
-					empleador.getTicket().getFormulario().getExperienciaPrevia(),
-					empleador.getTicket().getFormulario().getRangoEtario(),
+					empleado.getTicket().getFormulario().getCargaHoraria(),
+					empleado.getTicket().getFormulario().getRemuneracion(),
+					empleado.getTicket().getFormulario().getLocacion(),
+					empleado.getTicket().getFormulario().getTipoPuesto(),
+					empleado.getTicket().getFormulario().getEstudiosCursados(),
+					empleado.getTicket().getFormulario().getExperienciaPrevia(),
+					empleado.getTicket().getFormulario().getRangoEtario(),
+					empleado.getNombreUsuario(),
 				};
-				this.vista.getModeloTableListaEmpleado().addRow(fila);
+				this.emergenteListaDeAsignacion.getModeloTableListaEmpleado().addRow(fila);
 			}
-			this.vista.mirarlistaEmpleado();
-		}
-
-		else if (evento.getActionCommand().equals(InterfazVista.SIMULADOR)) {//entra al simulador
+		}else if (evento.getActionCommand().equals(InterfazVista.CONFIRMARMOSTRARLISTAEMPLEADO)) {
+			numfila=emergenteListaDeAsignacion.getTableListaEmpleado().getSelectedRow();
+			if(numfila!=-1 ) {
+				try {
+					modelo.elegirUsuario_puntaje(emergenteListaDeAsignacion.getModeloTableListaEmpleado().getValueAt(numfila, 9).toString(), (UCliente)usuario);
+				} catch (UsuarioNoEncontradoException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			emergenteListaDeAsignacion.setVisible(false);
+		
+		}else if (evento.getActionCommand().equals(InterfazVista.SIMULADOR)) {//entra al simulador
 
 			vista.simulador();
 			modelo.simulacion();
@@ -158,7 +178,7 @@ public class ControladorSistema implements ActionListener, Observer, KeyListener
 		EmpleadoSimulado empleadoSimulado;
 		EmpleadorSimulado empleadorSimulado;
 		BolsaDeTrabajo bolsaTrabajo;
-		ModeloTableBolsaTrabajo modeloListaBolsaTrabajo= new ModeloTableBolsaTrabajo();
+		DefaultTableModel modeloListaBolsaTrabajo= new DefaultTableModel();
 		if(arg.equals("Empleado")) {
 			this.tipoUsuario=0;
 		}
@@ -183,13 +203,15 @@ public class ControladorSistema implements ActionListener, Observer, KeyListener
 		else if(arg.equals("EstadoBolsaTrabajo")) {
 			this.vista.getModeloTableBolsaTrabajo().setRowCount(0);
 			for(int i=0; i<this.modelo.getBolsatrabajo().getPuestoTrabajos().size();i++) {
-				Object[] fila= {
-					this.modelo.getBolsatrabajo().getPuestoTrabajos().get(i).getEmpleador().getNombre(),
-					this.modelo.getBolsatrabajo().getPuestoTrabajos().get(i).getLocacion(),
-					this.modelo.getBolsatrabajo().getPuestoTrabajos().get(i).getRubro(),
-					this.modelo.getBolsatrabajo().getPuestoTrabajos().get(i).getEstado(),
-				};
-				this.vista.getModeloTableBolsaTrabajo().addRow(fila);
+				if(this.modelo.getBolsatrabajo().getPuestoTrabajos()!=null) {
+					Object[] fila= {
+						this.modelo.getBolsatrabajo().getPuestoTrabajos().get(i).getEmpleador().getNombre(),
+						this.modelo.getBolsatrabajo().getPuestoTrabajos().get(i).getLocacion(),
+						this.modelo.getBolsatrabajo().getPuestoTrabajos().get(i).getRubro(),
+						this.modelo.getBolsatrabajo().getPuestoTrabajos().get(i).getEstado(),
+					};
+					this.vista.getModeloTableBolsaTrabajo().addRow(fila);
+				}
 			}
 			
 			

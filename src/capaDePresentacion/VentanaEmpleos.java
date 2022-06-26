@@ -52,30 +52,27 @@ public class VentanaEmpleos extends JFrame implements InterfazVista,KeyListener,
 	private JPanel panelzonaRegistro;
 	private JPanel panelzonaRegistro__titulo;
 	private JPanel panelzonaRegistro__botones;
+	private JPanel panelElegirTicket;
 	private JPanel panelRegistroEmpleador;
 	private JPanel panelRegistroEmpleado;
 	private JPanel panelSimuladorNorte;
 	private JPanel panelSimuladorCentral;
 	private JPanel panelSimuladorSur;
 	private JComboBox<String> ComboBoxEstadoTickets;
-
+	private GridLayout gridPanelPrincipalSur = new GridLayout(0,2);
 
 	private JTextArea acciones=new JTextArea();
 
 	private DefaultTableModel modeloTableBolsaTrabajo= new DefaultTableModel();
 	private JTable tableBolsaTrabajo = new JTable (modeloTableBolsaTrabajo);
-	private DefaultTableModel modeloTableListaEmpleado= new DefaultTableModel();
-	private JTable tableListaEmpleado = new JTable (modeloTableListaEmpleado);
-	
+
+	private JScrollPane scrollTableBolsaTrabajo = new JScrollPane(tableBolsaTrabajo);
+	private JScrollPane scrollListaAcciones = new JScrollPane(acciones);
 	private JList<String> ListaEmpleadosBolsaTrabajo = new JList<String>();
 	private JList<String> ListaEmpleadosPretensos = new JList<String>();
 	private JList<String> ListaEmpleadores = new JList<String>();
 	private JList<String> ListaTicketEmpleado = new JList<String>();
 
-	private JScrollPane scrollListaEmpleadosBolsaTrabajo = new JScrollPane(ListaEmpleadosBolsaTrabajo);
-	private JScrollPane scrollTableBolsaTrabajo = new JScrollPane(tableBolsaTrabajo);
-	private JScrollPane scrollListaAcciones = new JScrollPane(acciones);
-	private JScrollPane scrollListaTicketEmpleado = new JScrollPane(ListaTicketEmpleado);
 	
 	private JButton botonLogin;
 	private JButton botonRegistro;
@@ -302,18 +299,17 @@ public class VentanaEmpleos extends JFrame implements InterfazVista,KeyListener,
 		this.botonElegirTrabajo = new JButton("Elegir Trabajo");
 		this.botonVerResultados = new JButton("Ver resultados");
 		this.botonCerrarSesion = new JButton("Cerrar Sesion");
-		this.botonCrearTicket.setFont(new Font("Arial",Font.PLAIN,20));
-		this.botonDarTicketBaja.setFont(new Font("Arial",Font.PLAIN,20));
-		this.botonConfirmaCambioTicket.setFont(new Font("Arial",Font.PLAIN,20));
-		this.botonModificarTicket.setFont(new Font("Arial",Font.PLAIN,20));
-		this.botonMirarLista.setFont(new Font("Arial",Font.PLAIN,20));
-		this.botonElegirTrabajo.setFont(new Font("Arial",Font.PLAIN,20));
-		this.botonVerResultados.setFont(new Font("Arial",Font.PLAIN,20));
-		this.botonCerrarSesion.setFont(new Font("Arial",Font.PLAIN,20));
+		this.botonCrearTicket.setFont(new Font("Arial",Font.PLAIN,15));
+		this.botonDarTicketBaja.setFont(new Font("Arial",Font.PLAIN,15));
+		this.botonConfirmaCambioTicket.setFont(new Font("Arial",Font.PLAIN,15));
+		this.botonModificarTicket.setFont(new Font("Arial",Font.PLAIN,15));
+		this.botonMirarLista.setFont(new Font("Arial",Font.PLAIN,15));
+		this.botonElegirTrabajo.setFont(new Font("Arial",Font.PLAIN,15));
+		this.botonVerResultados.setFont(new Font("Arial",Font.PLAIN,15));
+		this.botonCerrarSesion.setFont(new Font("Arial",Font.PLAIN,15));
 		this.botonCrearTicket.setEnabled(false);
 		this.botonCerrarSesion.setAlignmentX(JLabel.TRAILING);
 
-		this.botonModificarTicket.setActionCommand(ELEGIRTICKET);
 		this.botonCerrarSesion.setActionCommand(CERRARSESION);
 		this.pantallaPrincipal();
 		this.arranca();
@@ -336,6 +332,7 @@ public class VentanaEmpleos extends JFrame implements InterfazVista,KeyListener,
 		this.panelSimuladorNorte= new JPanel();
 		this.panelSimuladorCentral= new JPanel();
 		this.panelSimuladorSur= new JPanel();
+		this.panelElegirTicket= new JPanel();
 		this.panelZonaBotonesRadialesHorizontalPersona=new JPanel();
 		this.panelZonaBotonesRadialesHorizontalPersona.setBackground(Color.white);
 		this.panelZonaBotonesRadialesHorizontalRubro=new JPanel();
@@ -343,6 +340,11 @@ public class VentanaEmpleos extends JFrame implements InterfazVista,KeyListener,
 		this.panelPrincipalNorte.setBackground(Color.white);
 		this.panelPrincipalSur.setBackground(Color.white);
 		this.panelPrincipalCentral.setBackground(Color.white);
+		this.panelPrincipalNorte.setBorder(new EmptyBorder(40, 40, 20, 40));
+		this.panelPrincipalCentral.setBorder(new EmptyBorder(20, 40, 20, 40));
+		this.panelPrincipalSur.setBorder(new EmptyBorder(20, 40, 40, 40));
+		this.gridPanelPrincipalSur.setHgap(100);
+		this.gridPanelPrincipalSur.setVgap(10);
 	}
 	
 	public void pantallaPrincipal(){
@@ -708,13 +710,14 @@ public class VentanaEmpleos extends JFrame implements InterfazVista,KeyListener,
 
 		this.panelPrincipalNorte.setLayout(new BorderLayout());
 		this.panelPrincipalCentral.setLayout(new BorderLayout());
-		this.panelPrincipalSur.setLayout(new GridLayout(0,2));
+		this.panelPrincipalSur.setLayout(gridPanelPrincipalSur);
 		
 		this.botonCerrarSesion.setPreferredSize(new Dimension(180,30));
 		this.label__titulo.setText("Pagina empleador");
 		this.panelPrincipalNorte.add(botonCerrarSesion,BorderLayout.EAST);
 		this.panelPrincipalNorte.add(label__titulo,BorderLayout.CENTER);
 		this.botonMirarLista.setActionCommand(MOSTRARLISTAEMPLEADO);
+		this.botonModificarTicket.setActionCommand(ELEGIRTICKETEMPLEADOR);
 		this.labelTicket.setText("Ticket de busqueda de empleados");
 		this.ticket.setBackground(Color.lightGray);
 		this.ticket.setPreferredSize(D500x300);
@@ -728,6 +731,8 @@ public class VentanaEmpleos extends JFrame implements InterfazVista,KeyListener,
 		this.panelPrincipal.add(panelPrincipalNorte,BorderLayout.NORTH);
 		this.panelPrincipal.add(panelPrincipalCentral,BorderLayout.CENTER);
 		this.panelPrincipal.add(panelPrincipalSur,BorderLayout.SOUTH);
+		this.panelPrincipalSur.setBorder(new EmptyBorder(20, 200, 40, 200));
+
 		revalidate();
 		repaint();
 	}
@@ -744,7 +749,7 @@ public class VentanaEmpleos extends JFrame implements InterfazVista,KeyListener,
 
 		this.panelPrincipalNorte.setLayout(new BorderLayout());
 		this.panelPrincipalCentral.setLayout(new BorderLayout());
-		this.panelPrincipalSur.setLayout(new GridLayout(0,2));
+		this.panelPrincipalSur.setLayout(gridPanelPrincipalSur);
 		
 		this.botonCerrarSesion.setPreferredSize(new Dimension(180,30));
 		this.label__titulo.setText("Pagina empleado");
@@ -752,6 +757,7 @@ public class VentanaEmpleos extends JFrame implements InterfazVista,KeyListener,
 		this.panelPrincipalNorte.add(label__titulo,BorderLayout.CENTER);
 
 		this.botonMirarLista.setActionCommand(MOSTRARLISTAEMPLEADOR);
+		this.botonModificarTicket.setActionCommand(ELEGIRTICKETEMPLEADO);
 		this.labelTicket.setText("Ticket de busqueda de empleado");
 		this.ticket.setBackground(Color.lightGray);
 		this.panelPrincipalCentral.add(labelTicket,BorderLayout.NORTH);
@@ -767,18 +773,20 @@ public class VentanaEmpleos extends JFrame implements InterfazVista,KeyListener,
 		this.panelPrincipal.add(panelPrincipalNorte,BorderLayout.NORTH);
 		this.panelPrincipal.add(panelPrincipalCentral,BorderLayout.CENTER);
 		this.panelPrincipal.add(panelPrincipalSur,BorderLayout.SOUTH);
+		this.panelPrincipalSur.setBorder(new EmptyBorder(20, 200, 40, 200));
 		revalidate();
 		repaint();
 		
 	}
 	@Override
 	public void elegirticket() {
-		this.labelElegirTicket.setText("Cambiar Estado del ticket");
 		this.botonConfirmaCambioTicket.setActionCommand(CONFIRMARELEGIRTICKETEMPLEADO);
+		this.labelElegirTicket.setText("Cambia el estado de tu ticket");
 		this.labelElegirTicket.setVisible(true);
-		this.panelPrincipalCentral.add(labelElegirTicket);
-		this.panelPrincipalCentral.add(ComboBoxEstadoTickets);
-		this.panelPrincipalCentral.add(botonConfirmaCambioTicket);
+
+		this.botonConfirmaCambioTicket.setPreferredSize(new Dimension(20,10));
+
+		this.labelElegirTicket.setFont(new Font("Arial",Font.PLAIN,20));
 		revalidate();
 		repaint();
 	}
@@ -946,6 +954,7 @@ public class VentanaEmpleos extends JFrame implements InterfazVista,KeyListener,
 		this.panelSimuladorCentral.add(this.labelSimulador__acciones);
 		this.panelSimuladorCentral.add(scrollListaAcciones);
 		this.panelPrincipal.add(panelSimuladorCentral,BorderLayout.CENTER);
+
 
 		revalidate();
 		repaint();
@@ -1117,16 +1126,7 @@ public class VentanaEmpleos extends JFrame implements InterfazVista,KeyListener,
 		repaint();
 	}
 
-	public DefaultTableModel getModeloTableListaEmpleado() {
-		return modeloTableListaEmpleado;
-	}
 
-	@Override
-	public void mirarlistaEmpleado() {
-		this.panelPrincipalCentral.add(tableListaEmpleado);
-		revalidate();
-		repaint();
-	}
 
 	@Override
 	public JPasswordField getTextoContraseñaRegistro() {

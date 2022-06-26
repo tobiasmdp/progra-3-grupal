@@ -26,11 +26,13 @@ public interface InterfazVista {
 	static final String RONDAENCUENTROS = "RONDAENCUENTROS";
 	static final String RONDACONTRATACION = "RONDACONTRATACION";
 	static final String VALORESREMUNERACION = "VALORESREMUNERACION";
-	static final String ELEGIRTICKET = "ELEGIRTICKET";
+	static final String ELEGIRTICKETEMPLEADO = "ELEGIRTICKETEMPLEADO";
+	static final String ELEGIRTICKETEMPLEADOR = "ELEGIRTICKETEMPLEADOR";
 	static final String CONFIRMARELEGIRTICKETEMPLEADO = "CONFIRMARELEGIRTICKETEMPLEADO";
 	static final String MOSTRARLISTAEMPLEADO = "MOSTRARLISTAEMPLEADO";
 	static final String MOSTRARLISTAEMPLEADOR = "MOSTRARLISTAEMPLEADOR";
 	static final String CERRARSESION = "CERRARSESION";
+	static final String CONFIRMARMOSTRARLISTAEMPLEADO = "CONFIRMARMOSTRARLISTAEMPLEADO";
 	
 	public void setActionListener(ControladorSistema controladorSistema);
 	public void registroPasoUno();
@@ -47,7 +49,7 @@ public interface InterfazVista {
 	public void simulador();
 	public void pantallaPrincipal();
 	public JList<String> getListaEmpleadosBolsaTrabajo();
-	
+	public void InicializarPaneles();
 	public JTextField getTextoUsuario() ;
 	public JTextField getTextoUsuarioRegistro() ;
 	public JTextField getTextoContraseña();
@@ -77,8 +79,6 @@ public interface InterfazVista {
 	public JComboBox<String> getComboBoxEstadoTickets();
 	public void actualizar();
 	public DefaultTableModel getModeloTableBolsaTrabajo();
-	public DefaultTableModel getModeloTableListaEmpleado();
-	public void mirarlistaEmpleado();
 	public JLabel getLabelErrorUsuarioRepetido();
 	public JPasswordField  getTextoContraseñaRegistro();
 }

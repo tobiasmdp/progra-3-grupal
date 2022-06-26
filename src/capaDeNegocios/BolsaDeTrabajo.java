@@ -14,12 +14,17 @@ public class BolsaDeTrabajo extends Observable{
 	}
 
 	public synchronized void removePuestoTrabajo(PuestoTrabajo nuevo) {
-		puestoTrabajos.remove(nuevo);
-		setChanged();
-		notifyObservers("EstadoBolsaTrabajo");
-		notifyAll(); // eliminamos de la bolsa el ticket que tiene un empleado
-	}
-
+        // puestoTrabajos.remove(nuevo);
+        int i=0;
+        while (i < puestoTrabajos.size() && nuevo != puestoTrabajos.get(i)) { // siempre lo va a encontrar porque va a estar
+            i++;
+        }
+        puestoTrabajos.get(i).setEstado("cerrado");
+        System.out.println(puestoTrabajos.get(i).getRubro()+puestoTrabajos.get(i).getLocacion()+"esta"+puestoTrabajos.get(i).getEstado());
+        setChanged();
+        notifyObservers("EstadoBolsaTrabajo");
+        notifyAll(); // eliminamos de la bolsa el ticket que tiene un empleado
+    }
 	public synchronized void putPuestoTrabajoEmpleador(PuestoTrabajo nuevo) {
 		nuevo.setEstado("disponible");
 		if (nuevo.getRubro().equals("salud"))
@@ -112,9 +117,8 @@ public class BolsaDeTrabajo extends Observable{
 				}
 				;
 			}
-		while (i < puestoTrabajos.size() && !puestoTrabajos.get(i).getRubro().equals(empleado.getRubro())
-				&& !puestoTrabajos.get(i).getEstado().equals("consulta"))
-			i++;
+		while (i < puestoTrabajos.size() && (!(puestoTrabajos.get(i).getRubro().equals(empleado.getRubro())) || !(puestoTrabajos.get(i).getEstado().equals("disponible") )))
+            i++;
 
 		if (puestoTrabajos.get(i).getRubro().equals("salud"))
 			cantsalud -= 1;
