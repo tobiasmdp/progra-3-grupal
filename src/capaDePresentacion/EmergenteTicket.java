@@ -15,6 +15,7 @@ import javax.swing.JComboBox;
 import java.awt.Rectangle;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.DefaultComboBoxModel;
 
 public class EmergenteTicket extends JDialog {
 
@@ -27,7 +28,7 @@ public class EmergenteTicket extends JDialog {
 	 * @param b 
 	 * @param vista 
 	 */
-	public EmergenteTicket(ControladorSistema controladorSistema, InterfazVista vista, boolean modal){
+	public EmergenteTicket(ControladorSistema controladorSistema, InterfazVista vista, boolean modal, int num){
 		setBounds(100, 100, 450, 300);
 		getContentPane().setLayout(new BorderLayout());
 		setModal(modal);
@@ -35,6 +36,10 @@ public class EmergenteTicket extends JDialog {
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(new BorderLayout(0, 0));
+		if (num==0)
+			botonAceptar.setActionCommand(vista.CONFIRMARELEGIRTICKETEMPLEADO);
+		else
+			botonAceptar.setActionCommand(vista.CONFIRMARELEGIRTICKETEMPLEADOR);
 		{
 			JLabel lblNewLabel_1 = new JLabel("Nuevo estado:");
 			lblNewLabel_1.setBorder(new EmptyBorder(0, 80, 0, 20));
@@ -53,10 +58,8 @@ public class EmergenteTicket extends JDialog {
 			contentPanel.add(panel, BorderLayout.CENTER);
 			panel.setLayout(new BorderLayout(0, 0));
 			{
-				JComboBox comboBox = new JComboBox();
-				comboBox.addItem("Activo");	
-				comboBox.addItem("Cancelado");
-				panel.add(comboBox);
+				comboBox.setModel(new DefaultComboBoxModel(new String[] {"Activo", "Cancelado"}));
+				panel.add(comboBox, BorderLayout.CENTER);
 			}
 		}
 		{
@@ -68,10 +71,9 @@ public class EmergenteTicket extends JDialog {
 				botonAceptar.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						botonAceptar.addActionListener(controladorSistema);
-						botonAceptar.setActionCommand(vista.CONFIRMARELEGIRTICKETEMPLEADO);
+						
 					}
 				});
-				botonAceptar.setActionCommand("OK");
 				buttonPane.add(botonAceptar);
 				getRootPane().setDefaultButton(botonAceptar);
 			}

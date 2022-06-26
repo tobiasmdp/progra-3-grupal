@@ -13,7 +13,7 @@ public abstract class FactoryRangoEtario {
 		RangoEtario respuesta=null;
 		if(tipo<40)
 			respuesta = new Menosde40();
-		if(tipo<=50)
+		else if(tipo<=50)
 			respuesta = new Entre40Y50();
 		else
 			respuesta = new Masde50();

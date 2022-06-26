@@ -16,7 +16,7 @@ import javax.swing.JScrollPane;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class EmergenteListaDeAsignacion extends JDialog {
+public class EmergenteListaDeAsignacionEmpleado extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
 	private DefaultTableModel modeloTableListaEmpleado= new DefaultTableModel();
@@ -32,7 +32,7 @@ public class EmergenteListaDeAsignacion extends JDialog {
 	 * @param vista 
 	 * @param controladorSistema 
 	 */
-	public EmergenteListaDeAsignacion(ControladorSistema controladorSistema, InterfazVista vista, boolean modal) {
+	public EmergenteListaDeAsignacionEmpleado(ControladorSistema controladorSistema, InterfazVista vista, boolean modal) {
 		setBounds(100, 100, 1047, 565);
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		//setModal(modal);
@@ -74,7 +74,7 @@ public class EmergenteListaDeAsignacion extends JDialog {
 				botonAceptar.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						botonAceptar.addActionListener(controladorSistema);
-						botonAceptar.setActionCommand(vista.CONFIRMARELEGIRLISTAEMPLEADO);
+						botonAceptar.setActionCommand(vista.CONFIRMARELEGIRLISTAEMPLEADOR);
 					}
 				});
 				botonAceptar.setActionCommand("OK");
@@ -92,6 +92,7 @@ public class EmergenteListaDeAsignacion extends JDialog {
 	public void mirarlistaEmpleado() {
 		modeloTableListaEmpleado.addColumn("Nombre");
 		modeloTableListaEmpleado.addColumn("Puntaje");
+		modeloTableListaEmpleado.addColumn("Rubro");
 		modeloTableListaEmpleado.addColumn("Carga Horaria");
 		modeloTableListaEmpleado.addColumn("Remuneracion");
 		modeloTableListaEmpleado.addColumn("Locacion");
@@ -105,6 +106,7 @@ public class EmergenteListaDeAsignacion extends JDialog {
 	}
 
 	public DefaultTableModel getModeloTableListaEmpleado() {
+		
 		return modeloTableListaEmpleado;
 	}
 

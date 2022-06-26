@@ -60,17 +60,18 @@ public class MetodosEmpleado extends Thread{
 		}
 	}
 
-	public void crearTicketEmpleado(String locacion, double remuneracion, String cargaHoraria, String tipoPuesto,
-			int rangoEtario, String experienciaPrevia, String estudiosCursados, UEmpleado uEmpleado) {
-		Formulario nuevofor = new Formulario(locacion, remuneracion, cargaHoraria, tipoPuesto, rangoEtario,
-				experienciaPrevia, estudiosCursados);
-		TicketEmpleado nuevoticket = new TicketEmpleado(GregorianCalendar.getInstance(), nuevofor);
+	public void crearTicketEmpleado(String locacion, double remuneracion, String cargaHoraria, String tipoPuesto, String experienciaPrevia, String estudiosCursados, UEmpleado uEmpleado) {
+		Formulario nuevofor; 
+		TicketEmpleado nuevoticket;
 		int i = 0;
 		ArrayList <NodoLogeoEmpleado> aux = Agencia.getInstance().getLogeoempleados();
 		int arreglologeado = Agencia.getInstance().logged(uEmpleado);
 		if (arreglologeado == 1) {
 			while (i < aux.size() && !uEmpleado.equals(aux.get(i).getUsuario()))
 				i++;
+			nuevofor= new Formulario(locacion, remuneracion, cargaHoraria, tipoPuesto, aux.get(i).getEmpleado().getEdad(),
+					experienciaPrevia, estudiosCursados);
+			nuevoticket=  new TicketEmpleado(GregorianCalendar.getInstance(), nuevofor);
 			aux.get(i).getEmpleado().setTicket(nuevoticket);
 		}
 	}

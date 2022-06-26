@@ -1,6 +1,7 @@
 package capaDePresentacion;
 
 import javax.swing.ButtonGroup;
+import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JList;
@@ -22,17 +23,24 @@ public interface InterfazVista {
 	static final String SIGUIENTEEMPLEADO = "SIGUIENTEEMPLEADO";
 	static final String NUEVOTICKETEMPLEADOR = "NUEVOTICKETEMPLEADOR";
 	static final String NUEVOTICKETEMPLEADO = "NUEVOTICKETEMPLEADO";
+	static final String CONFIRMARNUEVOTICKETEMPLEADO = "CONFIRMARNUEVOTICKETEMPLEADO";
+	static final String CONFIRMARNUEVOTICKETEMPLEADOR = "CONFIRMARNUEVOTICKETEMPLEADOR";
+	static final String MOSTRARRESULTADOSEMPLEADO = "MOSTRARRESULTADOSEMPLEADO";
+	static final String MOSTRARRESULTADOSEMPLEADOR = "MOSTRARRESULTADOSEMPLEADOR";
 	static final String SIMULADOR = "SIMULADOR";
 	static final String RONDAENCUENTROS = "RONDAENCUENTROS";
 	static final String RONDACONTRATACION = "RONDACONTRATACION";
+	static final String LISTAEMPLEADOSAGENCIA = "LISTAEMPLEADOSAGENCIA";
 	static final String VALORESREMUNERACION = "VALORESREMUNERACION";
 	static final String ELEGIRTICKETEMPLEADO = "ELEGIRTICKETEMPLEADO";
 	static final String ELEGIRTICKETEMPLEADOR = "ELEGIRTICKETEMPLEADOR";
 	static final String CONFIRMARELEGIRTICKETEMPLEADO = "CONFIRMARELEGIRTICKETEMPLEADO";
+	static final String CONFIRMARELEGIRTICKETEMPLEADOR = "CONFIRMARELEGIRTICKETEMPLEADOR";
 	static final String MOSTRARLISTAEMPLEADO = "MOSTRARLISTAEMPLEADO";
 	static final String MOSTRARLISTAEMPLEADOR = "MOSTRARLISTAEMPLEADOR";
 	static final String CERRARSESION = "CERRARSESION";
-	static final String CONFIRMARMOSTRARLISTAEMPLEADO = "CONFIRMARMOSTRARLISTAEMPLEADO";
+	static final String CONFIRMARELEGIRLISTAEMPLEADO = "CONFIRMARMOSTRARLISTAEMPLEADO";
+	static final String CONFIRMARELEGIRLISTAEMPLEADOR = "CONFIRMARMOSTRARLISTAEMPLEADOR";
 	
 	public void setActionListener(ControladorSistema controladorSistema);
 	public void registroPasoUno();
@@ -44,8 +52,6 @@ public interface InterfazVista {
 	public void ticketsEmpleado();
 	public void MenuPrincipalEmpleador();
 	public void MenuPrincipalEmpleado();
-	public void NuevoTicketEmpleador();
-	public void NuevoTicketEmpleado();
 	public void simulador();
 	public void pantallaPrincipal();
 	public JList<String> getListaEmpleadosBolsaTrabajo();
@@ -81,4 +87,9 @@ public interface InterfazVista {
 	public DefaultTableModel getModeloTableBolsaTrabajo();
 	public JLabel getLabelErrorUsuarioRepetido();
 	public JPasswordField  getTextoContraseñaRegistro();
+	public JButton getBotonMirarLista();
+	public JButton getBotonCrearTicket();
+	public JButton getBotonModificarTicket();
+	public JButton getBotonVerResultados();
+	public void habilitarBotones();
 }

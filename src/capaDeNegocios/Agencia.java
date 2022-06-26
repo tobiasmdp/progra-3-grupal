@@ -391,8 +391,8 @@ public class Agencia extends Observable{
 	}
 
 	public void crearTicketEmpleado(String locacion, double remuneracion, String cargaHoraria, String tipoPuesto,
-			int rangoEtario, String experienciaPrevia, String estudiosCursados, UEmpleado uEmpleado) {
-		zonaEmpleados.crearTicketEmpleado(locacion, remuneracion, cargaHoraria, tipoPuesto, rangoEtario,
+			String experienciaPrevia, String estudiosCursados, UEmpleado uEmpleado) {
+		zonaEmpleados.crearTicketEmpleado(locacion, remuneracion, cargaHoraria, tipoPuesto,
 				experienciaPrevia, estudiosCursados, uEmpleado);
 	}
 

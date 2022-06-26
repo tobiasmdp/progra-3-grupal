@@ -31,6 +31,10 @@ public class ControladorSistema implements ActionListener, Observer, KeyListener
 	private int tipoUsuario=0; //0 empleado //1 empleador //2 administrador
 	private EmergenteTicket emergenteticket;
 	private EmergenteListaDeAsignacion emergenteListaDeAsignacion;
+	private EmergenteListaDeAsignacionEmpleado emergenteListaDeAsignacionEmpleado;
+	private EmergenteTicketEmpleado emergenteTicketEmpleado;
+	private EmergenteTicketEmpleador emergenteTicketEmpleador;
+	private EmergenteVerResultados emergenteVerResultados;
 	public ControladorSistema() {
 		super();
 		this.vista = new VentanaEmpleos();
@@ -45,6 +49,15 @@ public class ControladorSistema implements ActionListener, Observer, KeyListener
 		ListaDeAsignacion listaAsignacion;
 		EmpleadoPretenso empleado;
 		Empleador empleador;
+		String pesoLocacion;
+		String pesoRemuneracion;
+		String pesoCargaHoraria;
+		String pesoTipodePuesto;
+		String pesoExperienciaprevia;
+		String pesoEdad;
+		String pesoEstudiosCursados;
+		double comision;
+		
 		int numfila;
 		if (evento.getActionCommand().equals(InterfazVista.REGISTRAR)) {//registrar en la principal
 			vista.Maximizar();
@@ -91,11 +104,32 @@ public class ControladorSistema implements ActionListener, Observer, KeyListener
 			this.usuario=modelo.registroEmpleado(vista.getTextoUsuarioRegistro().getText(), vista.getTextoContraseñaRegistro().getText(), vista.getTextoNombre().getText() , vista.getTextoApellido().getText(), vista.getTextoTelefono().getText(), Integer.parseInt(vista.getTextoEdad().getText()));
 			InicioSesionEmpleado();
 		}
-		else if (evento.getActionCommand().equals(InterfazVista.NUEVOTICKETEMPLEADOR)) {//creacion de ticket de empresa 
-			vista.NuevoTicketEmpleador();
+		else if (evento.getActionCommand().equals(InterfazVista.NUEVOTICKETEMPLEADO)) {//creacion de ticket de empresa 
+			emergenteTicketEmpleado=new EmergenteTicketEmpleado(this,this.vista,true);
+			emergenteTicketEmpleado.setVisible(true);
+			
 		}
 		else if (evento.getActionCommand().equals(InterfazVista.NUEVOTICKETEMPLEADOR)) {//creacion de ticket de empleador 
-			vista.NuevoTicketEmpleado();
+			emergenteTicketEmpleador=new EmergenteTicketEmpleador(this,this.vista,true);
+			emergenteTicketEmpleador.setVisible(true);
+		}
+		else if (evento.getActionCommand().equals(InterfazVista.CONFIRMARNUEVOTICKETEMPLEADO)) {//creacion de ticket de empresa 
+			modelo.crearTicketEmpleado(emergenteTicketEmpleado.getButtonGroupLocacion().getSelection().getActionCommand(), Integer.parseInt(emergenteTicketEmpleado.getTextoRemuneracion().getText()),emergenteTicketEmpleado.getButtonGroupCargaHoraria().getSelection().getActionCommand(),emergenteTicketEmpleado.getButtonGroupTipodePuesto().getSelection().getActionCommand(),emergenteTicketEmpleado.getButtonGroupExperienciaPrevia().getSelection().getActionCommand(), emergenteTicketEmpleado.getButtonGroupEstudiosCursados().getSelection().getActionCommand(), (UEmpleado)usuario);
+			emergenteTicketEmpleado.setVisible(false);
+			InicioSesionEmpleado();
+		}
+		else if (evento.getActionCommand().equals(InterfazVista.CONFIRMARNUEVOTICKETEMPLEADOR)) {//creacion de ticket de empresa
+			pesoLocacion=(String)emergenteTicketEmpleador.getComboBoxLocacion().getSelectedItem();
+			pesoRemuneracion=(String)emergenteTicketEmpleador.getComboBoxRemuneracion().getSelectedItem();
+			pesoCargaHoraria=(String)emergenteTicketEmpleador.getComboBoxCargaHoraria().getSelectedItem();
+			pesoTipodePuesto=(String)emergenteTicketEmpleador.getComboBoxPuesto().getSelectedItem();
+			pesoExperienciaprevia=(String)emergenteTicketEmpleador.getComboBoxExperienciaPrevia().getSelectedItem();;
+			pesoEdad=(String)emergenteTicketEmpleador.getComboBoxEdad().getSelectedItem();
+			pesoEstudiosCursados=(String)emergenteTicketEmpleador.getComboBoxEstudios().getSelectedItem();
+			modelo.crearTicketEmpleador(emergenteTicketEmpleador.getButtonGroupLocacion().getSelection().getActionCommand(), (double)Integer.parseInt(emergenteTicketEmpleador.getTextoRemuneracion().getText()),emergenteTicketEmpleador.getButtonGroupCargaHoraria().getSelection().getActionCommand(),emergenteTicketEmpleador.getButtonGroupTipodePuesto().getSelection().getActionCommand(),Integer.parseInt(emergenteTicketEmpleador.getTextoEdad().getText()),emergenteTicketEmpleador.getButtonGroupExperienciaPrevia().getSelection().getActionCommand(), emergenteTicketEmpleador.getButtonGroupEstudiosCursados().getSelection().getActionCommand(),
+					Integer.parseInt(emergenteTicketEmpleador.getTextoCantidadEmpleados().getText()),Integer.parseInt(pesoLocacion),Integer.parseInt(pesoRemuneracion),Integer.parseInt(pesoCargaHoraria),Integer.parseInt(pesoTipodePuesto),Integer.parseInt(pesoExperienciaprevia),Integer.parseInt(pesoEdad),Integer.parseInt(pesoEstudiosCursados),(UEmpleador)usuario);
+			emergenteTicketEmpleador.setVisible(false);
+			InicioSesionEmpleador();
 		}
 		else if (evento.getActionCommand().equals(InterfazVista.RONDAENCUENTROS)) {//c
 			modelo.rondaEncuentrosLaborales();
@@ -110,13 +144,21 @@ public class ControladorSistema implements ActionListener, Observer, KeyListener
 			modelo.setV2(Integer.parseInt(vista.getTextovalorMaximo().getText() ) );
 			vista.menuValoresRemuneracion();
 		}else if (evento.getActionCommand().equals(InterfazVista.ELEGIRTICKETEMPLEADO)) {
-			emergenteticket= new EmergenteTicket(this,this.vista,true);
+			emergenteticket= new EmergenteTicket(this,this.vista,true,0);
+			emergenteticket.setVisible(true);
+			vista.elegirticket();
+		}else if (evento.getActionCommand().equals(InterfazVista.ELEGIRTICKETEMPLEADOR)) {
+			emergenteticket= new EmergenteTicket(this,this.vista,true,1);
 			emergenteticket.setVisible(true);
 			vista.elegirticket();
 		}else if (evento.getActionCommand().equals(InterfazVista.CONFIRMARELEGIRTICKETEMPLEADO)) {
-			emergenteticket.setVisible(false);
 			modelo.cambiarEstadoTicket((String)emergenteticket.getComboBox().getSelectedItem(), (UEmpleado)usuario);
+			emergenteticket.setVisible(false);
 			InicioSesionEmpleado();
+		}else if (evento.getActionCommand().equals(InterfazVista.CONFIRMARELEGIRTICKETEMPLEADOR)) {
+			emergenteticket.setVisible(false);
+			modelo.cambiarEstadoTicket((String)emergenteticket.getComboBox().getSelectedItem(), (UEmpleador)usuario);
+			InicioSesionEmpleador();
 		}else if (evento.getActionCommand().equals(InterfazVista.CERRARSESION)) {
 			this.usuario=null;
 			vista.InicializarPaneles();
@@ -145,7 +187,32 @@ public class ControladorSistema implements ActionListener, Observer, KeyListener
 				};
 				this.emergenteListaDeAsignacion.getModeloTableListaEmpleado().addRow(fila);
 			}
-		}else if (evento.getActionCommand().equals(InterfazVista.CONFIRMARMOSTRARLISTAEMPLEADO)) {
+		}else if (evento.getActionCommand().equals(InterfazVista.MOSTRARLISTAEMPLEADOR)) { //ACA ENTRA EL USUARIO DE TIPO EMPLEADOR
+				emergenteListaDeAsignacionEmpleado= new EmergenteListaDeAsignacionEmpleado(this,this.vista,true);
+				emergenteListaDeAsignacionEmpleado.setVisible(true);
+				emergenteListaDeAsignacionEmpleado.mirarlistaEmpleado();
+				
+				
+				this.emergenteListaDeAsignacionEmpleado.getModeloTableListaEmpleado().setRowCount(0);
+				listaAsignacion=this.modelo.getListaDeAsignacion((UCliente)usuario);
+				for(int i=0; i<listaAsignacion.getLista().size();i++){
+					empleador= (Empleador)listaAsignacion.getLista().get(i).getUsuario();
+					Object[] fila= {
+						empleador.getNombre(),
+						listaAsignacion.getLista().get(i).getPuntaje(),
+						empleador.getRubro(),
+						empleador.getTicket().getFormulario().getCargaHoraria(),
+						empleador.getTicket().getFormulario().getRemuneracion(),
+						empleador.getTicket().getFormulario().getLocacion(),
+						empleador.getTicket().getFormulario().getTipoPuesto(),
+						empleador.getTicket().getFormulario().getEstudiosCursados(),
+						empleador.getTicket().getFormulario().getExperienciaPrevia(),
+						empleador.getTicket().getFormulario().getRangoEtario(),
+						empleador.getNombreUsuario(),
+					};
+					this.emergenteListaDeAsignacionEmpleado.getModeloTableListaEmpleado().addRow(fila);
+				}
+		}else if (evento.getActionCommand().equals(InterfazVista.CONFIRMARELEGIRLISTAEMPLEADO)) {
 			numfila=emergenteListaDeAsignacion.getTableListaEmpleado().getSelectedRow();
 			if(numfila!=-1 ) {
 				try {
@@ -156,7 +223,52 @@ public class ControladorSistema implements ActionListener, Observer, KeyListener
 				}
 			}
 			emergenteListaDeAsignacion.setVisible(false);
-		
+		}else if (evento.getActionCommand().equals(InterfazVista.CONFIRMARELEGIRLISTAEMPLEADOR)) {
+			numfila=emergenteListaDeAsignacionEmpleado.getTableListaEmpleado().getSelectedRow();
+			if(numfila!=-1 ) {
+				try {
+					modelo.elegirUsuario_puntaje(emergenteListaDeAsignacionEmpleado.getModeloTableListaEmpleado().getValueAt(numfila, 10).toString(), (UCliente)usuario);
+				} catch (UsuarioNoEncontradoException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			emergenteListaDeAsignacionEmpleado.setVisible(false);
+		}else if (evento.getActionCommand().equals(InterfazVista.MOSTRARRESULTADOSEMPLEADO)) {
+			emergenteVerResultados= new EmergenteVerResultados(this,this.vista,true);
+			comision=150;
+			emergenteVerResultados.versionEmpleado(comision);
+			emergenteVerResultados.setVisible(true);
+		}else if (evento.getActionCommand().equals(InterfazVista.MOSTRARRESULTADOSEMPLEADOR)) {
+			emergenteVerResultados= new EmergenteVerResultados(this,this.vista,true);
+			comision=150;
+			emergenteVerResultados.versionEmpleador(comision);
+			emergenteVerResultados.setVisible(true);
+		}else if (evento.getActionCommand().equals(InterfazVista.LISTAEMPLEADOSAGENCIA)) {
+			emergenteListaDeAsignacionEmpleado= new EmergenteListaDeAsignacionEmpleado(this,this.vista,true);
+			emergenteListaDeAsignacionEmpleado.setVisible(true);
+			emergenteListaDeAsignacionEmpleado.mirarlistaEmpleado();
+			
+			
+			this.emergenteListaDeAsignacionEmpleado.getModeloTableListaEmpleado().setRowCount(0);
+			listaAsignacion=this.modelo.getListaDeAsignacion((UCliente)usuario);
+			for(int i=0; i<listaAsignacion.getLista().size();i++){
+				empleador= (Empleador)listaAsignacion.getLista().get(i).getUsuario();
+				Object[] fila= {
+					empleador.getNombre(),
+					listaAsignacion.getLista().get(i).getPuntaje(),
+					empleador.getRubro(),
+					empleador.getTicket().getFormulario().getCargaHoraria(),
+					empleador.getTicket().getFormulario().getRemuneracion(),
+					empleador.getTicket().getFormulario().getLocacion(),
+					empleador.getTicket().getFormulario().getTipoPuesto(),
+					empleador.getTicket().getFormulario().getEstudiosCursados(),
+					empleador.getTicket().getFormulario().getExperienciaPrevia(),
+					empleador.getTicket().getFormulario().getRangoEtario(),
+					empleador.getNombreUsuario(),
+				};
+				this.emergenteListaDeAsignacionEmpleado.getModeloTableListaEmpleado().addRow(fila);
+			}
 		}else if (evento.getActionCommand().equals(InterfazVista.SIMULADOR)) {//entra al simulador
 
 			vista.simulador();
@@ -265,12 +377,17 @@ public class ControladorSistema implements ActionListener, Observer, KeyListener
 	
 	public void InicioSesionEmpleado() {
 		vista.Maximizar();
+		this.vista.habilitarBotones();
 		ModeloListaEmpleado modeloListaEmpleado= new ModeloListaEmpleado();
-		if(this.modelo.getTicketEmpleado(usuario)!=null)
+			
+		if(this.modelo.getTicketEmpleado(usuario)!=null) {
 			vista.getTicket().setText(this.modelo.getTicketEmpleado(usuario).toString());
+			if(this.modelo.getListaDeAsignacion((UCliente)usuario)==null)
+				this.vista.getBotonMirarLista().setEnabled(false);
+		}
 		else {
-			vista.getTicket().setText("No tiene ticket creado.");
-			vista.deshabilitarBotones();
+			vista.getTicket().setText("No tiene ticket creado aun. Para crear un ticket presione el boton Crear Ticket");
+			this.vista.deshabilitarBotones();
 		}
 		vista.getListaEmpleadosPretensos().setModel(modeloListaEmpleado);
 		vista.MenuPrincipalEmpleado();
@@ -278,14 +395,20 @@ public class ControladorSistema implements ActionListener, Observer, KeyListener
 	
 	public void InicioSesionEmpleador() {
 		vista.Maximizar();
-		if(this.modelo.getTicketEmpleador(usuario)!=null)
+		this.vista.habilitarBotones();
+		ModeloListaEmpleado modeloListaEmpleado= new ModeloListaEmpleado();
+		
+		
+		if(this.modelo.getTicketEmpleador(usuario)!=null) {
 			vista.getTicket().setText(this.modelo.getTicketEmpleador(usuario).toString());
+			if(this.modelo.getListaDeAsignacion((UCliente)usuario)==null)
+				this.vista.getBotonMirarLista().setEnabled(false);
+		}
 		else {
 			vista.getTicket().setText("No tiene ticket creado.");
-			vista.deshabilitarBotones();
+			this.vista.deshabilitarBotones();
 		}
 		
-		ModeloListaEmpleado modeloListaEmpleado= new ModeloListaEmpleado();
 		vista.getListaEmpleadosPretensos().setModel(modeloListaEmpleado);
 		vista.MenuPrincipalEmpleador();
 	}

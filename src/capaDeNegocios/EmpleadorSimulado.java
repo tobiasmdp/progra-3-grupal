@@ -49,7 +49,6 @@ public class EmpleadorSimulado extends Observable implements Runnable {
 			this.estado=this.nombre +" publico un puesto de trabajo con Locacion: "+ this.mispuestotrabajo.get(i).getLocacion()+ " Rubro:"+ this.mispuestotrabajo.get(i).getRubro();
 			setChanged();
 			notifyObservers("EstadoEmpleador");
-			System.out.println(this.nombre +" publico un puesto de trabajo con Locacion: "+ this.mispuestotrabajo.get(i).getLocacion()+ " Rubro:"+ this.mispuestotrabajo.get(i).getRubro());
 			Util.espera();
 		}
 	}

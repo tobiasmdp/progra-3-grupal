@@ -74,14 +74,12 @@ public class EmpleadoSimulado extends Observable implements Runnable{
 				this.estado=this.nombre +" fue contratado por "+ aux.getEmpleador().getNombre();
 				setChanged();
 				notifyObservers("EstadoEmpleado");
-				System.out.println(this.nombre +" fue contratado por "+ aux.getEmpleador().getNombre());
 				i++;
 			} else {
 				bolsa.putPuestoTrabajoEmpleado(aux);
 				this.estado=this.nombre +" no fue contratado. Vuelve a buscar.";
 				setChanged();
 				notifyObservers("EstadoEmpleado");
-				System.out.println(this.nombre +" no fue contratado. Vuelve a buscar.");
 				i++;
 				Util.espera();
 			}
@@ -91,7 +89,6 @@ public class EmpleadoSimulado extends Observable implements Runnable{
 			this.estado=this.nombre +" no tiene permitido buscar mas.";
 			setChanged();
 			notifyObservers("EstadoEmpleado");
-			System.out.println(this.nombre +" no tiene permitido buscar mas.");
 		}
 	}
 

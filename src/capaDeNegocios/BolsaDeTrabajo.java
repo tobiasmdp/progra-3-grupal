@@ -20,7 +20,6 @@ public class BolsaDeTrabajo extends Observable{
             i++;
         }
         puestoTrabajos.get(i).setEstado("cerrado");
-        System.out.println(puestoTrabajos.get(i).getRubro()+puestoTrabajos.get(i).getLocacion()+"esta"+puestoTrabajos.get(i).getEstado());
         setChanged();
         notifyObservers("EstadoBolsaTrabajo");
         notifyAll(); // eliminamos de la bolsa el ticket que tiene un empleado
@@ -74,7 +73,6 @@ public class BolsaDeTrabajo extends Observable{
 				this.estado=empleado.getNombre() +" no encontro tickets disponibles. Se queda esperando. ";
 				setChanged();
 				notifyObservers("EstadoBolsa");
-				System.out.println(empleado.getNombre() +" no encontro tickets disponibles. Se queda esperando. ");
 				wait();
 			} catch (InterruptedException e) {
 			}
@@ -87,7 +85,6 @@ public class BolsaDeTrabajo extends Observable{
 					this.estado=empleado.getNombre() +" no encontro tickets disponibles. Se queda esperando. ";
 					setChanged();
 					notifyObservers("EstadoBolsa");
-					System.out.println(empleado.getNombre() +" no encontro tickets disponibles. Se queda esperando. ");
 					wait();
 				} catch (InterruptedException e) {
 				}
@@ -99,7 +96,6 @@ public class BolsaDeTrabajo extends Observable{
 					this.estado=empleado.getNombre() +" no encontro tickets disponibles. Se queda esperando. ";
 					setChanged();
 					notifyObservers("EstadoBolsa");
-					System.out.println(empleado.getNombre() +" no encontro tickets disponibles. Se queda esperando. ");
 					wait();
 				} catch (InterruptedException e) {
 				}
@@ -111,7 +107,6 @@ public class BolsaDeTrabajo extends Observable{
 					this.estado=empleado.getNombre() +" no encontro tickets disponibles. Se queda esperando. ";
 					setChanged();
 					notifyObservers("EstadoBolsa");
-					System.out.println(empleado.getNombre() +" no encontro tickets disponibles. Se queda esperando. ");
 					wait();
 				} catch (InterruptedException e) {
 				}
