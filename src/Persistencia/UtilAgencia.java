@@ -7,6 +7,7 @@ import capaDeDatos.Empleador;
 import capaDeDatos.EmpleadoPretenso;
 import capaDeDatos.ListaDeAsignacion;
 import capaDeDatos.Ticket;
+import capaDeDatos.TicketEmpleado;
 import capaDeDatos.TicketEmpleador;
 import capaDeDatos.TiposDeUsuarios;
 import capaDeDatos.Formulario;
@@ -23,6 +24,13 @@ public class UtilAgencia {
 		for (Empleador empleador : Agencia.getInstance().getEmpleadores())
 			empleadores.add(EmpleadorDTOFromEmpleador(empleador));
 		agenciaDTO.setEmpleadores(empleadores);
+		//Empleados
+		ArrayList<EmpleadoDTO> empleados = new ArrayList<EmpleadoDTO>();
+		for (EmpleadoPretenso empleado : Agencia.getInstance().getEmpleadosPretensos())
+			empleados.add(EmpleadoDTOFromEmpleado(empleado));
+		agenciaDTO.setEmpleadores(empleadores);
+		//Elecciones
+		//Contrataciones
 		
 		return agenciaDTO;
 	}
@@ -33,6 +41,62 @@ public class UtilAgencia {
 			Agencia.getInstance().addEmpleador(EmpleadorFromEmpleadorDTO(empleadorDTO));
 		
 	}
+	
+	public static EmpleadoDTO EmpleadoDTOFromEmpleado(EmpleadoPretenso empleado) {
+		EmpleadoDTO empleadoDTO = new EmpleadoDTO();
+		empleadoDTO.setNombre(empleado.getNombre());
+		empleadoDTO.setApellido(empleado.getApellido());
+		empleadoDTO.setTelefono(empleado.getTelefono());
+		empleadoDTO.setTicket(TicketEmpleadoDTOFromTicketEmpleado(empleado.getTicket()));		
+		empleadoDTO.setEdad(empleado.getEdad());
+		empleadoDTO.setComision(empleado.getComision());
+		return empleadoDTO;
+	}
+	
+	public static EmpleadoPretenso EmpleadoFromEmpleadoDTO(EmpleadoDTO empleadoDTO) {
+		String nombreUsuario, password, nombre, apellido, telefono;
+		int edad;
+		//TiposDeUsuariosDTO
+		nombreUsuario = empleadoDTO.getNombreUsuario();
+		password = empleadoDTO.getPassword();
+		//EmpleadoDTO
+		nombre = empleadoDTO.getNombre();
+		apellido = empleadoDTO.getApellido();
+		telefono = empleadoDTO.getTelefono();
+		edad = empleadoDTO.getEdad();
+		
+		EmpleadoPretenso empleadoPretenso = new EmpleadoPretenso(nombreUsuario, password, nombre, apellido, telefono, edad);
+		
+		//ClienteDTO
+		empleadoPretenso.setPuntaje(empleadoDTO.getPuntaje());
+		//EmpleadoDTO
+		empleadoPretenso.setTicket(TicketEmpleadoFromTicketEmpleadoDTO(empleadoDTO.getTicket()));
+		empleadoPretenso.setComision(empleadoDTO.getComision());
+		
+		return empleadoPretenso;
+	}
+	
+	public static TicketEmpleadoDTO TicketEmpleadoDTOFromTicketEmpleado(TicketEmpleado ticketEmpleado) {
+		TicketEmpleadoDTO ticketEmpleadoDTO = new TicketEmpleadoDTO();
+		//ticketDTO
+		ticketEmpleadoDTO.setFecha(ticketEmpleado.getFecha());
+		ticketEmpleadoDTO.setEstado(ticketEmpleado.getEstado());
+		ticketEmpleadoDTO.setFormulario(FormularioDTOFromFormulario(ticketEmpleado.getFormulario()));
+		ticketEmpleadoDTO.setRondasTranscurridas(ticketEmpleado.getRondasTranscurridas());
+		return ticketEmpleadoDTO;
+	}
+	
+	public static TicketEmpleado TicketEmpleadoFromTicketEmpleadoDTO(TicketEmpleadoDTO ticketEmpleadoDTO) {
+		
+		//ticket
+		Calendar fecha = ticketEmpleadoDTO.getFecha();
+		Formulario formulario = FormularioFromFormularioDTO(ticketEmpleadoDTO.getFormulario());
+		
+		TicketEmpleado ticketEmpleado = new TicketEmpleado(fecha, formulario);
+		
+		return ticketEmpleado;
+	}
+	
 	
 	public static EmpleadorDTO EmpleadorDTOFromEmpleador(Empleador empleador) {
 		EmpleadorDTO empleadorDTO = new EmpleadorDTO();
