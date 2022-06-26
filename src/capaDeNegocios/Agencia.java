@@ -619,7 +619,7 @@ public class Agencia {
 	public void cargarAgencia(String nombreArchivo) {
 		IPersistencia persistencia = new PersistenciaXML();
 		try {
-			persistencia.abrirOutput(nombreArchivo);
+			persistencia.abrirInput(nombreArchivo);
 			System.out.println(nombreArchivo + ".xml creado y abierto correctamente.");
 			AgenciaDTO agenciaDTO = (AgenciaDTO) persistencia.leer();
 			UtilAgencia.AgenciaFromAgenciaDTO(agenciaDTO);
