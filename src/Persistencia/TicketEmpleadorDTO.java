@@ -29,59 +29,59 @@ public class TicketEmpleadorDTO extends TicketDTO{
 		this.cantempleadosobtenidos = cantempleadosobtenidos;
 	}
 	
-	public int getpLocacion() {
+	public int getPLocacion() {
 		return pLocacion;
 	}
 	
-	public void setpLocacion(int pLocacion) {
+	public void setPLocacion(int pLocacion) {
 		this.pLocacion = pLocacion;
 	}
 	
-	public int getpRemuneracion() {
+	public int getPRemuneracion() {
 		return pRemuneracion;
 	}
 	
-	public void setpRemuneracion(int pRemuneracion) {
+	public void setPRemuneracion(int pRemuneracion) {
 		this.pRemuneracion = pRemuneracion;
 	}
 	
-	public int getpCargaHoraria() {
+	public int getPCargaHoraria() {
 		return pCargaHoraria;
 	}
 	
-	public void setpCargaHoraria(int pCargaHoraria) {
+	public void setPCargaHoraria(int pCargaHoraria) {
 		this.pCargaHoraria = pCargaHoraria;
 	}
 	
-	public int getpTipodePuesto() {
+	public int getPTipodePuesto() {
 		return pTipodePuesto;
 	}
 	
-	public void setpTipodePuesto(int pTipodePuesto) {
+	public void setPTipodePuesto(int pTipodePuesto) {
 		this.pTipodePuesto = pTipodePuesto;
 	}
 	
-	public int getpExperienciaPrevia() {
+	public int getPExperienciaPrevia() {
 		return pExperienciaPrevia;
 	}
 	
-	public void setpExperienciaPrevia(int pExperienciaPrevia) {
+	public void setPExperienciaPrevia(int pExperienciaPrevia) {
 		this.pExperienciaPrevia = pExperienciaPrevia;
 	}
 	
-	public int getpRangoEtario() {
+	public int getPRangoEtario() {
 		return pRangoEtario;
 	}
 	
-	public void setpRangoEtario(int pRangoEtario) {
+	public void setPRangoEtario(int pRangoEtario) {
 		this.pRangoEtario = pRangoEtario;
 	}
 	
-	public int getpEstudiosCursados() {
+	public int getPEstudiosCursados() {
 		return pEstudiosCursados;
 	}
 	
-	public void setpEstudiosCursados(int pEstudiosCursados) {
+	public void setPEstudiosCursados(int pEstudiosCursados) {
 		this.pEstudiosCursados = pEstudiosCursados;
 	}
 	

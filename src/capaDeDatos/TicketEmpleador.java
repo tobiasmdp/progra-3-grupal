@@ -3,6 +3,8 @@
  */
 package capaDeDatos;
 
+import java.util.Calendar;
+
 /**
  * <b>
  * Se encarga de agregar los pesos para luego utilizarlos.
@@ -104,7 +106,5 @@ public class TicketEmpleador extends Ticket {
 			this.setEstado("finalizado");
 		}
 
-	}
-
-	
+	}	
 }

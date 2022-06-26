@@ -27,11 +27,11 @@ public class EmpleadorDTO extends ClienteDTO{
 		this.ticketDTO = ticket;
 	}
 
-	public String gettPersona() {
+	public String getTPersona() {
 		return tPersona;
 	}
 
-	public void settPersona(String tPersona) {
+	public void setTPersona(String tPersona) {
 		this.tPersona = tPersona;
 	}
 

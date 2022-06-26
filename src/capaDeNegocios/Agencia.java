@@ -1,10 +1,8 @@
 package capaDeNegocios;
 
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.GregorianCalendar;
 
 import Persistencia.AgenciaDTO;
 import Persistencia.EmpleadorDTO;
@@ -18,6 +16,7 @@ import capaDeDatos.Empleador;
 import capaDeDatos.ListaDeAsignacion;
 import capaDeDatos.TicketEmpleado;
 import capaDeDatos.TicketEmpleador;
+import capaDeDatos.TicketSimplificado;
 import capaDePresentacion.UAdministrador;
 import capaDePresentacion.UCliente;
 import capaDePresentacion.UEmpleado;
@@ -42,7 +41,16 @@ public class Agencia {
 	private ArrayList<NodoLogeoEmpleado> logeoempleados = new ArrayList<NodoLogeoEmpleado>();
 	private ArrayList<NodoLogeoEmpleador> logeoempleadores = new ArrayList<NodoLogeoEmpleador>();
 	private ArrayList<NodoLogeoAdministrador> logeoadministradores = new ArrayList<NodoLogeoAdministrador>();
-
+	private ArrayList<TicketSimplificado> bolsaDeTrabajo = new ArrayList<TicketSimplificado>();
+	
+	public ArrayList<TicketSimplificado> getBolsaDeTrabajo(){
+		return this.bolsaDeTrabajo;
+	}
+	
+	public void agregarTicketBolsa(TicketSimplificado ticket) {
+		this.bolsaDeTrabajo.add(ticket);
+	}
+	
 	public ListaDeAsignacion getListaDeAsignacion(UCliente uCliente) {
 		ListaDeAsignacion listaDeAsignacion;
 		Cliente cliente;
@@ -158,7 +166,7 @@ public class Agencia {
 				addLogeoEmpleadoPretenso(new NodoLogeoEmpleado(usuario, empleadosPretensos.get(i)));
 				System.out.println("sesion iniciada correctamente");
 			} else
-				throw new ContraException("la contrasenia ingresada no es la correcta", contra);
+				throw new ContraException("la contrase�a ingresada no es la correcta", contra);
 		else {
 			i = 0;
 			while (i < empleadores.size() && !(empleadores.get(i).getNombreUsuario().equals(nombreUsuario)))
@@ -168,7 +176,7 @@ public class Agencia {
 					addLogeoEmpleadores(new NodoLogeoEmpleador(usuario, empleadores.get(i)));
 					System.out.println("sesion iniciada correctamente");
 				} else
-					throw new ContraException("la contrasenia ingresada no es la correcta", contra);
+					throw new ContraException("la contrase�a ingresada no es la correcta", contra);
 			else {
 				i = 0;
 				while (i < administradores.size() && !(administradores.get(i).getNombreUsuario().equals(nombreUsuario)))
@@ -178,7 +186,7 @@ public class Agencia {
 						addLogeoAdministrador(new NodoLogeoAdministrador(usuario, administradores.get(i)));
 						System.out.println("sesion iniciada correctamente");
 					} else
-						throw new ContraException("la contrasenia ingresada no es la correcta", contra);
+						throw new ContraException("la contrase�a ingresada no es la correcta", contra);
 				else
 					throw new NombreUsuarioException("el nombre de usuario ingresado no coincide", nombreUsuario); // si llego hasta aca 
 																							//es que no lo encontro en ningun lado
@@ -574,7 +582,8 @@ public class Agencia {
 	public void setVencimientoTicket(int vencimientoTicket) {
 		this.vencimientoTicket = vencimientoTicket;
 	}
-	
+
+
 	
 	//------------------  Prueba de persistencia  ------------------//
 	
@@ -602,8 +611,8 @@ public class Agencia {
 	public void guardarAgencia(String nombreArchivo) {
 		IPersistencia persistencia = new PersistenciaXML();
 		try {
-			persistencia.abrirOutput(nombreArchivo + ".xml");
-			System.out.println(nombreArchivo + ".xml creado y abierto correctamente.");
+			persistencia.abrirOutput(nombreArchivo);
+			System.out.println(nombreArchivo + " creado.");
 			AgenciaDTO agenciaDTO = UtilAgencia.AgenciaDTOFromAgencia();
 			persistencia.escribir(agenciaDTO);
 			System.out.println("Exito al grabar.");
@@ -620,11 +629,11 @@ public class Agencia {
 		IPersistencia persistencia = new PersistenciaXML();
 		try {
 			persistencia.abrirInput(nombreArchivo);
-			System.out.println(nombreArchivo + ".xml creado y abierto correctamente.");
+			System.out.println(nombreArchivo + " abierto.");
 			AgenciaDTO agenciaDTO = (AgenciaDTO) persistencia.leer();
 			UtilAgencia.AgenciaFromAgenciaDTO(agenciaDTO);
 			System.out.println("Exito al leer.");
-			persistencia.cerrarOutput();
+			persistencia.cerrarInput();
 			System.out.println("Exito al cerrar.");
 			
 		} catch (IOException e) {

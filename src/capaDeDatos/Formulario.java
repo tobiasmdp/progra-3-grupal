@@ -13,7 +13,7 @@ import formulario.FactoryTipodePuesto;
 import formulario.Locacion;
 import formulario.RangoEtario;
 import formulario.Remuneracion;
-import formulario.TipodePuesto;
+import formulario.TipoPuesto;
 
 /**
  * <br>
@@ -23,7 +23,7 @@ public class Formulario {
     private Locacion locacion;
     private Remuneracion remuneracion;
     private CargaHoraria cargaHoraria;
-    private TipodePuesto tipoPuesto;
+    private TipoPuesto tipoPuesto;
     private ExperienciaPrevia experienciaprevia;
     private RangoEtario rangoEtario;
     private EstudiosCursados cursados;
@@ -41,6 +41,7 @@ public class Formulario {
         this.cursados = FactoryEstudiosCursados.getEstudiosCursados(cursados);
         this.remuneraciondoub=remuneracion;
     }
+
     
     public Locacion getLocacion() {
         return locacion;
@@ -58,7 +59,7 @@ public class Formulario {
         return cargaHoraria;
     }
 
-    public TipodePuesto getTipoPuesto() {
+    public TipoPuesto getTipoPuesto() {
         return tipoPuesto;
     }
 

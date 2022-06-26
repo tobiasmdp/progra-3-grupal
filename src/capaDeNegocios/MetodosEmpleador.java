@@ -6,9 +6,6 @@ import capaDeDatos.Empleador;
 import capaDeDatos.Formulario;
 import capaDeDatos.TicketEmpleador;
 import capaDePresentacion.UEmpleador;
-import comisiones.IPersona;
-import comisiones.IRubro;
-
 
 /**
  *<b>
@@ -101,22 +98,16 @@ public class MetodosEmpleador {
 	 * @param empleador: empleador a calcular la comision.
 	 */
 	public void cobraComision(Empleador empleador) {
-        double modificadorcomision,remuneracion,descuento;
-        IRubro rubro;
-        IPersona persona;
+        double remuneracion,descuento,comision;
         int puntaje;
-        persona=empleador.gettPersona();
-        rubro=empleador.getRubro();
-        remuneracion=empleador.getTicket().getFormulario().getRemuneraciondoub();
-
-        modificadorcomision=persona.calcularComisiones(rubro);
-        puntaje=empleador.getPuntaje();
+        comision = empleador.getRubro().getComision();
+        remuneracion = empleador.getTicket().getFormulario().getRemuneraciondoub();
+        puntaje = empleador.getPuntaje();
         if (puntaje>100)
-            descuento=1;
+            descuento = 1;
         else
-            descuento=puntaje*0.01;//penalizacion de pagar mas de la remuneracion por tener negativo
-
-        empleador.setComision(remuneracion*modificadorcomision*(1-descuento));
+            descuento = puntaje*0.01;//penalizacion de pagar mas de la remuneracion por tener negativo
+        empleador.setComision(remuneracion*comision*(1-descuento));
     }
 
 	public void actualizarPuntaje(Empleador empleador, int valor) {

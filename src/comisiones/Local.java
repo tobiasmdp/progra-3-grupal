@@ -1,21 +1,21 @@
 package comisiones;
 
-public class Local implements IRubro {
-
-	@Override
-	public double comisionFisica() {
-		return 0.7;
+public class Local extends TipoRubro {
+	private Comisiones persona;
+	
+	public Local(Comisiones persona) {
+		this.persona = persona;
 	}
-
+	
 	@Override
-	public double comisionJuridica() {
-		return 0.9;
+	public double getComision() {
+		return this.persona.getComision() + 0.1;
 	}
-
-
 	@Override
 	public String toString() {
 		return "Local";
 	}
+
+	
 	
 }

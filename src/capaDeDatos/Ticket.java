@@ -100,13 +100,13 @@ public abstract class Ticket {
 	}
 
 	
+	public void setFecha(Calendar fecha) {
+		this.fecha = fecha;
+	}
+
 	@Override
 	public String toString() {
 		return ""+formulario ;
-	}
-
-	public void setFecha(Calendar fecha) {
-		this.fecha = fecha;
 	}
 	
 	

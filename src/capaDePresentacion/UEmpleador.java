@@ -1,13 +1,20 @@
 package capaDePresentacion;
 
+import java.util.Observable;
+import java.util.Observer;
+
+import capaDeDatos.TicketSimplificado;
 import capaDeNegocios.Agencia;
 /**
  *<b>
  *Clase que representa al empleador desde la capa de presentacion.
  */
-public class UEmpleador extends UCliente{
-
+public class UEmpleador extends UCliente implements Observer{
+	
+	private int cantPuestosCreados;
+	
 	public UEmpleador() {
+		this.cantPuestosCreados = 0;
 	}
 	
 	/**
@@ -38,5 +45,18 @@ public class UEmpleador extends UCliente{
 	public void cambiarEstadoTicket(String estado) {
 		Agencia.getInstance().cambiarEstadoTicket(estado, this);
 	}
+	
+	public void generarPuestoTrabajo(String puestoTrabajo, String locacion) {
+		if(this.cantPuestosCreados < 3) {
+			TicketSimplificado ticket = new TicketSimplificado(puestoTrabajo,locacion,this);
+			Agencia.getInstance().agregarTicketBolsa(ticket);
+			this.cantPuestosCreados++;
+		}
+	}
 
+	@Override
+	public void update(Observable o, Object arg) {
+		
+	}
+	
 }

@@ -3,32 +3,41 @@ package formulario;
  *<br>
  *La clase Senior es parte del patron Double Dispatch para la categoria del formulario TipodePuesto
  */
-public class Senior  implements TipodePuesto{
-		
-		public double compara(TipodePuesto otracaract) {
-			return otracaract.comparaSenior();
-		}
-		
-		public double comparaJunior() {
-			return 0.5;
-		}
+public class Senior extends Decorator{
+	private TipoPuestoBase puestoBase;
+	
+	public Senior(TipoPuestoBase puestoBase) {
+		this.puestoBase = puestoBase;
+		this.tipoPuestoNombre = "Senior";
+	}
+	
+	@Override
+	public double comisionPuesto() {
+		return this.puestoBase.comisionPuesto() + 0.1;
+	}
 
-		public double comparaSenior() {
-			return 1;
-		}
+	@Override
+	public double compara(TipoPuesto otracaract) {
+		return otracaract.comparaSenior();
+	}
 
-		public double comparaManagment() {
-			return 0.5;
-		}
-		//junior.comparo(senior)=-0,5
+	@Override
+	public double comparaJunior() {
+		return this.puestoBase.comparaSenior() - 1.5 ;
+	}
 
-		@Override
-		public String toString() {
-			return "Senior";
-		}
+	@Override
+	public double comparaSenior() {
+		return this.puestoBase.comparaSenior();
+	}
 
-		@Override
-		public double calculaComision() {
-			return 0.9;
-		}
+	@Override
+	public double comparaManagment() {
+		return this.puestoBase.comparaSenior();
+	}
+	
+	@Override
+	public String toString() {
+		return "Senior";
+	}
 }

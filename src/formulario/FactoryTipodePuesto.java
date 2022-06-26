@@ -9,14 +9,14 @@ public class FactoryTipodePuesto {
 	 * <b>Pre: </b> Debe recibir como parametros "Junior", "Senior" o "Managment"<br>
 	 * <b>Pos: </b> Devuelve un objeto de tipo Junior, Senior o Managment<br>
 	 */
-	public static TipodePuesto getTipodePuesto(String tipo) {
-		TipodePuesto respuesta=null;
+	public static TipoPuesto getTipodePuesto(String tipo) {
+		TipoPuesto respuesta=null;
 		if(tipo.equalsIgnoreCase("Junior"))
-			respuesta = new Junior();
+			respuesta = new Junior(new TipoPuestoBase());
 		if(tipo.equalsIgnoreCase("Senior"))
-			respuesta = new Senior();
+			respuesta = new Senior(new TipoPuestoBase());
 		if (tipo.equalsIgnoreCase("Managment"))
-			respuesta = new Managment();
+			respuesta = new Managment(new TipoPuestoBase());
 		return respuesta;
 	}
 }

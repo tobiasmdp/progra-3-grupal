@@ -11,6 +11,7 @@ public class EmpleadoPretenso extends Cliente {
 	private TicketEmpleado ticket;
 	private int edad;
 	private double comision;
+	
 	// private static int codUsuario;
 
 	public EmpleadoPretenso(String nombreUsuario, String contra) {

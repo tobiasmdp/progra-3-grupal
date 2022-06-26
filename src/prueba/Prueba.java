@@ -1,7 +1,8 @@
 package prueba;
 
-import java.util.GregorianCalendar;
+import java.util.ArrayList;
 
+import capaDeDatos.Empleador;
 import capaDeNegocios.Agencia;
 import capaDePresentacion.UAdministrador;
 import capaDePresentacion.UEmpleado;
@@ -57,15 +58,12 @@ public class Prueba {
 		admin7.setVencimientoTicket(3);
 		
 		//------------------ RONDA DE ENCUENTROS LABORALES ------------------1
-		admin7.rondaEncuentrosLaborales();
+
+		
+		admin7.gatillarRonda();
 		
 		empleado1.mostrarListaAsignaciones();
 		empleador4.mostrarListaAsignaciones();
-		
-		String nombreArchivo = "Agencia-EmpleadorNadaMas" ;
-		Agencia.getInstance().guardarAgencia(nombreArchivo);
-		Agencia.getInstance().cargarAgencia(nombreArchivo);
-		
 		
 		//testeo del login y logout
 		empleador6.logout();
@@ -94,7 +92,7 @@ public class Prueba {
 		
 		//------------------ RONDA DE CONTRATACIONES  ------------------1
 		
-		admin7.rondaContrataciones();
+		admin7.gatillarRonda();
 		
 		//ver la lista de contratacion para todos
 		admin7.mostrarListaContrataciones();
@@ -103,43 +101,44 @@ public class Prueba {
 		empleado8.cambiarEstadoTicket("suspendido");
 		//------------------ RONDA DE ENCUENTROS LABORALES ------------------2
 		
-		admin7.rondaEncuentrosLaborales();
+		admin7.gatillarRonda();
 		
 		//prueba de cambio de estado para un empleado
 		empleador5.mostrarListaAsignaciones();
 		empleador5.elegirUsuario_puntaje("Usuario8"); //no deberia poder elegirlo
 		empleado8.cambiarEstadoTicket("activo");
 		
-		//------------------  Prueba de persistencia  ------------------//
-		
-		Agencia.getInstance().persistirEmpleador(empleador5);
-		
 		//------------------ RONDA DE CONTRATACIONES  ------------------2
 		
-		admin7.rondaContrataciones();
+		admin7.gatillarRonda();
 		
 		//------------------ RONDA DE ENCUENTROS LABORALES ------------------3
-		admin7.rondaEncuentrosLaborales();
+		admin7.gatillarRonda();
 		
 		
 		//------------------ RONDA DE CONTRATACIONES  ------------------3
 		
-		admin7.rondaContrataciones();
+		admin7.gatillarRonda();
 				
 		//------------------ RONDA DE ENCUENTROS LABORALES ------------------4
-		admin7.rondaEncuentrosLaborales();
+		admin7.gatillarRonda();
 			
 		//------------------ RONDA DE CONTRATACIONES  ------------------4
 				
-		admin7.rondaContrataciones();
-		empleador4.mostrarListaContrataciones();
+		admin7.gatillarRonda();	
 		//------------------ RONDA DE ENCUENTROS LABORALES ------------------5
-		admin7.rondaEncuentrosLaborales();
+		admin7.gatillarRonda();
 				
 				
 		//------------------ RONDA DE CONTRATACIONES  ------------------5
 				
-		admin7.rondaContrataciones();
-						
+		admin7.gatillarRonda();
+		
+		String nombreArchivo = "Agencia-EmpleadorNadaMas.xml" ;
+		ArrayList<Empleador> empleadores;
+		Agencia.getInstance().guardarAgencia(nombreArchivo);
+		Agencia.getInstance().cargarAgencia(nombreArchivo);
+		empleadores = Agencia.getInstance().getEmpleadores();
+		System.out.println("asdas");
 	}
 }

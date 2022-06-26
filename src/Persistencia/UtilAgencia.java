@@ -43,7 +43,7 @@ public class UtilAgencia {
 		empleadorDTO.setPuntaje(empleador.getPuntaje());
 		//EmpledorDTO
 		empleadorDTO.setNombre(empleador.getNombre());
-		empleadorDTO.settPersona(empleador.gettPersona().toString());
+		empleadorDTO.setTPersona(empleador.gettPersona().toString());
 		empleadorDTO.setRubro(empleador.getRubro().toString());
 		empleadorDTO.setComision(empleador.getComision());	
 		empleadorDTO.setTicket(TicketEmpleadorDTOFromTicketEmpleador(empleador.getTicket()));
@@ -57,7 +57,7 @@ public class UtilAgencia {
 		password = empleadorDTO.getPassword();
 		//EmpleadorDTO
 		nombre = empleadorDTO.getNombre();
-		tPersona = empleadorDTO.gettPersona();
+		tPersona = empleadorDTO.getTPersona();
 		rubro = empleadorDTO.getRubro();
 	
 		Empleador empleador = new Empleador(nombreUsuario, password, nombre, tPersona, rubro);
@@ -89,13 +89,13 @@ public class UtilAgencia {
 		//ticketEmpleadorDTO
 		ticketEmpleadorDTO.setCantempleadosbuscados(ticketEmpleador.getCantempleadosbuscados());
 		ticketEmpleadorDTO.setCantempleadosobtenidos(ticketEmpleador.getCantempleadosobtenidos());
-		ticketEmpleadorDTO.setpRemuneracion(ticketEmpleador.getpRemuneracion());
-		ticketEmpleadorDTO.setpLocacion(ticketEmpleador.getpLocacion());
-		ticketEmpleadorDTO.setpCargaHoraria(ticketEmpleador.getpCargaHoraria());
-		ticketEmpleadorDTO.setpTipodePuesto(ticketEmpleador.getpTipodePuesto());
-		ticketEmpleadorDTO.setpExperienciaPrevia(ticketEmpleador.getpExperienciaPrevia());
-		ticketEmpleadorDTO.setpRangoEtario(ticketEmpleador.getpRangoEtario());
-		ticketEmpleadorDTO.setpEstudiosCursados(ticketEmpleador.getpEstudiosCursados());
+		ticketEmpleadorDTO.setPRemuneracion(ticketEmpleador.getpRemuneracion());
+		ticketEmpleadorDTO.setPLocacion(ticketEmpleador.getpLocacion());
+		ticketEmpleadorDTO.setPCargaHoraria(ticketEmpleador.getpCargaHoraria());
+		ticketEmpleadorDTO.setPTipodePuesto(ticketEmpleador.getpTipodePuesto());
+		ticketEmpleadorDTO.setPExperienciaPrevia(ticketEmpleador.getpExperienciaPrevia());
+		ticketEmpleadorDTO.setPRangoEtario(ticketEmpleador.getpRangoEtario());
+		ticketEmpleadorDTO.setPEstudiosCursados(ticketEmpleador.getpEstudiosCursados());
 		
 		return ticketEmpleadorDTO;
 	}
@@ -104,13 +104,13 @@ public class UtilAgencia {
 		//ticketEmpleador
 		int cantempleadosbuscados, pLocacion, pRemuneracion, pCargaHoraria, pTipodePuesto, pExperienciaPrevia, pRangoEtario, pEstudiosCursados;
 		cantempleadosbuscados = ticketEmpleadorDTO.getCantempleadosbuscados();
-		pLocacion = ticketEmpleadorDTO.getpLocacion();
-		pRemuneracion = ticketEmpleadorDTO.getpRemuneracion();
-		pCargaHoraria = ticketEmpleadorDTO.getpCargaHoraria();
-		pTipodePuesto = ticketEmpleadorDTO.getpTipodePuesto();
-		pExperienciaPrevia = ticketEmpleadorDTO.getpExperienciaPrevia();
-		pRangoEtario = ticketEmpleadorDTO.getpExperienciaPrevia();
-		pEstudiosCursados = ticketEmpleadorDTO.getpEstudiosCursados();
+		pLocacion = ticketEmpleadorDTO.getPLocacion();
+		pRemuneracion = ticketEmpleadorDTO.getPRemuneracion();
+		pCargaHoraria = ticketEmpleadorDTO.getPCargaHoraria();
+		pTipodePuesto = ticketEmpleadorDTO.getPTipodePuesto();
+		pExperienciaPrevia = ticketEmpleadorDTO.getPExperienciaPrevia();
+		pRangoEtario = ticketEmpleadorDTO.getPExperienciaPrevia();
+		pEstudiosCursados = ticketEmpleadorDTO.getPEstudiosCursados();
 		
 		//ticket
 		Formulario formulario = FormularioFromFormularioDTO(ticketEmpleadorDTO.getFormulario());

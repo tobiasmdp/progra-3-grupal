@@ -46,7 +46,6 @@ public class PersistenciaXML implements IPersistencia{
     public void escribir(Object objeto) throws IOException
     {
         xmlEncoder.writeObject(objeto);
-
     }
 
     @Override
@@ -54,7 +53,7 @@ public class PersistenciaXML implements IPersistencia{
     {
         Object objeto = null;
         if (xmlDecoder != null)
-            objeto = (Serializable) xmlDecoder.readObject();
+            objeto = xmlDecoder.readObject();
         return objeto;
     }
 }

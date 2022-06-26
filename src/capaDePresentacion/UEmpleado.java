@@ -1,5 +1,6 @@
 package capaDePresentacion;
 
+import capaDeDatos.TicketSimplificado;
 import capaDeNegocios.Agencia;
 
 /**
@@ -7,8 +8,11 @@ import capaDeNegocios.Agencia;
  *Clase que representa al empleado pretenso desde la capa de presentacion.
  */
 public class UEmpleado extends UCliente{
-
+	
+	private int cantBusquedas;
+	
 	public UEmpleado() {
+		this.cantBusquedas = 0;
 	}
 	
 	/**
@@ -37,6 +41,17 @@ public class UEmpleado extends UCliente{
 	@Override
 	public void cambiarEstadoTicket(String estado) {
 		Agencia.getInstance().cambiarEstadoTicket(estado, this);
+	}
+	
+	public void buscarTicketBolsa() {
+		if(this.cantBusquedas < 10) {
+			/*for (TicketSimplificado ticket : Agencia.getInstance().getBolsaDeTrabajo()) {
+				if() { //lo encuentra
+					ticket.notifyObservers(this);
+				}
+			}*/
+			this.cantBusquedas++;
+		}
 	}
 	
 }
