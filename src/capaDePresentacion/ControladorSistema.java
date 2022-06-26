@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.security.InvalidParameterException;
+import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -35,6 +36,7 @@ public class ControladorSistema implements ActionListener, Observer, KeyListener
 	private EmergenteTicketEmpleado emergenteTicketEmpleado;
 	private EmergenteTicketEmpleador emergenteTicketEmpleador;
 	private EmergenteVerResultados emergenteVerResultados;
+	private EmergenteListaDeEmpleados emergenteListaDeEmpleados;
 	public ControladorSistema() {
 		super();
 		this.vista = new VentanaEmpleos();
@@ -47,6 +49,8 @@ public class ControladorSistema implements ActionListener, Observer, KeyListener
 	@Override
 	public void actionPerformed(ActionEvent evento) {
 		ListaDeAsignacion listaAsignacion;
+		ArrayList<EmpleadoPretenso> empleadosPretensos = new ArrayList<EmpleadoPretenso>();
+		ArrayList<Empleador> empleadores = new ArrayList<Empleador>();
 		EmpleadoPretenso empleado;
 		Empleador empleador;
 		String pesoLocacion;
@@ -131,15 +135,10 @@ public class ControladorSistema implements ActionListener, Observer, KeyListener
 			emergenteTicketEmpleador.setVisible(false);
 			InicioSesionEmpleador();
 		}
-		else if (evento.getActionCommand().equals(InterfazVista.RONDAENCUENTROS)) {//c
-			modelo.rondaEncuentrosLaborales();
-			vista.menuRondaEncuentros();
-		}
-		else if (evento.getActionCommand().equals(InterfazVista.RONDACONTRATACION)) { 
-			modelo.rondaContrataciones();
-			vista.menuRondaContratacion();
-		}
-		else if (evento.getActionCommand().equals(InterfazVista.VALORESREMUNERACION)) {
+		else if(evento.getActionCommand().equals(InterfazVista.GATILLAR)) {
+            modelo.gatillarRonda();
+           
+		}else if (evento.getActionCommand().equals(InterfazVista.VALORESREMUNERACION)) {
 			modelo.setV1(Integer.parseInt(vista.getTextovalorMinimo().getText() ) );
 			modelo.setV2(Integer.parseInt(vista.getTextovalorMaximo().getText() ) );
 			vista.menuValoresRemuneracion();
@@ -236,38 +235,52 @@ public class ControladorSistema implements ActionListener, Observer, KeyListener
 			emergenteListaDeAsignacionEmpleado.setVisible(false);
 		}else if (evento.getActionCommand().equals(InterfazVista.MOSTRARRESULTADOSEMPLEADO)) {
 			emergenteVerResultados= new EmergenteVerResultados(this,this.vista,true);
-			comision=150;
-			emergenteVerResultados.versionEmpleado(comision);
+			comision=modelo.getComisionEmpleado((UEmpleado)usuario);
+			if(comision!=0){
+				emergenteVerResultados.versionEmpleado(comision);
+			}
+			else {
+				emergenteVerResultados.versionFracaso();
+			}
 			emergenteVerResultados.setVisible(true);
+				
 		}else if (evento.getActionCommand().equals(InterfazVista.MOSTRARRESULTADOSEMPLEADOR)) {
 			emergenteVerResultados= new EmergenteVerResultados(this,this.vista,true);
-			comision=150;
-			emergenteVerResultados.versionEmpleador(comision);
+			comision=modelo.getComisionEmpleado((UEmpleador)usuario);
+			if(comision!=0){
+				emergenteVerResultados.versionEmpleador(comision);
+			}
+			else {
+				emergenteVerResultados.versionFracaso();
+			}
 			emergenteVerResultados.setVisible(true);
 		}else if (evento.getActionCommand().equals(InterfazVista.LISTAEMPLEADOSAGENCIA)) {
-			emergenteListaDeAsignacionEmpleado= new EmergenteListaDeAsignacionEmpleado(this,this.vista,true);
-			emergenteListaDeAsignacionEmpleado.setVisible(true);
-			emergenteListaDeAsignacionEmpleado.mirarlistaEmpleado();
+			emergenteListaDeEmpleados= new EmergenteListaDeEmpleados(this,this.vista,true);
+			emergenteListaDeEmpleados.setVisible(true);
+			emergenteListaDeEmpleados.mirarlistaEmpleado();
 			
-			
-			this.emergenteListaDeAsignacionEmpleado.getModeloTableListaEmpleado().setRowCount(0);
-			listaAsignacion=this.modelo.getListaDeAsignacion((UCliente)usuario);
-			for(int i=0; i<listaAsignacion.getLista().size();i++){
-				empleador= (Empleador)listaAsignacion.getLista().get(i).getUsuario();
+			this.emergenteListaDeEmpleados.getModeloTableListaEmpleado().setRowCount(0);
+			empleadosPretensos=this.modelo.getEmpleadosPretensos();
+			for(int i=0; i<empleadosPretensos.size();i++){
+				empleado= empleadosPretensos.get(i);
 				Object[] fila= {
-					empleador.getNombre(),
-					listaAsignacion.getLista().get(i).getPuntaje(),
-					empleador.getRubro(),
-					empleador.getTicket().getFormulario().getCargaHoraria(),
-					empleador.getTicket().getFormulario().getRemuneracion(),
-					empleador.getTicket().getFormulario().getLocacion(),
-					empleador.getTicket().getFormulario().getTipoPuesto(),
-					empleador.getTicket().getFormulario().getEstudiosCursados(),
-					empleador.getTicket().getFormulario().getExperienciaPrevia(),
-					empleador.getTicket().getFormulario().getRangoEtario(),
+					empleado.getNombreUsuario(),
+				};
+				this.emergenteListaDeEmpleados.getModeloTableListaEmpleado().addRow(fila);
+			}
+		}else if (evento.getActionCommand().equals(InterfazVista.LISTAEMPLEADORESAGENCIA)) {
+			emergenteListaDeEmpleados= new EmergenteListaDeEmpleados(this,this.vista,true);
+			emergenteListaDeEmpleados.setVisible(true);
+			emergenteListaDeEmpleados.mirarlistaEmpleador();
+			
+			this.emergenteListaDeEmpleados.getModeloTableListaEmpleado().setRowCount(0);
+			empleadores=this.modelo.getEmpleadores();
+			for(int i=0; i<empleadores.size();i++){
+				empleador= empleadores.get(i);
+				Object[] fila= {
 					empleador.getNombreUsuario(),
 				};
-				this.emergenteListaDeAsignacionEmpleado.getModeloTableListaEmpleado().addRow(fila);
+				this.emergenteListaDeEmpleados.getModeloTableListaEmpleado().addRow(fila);
 			}
 		}else if (evento.getActionCommand().equals(InterfazVista.SIMULADOR)) {//entra al simulador
 
@@ -327,6 +340,9 @@ public class ControladorSistema implements ActionListener, Observer, KeyListener
 			}
 			
 			
+		}
+		else if(arg.equals("encuentros") || arg.equals("contrataciones")) {
+            this.vista.actualizarVistaAdministrador((String) arg);
 		} 
 		this.vista.actualizar();
 	}

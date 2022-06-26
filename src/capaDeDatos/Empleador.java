@@ -5,8 +5,8 @@ import java.util.ArrayList;
 import capaDeNegocios.BolsaDeTrabajo;
 import comisiones.FactoryPersona;
 import comisiones.FactoryRubro;
-import comisiones.IPersona;
-import comisiones.IRubro;
+import comisiones.TipoPersona;
+import comisiones.TipoRubro;
 import excepciones.UsuarioNoEncontradoException;
 
 /**
@@ -15,12 +15,12 @@ import excepciones.UsuarioNoEncontradoException;
  */
 public class Empleador extends Cliente {
 	private String nombre;
-	private IPersona tPersona;
-	private IRubro rubro;
+	private TipoPersona tPersona;
+	private TipoRubro rubro;
 	private TicketEmpleador ticket;
 	private ArrayList<PuestoTrabajo> mispuestotrabajo=new ArrayList<PuestoTrabajo>();
 	private double comision;
-	private int cantpuestos;
+	private int cantpuestos=0;
 	//parte 2 
 	private BolsaDeTrabajo bolsa;
 	
@@ -37,8 +37,7 @@ public class Empleador extends Cliente {
 		super(nombreUsuario,contra);
 		this.nombre = nombre;
 		this.tPersona = FactoryPersona.getPersona(tPersona);
-		this.rubro = FactoryRubro.getRubro(rubro);
-		this.cantpuestos=0;
+		this.rubro = FactoryRubro.getRubro(this.tPersona,rubro);
 	}
 	
 	/**
@@ -80,11 +79,11 @@ public class Empleador extends Cliente {
 		return nombre;
 	}
 
-	public IPersona gettPersona() {
+	public TipoPersona gettPersona() {
 		return tPersona;
 	}
 	
-	public IRubro getRubro() {
+	public TipoRubro getRubro() {
 		return rubro;
 	}
 

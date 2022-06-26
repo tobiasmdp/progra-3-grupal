@@ -32,10 +32,11 @@ public class Prueba {
 		Agencia.getInstance().registroEmpleado("3","3");
 		Agencia.getInstance().registroEmpleado("4","4");
 		Agencia.getInstance().registroEmpleador("5","5");
-		UEmpleador empleador=(UEmpleador)Agencia.getInstance().registroEmpleador("6","6");
+		UEmpleador empleador=(UEmpleador)Agencia.getInstance().registroEmpleador("6","6","Mikel","Juridica","Salud");
 		Agencia.getInstance().crearTicketEmpleador("Indistinto", 100000, "CargaMedia", "senior", 20, "ExperienciaMedia", "secundario",8,7,6,5,4,3,2,1,empleador);
 		Agencia.getInstance().registroEmpleador("7","7");
 		Agencia.getInstance().registroEmpleador("8","8");
 		ControladorSistema controlador=new ControladorSistema();
+		Agencia.getInstance().rondaEncuentrosLaborales();
 	}
 }

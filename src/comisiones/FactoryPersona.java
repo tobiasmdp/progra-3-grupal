@@ -9,8 +9,8 @@ public class FactoryPersona {
 	 * @param tipo recibe un string y con este se crea el tipo de persona, 
 	 * @return el objeto que representa al tipo de la persona
 	 */
-	public static IPersona getPersona(String tipo) {
-		IPersona respuesta = null;
+	public static TipoPersona getPersona(String tipo) {
+		TipoPersona respuesta = null;
 		if (tipo.equalsIgnoreCase("Juridica")) 
 			respuesta = new Juridica();
 		else if (tipo.equalsIgnoreCase("Fisica")) 

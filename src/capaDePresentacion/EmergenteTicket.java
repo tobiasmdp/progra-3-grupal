@@ -58,7 +58,7 @@ public class EmergenteTicket extends JDialog {
 			contentPanel.add(panel, BorderLayout.CENTER);
 			panel.setLayout(new BorderLayout(0, 0));
 			{
-				comboBox.setModel(new DefaultComboBoxModel(new String[] {"Activo", "Cancelado"}));
+				comboBox.setModel(new DefaultComboBoxModel(new String[] {"Activo", "Cancelado", "Suspendido"}));
 				panel.add(comboBox, BorderLayout.CENTER);
 			}
 		}

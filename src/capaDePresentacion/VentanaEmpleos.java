@@ -62,7 +62,7 @@ public class VentanaEmpleos extends JFrame implements InterfazVista,KeyListener,
 
 	private DefaultTableModel modeloTableBolsaTrabajo= new DefaultTableModel();
 	private JTable tableBolsaTrabajo = new JTable (modeloTableBolsaTrabajo);
-
+	private JScrollPane scrollPane;
 	private JScrollPane scrollTableBolsaTrabajo = new JScrollPane(tableBolsaTrabajo);
 	private JScrollPane scrollListaAcciones = new JScrollPane(acciones);
 	private JList<String> ListaEmpleadosBolsaTrabajo = new JList<String>();
@@ -81,10 +81,10 @@ public class VentanaEmpleos extends JFrame implements InterfazVista,KeyListener,
 	private JButton botonSimulador;
 
 
-	private JButton botonRondaEncuentros;
-	private JButton botonRondaContratacion;
 	private JButton botonCambiarValoresRemuneracion;
 	private JButton botonListaDeEmpleadosAdmin;
+	private JButton botonListaDeEmpleadoresAdmin;
+	private JButton botonGatillarRondas;
 
 
 	private JButton botonCrearTicket;
@@ -116,6 +116,7 @@ public class VentanaEmpleos extends JFrame implements InterfazVista,KeyListener,
 	
 
 	private JTextArea ticket;
+	private JTextArea rondas;
 	
 
 	private JTextField textovalorMinimo;
@@ -167,10 +168,11 @@ public class VentanaEmpleos extends JFrame implements InterfazVista,KeyListener,
 		this.botonEmpleado.setFont(new Font("Arial",Font.PLAIN,20));
 		this.botonSiguienteEmpleado = new JButton("Continuar");
 		this.botonSiguienteEmpleador = new JButton("Continuar");
+		this.botonGatillarRondas = new JButton("Gatillar rondas");
 		
-		this.botonRondaEncuentros=new JButton("Ejecutar Ronda de encuentros laborales");
+		
 		this.botonListaDeEmpleadosAdmin=new JButton("Ver lista de empleados");
-		this.botonRondaContratacion=new JButton("Ejecutar Ronda de contrataciones");
+		this.botonListaDeEmpleadoresAdmin=new JButton("Ver lista de empleadores");
 		this.botonCambiarValoresRemuneracion=new JButton("Cambiar valores de rango de remuneracion");
 		
 		this.botontipoPersona1= new JRadioButton("Persona fisica",false);
@@ -237,6 +239,8 @@ public class VentanaEmpleos extends JFrame implements InterfazVista,KeyListener,
 		
 
 		this.ticket= new JTextArea();
+		this.rondas= new JTextArea();
+		this.rondas.setEditable(false);
 		this.ticket.setEditable(false);
 		this.acciones.setEditable(false);
 		this.labelTicket= new JLabel();
@@ -391,9 +395,11 @@ public class VentanaEmpleos extends JFrame implements InterfazVista,KeyListener,
 		this.botonMirarLista.addActionListener(controladorSistema);
 		this.botonVerResultados.addActionListener(controladorSistema);
 		this.botonCerrarSesion.addActionListener(controladorSistema);
-		this.botonRondaEncuentros.addActionListener(controladorSistema);
-		this.botonRondaContratacion.addActionListener(controladorSistema);
 		this.botonCambiarValoresRemuneracion.addActionListener(controladorSistema);
+		this.botonListaDeEmpleadosAdmin.addActionListener(controladorSistema);
+		this.botonListaDeEmpleadoresAdmin.addActionListener(controladorSistema);
+		this.textovalorMaximo.addKeyListener(this);
+		this.textovalorMinimo.addKeyListener(this);
 		this.textoUsuarioRegistro.addKeyListener(this);
 		this.textoUsuario.addKeyListener(this);
 		this.textoContraseña.addKeyListener(this);
@@ -404,7 +410,7 @@ public class VentanaEmpleos extends JFrame implements InterfazVista,KeyListener,
 		this.textoApellido.addKeyListener(this);
 		this.textoTelefono.addKeyListener(this);
 		this.textoEdad.addKeyListener(this);
-
+		this.botonGatillarRondas.addActionListener(controladorSistema);
 		this.botontipoPersona1.addMouseListener(this);
 		this.botontipoPersona2.addMouseListener(this);
 		this.botontipoPersona1.setActionCommand("Fisica");
@@ -755,9 +761,9 @@ public class VentanaEmpleos extends JFrame implements InterfazVista,KeyListener,
 		this.panelPrincipalCentral.removeAll();
 		this.panelPrincipalNorte.removeAll();
 		botonListaDeEmpleadosAdmin.setActionCommand(LISTAEMPLEADOSAGENCIA);
-		botonRondaEncuentros.setActionCommand(RONDAENCUENTROS);
-		botonRondaContratacion.setActionCommand(RONDACONTRATACION);
+		botonListaDeEmpleadoresAdmin.setActionCommand(LISTAEMPLEADORESAGENCIA);
 		botonCambiarValoresRemuneracion.setActionCommand(VALORESREMUNERACION);
+		botonGatillarRondas.setActionCommand(GATILLAR);
 		
 		this.panelPrincipalNorte.setLayout(new BorderLayout());
 		this.botonCerrarSesion.setPreferredSize(new Dimension(180,30));
@@ -765,15 +771,21 @@ public class VentanaEmpleos extends JFrame implements InterfazVista,KeyListener,
 		this.panelPrincipalNorte.add(botonCerrarSesion,BorderLayout.EAST);
 		this.panelPrincipalNorte.add(label__titulo,BorderLayout.CENTER);
 		
-		this.textovalorMinimo= new JTextField();
-		this.textovalorMaximo= new JTextField();
+		this.scrollPane = new JScrollPane();
+		add(this.scrollPane, BorderLayout.CENTER);
+		this.rondas = new JTextArea();
+    	this.scrollPane.setViewportView(this.rondas);
+    	this.scrollPane.setBackground(Color.lightGray);
+		this.scrollPane.setPreferredSize(new Dimension(500,300));
+    	this.panelPrincipalNorte.add(scrollPane);
+		
 		this.labelvalorMinimo.setText("Limite Inferior de remuneracion");		
 		this.labelvalorMaximo.setText("Limite Superior de remuneracion");	
 		
 		this.panelPrincipalCentral.setLayout(new GridLayout(0,1));
 		this.panelPrincipalCentral.add(botonListaDeEmpleadosAdmin);
-		this.panelPrincipalCentral.add(botonRondaEncuentros);
-		this.panelPrincipalCentral.add(botonRondaContratacion);
+		this.panelPrincipalCentral.add(botonListaDeEmpleadoresAdmin);
+		this.panelPrincipalCentral.add(botonGatillarRondas);
 		this.panelPrincipalCentral.add(botonCambiarValoresRemuneracion);
 		this.panelPrincipalCentral.add(labelvalorMinimo);
 		this.panelPrincipalCentral.add(textovalorMinimo);
@@ -976,6 +988,11 @@ public class VentanaEmpleos extends JFrame implements InterfazVista,KeyListener,
 			this.botonSiguienteEmpleador.setEnabled(false);
 		else
 			this.botonSiguienteEmpleador.setEnabled(true);
+		
+		if(this.textovalorMinimo.getText().isEmpty() || this.textovalorMaximo.getText().isEmpty()) 
+			this.botonCambiarValoresRemuneracion.setEnabled(false);
+		else
+			this.botonCambiarValoresRemuneracion.setEnabled(true);
 	}
 
 	@Override
@@ -1070,7 +1087,16 @@ public class VentanaEmpleos extends JFrame implements InterfazVista,KeyListener,
 		return botonVerResultados;
 	}
 
-	
+	@Override
+    public void actualizarVistaAdministrador(String tipoRonda) {
+        if(tipoRonda.equals("encuentros")) {
+            this.rondas.append("Se ha gatillado ronda de encuentros laborales.\n");
+        }else if(tipoRonda.equals("contrataciones")) {
+            this.rondas.append("Se ha gatillado ronda de ronda de contrataciones.\n");
+        }
+    }
+
+
 
 	
 }

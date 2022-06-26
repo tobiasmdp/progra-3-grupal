@@ -28,9 +28,9 @@ public interface InterfazVista {
 	static final String MOSTRARRESULTADOSEMPLEADO = "MOSTRARRESULTADOSEMPLEADO";
 	static final String MOSTRARRESULTADOSEMPLEADOR = "MOSTRARRESULTADOSEMPLEADOR";
 	static final String SIMULADOR = "SIMULADOR";
-	static final String RONDAENCUENTROS = "RONDAENCUENTROS";
-	static final String RONDACONTRATACION = "RONDACONTRATACION";
+	static final String GATILLAR = "GATILLAR";
 	static final String LISTAEMPLEADOSAGENCIA = "LISTAEMPLEADOSAGENCIA";
+	static final String LISTAEMPLEADORESAGENCIA = "LISTAEMPLEADORESAGENCIA";
 	static final String VALORESREMUNERACION = "VALORESREMUNERACION";
 	static final String ELEGIRTICKETEMPLEADO = "ELEGIRTICKETEMPLEADO";
 	static final String ELEGIRTICKETEMPLEADOR = "ELEGIRTICKETEMPLEADOR";
@@ -92,4 +92,5 @@ public interface InterfazVista {
 	public JButton getBotonModificarTicket();
 	public JButton getBotonVerResultados();
 	public void habilitarBotones();
+	public void actualizarVistaAdministrador(String tipoRonda);
 }

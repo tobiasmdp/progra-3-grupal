@@ -108,7 +108,7 @@ public class TicketEmpleador extends Ticket {
 
 	@Override
 	public String toString() {
-		return "\nCantidad empleados buscados=" + cantempleadosbuscados + "\nCantidad empleados obtenidos="
+		return "Fecha de generacion: "+fecha.get(fecha.DATE)+ " / "+ fecha.get(fecha.MONTH)+ " / "+fecha.get(fecha.YEAR)+"\nEstado: " +estado+"\nRondas sin ser elegido:" + rondasTranscurridas +"\nCantidad empleados buscados=" + cantempleadosbuscados + "\nCantidad empleados obtenidos="
 				+ cantempleadosobtenidos + formulario + "\nImportancia de las caracteristicas:"+"\nPeso Locacion=" + pLocacion + "\nPeso Remuneracion=" + pRemuneracion
 				+ "\nPeso Carga Horaria=" + pCargaHoraria + ",\nPeso Tipo de Puesto=" + pTipodePuesto + "\nPeso Experiencia Previa="
 				+ pExperienciaPrevia + "\nPeso rango etario=" + pRangoEtario + "\nPeso Estudios cursados=" + pEstudiosCursados;

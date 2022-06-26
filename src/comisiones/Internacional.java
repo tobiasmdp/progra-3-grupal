@@ -1,22 +1,20 @@
 package comisiones;
 
-public class Internacional implements IRubro {
-
-	@Override
-	public double comisionFisica() {
-		return 0.8;
+public class Internacional extends TipoRubro {
+	private Comisiones persona;
+	
+	public Internacional(Comisiones persona) {
+		this.persona = persona;
 	}
-
+	
 	@Override
-	public double comisionJuridica() {
-		return 1;
+	public double getComision() {
+		return this.persona.getComision() + 0.2;
 	}
 
 	@Override
 	public String toString() {
 		return "Internacional";
 	}
-
-	
 
 }

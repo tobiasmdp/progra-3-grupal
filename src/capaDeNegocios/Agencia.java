@@ -31,7 +31,7 @@ public class Agencia extends Observable{
 	private ArrayList<Empleador> empleadores = new ArrayList<Empleador>();
 	private ArrayList<Administrador> administradores = new ArrayList<Administrador>();
 	private int V1 = 50000, V2 = 150000;
-	private int vencimientoTicket;
+	private int vencimientoTicket=3;
 	private ArrayList<Contratacion> contrataciones = new ArrayList<Contratacion>();
 	private MetodosEmpleado zonaEmpleados;
 	private MetodosEmpleador zonaEmpleador;
@@ -45,7 +45,7 @@ public class Agencia extends Observable{
     private ArrayList<Thread> simempleadoT = new ArrayList<Thread>();
     private ArrayList<EmpleadorSimulado> simempleadores = new ArrayList<EmpleadorSimulado>();
     private ArrayList<EmpleadoSimulado> simempleado = new ArrayList<EmpleadoSimulado>();
-	
+	private IStateRonda state=new EncuentrosState();
 	
 	public ListaDeAsignacion getListaDeAsignacion(UCliente uCliente) {
 		ListaDeAsignacion listaDeAsignacion;
@@ -228,6 +228,16 @@ public class Agencia extends Observable{
         }
     }
 
+	public double getComisionEmpleado(UEmpleado empleado) {
+        EmpleadoPretenso cliente = (EmpleadoPretenso) this.getCliente(empleado);
+        return cliente.getComision();
+    }
+	
+	public double getComisionEmpleado(UEmpleador empleador) {
+        Empleador cliente = (Empleador) this.getCliente(empleador);
+        return cliente.getComision();
+    }
+	
 	/**
 	 * @param usuario recibe un usuario para poder hacerle el logout del sistema
 	 */
@@ -329,7 +339,7 @@ public class Agencia extends Observable{
 	}
 
 	public void cambiarEstadoTicket(String estado, UEmpleador uEmpleador) {
-		if (!estado.equalsIgnoreCase("cancelado"))
+		if (!estado.equalsIgnoreCase("cancelado") || !estado.equalsIgnoreCase("finalizado"))
 			zonaEmpleador.cambiarEstadoTicket(estado, uEmpleador);
 	}
 
@@ -397,7 +407,7 @@ public class Agencia extends Observable{
 	}
 
 	public void cambiarEstadoTicket(String estado, UEmpleado uEmpleado) {
-		if (!estado.equalsIgnoreCase("cancelado"))
+		if (!estado.equalsIgnoreCase("cancelado") || !estado.equalsIgnoreCase("finalizado"))
 			zonaEmpleados.cambiarEstadoTicket(estado, uEmpleado);
 	}
 
@@ -435,6 +445,8 @@ public class Agencia extends Observable{
 		double puntaje;
 		Usuario_puntaje aux;
 		int k;
+		setChanged();
+        notifyObservers("encuentros");
 		for (int i = 0; i < empleadores.size(); i++) {
 			auxEmpleador = empleadores.get(i);
 			if (auxEmpleador.getTicket() != null && auxEmpleador.getTicket().getEstado().equalsIgnoreCase("activo")) {
@@ -451,8 +463,10 @@ public class Agencia extends Observable{
 				Collections.sort(auxEmpleador.getTicket().getListaAsignacion().getLista(), new UsuarioComparator());																								
 				if(auxEmpleador.getTicket().getListaAsignacion().getLista()!=null) {
 	                k = auxEmpleador.getTicket().getListaAsignacion().getLista().size() - 1;
-					zonaEmpleados.actualizarPuntaje((EmpleadoPretenso) auxEmpleador.getTicket().getListaAsignacion().getLista().get(k).getUsuario(),-5);
-					zonaEmpleados.actualizarPuntaje((EmpleadoPretenso) auxEmpleador.getTicket().getListaAsignacion().getLista().get(0).getUsuario(),5);
+	                if(k>0) {
+	                	zonaEmpleados.actualizarPuntaje((EmpleadoPretenso) auxEmpleador.getTicket().getListaAsignacion().getLista().get(k).getUsuario(),-5);
+						zonaEmpleados.actualizarPuntaje((EmpleadoPretenso) auxEmpleador.getTicket().getListaAsignacion().getLista().get(0).getUsuario(),5);
+	                }
 				}
 			}
 		}
@@ -494,6 +508,8 @@ public class Agencia extends Observable{
 		EmpleadoPretenso empleadoElegido;
 		int i;
 
+		setChanged();
+        notifyObservers("contrataciones");
 		for (Empleador empleador : this.empleadores) {
 			ticketEmpleador = empleador.getTicket();
 			if (ticketEmpleador!=null && ticketEmpleador.getEstado().equalsIgnoreCase("activo")) {
@@ -694,4 +710,13 @@ public class Agencia extends Observable{
             }
             
     }
+
+	public void setState(IStateRonda state) {
+		this.state = state;
+	}
+    
+    public void gatillarRonda() {
+    	this.state.gatillarRonda();
+    }
+    
 }

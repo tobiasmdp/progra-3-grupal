@@ -1,22 +1,21 @@
 package comisiones;
 
-public class Salud implements IRubro{
-
-	@Override
-	public double comisionFisica() {
-		return 0.6;
+public class Salud extends TipoRubro {
+	
+	private Comisiones persona;
+	
+	public Salud(Comisiones persona) {
+		this.persona = persona;
 	}
-
+	
 	@Override
-	public double comisionJuridica() {
-		return 0.8;
+	public double getComision() {
+		return this.persona.getComision();
 	}
-
-
+	
 	@Override
 	public String toString() {
 		return "Salud";
 	}
 
-	
 }

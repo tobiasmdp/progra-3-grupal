@@ -17,6 +17,8 @@ public class EmergenteVerResultados extends JDialog {
 	private final JPanel contentPanel = new JPanel();
 	private JLabel labelComision = new JLabel("");
 	private JLabel labelFelicidades = new JLabel("");
+	private JLabel lblNewLabel_1 = new JLabel("En breve nos contactaremos a tu telefono y/o email");
+	private JLabel lblNewLabel_2 = new JLabel("La comision a cobrar es de :");
 
 	/**
 	 * Launch the application.
@@ -47,7 +49,7 @@ public class EmergenteVerResultados extends JDialog {
 				panel.add(labelFelicidades, BorderLayout.NORTH);
 			}
 			{
-				JLabel lblNewLabel_1 = new JLabel("En breve nos contactaremos a tu telefono y/o email");
+				
 				lblNewLabel_1.setFont(new Font("Arial", Font.PLAIN, 14));
 				panel.add(lblNewLabel_1, BorderLayout.CENTER);
 			}
@@ -57,7 +59,7 @@ public class EmergenteVerResultados extends JDialog {
 			panel.setBackground(Color.WHITE);
 			contentPanel.add(panel, BorderLayout.CENTER);
 			{
-				JLabel lblNewLabel_2 = new JLabel("La comision a cobrar es de :");
+				
 				panel.add(lblNewLabel_2);
 			}
 			{
@@ -65,23 +67,7 @@ public class EmergenteVerResultados extends JDialog {
 				panel.add(labelComision);
 			}
 		}
-		{
-			JPanel buttonPane = new JPanel();
-			buttonPane.setBackground(Color.WHITE);
-			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
-			getContentPane().add(buttonPane, BorderLayout.SOUTH);
-			{
-				JButton okButton = new JButton("OK");
-				okButton.setActionCommand("OK");
-				buttonPane.add(okButton);
-				getRootPane().setDefaultButton(okButton);
-			}
-			{
-				JButton cancelButton = new JButton("Cancel");
-				cancelButton.setActionCommand("Cancel");
-				buttonPane.add(cancelButton);
-			}
-		}
+		
 	}
 
 	public JLabel getLabelComision() {
@@ -91,6 +77,12 @@ public class EmergenteVerResultados extends JDialog {
 	public void versionEmpleado(double comision) {
 		this.labelFelicidades.setText("Felicidades! Conseguiste un nuevo trabajo!");
 		this.labelComision.setText( " "+comision);
+	}
+	public void versionFracaso() {
+		this.labelFelicidades.setText("No conseguimos un emparejamiento aun");
+		this.lblNewLabel_1.setText( " ");
+		this.lblNewLabel_2.setText( " ");
+		this.labelComision.setText( " ");
 	}
 	public void versionEmpleador(double comision) {
 		this.labelFelicidades.setText("Felicidades! Conseguiste nuevos empleados!");
