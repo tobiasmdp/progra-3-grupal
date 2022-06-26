@@ -84,6 +84,8 @@ public class Agencia {
 	public ArrayList<Empleador> getEmpleadores() {
 		return empleadores;
 	}
+	
+	
 
 	public ArrayList<NodoLogeoEmpleado> getLogeoempleados() {
 		return logeoempleados;
@@ -120,6 +122,10 @@ public class Agencia {
 
 	public void addEmpleador(Empleador empleador) {// Agrega un empleador al arreglo de empleadores
 		this.empleadores.add(empleador);
+	}
+	
+	public void addContratacion(Contratacion contratacion) {
+		this.contrataciones.add(contratacion);
 	}
 
 	/****** REMOVEDORES DE ARRAYLISTS ******/
@@ -585,28 +591,7 @@ public class Agencia {
 
 
 	
-	//------------------  Prueba de persistencia  ------------------//
-	
-	public void persistirEmpleador(UEmpleador uEmpleador)
-	{
-		Empleador empleador =  (Empleador) getCliente(uEmpleador); //encuentra el Empleador, pero devuelve tipo Cliente.
-		String nombreArchivo = "Empleador-" + empleador.getNombre();
-		try {
-			IPersistencia persistencia= new PersistenciaXML();
-			persistencia.abrirOutput(nombreArchivo + ".xml");
-			System.out.println(nombreArchivo + ".xml creado y abierto correctamente.");
-			EmpleadorDTO empleadorDTO = UtilAgencia.EmpleadorDTOFromEmpleador(empleador);
-			persistencia.escribir(empleadorDTO);
-			System.out.println("Exito la grabar.");
-			persistencia.cerrarOutput();
-			System.out.println("Exito al cerrar.");
-			
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-	}
+	//------------------  Persistencia  ------------------//
 	
 	public void guardarAgencia(String nombreArchivo) {
 		IPersistencia persistencia = new PersistenciaXML();
