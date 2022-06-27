@@ -593,6 +593,12 @@ public class Agencia {
 	
 	//------------------  Persistencia  ------------------//
 	
+	
+	/**
+	 * Persiste mediante AgenciaDTO Empleados, Empleadores y Contrataciones en un archivo .xml con el nombre pasado por parametro.
+	 * Aplica patrones DTO y DAO
+	 * @param nombreArchivo
+	 */
 	public void guardarAgencia(String nombreArchivo) {
 		IPersistencia persistencia = new PersistenciaXML();
 		try {
@@ -610,6 +616,11 @@ public class Agencia {
 		}
 	}
 	
+	/**
+	 * Carga dentro de la agencia Empleados, Empleadores, Contrataciones que esten persistidas dentro de "nombreArchivo".
+	 * El "nombreArchivo" debe contener ".xml".
+	 * @param nombreArchivo
+	 */
 	public void cargarAgencia(String nombreArchivo) {
 		IPersistencia persistencia = new PersistenciaXML();
 		try {

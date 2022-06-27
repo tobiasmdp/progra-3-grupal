@@ -5,7 +5,6 @@ import java.util.ArrayList;
 public class AgenciaDTO {
 	private ArrayList<EmpleadoDTO> empleados = new ArrayList<EmpleadoDTO>();
 	private ArrayList<EmpleadorDTO> empleadores = new ArrayList<EmpleadorDTO>();
-//	private ArrayList<AdministradorDTO> administradores = new ArrayList<AdministradorDTO>();
 	private ArrayList<ContratacionDTO> contrataciones = new ArrayList<ContratacionDTO>();
 	
 	public AgenciaDTO() {

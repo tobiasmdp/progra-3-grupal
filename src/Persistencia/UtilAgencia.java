@@ -14,6 +14,10 @@ import capaDeNegocios.Contratacion;
 public class UtilAgencia {
 	
 	
+	/**
+	 * Persiste la agencia, no necesita parametro debido a la Agencia aplica el patron Singleton
+	 * @return
+	 */
 	public static AgenciaDTO AgenciaDTOFromAgencia() {
 		AgenciaDTO agenciaDTO = new AgenciaDTO();
 		//Empleadores
@@ -26,8 +30,6 @@ public class UtilAgencia {
 		for (EmpleadoPretenso empleado : Agencia.getInstance().getEmpleadosPretensos())
 			empleados.add(EmpleadoDTOFromEmpleado(empleado));
 		agenciaDTO.setEmpleados(empleados);
-		//Elecciones
-		
 		//Contrataciones
 		ArrayList<ContratacionDTO> contrataciones = new ArrayList<ContratacionDTO>();
 		for (Contratacion contratacion : Agencia.getInstance().getContrataciones())
@@ -35,7 +37,10 @@ public class UtilAgencia {
 		agenciaDTO.setContrataciones(contrataciones);
 		return agenciaDTO;
 	}
-	
+	/**
+	 * @param agenciaDTO
+	 * Carga datos en la agencia, es void debido a que Agencia aplica Singleton, de este se modifican sus parametros, no se genera una nueva Instancia de agencia
+	 */
 	public static void AgenciaFromAgenciaDTO(AgenciaDTO agenciaDTO) {
 		//Empleadores
 		for (EmpleadorDTO empleadorDTO : agenciaDTO.getEmpleadores())
@@ -46,6 +51,12 @@ public class UtilAgencia {
 			Agencia.getInstance().addContratacion(ContratacionFromContratacionDTO(contratacionDTO));
 	}
 	
+	
+	/**
+	 * Requerido por agenciaDTO para persistir las contrataciones
+	 * @param contratacion
+	 * @return
+	 */
 	public static ContratacionDTO ContratacionDTOFromContratacion (Contratacion contratacion) {
 		ContratacionDTO contratacionDTO = new ContratacionDTO();
 		contratacionDTO.setEmpleado(EmpleadoDTOFromEmpleado(contratacion.getEmpleado()));
@@ -54,6 +65,11 @@ public class UtilAgencia {
 		return contratacionDTO;
 	}
 	
+	/**
+	 * Reuqerido para obtener los datos del .xml y cargar las contrataciones previas.
+	 * @param contratacionDTO
+	 * @return
+	 */
 	public static Contratacion ContratacionFromContratacionDTO (ContratacionDTO contratacionDTO) {
 		EmpleadoPretenso empleado = EmpleadoFromEmpleadoDTO(contratacionDTO.getEmpleado());
 		Empleador empleador = EmpleadorFromEmpleadorDTO(contratacionDTO.getEmpleador());
@@ -61,6 +77,12 @@ public class UtilAgencia {
 		return contratacion; 
 	}
 	
+	
+	/**
+	 * Requerido por AgenciaDTO para persistir los datos.
+	 * @param empleado
+	 * @return
+	 */
 	public static EmpleadoDTO EmpleadoDTOFromEmpleado(EmpleadoPretenso empleado) {
 		EmpleadoDTO empleadoDTO = new EmpleadoDTO();
 		//TiposDeUsuariosDTO
@@ -78,6 +100,12 @@ public class UtilAgencia {
 		return empleadoDTO;
 	}
 	
+	
+	/**
+	 * Reuqerido para obtener los datos del .xml y cargar los empleados en la agencia.
+	 * @param empleadoDTO
+	 * @return
+	 */
 	public static EmpleadoPretenso EmpleadoFromEmpleadoDTO(EmpleadoDTO empleadoDTO) {
 		String nombreUsuario, password, nombre, apellido, telefono;
 		int edad;
@@ -101,6 +129,12 @@ public class UtilAgencia {
 		return empleadoPretenso;
 	}
 	
+	
+	/**
+	 * Requerido por EmpleadoDTO para persistir el ticket de cada uno de ellos.
+	 * @param ticketEmpleado
+	 * @return
+	 */
 	public static TicketEmpleadoDTO TicketEmpleadoDTOFromTicketEmpleado(TicketEmpleado ticketEmpleado) {
 		TicketEmpleadoDTO ticketEmpleadoDTO = new TicketEmpleadoDTO();
 		//ticketDTO
@@ -111,6 +145,12 @@ public class UtilAgencia {
 		return ticketEmpleadoDTO;
 	}
 	
+	
+	/**
+	 * Requerido para cargar los datos del .xml, y cargar el ticketEmpleado dentro de cada Empleado en el archivo.
+	 * @param ticketEmpleadoDTO
+	 * @return
+	 */
 	public static TicketEmpleado TicketEmpleadoFromTicketEmpleadoDTO(TicketEmpleadoDTO ticketEmpleadoDTO) {
 		//ticket
 		Calendar fecha = ticketEmpleadoDTO.getFecha();
@@ -123,7 +163,11 @@ public class UtilAgencia {
 		return ticketEmpleado;
 	}
 	
-	
+	/**
+	 * Requerido por AgenciaDTO para persistir los datos
+	 * @param empleador
+	 * @return
+	 */
 	public static EmpleadorDTO EmpleadorDTOFromEmpleador(Empleador empleador) {
 		EmpleadorDTO empleadorDTO = new EmpleadorDTO();
 		//TiposDeUsuariosDTO
@@ -140,6 +184,11 @@ public class UtilAgencia {
 		return empleadorDTO;
 	}
 	
+	/**
+	 * Reuqerido para obtener los datos del .xml y cargar los empleadores en la agencia.
+	 * @param empleadorDTO
+	 * @return
+	 */
 	public static Empleador EmpleadorFromEmpleadorDTO(EmpleadorDTO empleadorDTO) {
 		String nombreUsuario, password, nombre, tPersona, rubro;
 		//TiposDeUsuariosDTO
@@ -161,7 +210,11 @@ public class UtilAgencia {
 		return empleador;
 	}
 	
-
+	/**
+	 * Requerido por EmpleadorDTO para persistir el ticket de cada uno de ellos.
+	 * @param ticketEmpleador
+	 * @return
+	 */
 	public static TicketEmpleadorDTO TicketEmpleadorDTOFromTicketEmpleador(TicketEmpleador ticketEmpleador) {
 		TicketEmpleadorDTO ticketEmpleadorDTO = new TicketEmpleadorDTO();
 		//ticketDTO
@@ -184,6 +237,12 @@ public class UtilAgencia {
 		return ticketEmpleadorDTO;
 	}
 
+	
+	/**
+	 * Requerido para cargar los datos del .xml, y obtener el ticketEmpleador dentro de cada Empleador en el archivo.
+	 * @param ticketEmpleadorDTO
+	 * @return
+	 */
 	public static TicketEmpleador TicketEmpleadorFromTicketEmpleadorDTO (TicketEmpleadorDTO ticketEmpleadorDTO) {
 		//ticketEmpleador
 		int cantempleadosbuscados, pLocacion, pRemuneracion, pCargaHoraria, pTipodePuesto, pExperienciaPrevia, pRangoEtario, pEstudiosCursados;
@@ -214,6 +273,12 @@ public class UtilAgencia {
 		return ticketEmpleador;
 	}
 	
+	
+	/**
+	 * Necesario tanto por el TickerEMpleadorDTO como por TicketEmpleadoDTO para persistir el fomrulario contenido dentro de cada ticket.
+	 * @param formulario
+	 * @return
+	 */
 	public static FormularioDTO FormularioDTOFromFormulario(Formulario formulario) {
 		FormularioDTO formularioDTO = new FormularioDTO();
 		formularioDTO.setCargaHoraria(formulario.getCargaHoraria().toString());
@@ -226,6 +291,11 @@ public class UtilAgencia {
 		return formularioDTO;
 	}
 	
+	/**
+	 * Requerido para cargar los datos del .xml, y obtener el el fomrulario para cada ticket.
+	 * @param formularioDTO
+	 * @return
+	 */
 	public static Formulario FormularioFromFormularioDTO(FormularioDTO formularioDTO){
 	    String locacion, cargaHoraria, tipoPuesto, experienciaprevia, rangoEtarioAux, cursados;
 	    double remuneracion;
