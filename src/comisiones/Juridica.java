@@ -1,11 +1,13 @@
 package comisiones;
-
-public class Juridica implements IPersona {
-
+/**
+ * <br>
+ * Clase que representa el tipo de persona de la clase empleador.
+ */
+public class Juridica extends TipoPersona {
 
 	@Override
-	public double calcularComisiones(IRubro rubro) {
-		return rubro.comisionJuridica();
+	public double getComision() {
+		return 0.8;
 	}
 
 	@Override

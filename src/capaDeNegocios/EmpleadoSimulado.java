@@ -1,14 +1,21 @@
 package capaDeNegocios;
 
+import java.util.Observable;
+
 import capaDeDatos.PuestoTrabajo;
 
-public class EmpleadoSimulado extends Thread {
+/**
+ * <br>
+ * Clase que representa al empleado usado durante la ejecucion de la simulación.
+ */
+public class EmpleadoSimulado extends Observable implements Runnable{
 	private String nombre;
 	private String rubro;
 	private String locacion;
 	private BolsaDeTrabajo bolsa;
 	private PuestoTrabajo minuevopuesto;
-
+	private String estado;
+	
 	public EmpleadoSimulado(String nombreUsuario, String rubro, BolsaDeTrabajo bolsa, String locacion) {
 		this.nombre = nombreUsuario;
 		this.rubro = rubro;
@@ -62,13 +69,36 @@ public class EmpleadoSimulado extends Thread {
 		PuestoTrabajo aux;
 		while (i <= 10 && encontre == 0) {
 			aux = bolsa.getPuestoTrabajo(this);
+			Util.espera();
 			if (aux.getLocacion().equalsIgnoreCase(this.locacion) || aux.getLocacion().equalsIgnoreCase("indistinto")) {
 				setMinuevopuesto(aux);
+				Util.espera();
 				bolsa.removePuestoTrabajo(aux);
 				encontre = 1;
-			} else
+				this.estado=this.nombre +" fue contratado por "+ aux.getEmpleador().getNombre();
+				setChanged();
+				notifyObservers("EstadoEmpleado");
+				i++;
+			} else {
 				bolsa.putPuestoTrabajoEmpleado(aux);
-			i++;
+				this.estado=this.nombre +" no fue contratado. Vuelve a buscar.";
+				setChanged();
+				notifyObservers("EstadoEmpleado");
+				i++;
+				Util.espera();
+			}
+			
+		}
+		if(i==10) {
+			this.estado=this.nombre +" no tiene permitido buscar mas.";
+			setChanged();
+			notifyObservers("EstadoEmpleado");
 		}
 	}
+
+
+	public String getEstado() {
+		return estado;
+	}
+	
 }

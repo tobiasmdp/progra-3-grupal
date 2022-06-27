@@ -1,21 +1,33 @@
 package capaDeNegocios;
 
 import java.util.ArrayList;
+import java.util.Observable;
 
 import capaDeDatos.PuestoTrabajo;
 
-public class BolsaDeTrabajo {
+/**
+ * <br>
+ * Clase que represnta la bolsa de trabajo. Ésta está formado por tickets simplificados(puestos de trabajo).
+ */
+public class BolsaDeTrabajo extends Observable{
 	private ArrayList<PuestoTrabajo> puestoTrabajos = new ArrayList<PuestoTrabajo>();
 	private int cantlocal = 0, cantinternacional = 0, cantsalud = 0;
-
+	private String estado;
+	
 	public BolsaDeTrabajo() {
 	}
 
 	public synchronized void removePuestoTrabajo(PuestoTrabajo nuevo) {
-		puestoTrabajos.remove(nuevo);
-		notifyAll(); // eliminamos de la bolsa el ticket que tiene un empleado
-	}
-
+        // puestoTrabajos.remove(nuevo);
+        int i=0;
+        while (i < puestoTrabajos.size() && nuevo != puestoTrabajos.get(i)) { // siempre lo va a encontrar porque va a estar
+            i++;
+        }
+        puestoTrabajos.get(i).setEstado("cerrado");
+        setChanged();
+        notifyObservers("EstadoBolsaTrabajo");
+        notifyAll(); // eliminamos de la bolsa el ticket que tiene un empleado
+    }
 	public synchronized void putPuestoTrabajoEmpleador(PuestoTrabajo nuevo) {
 		nuevo.setEstado("disponible");
 		if (nuevo.getRubro().equals("salud"))
@@ -25,6 +37,8 @@ public class BolsaDeTrabajo {
 		else
 			cantinternacional += 1;
 		puestoTrabajos.add(nuevo);
+		setChanged();
+		notifyObservers("EstadoBolsaTrabajo");
 		notifyAll(); // avisamos que hay nuevos tickets en la bolsa
 	}
 
@@ -32,7 +46,7 @@ public class BolsaDeTrabajo {
 																				// habia usado para para cambiarle el
 																				// estado
 		int i = 0;
-		while (i <= puestoTrabajos.size() && !nuevo.equals(puestoTrabajos.get(i))) // siempre lo va a encontrar porque
+		while (i < puestoTrabajos.size() && nuevo!=puestoTrabajos.get(i)) // siempre lo va a encontrar porque
 																					// va a estar
 			i++;
 		puestoTrabajos.get(i).setEstado("disponible");
@@ -43,6 +57,9 @@ public class BolsaDeTrabajo {
 		else
 			cantinternacional += 1;
 		notifyAll();// avisamos que el ticket en suspenso vuelve a estar disponible
+
+		setChanged();
+		notifyObservers("EstadoBolsaTrabajo");
 	}
 
 	/**
@@ -57,6 +74,9 @@ public class BolsaDeTrabajo {
 		int i = 0;
 		while (puestoTrabajos.size() == 0) { // si no hay nada en la bolsa, tienen que esperar que se use el put
 			try {
+				this.estado=empleado.getNombre() +" no encontro tickets disponibles. Se queda esperando. ";
+				setChanged();
+				notifyObservers("EstadoBolsa");
 				wait();
 			} catch (InterruptedException e) {
 			}
@@ -66,6 +86,9 @@ public class BolsaDeTrabajo {
 													// disponible
 			while (cantsalud == 0) {
 				try {
+					this.estado=empleado.getNombre() +" no encontro tickets disponibles. Se queda esperando. ";
+					setChanged();
+					notifyObservers("EstadoBolsa");
 					wait();
 				} catch (InterruptedException e) {
 				}
@@ -74,6 +97,9 @@ public class BolsaDeTrabajo {
 		else if (empleado.getRubro().equals("local"))
 			while (cantlocal == 0) {
 				try {
+					this.estado=empleado.getNombre() +" no encontro tickets disponibles. Se queda esperando. ";
+					setChanged();
+					notifyObservers("EstadoBolsa");
 					wait();
 				} catch (InterruptedException e) {
 				}
@@ -82,14 +108,16 @@ public class BolsaDeTrabajo {
 		else if (empleado.getRubro().equals("internacional"))
 			while (cantinternacional == 0) {
 				try {
+					this.estado=empleado.getNombre() +" no encontro tickets disponibles. Se queda esperando. ";
+					setChanged();
+					notifyObservers("EstadoBolsa");
 					wait();
 				} catch (InterruptedException e) {
 				}
 				;
 			}
-		while (i <= puestoTrabajos.size() && !puestoTrabajos.get(i).getRubro().equals(empleado.getRubro())
-				&& !puestoTrabajos.get(i).getEstado().equals("consulta"))
-			i++;
+		while (i < puestoTrabajos.size() && (!(puestoTrabajos.get(i).getRubro().equals(empleado.getRubro())) || !(puestoTrabajos.get(i).getEstado().equals("disponible") )))
+            i++;
 
 		if (puestoTrabajos.get(i).getRubro().equals("salud"))
 			cantsalud -= 1;
@@ -98,6 +126,18 @@ public class BolsaDeTrabajo {
 		else
 			cantinternacional -= 1;
 		puestoTrabajos.get(i).setEstado("consulta");
+
+		setChanged();
+		notifyObservers("EstadoBolsaTrabajo");
 		return puestoTrabajos.get(i);
 	}
+	
+	public String getEstado() {
+		return estado;
+	}
+
+	public ArrayList<PuestoTrabajo> getPuestoTrabajos() {
+		return puestoTrabajos;
+	}
+	
 }

@@ -1,9 +1,15 @@
 package capaDeNegocios;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Observable;
 import java.util.Random;
 
+import Persistencia.AgenciaDTO;
+import Persistencia.IPersistencia;
+import Persistencia.PersistenciaXML;
+import Persistencia.UtilAgencia;
 import capaDeDatos.Administrador;
 import capaDeDatos.Cliente;
 import capaDeDatos.EmpleadoPretenso;
@@ -19,29 +25,33 @@ import capaDePresentacion.UEmpleador;
 import capaDePresentacion.Usuario;
 import excepciones.ContraException;
 import excepciones.LoginException;
+import excepciones.NewRegisterException;
 import excepciones.NombreUsuarioException;
 import excepciones.UsuarioNoEncontradoException;
 
-public class Agencia {
+public class Agencia extends Observable{
 
 	private static Agencia instance = null; // arranca valiendo null, aplico SINGLETON,
 	private ArrayList<EmpleadoPretenso> empleadosPretensos = new ArrayList<EmpleadoPretenso>();
 	private ArrayList<Empleador> empleadores = new ArrayList<Empleador>();
 	private ArrayList<Administrador> administradores = new ArrayList<Administrador>();
 	private int V1 = 50000, V2 = 150000;
-	private int vencimientoTicket;
+	private int vencimientoTicket=3;
 	private ArrayList<Contratacion> contrataciones = new ArrayList<Contratacion>();
 	private MetodosEmpleado zonaEmpleados;
 	private MetodosEmpleador zonaEmpleador;
 	private ArrayList<NodoLogeoEmpleado> logeoempleados = new ArrayList<NodoLogeoEmpleado>();
 	private ArrayList<NodoLogeoEmpleador> logeoempleadores = new ArrayList<NodoLogeoEmpleador>();
 	private ArrayList<NodoLogeoAdministrador> logeoadministradores = new ArrayList<NodoLogeoAdministrador>();
-	//parte 2
+	//nuevo
 	private Random rand = new Random();
-	private BolsaDeTrabajo bolsatrabajo;
-	private ArrayList<EmpleadorSimulado> simempleadores = new ArrayList<EmpleadorSimulado>();
-	private ArrayList<EmpleadoSimulado> simempleado = new ArrayList<EmpleadoSimulado>();
-
+    private BolsaDeTrabajo bolsatrabajo=new BolsaDeTrabajo(); //nueva y unica bolsa;
+    private ArrayList<Thread> simempleadoresT = new ArrayList<Thread>();
+    private ArrayList<Thread> simempleadoT = new ArrayList<Thread>();
+    private ArrayList<EmpleadorSimulado> simempleadores = new ArrayList<EmpleadorSimulado>();
+    private ArrayList<EmpleadoSimulado> simempleado = new ArrayList<EmpleadoSimulado>();
+	private IStateRonda state=new EncuentrosState();
+	
 	public ListaDeAsignacion getListaDeAsignacion(UCliente uCliente) {
 		ListaDeAsignacion listaDeAsignacion;
 		Cliente cliente;
@@ -113,6 +123,9 @@ public class Agencia {
 		this.empleadores.add(empleador);
 	}
 
+	public void addContratacion(Contratacion contratacion) {
+		this.contrataciones.add(contratacion);
+	}
 	/****** REMOVEDORES DE ARRAYLISTS ******/
 
 	public void removeEmpleadoPretenso(EmpleadoPretenso empleadoPretenso) {
@@ -143,58 +156,54 @@ public class Agencia {
 
 	/**
 	 * Intenta logearse en el sistema.
-	 * 
-	 * @throws LoginException: clase padre de las dos excepciones que puede lanzar.
-	 *                         (ContraException y NombreUsuarioException)
-	 *                         ContraException en caso de que la contrasenia
-	 *                         ingresada no sea la correcta. NombreUsuarioException
-	 *                         en caso de que no se encuentre el nombre de usuario
-	 *                         ingresado.
+	 * @throws LoginException: clase padre de las dos excepciones que puede lanzar. (ContraException y NombreUsuarioException)
+	 * ContraException en caso de que la contrasenia ingresada no sea la correcta.
+	 * NombreUsuarioException en caso de que no se encuentre el nombre de usuario ingresado.
 	 */
-	public void login(String nombreUsuario, String contra, Usuario usuario) throws LoginException {
+	public Usuario login(String nombreUsuario, String contra) throws ContraException,NombreUsuarioException {
 		int i = 0;
-
+		Usuario auxUsuario;
 		while (i < empleadosPretensos.size() && !(empleadosPretensos.get(i).getNombreUsuario().equals(nombreUsuario)))
 			i++;
-		if (i < empleadosPretensos.size() && empleadosPretensos.get(i).getNombreUsuario().equals(nombreUsuario)) // agrego
-																													// a
-																													// logeado
+		if (i < empleadosPretensos.size() && empleadosPretensos.get(i).getNombreUsuario().equals(nombreUsuario)) // agrego a logeado
 			if (empleadosPretensos.get(i).getPassword().equals(contra)) {
-				addLogeoEmpleadoPretenso(new NodoLogeoEmpleado(usuario, empleadosPretensos.get(i)));
-				System.out.println("sesion iniciada correctamente");
+				auxUsuario=new UEmpleado();
+				addLogeoEmpleadoPretenso(new NodoLogeoEmpleado(auxUsuario, empleadosPretensos.get(i)));
+				setChanged();
+				notifyObservers("Empleado");
+				
 			} else
 				throw new ContraException("la contrase�a ingresada no es la correcta", contra);
 		else {
 			i = 0;
 			while (i < empleadores.size() && !(empleadores.get(i).getNombreUsuario().equals(nombreUsuario)))
 				i++;
-			if (i < empleadores.size() && empleadores.get(i).getNombreUsuario().equals(nombreUsuario)) // agrego a
-																										// logeado
+			if (i < empleadores.size() && empleadores.get(i).getNombreUsuario().equals(nombreUsuario)) // agrego a logeado
 				if (empleadores.get(i).getPassword().equals(contra)) {
-					addLogeoEmpleadores(new NodoLogeoEmpleador(usuario, empleadores.get(i)));
-					System.out.println("sesion iniciada correctamente");
+					auxUsuario=new UEmpleador();
+					addLogeoEmpleadores(new NodoLogeoEmpleador(auxUsuario, empleadores.get(i)));
+					setChanged();
+					notifyObservers("Empleador");
 				} else
 					throw new ContraException("la contrase�a ingresada no es la correcta", contra);
 			else {
 				i = 0;
 				while (i < administradores.size() && !(administradores.get(i).getNombreUsuario().equals(nombreUsuario)))
 					i++;
-				if (i < administradores.size() && administradores.get(i).getNombreUsuario().equals(nombreUsuario)) // agrego
-																													// a
-																													// logeado
+				if (i < administradores.size() && administradores.get(i).getNombreUsuario().equals(nombreUsuario)) // agrego a logeado
 					if (administradores.get(i).getPassword().equals(contra)) {
-						addLogeoAdministrador(new NodoLogeoAdministrador(usuario, administradores.get(i)));
-						System.out.println("sesion iniciada correctamente");
+						auxUsuario=new UAdministrador();
+						addLogeoAdministrador(new NodoLogeoAdministrador(auxUsuario, administradores.get(i)));
+						setChanged();
+						notifyObservers("Administrador");
 					} else
 						throw new ContraException("la contrase�a ingresada no es la correcta", contra);
 				else
-					throw new NombreUsuarioException("el nombre de usuario ingresado no coincide", nombreUsuario); // si
-																													// llego
-																													// hasta
-																													// aca
-				// es que no lo encontro en ningun lado
+					throw new NombreUsuarioException("el nombre de usuario ingresado no coincide", nombreUsuario); // si llego hasta aca 
+																							//es que no lo encontro en ningun lado
 			}
 		}
+		return auxUsuario;
 	}
 
 	/**
@@ -204,29 +213,39 @@ public class Agencia {
 	 *         esta logeado
 	 */
 	public int logged(Usuario usuario) {
-		int i = 0;
-		while (i < logeoempleados.size() && !usuario.equals(logeoempleados.get(i).getUsuario()))
-			i++;
-		if (i < logeoempleados.size() && usuario.equals(logeoempleados.get(i).getUsuario()))
-			return 1;
-		else {
-			i = 0;
-			while (i < logeoempleadores.size() && !usuario.equals(logeoempleadores.get(i).getUsuario()))
-				i++;
-			if (i < logeoempleadores.size() && usuario.equals(logeoempleadores.get(i).getUsuario()))
-				return 2;
-			else {
-				i = 0;
-				while (i < logeoadministradores.size() && !usuario.equals(logeoadministradores.get(i).getUsuario()))
-					i++;
-				if (i < logeoadministradores.size() && usuario.equals(logeoadministradores.get(i).getUsuario()))
-					return 3;
-				else
-					return 0;
-			}
-		}
-	}
+        int i = 0;
+        while (i < logeoempleados.size() && !usuario.equals(logeoempleados.get(i).getUsuario()))
+            i++;
+        if (i < logeoempleados.size() && usuario.equals(logeoempleados.get(i).getUsuario()))
+            return 1;
+        else {
+            i = 0;
+            while (i < logeoempleadores.size() && !usuario.equals(logeoempleadores.get(i).getUsuario()))
+                i++;
+            if (i < logeoempleadores.size() && usuario.equals(logeoempleadores.get(i).getUsuario()))
+                return 2;
+            else {
+                i = 0;
+                while (i < logeoadministradores.size() && !usuario.equals(logeoadministradores.get(i).getUsuario()))
+                    i++;
+                if (i < logeoadministradores.size() && usuario.equals(logeoadministradores.get(i).getUsuario()))
+                    return 3;
+                else
+                    return 0;
+            }
+        }
+    }
 
+	public double getComisionEmpleado(UEmpleado empleado) {
+        EmpleadoPretenso cliente = (EmpleadoPretenso) this.getCliente(empleado);
+        return cliente.getComision();
+    }
+	
+	public double getComisionEmpleado(UEmpleador empleador) {
+        Empleador cliente = (Empleador) this.getCliente(empleador);
+        return cliente.getComision();
+    }
+	
 	/**
 	 * @param usuario recibe un usuario para poder hacerle el logout del sistema
 	 */
@@ -290,28 +309,32 @@ public class Agencia {
 	// Solicitudes UEmpleador
 
 	/**
-	 * Crea el objeto empleador y lo agrega al sistema. Una vez registrado el
-	 * empleador, se logea automaticamente.
+	 * Crea el objeto empleador y lo agrega al sistema.
+	 * Una vez registrado el empleador, se logea automaticamente.
 	 */
-	public void registroEmpleador(String usuario, String contrasenia, UEmpleador uEmpleador) {
+	public Usuario registroEmpleador(String usuario, String contrasenia) {
 		Empleador aux = new Empleador(usuario, contrasenia);
+		Usuario uEmpleador=null;
 		addEmpleador(aux);
 		try {
-			login(usuario, contrasenia, uEmpleador);
+			uEmpleador=login(usuario, contrasenia);
 		} catch (LoginException e) {
 			System.out.println(e.getMessage());
 		}
+		return uEmpleador;
 	}
 
-	public void registroEmpleador(String usuario, String contrasenia, String nombre, String tPersona, String rubro,
-			UEmpleador uEmpleador) {
+	public Usuario registroEmpleador(String usuario, String contrasenia, String nombre, String tPersona, String rubro) {
+		
 		Empleador aux = new Empleador(usuario, contrasenia, nombre, tPersona, rubro);
 		addEmpleador(aux);
+		Usuario uEmpleador=null;
 		try {
-			login(usuario, contrasenia, uEmpleador);
+			uEmpleador=login(usuario, contrasenia);
 		} catch (LoginException e) {
 			System.out.println(e.getMessage());
 		}
+		return uEmpleador;
 	}
 
 	public void crearTicketEmpleador(String locacion, double remuneracion, String cargaHoraria, String tipoPuesto,
@@ -324,49 +347,75 @@ public class Agencia {
 	}
 
 	public void cambiarEstadoTicket(String estado, UEmpleador uEmpleador) {
-		if (!estado.equalsIgnoreCase("cancelado"))
+		if (!estado.equalsIgnoreCase("cancelado") || !estado.equalsIgnoreCase("finalizado"))
 			zonaEmpleador.cambiarEstadoTicket(estado, uEmpleador);
 	}
 
+	public TicketEmpleado getTicketEmpleado(Usuario usuario) {
+
+		return zonaEmpleados.getTicket((UEmpleado)usuario);
+	}
+	public TicketEmpleador getTicketEmpleador(Usuario usuario) {
+
+		return zonaEmpleador.getTicket((UEmpleador)usuario);
+	}
+
+	
 	public void cambiarEstadoTicket(String estado, Empleador empleador) {
 		zonaEmpleador.cambiarEstadoTicket(estado, empleador);
 	}
 
 	// Solicitud UEmpleado
-
+	
 	/**
-	 * Crea el objeto empleado y lo agrega al sistema. Una vez registrado el
-	 * empleado, se logea automaticamente.
+	 * Crea el objeto empleado y lo agrega al sistema.
+	 * Una vez registrado el empleado, se logea automaticamente.
 	 */
-	public void registroEmpleado(String usuario, String contrasenia, UEmpleado uEmpleado) {
+
+	public Usuario registroEmpleado(String usuario, String contrasenia) {
 		EmpleadoPretenso aux = new EmpleadoPretenso(usuario, contrasenia);
 		addEmpleadoPretenso(aux);
+		Usuario uEmpleado=null;
 		try {
-			login(usuario, contrasenia, uEmpleado);
+			uEmpleado= login(usuario, contrasenia);
 		} catch (LoginException e) {
 			System.out.println(e.getMessage());
 		}
+		return uEmpleado;
 	}
 
-	public void registroEmpleado(String usuario, String contrasenia, String nombre, String apellido, String telefono,
-			int edad, UEmpleado uEmpleado) {
+	public Usuario registroEmpleado(String usuario, String contrasenia, String nombre, String apellido, String telefono,
+			int edad) {
 		EmpleadoPretenso aux = new EmpleadoPretenso(usuario, contrasenia, nombre, apellido, telefono, edad);
 		addEmpleadoPretenso(aux);
+		Usuario uEmpleador=null;
 		try {
-			login(usuario, contrasenia, uEmpleado);
+			uEmpleador=login(usuario, contrasenia);
 		} catch (LoginException e) {
 			System.out.println(e.getMessage());
 		}
+		return uEmpleador;
+	}
+	public Usuario registroAdministrador(String usuario, String contrasenia) {
+		Administrador aux = new Administrador(usuario, contrasenia);
+		this.addAdministrador(aux);
+		Usuario uAdministrador=null;
+		try {
+			uAdministrador=login(usuario, contrasenia);
+		} catch (LoginException e) {
+			System.out.println(e.getMessage());
+		}
+		return uAdministrador;
 	}
 
 	public void crearTicketEmpleado(String locacion, double remuneracion, String cargaHoraria, String tipoPuesto,
-			int rangoEtario, String experienciaPrevia, String estudiosCursados, UEmpleado uEmpleado) {
-		zonaEmpleados.crearTicketEmpleado(locacion, remuneracion, cargaHoraria, tipoPuesto, rangoEtario,
+			String experienciaPrevia, String estudiosCursados, UEmpleado uEmpleado) {
+		zonaEmpleados.crearTicketEmpleado(locacion, remuneracion, cargaHoraria, tipoPuesto,
 				experienciaPrevia, estudiosCursados, uEmpleado);
 	}
 
 	public void cambiarEstadoTicket(String estado, UEmpleado uEmpleado) {
-		if (!estado.equalsIgnoreCase("cancelado"))
+		if (!estado.equalsIgnoreCase("cancelado") || !estado.equalsIgnoreCase("finalizado"))
 			zonaEmpleados.cambiarEstadoTicket(estado, uEmpleado);
 	}
 
@@ -375,11 +424,12 @@ public class Agencia {
 	}
 
 	// UAdministrador
-
+	
 	/**
-	 * Crea el objeto administrador y lo agrega al sistema. Una vez registrado el
-	 * administrador, se logea automaticamente.
+	 * Crea el objeto administrador y lo agrega al sistema.
+	 * Una vez registrado el administrador, se logea automaticamente.
 	 */
+	/*
 	public void registroAdministrador(String usuario, String contrasenia, UAdministrador uAdministrador) {
 		Administrador aux = new Administrador(usuario, contrasenia);
 		addAdministrador(aux);
@@ -389,14 +439,13 @@ public class Agencia {
 			System.out.println(e.getMessage());
 		}
 	}
-
+*/
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	/**
-	 * Recorre todos los empleadores que tengan los tickets en activo. Y calcula el
-	 * puntaje de todos los empleados para con ese empleador. Una vez calculados
-	 * todos los puntajes los guarda en la lista de asignacion del empleador. Luego
-	 * hace los mismo con los empleados y recorre todos los empleadores. <b>Post:
-	 * </b> Se crean las listas de asignaciones.
+	 * Recorre todos los empleadores que tengan los tickets en activo. Y calcula el puntaje de todos los empleados para con ese empleador.
+	 * Una vez calculados todos los puntajes los guarda en la lista de asignacion del empleador.
+	 * Luego hace los mismo con los empleados y recorre todos los empleadores.
+	 * <b>Post: </b> Se crean las listas de asignaciones.
 	 */
 	public void rondaEncuentrosLaborales() {
 		Empleador auxEmpleador;
@@ -404,27 +453,28 @@ public class Agencia {
 		double puntaje;
 		Usuario_puntaje aux;
 		int k;
+		setChanged();
+        notifyObservers("encuentros");
 		for (int i = 0; i < empleadores.size(); i++) {
 			auxEmpleador = empleadores.get(i);
 			if (auxEmpleador.getTicket() != null && auxEmpleador.getTicket().getEstado().equalsIgnoreCase("activo")) {
 				auxEmpleador.getTicket().nuevaLista();
 				for (int j = 0; j < empleadosPretensos.size(); j++) {
 					auxEmpleado = empleadosPretensos.get(j);
-					if (auxEmpleado.getTicket() != null
-							&& auxEmpleado.getTicket().getEstado().equalsIgnoreCase("activo")) {
+					if (auxEmpleado.getTicket() != null && auxEmpleado.getTicket().getEstado().equalsIgnoreCase("activo")) {
 						puntaje = zonaEmpleador.calculoPuntajes(auxEmpleador.getTicket(),
 								auxEmpleado.getTicket().getFormulario());
 						aux = new Usuario_puntaje(auxEmpleado, puntaje);
 						auxEmpleador.getTicket().addUsuarioAsignacion(aux);
 					}
 				}
-				Collections.sort(auxEmpleador.getTicket().getListaAsignacion().getLista(), new UsuarioComparator());
-				if (auxEmpleador.getTicket().getListaAsignacion().getLista() != null) {
-					k = auxEmpleador.getTicket().getListaAsignacion().getLista().size() - 1;
-					zonaEmpleados.actualizarPuntaje((EmpleadoPretenso) auxEmpleador.getTicket().getListaAsignacion()
-							.getLista().get(k).getUsuario(), -5);
-					zonaEmpleados.actualizarPuntaje((EmpleadoPretenso) auxEmpleador.getTicket().getListaAsignacion()
-							.getLista().get(0).getUsuario(), 5);
+				Collections.sort(auxEmpleador.getTicket().getListaAsignacion().getLista(), new UsuarioComparator());																								
+				if(auxEmpleador.getTicket().getListaAsignacion().getLista()!=null) {
+	                k = auxEmpleador.getTicket().getListaAsignacion().getLista().size() - 1;
+	                if(k>0) {
+	                	zonaEmpleados.actualizarPuntaje((EmpleadoPretenso) auxEmpleador.getTicket().getListaAsignacion().getLista().get(k).getUsuario(),-5);
+						zonaEmpleados.actualizarPuntaje((EmpleadoPretenso) auxEmpleador.getTicket().getListaAsignacion().getLista().get(0).getUsuario(),5);
+	                }
 				}
 			}
 		}
@@ -433,10 +483,9 @@ public class Agencia {
 			if (auxEmpleado.getTicket() != null && auxEmpleado.getTicket().getEstado().equalsIgnoreCase("activo")) {
 				auxEmpleado.getTicket().nuevaLista();
 				if (this.vencimientoTicket > auxEmpleado.getTicket().getRondasTranscurridas())
-					auxEmpleado.getTicket()
-							.setRondasTranscurridas(auxEmpleado.getTicket().getRondasTranscurridas() + 1);
+					auxEmpleado.getTicket().setRondasTranscurridas(auxEmpleado.getTicket().getRondasTranscurridas()+1);
 				else
-					zonaEmpleados.cambiarEstadoTicket("cancelado", auxEmpleado);
+					zonaEmpleados.cambiarEstadoTicket("cancelado",auxEmpleado);
 				for (int j = 0; j < empleadores.size(); j++) {
 					auxEmpleador = empleadores.get(j);
 					if (auxEmpleador.getTicket() != null
@@ -448,20 +497,17 @@ public class Agencia {
 					}
 				}
 				Collections.sort(auxEmpleado.getTicket().getListaAsignacion().getLista(), new UsuarioComparator());
-
-				zonaEmpleador.actualizarPuntaje(
-						(Empleador) auxEmpleado.getTicket().getListaAsignacion().getLista().get(0).getUsuario(), 10);
+				
+                zonaEmpleador.actualizarPuntaje((Empleador) auxEmpleado.getTicket().getListaAsignacion().getLista().get(0).getUsuario(), 10);
 			}
 		}
 	}
 
 	/**
-	 * Busca en cada ticket de cada empleador los empleados elegidos y se fija si
-	 * estos que eligio, lo eligieron a el. <b>Pre: </b> Se tiene que haber
-	 * gatillado la ronda de encuentros laborales. <b>Post: </b> Se cambian los
-	 * estados de los tickets correspondientes, se calculan las comisiones, se
-	 * modifican algunos puntajes. Y se crean contratos en caso de que se elijan
-	 * mutuamente.
+	 * Busca en cada ticket de cada empleador los empleados elegidos y se fija si estos que eligio, lo eligieron a el.
+	 * <b>Pre: </b> Se tiene que haber gatillado la ronda de encuentros laborales.
+	 * <b>Post: </b> Se cambian los estados de los tickets correspondientes, se calculan las comisiones, se modifican algunos puntajes.
+	 * Y se crean contratos en caso de que se elijan mutuamente.
 	 */
 	public void rondaContrataciones() {
 		TicketEmpleador ticketEmpleador;
@@ -470,9 +516,11 @@ public class Agencia {
 		EmpleadoPretenso empleadoElegido;
 		int i;
 
+		setChanged();
+        notifyObservers("contrataciones");
 		for (Empleador empleador : this.empleadores) {
 			ticketEmpleador = empleador.getTicket();
-			if (ticketEmpleador.getEstado().equalsIgnoreCase("activo")) {
+			if (ticketEmpleador!=null && ticketEmpleador.getEstado().equalsIgnoreCase("activo")) {
 				if (checkElegido(empleador) == false)
 					zonaEmpleador.actualizarPuntaje(empleador, -20);
 				eleccionEmpleador = ticketEmpleador.getUsuariosElegidos(); // tomo el array de empleados elegidos por el
@@ -483,7 +531,7 @@ public class Agencia {
 																						// empleador
 					empleadoElegido = (EmpleadoPretenso) usuarioElegidoPorEmpleador.getUsuario();
 					ticketEmpleado = empleadoElegido.getTicket();
-					if (ticketEmpleado.getEstado().equalsIgnoreCase("activo")) {
+					if (ticketEmpleado!=null && ticketEmpleado.getEstado().equalsIgnoreCase("activo")) {
 						eleccionEmpleado = ticketEmpleado.getUsuariosElegidos(); // todos los empleadores elegidos
 						Collections.sort(eleccionEmpleado, new UsuarioComparator());
 						i = 0;
@@ -491,15 +539,15 @@ public class Agencia {
 							i++;
 						}
 						if (i < eleccionEmpleado.size()) {// el empleado eligio al empleador
-
+					
 							this.contrataciones.add(new Contratacion(empleadoElegido, empleador));
 
 							ticketEmpleador.setCantempleadosobtenidos(ticketEmpleador.getCantempleadosbuscados() + 1);
 							if (ticketEmpleador.getCantempleadosbuscados() == ticketEmpleador
 									.getCantempleadosobtenidos()) {
-								zonaEmpleador.cambiarEstadoTicket("finalizado", empleador);
+								zonaEmpleador.cambiarEstadoTicket("finalizado",empleador);
 							}
-							zonaEmpleados.cambiarEstadoTicket("finalizado", empleadoElegido);
+							zonaEmpleados.cambiarEstadoTicket("finalizado",empleadoElegido);
 							zonaEmpleador.cobraComision(empleador);
 							zonaEmpleados.cobraComision(empleadoElegido);
 						}
@@ -508,10 +556,9 @@ public class Agencia {
 			}
 		}
 	}
-
+	
 	/**
 	 * Se fija si el empleador no fue elegido por ningun empleado pretenso.
-	 * 
 	 * @return true en caso de que lo haya elegido al menos una vez.
 	 */
 	private boolean checkElegido(Empleador empleador) {
@@ -531,22 +578,18 @@ public class Agencia {
 	}
 
 	/**
-	 * Elige el empleado/empleador (depende el caso) cuyo nombre de usuario en
-	 * pasado por parametro.
-	 * 
+	 * Elige el empleado/empleador (depende el caso) cuyo nombre de usuario en pasado por parametro.
 	 * @param nombreUsuario: nombre de usuario elegido.
-	 * @param uCliente:      puede ser UEmpleadoPretenso / UEmpleador.
-	 * @throws UsuarioNoEncontradoException: en caso de que el nombre de usuario
-	 *                                       pasado por parametro no se encuentre en
-	 *                                       el sistema.
+	 * @param uCliente: puede ser UEmpleadoPretenso / UEmpleador.
+	 * @throws UsuarioNoEncontradoException: en caso de que el nombre de usuario pasado por parametro no se encuentre en el sistema.
 	 */
 	public void elegirUsuario_puntaje(String nombreUsuario, UCliente uCliente) throws UsuarioNoEncontradoException {
 		Cliente cliente;
 		cliente = getCliente(uCliente);
-		if (cliente != null)
-			cliente.elegirUsuario_puntaje(nombreUsuario);
-		else
-			throw new UsuarioNoEncontradoException(nombreUsuario);
+		if(cliente!=null)
+            cliente.elegirUsuario_puntaje(nombreUsuario);
+        else
+            throw new UsuarioNoEncontradoException(nombreUsuario);
 	}
 
 	private Cliente getCliente(UCliente usuario) { // retorna cliente correspondiente a usuario
@@ -565,16 +608,14 @@ public class Agencia {
 		}
 		return cliente;
 	}
-
+	
 	public void limpiarTickets() {
-		for (Empleador empleador : this.empleadores)
-			if (empleador.getTicket().getEstado().equals("cancelado")
-					|| empleador.getTicket().getEstado().equals("finalizado"))
-				empleador.setTicket(null);
-		for (EmpleadoPretenso empleado : this.empleadosPretensos)
-			if (empleado.getTicket().getEstado().equals("cancelado")
-					|| empleado.getTicket().getEstado().equals("finalizado"))
-				empleado.setTicket(null);
+		for (Empleador empleador : this.empleadores) 
+			if (empleador.getTicket().getEstado().equals("cancelado") || empleador.getTicket().getEstado().equals("finalizado"))
+					empleador.setTicket(null);
+		for (EmpleadoPretenso empleado : this.empleadosPretensos) 
+			if (empleado.getTicket().getEstado().equals("cancelado") || empleado.getTicket().getEstado().equals("finalizado"))
+					empleado.setTicket(null);		
 	}
 
 	public int getV1() {
@@ -600,44 +641,139 @@ public class Agencia {
 	public void setVencimientoTicket(int vencimientoTicket) {
 		this.vencimientoTicket = vencimientoTicket;
 	}
+	
+	//parte 2
 
-	// -------------------------------------------------------------parte
-	// 2------------------------------------------------------
+	public ArrayList<EmpleadorSimulado> getSimempleadores() {
+		return simempleadores;
+	}
 
+	public ArrayList<EmpleadoSimulado> getSimempleado() {
+		return simempleado;
+	}
+
+	
 	public BolsaDeTrabajo getBolsatrabajo() {
-		return bolsatrabajo;
+        return bolsatrabajo;
+    }
+
+    public void setBolsatrabajo(BolsaDeTrabajo bolsatrabajo) {
+        this.bolsatrabajo = bolsatrabajo;
+    }
+
+    public void simulacion() { //el nombre es bastante descriptivo
+        int cantempleadores = rand.nextInt(35);
+        int cantempleados = rand.nextInt(35);
+        int i, j, cantpuestos;
+        EmpleadorSimulado auxempleador;
+        EmpleadoSimulado auxempleado;
+        String empleado = "Empleado";
+        String empleador = "Empleador";
+        String rubros[]= {"salud","local","internacional"};
+        String locaciones[]={"home office","presencial","indistinto"};
+        for (i = 0; i <= cantempleadores; i++) {
+            auxempleador = new EmpleadorSimulado(empleador + i, this.bolsatrabajo);
+            simempleadores.add(auxempleador);
+            simempleadoresT.add(new Thread(auxempleador));
+            cantpuestos = rand.nextInt(4);
+            for (j = 0; j < cantpuestos; j++)
+                auxempleador.nuevosPuestosTrabajos(new PuestoTrabajo(auxempleador,locaciones[rand.nextInt(3)],rubros[rand.nextInt(3)]));
+        }
+        for (i = 0; i <= cantempleados; i++) {
+            auxempleado = new EmpleadoSimulado(empleado + i, rubros[rand.nextInt(3)], this.bolsatrabajo, locaciones[rand.nextInt(3)]);
+            simempleado.add(auxempleado);
+            simempleadoT.add(new Thread(auxempleado));
+        }
+       
+    }
+    public void iniciarSimulacion() {
+    	 int i;
+    	 for(i=0;i<simempleadores.size();i++)
+             simempleadoresT.get(i).start();
+         for(i=0;i<simempleado.size();i++)
+             simempleadoT.get(i).start();
+
+    }
+    
+    public void checkRegister(String nombreregistro) throws NewRegisterException {
+        int i=0;
+            while(i<empleadosPretensos.size() && !empleadosPretensos.get(i).getNombreUsuario().equalsIgnoreCase(nombreregistro))
+                i++;
+            if (i<empleadosPretensos.size()) 
+                throw new NewRegisterException("el nombre de usuario ingresado ya existe");
+            else {
+                i=0;
+                while(i<empleadores.size() && !empleadores.get(i).getNombreUsuario().equalsIgnoreCase(nombreregistro))
+                    i++;
+                if (i<empleadores.size())
+                    throw new NewRegisterException("el nombre de usuario ingresado ya existe");
+                else {
+                    i=0;
+                    while(i<administradores.size() && !administradores.get(i).getNombreUsuario().equalsIgnoreCase(nombreregistro))
+                        i++;
+                    if (i<administradores.size())
+                        throw new NewRegisterException("el nombre de usuario ingresado ya existe");
+                    	
+                }
+            }
+            
+    }
+    //patron state
+    
+    public void gatillarRonda() {
+    	this.state.gatillarRonda();
+    }
+    
+    public void setState(IStateRonda state) {
+		this.state = state;
 	}
-
-	public void setBolsatrabajo(BolsaDeTrabajo bolsatrabajo) {
-		this.bolsatrabajo = bolsatrabajo;
+	//------------------  Persistencia  ------------------//
+	
+	
+	/**
+	 * Persiste mediante AgenciaDTO Empleados, Empleadores y Contrataciones en un archivo .xml con el nombre pasado por parametro.
+	 * Aplica patrones DTO y DAO
+	 * @param nombreArchivo
+	 */
+	public void guardarAgencia(String nombreArchivo) {
+		IPersistencia persistencia = new PersistenciaXML();
+		try {
+			persistencia.abrirOutput(nombreArchivo);
+			System.out.println(nombreArchivo + " creado.");
+			AgenciaDTO agenciaDTO = UtilAgencia.AgenciaDTOFromAgencia();
+			persistencia.escribir(agenciaDTO);
+			System.out.println("Exito al grabar.");
+			persistencia.cerrarOutput();
+			System.out.println("Exito al cerrar.");
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
-
-	public void simulacion() { //el nombre es bastante descriptivo
-		int cantempleadores = rand.nextInt(10);
-		int cantempleados = rand.nextInt(10);
-		int i, j, cantpuestos;
-		EmpleadorSimulado auxempleador;
-		EmpleadoSimulado auxempleado;
-		String empleado = "Empleado";
-		String empleador = "Empleador";
-		String rubros[]= {"salud","local","internacional"};
-		String locaciones[]={"home office","presencial","indistinto"};
-		setBolsatrabajo(new BolsaDeTrabajo()); //nueva y unica bolsa
-		for (i = 0; i <= cantempleadores; i++) {
-			auxempleador = new EmpleadorSimulado(empleador + i, this.bolsatrabajo);
-			simempleadores.add(auxempleador);
-			cantpuestos = rand.nextInt(4);
-			for (j = 0; j < cantpuestos; j++)
-				auxempleador.nuevosPuestosTrabajos(new PuestoTrabajo(auxempleador,locaciones[rand.nextInt(3)],rubros[rand.nextInt(3)]));
+	
+	/**
+	 * Carga dentro de la agencia Empleados, Empleadores, Contrataciones que esten persistidas dentro de "nombreArchivo".
+	 * El "nombreArchivo" debe contener ".xml".
+	 * @param nombreArchivo
+	 */
+	public void cargarAgencia(String nombreArchivo) {
+		IPersistencia persistencia = new PersistenciaXML();
+		try {
+			persistencia.abrirInput(nombreArchivo);
+			System.out.println(nombreArchivo + " abierto.");
+			AgenciaDTO agenciaDTO = (AgenciaDTO) persistencia.leer();
+			UtilAgencia.AgenciaFromAgenciaDTO(agenciaDTO);
+			System.out.println("Exito al leer.");
+			persistencia.cerrarInput();
+			System.out.println("Exito al cerrar.");
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-		for (i = 0; i <= cantempleados; i++) {
-			auxempleado = new EmpleadoSimulado(empleado + i, rubros[rand.nextInt(3)], this.bolsatrabajo, locaciones[rand.nextInt(3)]);
-			simempleado.add(auxempleado);
-		}
-		for(i=0;i<=simempleadores.size();i++)
-			simempleadores.get(i).start();
-		for(i=0;i<=simempleado.size();i++)
-			simempleado.get(i).start();
-
 	}
 }

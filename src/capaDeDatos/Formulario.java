@@ -78,9 +78,9 @@ public class Formulario {
 
 	@Override
 	public String toString() {
-		return  locacion + "        " + remuneracion  + "          " + cargaHoraria
-				+ "            " + tipoPuesto  + "                " + experienciaprevia 
-				+ "          " + rangoEtario + "      " + cursados ;
+		return  "\nLocacion: "+locacion + "\n" +"Remuneracion: "+ remuneraciondoub  + "\n" +"Carga horaria: "+ cargaHoraria
+				+ "\n" +"Tipo de puesto: "+ tipoPuesto  + "\n" +"Experiencia previa: "+ experienciaprevia 
+				+ "\n" +"Rango etario: "+ rangoEtario + "\n" +"Estudios cursados: "+ cursados ;
 	}
 
 

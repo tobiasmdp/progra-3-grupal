@@ -9,14 +9,14 @@ public class FactoryRubro {
 	 * @param tipo recibe un string y con este se crea el tipo de persona, 
 	 * @return el objeto que representa al tipo de la persona
 	 */
-	public static IRubro getRubro(String tipo) {
-		IRubro respuesta = null;
+	public static TipoRubro getRubro(TipoPersona tPersona ,String tipo) {
+		TipoRubro respuesta = null;
 		if (tipo.equalsIgnoreCase("Salud")) 
-			respuesta = new Salud();
+			respuesta = new Salud(tPersona);
 		else if (tipo.equalsIgnoreCase("Comercio Local")) 
-			respuesta = new Local();
+			respuesta = new Local(tPersona);
 		else if (tipo.equalsIgnoreCase("Comercio Internacional")) 
-			respuesta = new Internacional();
+			respuesta = new Internacional(tPersona);
 		return respuesta;
 	}
 }

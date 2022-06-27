@@ -6,8 +6,8 @@ import excepciones.LoginException;
 
 /**
  *<b>
- *Clase abstracta con los metodos comunes cambiarEStadoTicket, elegirUsuario_puntaje y listaDeAsignaciones.
- *
+ *Clase abstracta que engloba tanto a UAdministrador como a los hijos de UCliente. Contiene los metodos comunes 
+ *cambiarEStadoTicket, elegirUsuario_puntaje y listaDeAsignaciones.
  */
 public abstract class Usuario {
 	
@@ -15,13 +15,15 @@ public abstract class Usuario {
 	 * <b>
 	 * Se logea el usuario en el sistema.
 	 */
-	public void login(String nombreUsuario, String contrasenia) {
+	public Usuario login(String nombreUsuario, String contrasenia) {
+		Usuario usuario=null;
 		try {
-			Agencia.getInstance().login(nombreUsuario, contrasenia, this);
+			usuario=Agencia.getInstance().login(nombreUsuario, contrasenia);
 		}
 		catch (LoginException e) {
 			System.out.println(e.getMessage());
 		}
+		return usuario;
 	}
 	
 	public void mostrarListaContrataciones() {

@@ -1,13 +1,19 @@
 package capaDeNegocios;
 
 import java.util.ArrayList;
+import java.util.Observable;
+
 import capaDeDatos.PuestoTrabajo;
 
-public class EmpleadorSimulado extends Thread {
+/**
+ * <br>
+ * Clase que representa al empleador usado durante la ejecucion de la simulación.
+ */
+public class EmpleadorSimulado extends Observable implements Runnable {
 	private BolsaDeTrabajo bolsa;
 	private ArrayList<PuestoTrabajo> mispuestotrabajo = new ArrayList<PuestoTrabajo>();
 	private String nombre;
-
+	private String estado;
 	public EmpleadorSimulado(String nombreUsuario, BolsaDeTrabajo bolsa) {
 		this.nombre = nombreUsuario;
 		this.bolsa = bolsa;
@@ -42,8 +48,22 @@ public class EmpleadorSimulado extends Thread {
 	}
 
 	public void run() {
-		for (int i=0; i<=mispuestotrabajo.size();i++)
+		for (int i=0; i<mispuestotrabajo.size();i++) {
 			bolsa.putPuestoTrabajoEmpleador(mispuestotrabajo.get(i));
-			//creo que habria que poner una espera
+			this.estado=this.nombre +" publico un puesto de trabajo con Locacion: "+ this.mispuestotrabajo.get(i).getLocacion()+ " Rubro:"+ this.mispuestotrabajo.get(i).getRubro();
+			setChanged();
+			notifyObservers("EstadoEmpleador");
+			Util.espera();
+		}
 	}
+	public String getEstado() {
+		return estado;
+	}
+
+	@Override
+	public String toString() {
+		return "Bolsa=" + bolsa + ", Mispuestotrabajo=" + mispuestotrabajo + ", Nombre=" + nombre
+				+ ", Estado=" + estado + "]";
+	}
+	
 }

@@ -11,8 +11,8 @@ import excepciones.UsuarioNoEncontradoException;
  * La clase ticket es abstracta y es para generar los tickets de empleados y empleadores.
  */
 public abstract class Ticket { 
-	private Calendar fecha;
-	private String estado= "Activo";
+	protected Calendar fecha;
+	protected String estado= "Activo";
 	protected Formulario formulario;
 	protected ListaDeAsignacion listaAsignacion; //permito que se pueda elegir varios tickets en empleado tmb, luego se limita desde su ticket
 	protected ArrayList<Usuario_puntaje> usuariosElegidos = new ArrayList<Usuario_puntaje>();
@@ -60,6 +60,9 @@ public abstract class Ticket {
 		return this.formulario;
 	}
 	
+	public void setFecha(Calendar fecha) {
+		this.fecha = fecha;
+	}
 	/**
 	 * <br>
 	 * Busca en la lista de asignacion el nombre de usuario pasado por parametro y si lo encuentra lo agrega a la lista usuario elegidos. <br>
@@ -100,9 +103,10 @@ public abstract class Ticket {
 	}
 
 	
+	
 	@Override
 	public String toString() {
-		return ""+formulario ;
+		return "Fecha de generacion: "+fecha.get(fecha.DATE)+ " / "+ fecha.get(fecha.MONTH)+ " / "+fecha.get(fecha.YEAR)+"\nEstado: " +estado+"\nRondas sin ser elegido:" + rondasTranscurridas + formulario ;
 	}
 	
 	

@@ -5,6 +5,7 @@ import java.util.GregorianCalendar;
 
 import capaDeDatos.EmpleadoPretenso;
 import capaDeDatos.Formulario;
+import capaDeDatos.PuestoTrabajo;
 import capaDeDatos.TicketEmpleado;
 import capaDePresentacion.UEmpleado;
 import formulario.TipodePuesto;
@@ -13,7 +14,7 @@ import formulario.TipodePuesto;
  *<b>
  *Clase que contiene los metodos de los empleados.
  */
-public class MetodosEmpleado {
+public class MetodosEmpleado extends Thread{
 	private static MetodosEmpleado instance = null;
 	
 	private MetodosEmpleado() {
@@ -59,17 +60,18 @@ public class MetodosEmpleado {
 		}
 	}
 
-	public void crearTicketEmpleado(String locacion, double remuneracion, String cargaHoraria, String tipoPuesto,
-			int rangoEtario, String experienciaPrevia, String estudiosCursados, UEmpleado uEmpleado) {
-		Formulario nuevofor = new Formulario(locacion, remuneracion, cargaHoraria, tipoPuesto, rangoEtario,
-				experienciaPrevia, estudiosCursados);
-		TicketEmpleado nuevoticket = new TicketEmpleado(GregorianCalendar.getInstance(), nuevofor);
+	public void crearTicketEmpleado(String locacion, double remuneracion, String cargaHoraria, String tipoPuesto, String experienciaPrevia, String estudiosCursados, UEmpleado uEmpleado) {
+		Formulario nuevofor; 
+		TicketEmpleado nuevoticket;
 		int i = 0;
 		ArrayList <NodoLogeoEmpleado> aux = Agencia.getInstance().getLogeoempleados();
 		int arreglologeado = Agencia.getInstance().logged(uEmpleado);
 		if (arreglologeado == 1) {
 			while (i < aux.size() && !uEmpleado.equals(aux.get(i).getUsuario()))
 				i++;
+			nuevofor= new Formulario(locacion, remuneracion, cargaHoraria, tipoPuesto, aux.get(i).getEmpleado().getEdad(),
+					experienciaPrevia, estudiosCursados);
+			nuevoticket=  new TicketEmpleado(GregorianCalendar.getInstance(), nuevofor);
 			aux.get(i).getEmpleado().setTicket(nuevoticket);
 		}
 	}
@@ -86,6 +88,22 @@ public class MetodosEmpleado {
 				actualizarPuntaje(aux.get(i).getEmpleado(),-1);
 		}
 	}
+	
+	public TicketEmpleado getTicket(UEmpleado uEmpleado) {
+		int i=0;
+		TicketEmpleado ticket=null;
+		ArrayList <NodoLogeoEmpleado> aux = Agencia.getInstance().getLogeoempleados();
+		int arreglologeado = Agencia.getInstance().logged(uEmpleado);
+		if (arreglologeado==1) {
+			while (i < aux.size() && !uEmpleado.equals(aux.get(i).getUsuario()))
+				i++;
+			if (aux.get(i).getEmpleado().getTicket()!=null)
+				ticket=aux.get(i).getEmpleado().getTicket();
+				
+		}
+		return ticket;
+	}
+	
 	
 	public void cambiarEstadoTicket(String estado, EmpleadoPretenso empleado) {
 			empleado.getTicket().setEstado(estado);
@@ -122,5 +140,18 @@ public class MetodosEmpleado {
 	public void actualizarPuntaje(EmpleadoPretenso empleado, int valor) {
 		empleado.setPuntaje(empleado.getPuntaje()+valor);
 	}
+	
+	//------------------------------------Parte 2 ------------------------------------------------------------	
+		public void run () {
+		int i=0, bandera=0;
+		PuestoTrabajo aux;
+			while (i<=10 && bandera==0) {
+				aux=Agencia.getInstance().getBolsatrabajo().getPuestoTrabajo(null); // en el null tendria que llamar al empleado que usa este metodo
+				if (aux.equals(null))
+					bandera=1;
+				i++;
+			}
+			//mensaje de si lo encontro o no lo encontro
+		}
 
 }

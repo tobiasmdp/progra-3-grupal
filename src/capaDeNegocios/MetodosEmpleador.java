@@ -4,17 +4,18 @@ import java.util.ArrayList;
 
 import capaDeDatos.Empleador;
 import capaDeDatos.Formulario;
+import capaDeDatos.PuestoTrabajo;
+import capaDeDatos.TicketEmpleado;
 import capaDeDatos.TicketEmpleador;
+import capaDePresentacion.UEmpleado;
 import capaDePresentacion.UEmpleador;
-import comisiones.IPersona;
-import comisiones.IRubro;
 
 
 /**
  *<b>
  *Clase que contiene todos los metodos de los empleadores.
  */
-public class MetodosEmpleador {
+public class MetodosEmpleador extends Thread {
 	private static MetodosEmpleador instance = null;
 	
 	public MetodosEmpleador() {//Constructor
@@ -77,11 +78,12 @@ public class MetodosEmpleador {
 		}
 	}
 	
+	
 	public void cambiarEstadoTicket(String estado, UEmpleador uEmpleador) {
 		ArrayList <NodoLogeoEmpleador> aux = Agencia.getInstance().getLogeoempleadores();
 		int i=0;
 		int arreglologeado=Agencia.getInstance().logged(uEmpleador);
-		if (arreglologeado==1) {
+		if (arreglologeado==2) {
 			while (i < aux.size() && !uEmpleador.equals(aux.get(i).getUsuario()))
 				i++;
 			aux.get(i).getEmpleador().getTicket().setEstado(estado);
@@ -100,22 +102,16 @@ public class MetodosEmpleador {
 	 * @param empleador: empleador a calcular la comision.
 	 */
 	public void cobraComision(Empleador empleador) {
-        double modificadorcomision,remuneracion,descuento;
-        IRubro rubro;
-        IPersona persona;
+        double remuneracion,descuento,comision;
         int puntaje;
-        persona=empleador.gettPersona();
-        rubro=empleador.getRubro();
-        remuneracion=empleador.getTicket().getFormulario().getRemuneraciondoub();
-
-        modificadorcomision=persona.calcularComisiones(rubro);
-        puntaje=empleador.getPuntaje();
+        comision = empleador.getRubro().getComision();
+        remuneracion = empleador.getTicket().getFormulario().getRemuneraciondoub();
+        puntaje = empleador.getPuntaje();
         if (puntaje>100)
-            descuento=1;
+            descuento = 1;
         else
-            descuento=puntaje*0.01;//penalizacion de pagar mas de la remuneracion por tener negativo
-
-        empleador.setComision(remuneracion*modificadorcomision*(1-descuento));
+            descuento = puntaje*0.01;//penalizacion de pagar mas de la remuneracion por tener negativo
+        empleador.setComision(remuneracion*comision*(1-descuento));
     }
 
 	public void actualizarPuntaje(Empleador empleador, int valor) {
@@ -124,5 +120,24 @@ public class MetodosEmpleador {
 	}
 	
 //------------------------------------Parte 2 ------------------------------------------------------------	
+	public void NuevoPuesto(Empleador empleador, PuestoTrabajo puesto) {
+		empleador.nuevosPuestosTrabajos(puesto);
+	}
+
+	public TicketEmpleador getTicket(UEmpleador uEmpleador) {
+		int i=0;
+		TicketEmpleador ticket=null;
+		ArrayList <NodoLogeoEmpleador> aux = Agencia.getInstance().getLogeoempleadores();
+		int arreglologeado = Agencia.getInstance().logged(uEmpleador);
+		if (arreglologeado==2) {
+			while (i < aux.size() && !uEmpleador.equals(aux.get(i).getUsuario()))
+				i++;
+			if (aux.get(i).getEmpleador().getTicket()!=null)
+				ticket=aux.get(i).getEmpleador().getTicket();
+				
+		}
+		return ticket;
+	}
+	
 	
 }
