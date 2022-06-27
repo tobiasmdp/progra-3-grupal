@@ -22,7 +22,7 @@ public class Internacional extends TipoRubro {
 
 	@Override
 	public String toString() {
-		return "Internacional";
+		return "Comercio Internacional";
 	}
 
 }

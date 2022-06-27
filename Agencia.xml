@@ -8,13 +8,16 @@
       <string>Fisica</string>
      </void>
      <void property="nombre">
-      <string>12</string>
+      <string>empleador1</string>
      </void>
      <void property="nombreUsuario">
-      <string>12</string>
+      <string>empleador1</string>
      </void>
      <void property="password">
-      <string>12</string>
+      <string>empleador1</string>
+     </void>
+     <void property="puntaje">
+      <int>30</int>
      </void>
      <void property="rubro">
       <string>Salud</string>
@@ -37,22 +40,22 @@
         <int>1</int>
        </void>
        <void property="PRemuneracion">
-        <int>2</int>
+        <int>1</int>
        </void>
        <void property="PTipodePuesto">
         <int>1</int>
        </void>
        <void property="cantempleadosbuscados">
-        <int>2</int>
+        <int>1</int>
        </void>
        <void property="estado">
-        <string>Suspendido</string>
+        <string>Activo</string>
        </void>
        <void property="fecha">
         <object class="java.util.GregorianCalendar">
          <void property="time">
           <object class="java.util.Date">
-           <long>1656297066864</long>
+           <long>1656366300270</long>
           </object>
          </void>
         </object>
@@ -75,7 +78,7 @@
           <string>Mas de 50 años</string>
          </void>
          <void property="remuneracion">
-          <double>2.0</double>
+          <double>1.0</double>
          </void>
          <void property="tipoPuesto">
           <string>Junior</string>
@@ -92,16 +95,396 @@
       <string>Fisica</string>
      </void>
      <void property="nombre">
-      <string>13</string>
+      <string>empleador2</string>
      </void>
      <void property="nombreUsuario">
-      <string>13</string>
+      <string>empleador2</string>
      </void>
      <void property="password">
-      <string>13</string>
+      <string>empleador2</string>
      </void>
      <void property="rubro">
-      <string>Salud</string>
+      <string>Comercio Internacional</string>
+     </void>
+     <void property="ticket">
+      <object class="persistencia.TicketEmpleadorDTO">
+       <void property="PCargaHoraria">
+        <int>1</int>
+       </void>
+       <void property="PEstudiosCursados">
+        <int>5</int>
+       </void>
+       <void property="PExperienciaPrevia">
+        <int>1</int>
+       </void>
+       <void property="PLocacion">
+        <int>3</int>
+       </void>
+       <void property="PRangoEtario">
+        <int>1</int>
+       </void>
+       <void property="PRemuneracion">
+        <int>2</int>
+       </void>
+       <void property="PTipodePuesto">
+        <int>7</int>
+       </void>
+       <void property="cantempleadosbuscados">
+        <int>2</int>
+       </void>
+       <void property="estado">
+        <string>Suspendido</string>
+       </void>
+       <void property="fecha">
+        <object class="java.util.GregorianCalendar">
+         <void property="time">
+          <object class="java.util.Date">
+           <long>1656366330988</long>
+          </object>
+         </void>
+        </object>
+       </void>
+       <void property="formulario">
+        <object class="persistencia.FormularioDTO">
+         <void property="cargaHoraria">
+          <string>CargaCompleta</string>
+         </void>
+         <void property="cursados">
+          <string>Secundario</string>
+         </void>
+         <void property="experienciaprevia">
+          <string>ExperienciaMedia</string>
+         </void>
+         <void property="locacion">
+          <string>Home Office</string>
+         </void>
+         <void property="rangoEtario">
+          <string>Mas de 50 años</string>
+         </void>
+         <void property="remuneracion">
+          <double>2.0</double>
+         </void>
+         <void property="tipoPuesto">
+          <string>Senior</string>
+         </void>
+        </object>
+       </void>
+      </object>
+     </void>
+    </object>
+   </void>
+   <void method="add">
+    <object class="persistencia.EmpleadorDTO">
+     <void property="TPersona">
+      <string>Juridica</string>
+     </void>
+     <void property="nombre">
+      <string>empleador3</string>
+     </void>
+     <void property="nombreUsuario">
+      <string>empleador3</string>
+     </void>
+     <void property="password">
+      <string>empleador3</string>
+     </void>
+     <void property="rubro">
+      <string>Comercio Local</string>
+     </void>
+     <void property="ticket">
+      <object class="persistencia.TicketEmpleadorDTO">
+       <void property="PCargaHoraria">
+        <int>1</int>
+       </void>
+       <void property="PEstudiosCursados">
+        <int>1</int>
+       </void>
+       <void property="PExperienciaPrevia">
+        <int>1</int>
+       </void>
+       <void property="PLocacion">
+        <int>1</int>
+       </void>
+       <void property="PRangoEtario">
+        <int>1</int>
+       </void>
+       <void property="PRemuneracion">
+        <int>1</int>
+       </void>
+       <void property="PTipodePuesto">
+        <int>5</int>
+       </void>
+       <void property="cantempleadosbuscados">
+        <int>3</int>
+       </void>
+       <void property="estado">
+        <string>Cancelado</string>
+       </void>
+       <void property="fecha">
+        <object class="java.util.GregorianCalendar">
+         <void property="time">
+          <object class="java.util.Date">
+           <long>1656366366197</long>
+          </object>
+         </void>
+        </object>
+       </void>
+       <void property="formulario">
+        <object class="persistencia.FormularioDTO">
+         <void property="cargaHoraria">
+          <string>CargaMedia</string>
+         </void>
+         <void property="cursados">
+          <string>Terciario</string>
+         </void>
+         <void property="experienciaprevia">
+          <string>ExperienciaMucha</string>
+         </void>
+         <void property="locacion">
+          <string>Indistinto</string>
+         </void>
+         <void property="rangoEtario">
+          <string>Mas de 50 años</string>
+         </void>
+         <void property="remuneracion">
+          <double>3.0</double>
+         </void>
+         <void property="tipoPuesto">
+          <string>Managment</string>
+         </void>
+        </object>
+       </void>
+      </object>
+     </void>
+    </object>
+   </void>
+  </void>
+  <void property="empleados">
+   <void method="add">
+    <object class="persistencia.EmpleadoDTO">
+     <void property="apellido">
+      <string>empleado1</string>
+     </void>
+     <void property="edad">
+      <int>1</int>
+     </void>
+     <void property="nombre">
+      <string>empleado1</string>
+     </void>
+     <void property="nombreUsuario">
+      <string>empleado1</string>
+     </void>
+     <void property="password">
+      <string>empleado1</string>
+     </void>
+     <void property="puntaje">
+      <int>5</int>
+     </void>
+     <void property="telefono">
+      <string>empleado1</string>
+     </void>
+     <void property="ticket">
+      <object class="persistencia.TicketEmpleadoDTO">
+       <void property="estado">
+        <string>Activo</string>
+       </void>
+       <void property="fecha">
+        <object class="java.util.GregorianCalendar">
+         <void property="time">
+          <object class="java.util.Date">
+           <long>1656367596023</long>
+          </object>
+         </void>
+        </object>
+       </void>
+       <void property="formulario">
+        <object class="persistencia.FormularioDTO">
+         <void property="cargaHoraria">
+          <string>CargaExtendida</string>
+         </void>
+         <void property="cursados">
+          <string>Primario</string>
+         </void>
+         <void property="experienciaprevia">
+          <string>ExperienciaNada</string>
+         </void>
+         <void property="locacion">
+          <string>Presencial</string>
+         </void>
+         <void property="rangoEtario">
+          <string>Mas de 50 años</string>
+         </void>
+         <void property="remuneracion">
+          <double>1.0</double>
+         </void>
+         <void property="tipoPuesto">
+          <string>Junior</string>
+         </void>
+        </object>
+       </void>
+       <void property="rondasTranscurridas">
+        <int>1</int>
+       </void>
+      </object>
+     </void>
+    </object>
+   </void>
+   <void method="add">
+    <object class="persistencia.EmpleadoDTO">
+     <void property="apellido">
+      <string>empleado2</string>
+     </void>
+     <void property="edad">
+      <int>2</int>
+     </void>
+     <void property="nombre">
+      <string>empleado2</string>
+     </void>
+     <void property="nombreUsuario">
+      <string>empleado2</string>
+     </void>
+     <void property="password">
+      <string>empleado2</string>
+     </void>
+     <void property="puntaje">
+      <int>-5</int>
+     </void>
+     <void property="telefono">
+      <string>empleado2</string>
+     </void>
+     <void property="ticket">
+      <object class="persistencia.TicketEmpleadoDTO">
+       <void property="estado">
+        <string>Activo</string>
+       </void>
+       <void property="fecha">
+        <object class="java.util.GregorianCalendar">
+         <void property="time">
+          <object class="java.util.Date">
+           <long>1656367596023</long>
+          </object>
+         </void>
+        </object>
+       </void>
+       <void property="formulario">
+        <object class="persistencia.FormularioDTO">
+         <void property="cargaHoraria">
+          <string>CargaCompleta</string>
+         </void>
+         <void property="cursados">
+          <string>Secundario</string>
+         </void>
+         <void property="experienciaprevia">
+          <string>ExperienciaMedia</string>
+         </void>
+         <void property="locacion">
+          <string>Home Office</string>
+         </void>
+         <void property="rangoEtario">
+          <string>Mas de 50 años</string>
+         </void>
+         <void property="remuneracion">
+          <double>2.0</double>
+         </void>
+         <void property="tipoPuesto">
+          <string>Senior</string>
+         </void>
+        </object>
+       </void>
+       <void property="rondasTranscurridas">
+        <int>1</int>
+       </void>
+      </object>
+     </void>
+    </object>
+   </void>
+   <void method="add">
+    <object class="persistencia.EmpleadoDTO">
+     <void property="apellido">
+      <string>empleado3</string>
+     </void>
+     <void property="edad">
+      <int>3</int>
+     </void>
+     <void property="nombre">
+      <string>empleado3</string>
+     </void>
+     <void property="nombreUsuario">
+      <string>empleado3</string>
+     </void>
+     <void property="password">
+      <string>empleado3</string>
+     </void>
+     <void property="puntaje">
+      <int>-1</int>
+     </void>
+     <void property="telefono">
+      <string>empleado3</string>
+     </void>
+     <void property="ticket">
+      <object class="persistencia.TicketEmpleadoDTO">
+       <void property="estado">
+        <string>Activo</string>
+       </void>
+       <void property="fecha">
+        <object class="java.util.GregorianCalendar">
+         <void property="time">
+          <object class="java.util.Date">
+           <long>1656367596023</long>
+          </object>
+         </void>
+        </object>
+       </void>
+       <void property="formulario">
+        <object class="persistencia.FormularioDTO">
+         <void property="cargaHoraria">
+          <string>CargaMedia</string>
+         </void>
+         <void property="cursados">
+          <string>Terciario</string>
+         </void>
+         <void property="experienciaprevia">
+          <string>ExperienciaMucha</string>
+         </void>
+         <void property="locacion">
+          <string>Indistinto</string>
+         </void>
+         <void property="rangoEtario">
+          <string>Mas de 50 años</string>
+         </void>
+         <void property="remuneracion">
+          <double>3.0</double>
+         </void>
+         <void property="tipoPuesto">
+          <string>Managment</string>
+         </void>
+        </object>
+       </void>
+       <void property="rondasTranscurridas">
+        <int>1</int>
+       </void>
+      </object>
+     </void>
+    </object>
+   </void>
+   <void method="add">
+    <object class="persistencia.EmpleadoDTO">
+     <void property="apellido">
+      <string>empleado4</string>
+     </void>
+     <void property="edad">
+      <int>4</int>
+     </void>
+     <void property="nombre">
+      <string>empleado4</string>
+     </void>
+     <void property="nombreUsuario">
+      <string>empleado4</string>
+     </void>
+     <void property="password">
+      <string>empleado4</string>
+     </void>
+     <void property="telefono">
+      <string>empleado4</string>
      </void>
     </object>
    </void>

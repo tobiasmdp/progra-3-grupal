@@ -24,25 +24,12 @@ public class Prueba {
 		
 		String nombreArchivo = "Agencia.xml" ;
 		Agencia.getInstance().cargarAgencia(nombreArchivo);
-		/*UEmpleado empleado=(UEmpleado)Agencia.getInstance().registroEmpleado("1","1","nahuel","nievas","223444444",23);
-		Agencia.getInstance().crearTicketEmpleado("Indistinto", 80000, "CargaMedia", "senior", "ExperienciaMedia", "primario",empleado);
-		UEmpleado empleado2=(UEmpleado)Agencia.getInstance().registroEmpleado("2","2","nahuel","nievas","223444444",24);
-		Agencia.getInstance().crearTicketEmpleado("Indistinto", 80000, "CargaMedia", "senior", "ExperienciaMedia", "primario",empleado2);
-		*/
 		UAdministrador admin=(UAdministrador)Agencia.getInstance().registroAdministrador("pepe", "pepe");
-		/*
-		Agencia.getInstance().crearTicketEmpleado("Indistinto", 80000, "CargaMedia", "senior", "ExperienciaMedia", "primario",empleado);
-		Agencia.getInstance().registroEmpleado("2","2");
-		Agencia.getInstance().registroEmpleado("3","3");
-		Agencia.getInstance().registroEmpleado("4","4");
-		Agencia.getInstance().registroEmpleador("5","5");
-		UEmpleador empleador=(UEmpleador)Agencia.getInstance().registroEmpleador("6","6","Mikel","Juridica","Salud");
-		Agencia.getInstance().crearTicketEmpleador("Indistinto", 100000, "CargaMedia", "senior", 20, "ExperienciaMedia", "secundario",8,7,6,5,4,3,2,1,empleador);
-		Agencia.getInstance().registroEmpleador("7","7");
-		Agencia.getInstance().registroEmpleador("8","8");*/
+		Agencia.getInstance().rondaEncuentrosLaborales();
 		ControladorSistema controlador=new ControladorSistema();
 		//Agencia.getInstance().rondaEncuentrosLaborales();
 	
-		Agencia.getInstance().guardarAgencia(nombreArchivo);
+		//Agencia.getInstance().guardarAgencia(nombreArchivo); //ESTE LLAMADO SE REALIZA EN LOS LOGOUT DEL CONTROLOADOR DEL SISTEMA, A FIN DE PERSISTIR
+																//LOS EVENTOS GATILLADOS POR EL USUARIO QUE UTILIZA LA VENTANA
 	}
 }

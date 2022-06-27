@@ -19,7 +19,7 @@ public class Local extends TipoRubro {
 	}
 	@Override
 	public String toString() {
-		return "Local";
+		return "Comercio Local";
 	}
 
 	
