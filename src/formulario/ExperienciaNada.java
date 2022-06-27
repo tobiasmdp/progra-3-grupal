@@ -24,7 +24,7 @@ public class ExperienciaNada implements ExperienciaPrevia{
 
 	@Override
 	public String toString() {
-		return "Nada ";
+		return "ExperienciaNada";
 	}
     
 

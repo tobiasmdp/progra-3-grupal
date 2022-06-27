@@ -2,8 +2,10 @@ package prueba;
 
 import java.util.ArrayList;
 
+import capaDeDatos.EmpleadoPretenso;
 import capaDeDatos.Empleador;
 import capaDeNegocios.Agencia;
+import capaDeNegocios.Contratacion;
 import capaDePresentacion.UAdministrador;
 import capaDePresentacion.UEmpleado;
 import capaDePresentacion.UEmpleador;
@@ -23,6 +25,7 @@ public class Prueba {
 		
 		//cada instancia de una sub clase de Usuario se llamara = nombre-de-la-clase + nro de usuario
 		//el usuario numero 10 si es empleado, se llamara empleado10
+		
 		
 		UEmpleado empleado1=new UEmpleado();
 		empleado1.registrarse("Usuario1","Contraseña1","Nombre1","Apellido1","Telefono1",35);
@@ -58,8 +61,8 @@ public class Prueba {
 		admin7.setVencimientoTicket(3);
 		
 		//------------------ RONDA DE ENCUENTROS LABORALES ------------------1
-
-		
+		String nombreArchivo = "Agencia-EmpleadorNadaMas.xml" ;
+		Agencia.getInstance().cargarAgencia(nombreArchivo);
 		admin7.gatillarRonda();
 		
 		empleado1.mostrarListaAsignaciones();
@@ -134,11 +137,15 @@ public class Prueba {
 				
 		admin7.gatillarRonda();
 		
-		String nombreArchivo = "Agencia-EmpleadorNadaMas.xml" ;
+		
 		ArrayList<Empleador> empleadores;
+		ArrayList<EmpleadoPretenso> empleados;
+		ArrayList<Contratacion> contrataciones;
 		Agencia.getInstance().guardarAgencia(nombreArchivo);
-		Agencia.getInstance().cargarAgencia(nombreArchivo);
 		empleadores = Agencia.getInstance().getEmpleadores();
+		empleados = Agencia.getInstance().getEmpleadosPretensos();
+		contrataciones = Agencia.getInstance().getContrataciones();
 		System.out.println("asdas");
+		
 	}
 }

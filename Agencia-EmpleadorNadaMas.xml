@@ -18,6 +18,15 @@
        <void property="nombre">
         <string>Nombre1</string>
        </void>
+       <void property="nombreUsuario">
+        <string>Usuario1</string>
+       </void>
+       <void property="password">
+        <string>Contraseña1</string>
+       </void>
+       <void property="puntaje">
+        <int>-5</int>
+       </void>
        <void property="telefono">
         <string>Telefono1</string>
        </void>
@@ -30,7 +39,7 @@
           <object class="java.util.GregorianCalendar" id="GregorianCalendar0">
            <void property="time">
             <object class="java.util.Date">
-             <long>1656285422407</long>
+             <long>1656289547207</long>
             </object>
            </void>
           </object>
@@ -38,13 +47,13 @@
          <void property="formulario">
           <object class="Persistencia.FormularioDTO">
            <void property="cargaHoraria">
-            <string>Extendida</string>
+            <string>CargaExtendida</string>
            </void>
            <void property="cursados">
-            <string>Primario </string>
+            <string>Primario</string>
            </void>
            <void property="experienciaprevia">
-            <string>Nada </string>
+            <string>ExperienciaNada</string>
            </void>
            <void property="locacion">
             <string>Home Office</string>
@@ -123,7 +132,7 @@
           <object class="java.util.GregorianCalendar" id="GregorianCalendar1">
            <void property="time">
             <object class="java.util.Date">
-             <long>1656285422411</long>
+             <long>1656289547215</long>
             </object>
            </void>
           </object>
@@ -131,19 +140,19 @@
          <void property="formulario">
           <object class="Persistencia.FormularioDTO">
            <void property="cargaHoraria">
-            <string>Media    </string>
+            <string>CargaMedia</string>
            </void>
            <void property="cursados">
-            <string>Secundario </string>
+            <string>Secundario</string>
            </void>
            <void property="experienciaprevia">
-            <string>Media</string>
+            <string>ExperienciaMedia</string>
            </void>
            <void property="locacion">
-            <string>Indistinto </string>
+            <string>Indistinto</string>
            </void>
            <void property="rangoEtario">
-            <string>Mas de 50 años    </string>
+            <string>Mas de 50 años</string>
            </void>
            <void property="remuneracion">
             <double>180000.0</double>
@@ -175,6 +184,15 @@
        <void property="nombre">
         <string>Nombre2</string>
        </void>
+       <void property="nombreUsuario">
+        <string>Usuario2</string>
+       </void>
+       <void property="password">
+        <string>Contraseña2</string>
+       </void>
+       <void property="puntaje">
+        <int>25</int>
+       </void>
        <void property="telefono">
         <string>Telefono2</string>
        </void>
@@ -187,7 +205,7 @@
           <object class="java.util.GregorianCalendar" id="GregorianCalendar2">
            <void property="time">
             <object class="java.util.Date">
-             <long>1656285422408</long>
+             <long>1656289547210</long>
             </object>
            </void>
           </object>
@@ -195,19 +213,19 @@
          <void property="formulario">
           <object class="Persistencia.FormularioDTO">
            <void property="cargaHoraria">
-            <string>Media    </string>
+            <string>CargaMedia</string>
            </void>
            <void property="cursados">
-            <string>Secundario </string>
+            <string>Secundario</string>
            </void>
            <void property="experienciaprevia">
-            <string>Media</string>
+            <string>ExperienciaMedia</string>
            </void>
            <void property="locacion">
-            <string>Indistinto </string>
+            <string>Indistinto</string>
            </void>
            <void property="rangoEtario">
-            <string>Mas de 50 años    </string>
+            <string>Mas de 50 años</string>
            </void>
            <void property="remuneracion">
             <double>100000.0</double>
@@ -283,7 +301,7 @@
           <object class="java.util.GregorianCalendar" id="GregorianCalendar3">
            <void property="time">
             <object class="java.util.Date">
-             <long>1656285422411</long>
+             <long>1656289547215</long>
             </object>
            </void>
           </object>
@@ -291,16 +309,16 @@
          <void property="formulario">
           <object class="Persistencia.FormularioDTO">
            <void property="cargaHoraria">
-            <string>Media    </string>
+            <string>CargaMedia</string>
            </void>
            <void property="cursados">
-            <string>Secundario </string>
+            <string>Secundario</string>
            </void>
            <void property="experienciaprevia">
-            <string>Media</string>
+            <string>ExperienciaMedia</string>
            </void>
            <void property="locacion">
-            <string>Indistinto </string>
+            <string>Indistinto</string>
            </void>
            <void property="rangoEtario">
             <string>Entre 40 y 50 años</string>
@@ -379,19 +397,19 @@
        <void property="formulario">
         <object class="Persistencia.FormularioDTO">
          <void property="cargaHoraria">
-          <string>Media    </string>
+          <string>CargaMedia</string>
          </void>
          <void property="cursados">
-          <string>Secundario </string>
+          <string>Secundario</string>
          </void>
          <void property="experienciaprevia">
-          <string>Media</string>
+          <string>ExperienciaMedia</string>
          </void>
          <void property="locacion">
-          <string>Indistinto </string>
+          <string>Indistinto</string>
          </void>
          <void property="rangoEtario">
-          <string>Mas de 50 años    </string>
+          <string>Mas de 50 años</string>
          </void>
          <void property="remuneracion">
           <double>180000.0</double>
@@ -466,16 +484,16 @@
        <void property="formulario">
         <object class="Persistencia.FormularioDTO">
          <void property="cargaHoraria">
-          <string>Media    </string>
+          <string>CargaMedia</string>
          </void>
          <void property="cursados">
-          <string>Secundario </string>
+          <string>Secundario</string>
          </void>
          <void property="experienciaprevia">
-          <string>Media</string>
+          <string>ExperienciaMedia</string>
          </void>
          <void property="locacion">
-          <string>Indistinto </string>
+          <string>Indistinto</string>
          </void>
          <void property="rangoEtario">
           <string>Entre 40 y 50 años</string>
@@ -508,6 +526,15 @@
      <void property="nombre">
       <string>Nombre1</string>
      </void>
+     <void property="nombreUsuario">
+      <string>Usuario1</string>
+     </void>
+     <void property="password">
+      <string>Contraseña1</string>
+     </void>
+     <void property="puntaje">
+      <int>-5</int>
+     </void>
      <void property="telefono">
       <string>Telefono1</string>
      </void>
@@ -522,13 +549,13 @@
        <void property="formulario">
         <object class="Persistencia.FormularioDTO">
          <void property="cargaHoraria">
-          <string>Extendida</string>
+          <string>CargaExtendida</string>
          </void>
          <void property="cursados">
-          <string>Primario </string>
+          <string>Primario</string>
          </void>
          <void property="experienciaprevia">
-          <string>Nada </string>
+          <string>ExperienciaNada</string>
          </void>
          <void property="locacion">
           <string>Home Office</string>
@@ -565,6 +592,15 @@
      <void property="nombre">
       <string>Nombre2</string>
      </void>
+     <void property="nombreUsuario">
+      <string>Usuario2</string>
+     </void>
+     <void property="password">
+      <string>Contraseña2</string>
+     </void>
+     <void property="puntaje">
+      <int>25</int>
+     </void>
      <void property="telefono">
       <string>Telefono2</string>
      </void>
@@ -579,19 +615,19 @@
        <void property="formulario">
         <object class="Persistencia.FormularioDTO">
          <void property="cargaHoraria">
-          <string>Media    </string>
+          <string>CargaMedia</string>
          </void>
          <void property="cursados">
-          <string>Secundario </string>
+          <string>Secundario</string>
          </void>
          <void property="experienciaprevia">
-          <string>Media</string>
+          <string>ExperienciaMedia</string>
          </void>
          <void property="locacion">
-          <string>Indistinto </string>
+          <string>Indistinto</string>
          </void>
          <void property="rangoEtario">
-          <string>Mas de 50 años    </string>
+          <string>Mas de 50 años</string>
          </void>
          <void property="remuneracion">
           <double>100000.0</double>
@@ -619,6 +655,15 @@
      <void property="nombre">
       <string>Nombre3</string>
      </void>
+     <void property="nombreUsuario">
+      <string>Usuario3</string>
+     </void>
+     <void property="password">
+      <string>Contraseña3</string>
+     </void>
+     <void property="puntaje">
+      <int>19</int>
+     </void>
      <void property="telefono">
       <string>Telefono3</string>
      </void>
@@ -631,7 +676,7 @@
         <object class="java.util.GregorianCalendar">
          <void property="time">
           <object class="java.util.Date">
-           <long>1656285422408</long>
+           <long>1656289547210</long>
           </object>
          </void>
         </object>
@@ -639,19 +684,19 @@
        <void property="formulario">
         <object class="Persistencia.FormularioDTO">
          <void property="cargaHoraria">
-          <string>Media    </string>
+          <string>CargaMedia</string>
          </void>
          <void property="cursados">
-          <string>Primario </string>
+          <string>Primario</string>
          </void>
          <void property="experienciaprevia">
-          <string>Media</string>
+          <string>ExperienciaMedia</string>
          </void>
          <void property="locacion">
-          <string>Indistinto </string>
+          <string>Indistinto</string>
          </void>
          <void property="rangoEtario">
-          <string>Mas de 50 años    </string>
+          <string>Mas de 50 años</string>
          </void>
          <void property="remuneracion">
           <double>80000.0</double>
@@ -679,6 +724,15 @@
      <void property="nombre">
       <string>Nombre8</string>
      </void>
+     <void property="nombreUsuario">
+      <string>Usuario8</string>
+     </void>
+     <void property="password">
+      <string>Contraseña8</string>
+     </void>
+     <void property="puntaje">
+      <int>-21</int>
+     </void>
      <void property="telefono">
       <string>Telefono8</string>
      </void>
@@ -691,7 +745,7 @@
         <object class="java.util.GregorianCalendar">
          <void property="time">
           <object class="java.util.Date">
-           <long>1656285422411</long>
+           <long>1656289547215</long>
           </object>
          </void>
         </object>
@@ -699,19 +753,19 @@
        <void property="formulario">
         <object class="Persistencia.FormularioDTO">
          <void property="cargaHoraria">
-          <string>Media    </string>
+          <string>CargaMedia</string>
          </void>
          <void property="cursados">
-          <string>Primario </string>
+          <string>Primario</string>
          </void>
          <void property="experienciaprevia">
-          <string>Media</string>
+          <string>ExperienciaMedia</string>
          </void>
          <void property="locacion">
-          <string>Indistinto </string>
+          <string>Indistinto</string>
          </void>
          <void property="rangoEtario">
-          <string>Mas de 50 años    </string>
+          <string>Mas de 50 años</string>
          </void>
          <void property="remuneracion">
           <double>80000.0</double>

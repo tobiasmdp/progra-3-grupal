@@ -18,7 +18,7 @@ public class Presencial implements Locacion{
 	}
 	@Override
 	public String toString() {
-		return "Presencial ";
+		return "Presencial";
 	}
 	
 }

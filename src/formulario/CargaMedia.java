@@ -20,7 +20,7 @@ public class CargaMedia implements CargaHoraria{
 
 	@Override
 	public String toString() {
-		return "Media    ";
+		return "CargaMedia";
 	}
 	
 	

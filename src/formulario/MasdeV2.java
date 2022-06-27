@@ -18,7 +18,7 @@ public class MasdeV2 implements Remuneracion{
 	}
 	@Override
 	public String toString() {
-		return "Mas de V2           ";
+		return "Mas de V2";
 	}
 	 
 }

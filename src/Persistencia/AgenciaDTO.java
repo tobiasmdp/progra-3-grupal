@@ -12,10 +12,6 @@ public class AgenciaDTO {
 		super();
 	}
 
-
-
-
-
 	public ArrayList<EmpleadoDTO> getEmpleados() {
 		return empleados;
 	}

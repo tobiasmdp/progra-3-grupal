@@ -23,7 +23,7 @@ public class ExperienciaMucha implements ExperienciaPrevia{
 
 	@Override
 	public String toString() {
-		return "Mucha ";
+		return "ExperienciaMucha";
 	}
     
 

@@ -23,7 +23,7 @@ public class CargaExtendida implements CargaHoraria{
 
 	@Override
 	public String toString() {
-		return "Extendida";
+		return "CargaExtendida";
 	}
 	
 	

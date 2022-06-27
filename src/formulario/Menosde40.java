@@ -23,7 +23,7 @@ public class Menosde40 implements RangoEtario{
 
 	@Override
 	public String toString() {
-		return "Menos de 40 años  ";
+		return "Menos de 40 años";
 	}
 	
 }

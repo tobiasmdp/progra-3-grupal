@@ -23,7 +23,7 @@ public class Terciario implements EstudiosCursados{
 
 	@Override
 	public String toString() {
-		return "Terciario ";
+		return "Terciario";
 	}
 	
 }

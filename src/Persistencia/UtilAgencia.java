@@ -63,6 +63,12 @@ public class UtilAgencia {
 	
 	public static EmpleadoDTO EmpleadoDTOFromEmpleado(EmpleadoPretenso empleado) {
 		EmpleadoDTO empleadoDTO = new EmpleadoDTO();
+		//TiposDeUsuariosDTO
+		empleadoDTO.setNombreUsuario(empleado.getNombreUsuario());
+		empleadoDTO.setPassword(empleado.getPassword());
+		//ClienteDTO
+		empleadoDTO.setPuntaje(empleado.getPuntaje());
+		//empladorDTO
 		empleadoDTO.setNombre(empleado.getNombre());
 		empleadoDTO.setApellido(empleado.getApellido());
 		empleadoDTO.setTelefono(empleado.getTelefono());
@@ -111,6 +117,8 @@ public class UtilAgencia {
 		Formulario formulario = FormularioFromFormularioDTO(ticketEmpleadoDTO.getFormulario());
 		
 		TicketEmpleado ticketEmpleado = new TicketEmpleado(fecha, formulario);
+		
+		ticketEmpleado.nuevaLista();
 		
 		return ticketEmpleado;
 	}
@@ -199,6 +207,7 @@ public class UtilAgencia {
 		//ticket
 		ticketEmpleador.setFecha(ticketEmpleadorDTO.getFecha());
 		ticketEmpleador.setEstado(ticketEmpleadorDTO.getEstado());
+		ticketEmpleador.nuevaLista();
 		
 		ticketEmpleador.setRondasTranscurridas(ticketEmpleador.getRondasTranscurridas());
 		
@@ -231,7 +240,7 @@ public class UtilAgencia {
 	    
 	    rangoEtarioAux = formularioDTO.getRangoEtario();
 	  //realmente la edad no es significativa, solo su rango etario, por ende se da una edad que entre en el rango etario deseado
-	    if (rangoEtarioAux == "Menos de 40 años  ")
+	    if (rangoEtarioAux == "Menos de 40 años")
 	    	rangoEtario = 30;  
 	    else if (rangoEtarioAux == "Entre 40 y 50 años")
 	    	rangoEtario = 45;
