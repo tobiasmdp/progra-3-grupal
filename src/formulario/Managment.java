@@ -3,36 +3,31 @@ package formulario;
  *<br>
  *La clase Managment es parte del patron Double Dispatch para la categoria del formulario TipodePuesto
  */
-public class Managment extends Decorator{
-	private TipoPuestoBase puestoBase;
+public class Managment implements TipodePuesto{
 	
-	public Managment(TipoPuestoBase puestoBase) {
-		this.puestoBase = puestoBase;
-		this.tipoPuestoNombre = "Managment";
-	}
-	@Override
-	public double comisionPuesto() {
-		return this.puestoBase.comisionPuesto() + 0.2;
+	public double compara(TipodePuesto otracaract) {
+		return otracaract.comparaManagment();
 	}
 	
-	@Override
-	public double compara(TipoPuesto otracaract) {
-		return otracaract.comparaSenior();
-	}
-	@Override
 	public double comparaJunior() {
-		return this.puestoBase.comparaManagment() - 0.5;
+		return 0;
 	}
-	@Override
+
 	public double comparaSenior() {
-		return this.puestoBase.comparaManagment();
+		return 0.5;
 	}
-	@Override
+
 	public double comparaManagment() {
-		return this.puestoBase.comparaManagment();
+		return 1;
 	}
+
 	@Override
 	public String toString() {
 		return "Managment";
+	}
+	
+	@Override
+	public double calculaComision() {
+		return 1;
 	}
 }

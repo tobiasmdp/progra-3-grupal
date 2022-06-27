@@ -1,4 +1,4 @@
-package Persistencia;
+package persistencia;
 
 public class EmpleadoDTO  extends ClienteDTO{
 	private String nombre, apellido, telefono;

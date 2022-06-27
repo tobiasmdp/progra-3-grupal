@@ -1,4 +1,4 @@
-package Persistencia;
+package persistencia;
 
 import java.beans.XMLDecoder;
 import java.beans.XMLEncoder;

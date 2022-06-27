@@ -13,7 +13,7 @@ import formulario.FactoryTipodePuesto;
 import formulario.Locacion;
 import formulario.RangoEtario;
 import formulario.Remuneracion;
-import formulario.TipoPuesto;
+import formulario.TipodePuesto;
 
 /**
  * <br>
@@ -23,7 +23,7 @@ public class Formulario {
     private Locacion locacion;
     private Remuneracion remuneracion;
     private CargaHoraria cargaHoraria;
-    private TipoPuesto tipoPuesto;
+    private TipodePuesto tipoPuesto;
     private ExperienciaPrevia experienciaprevia;
     private RangoEtario rangoEtario;
     private EstudiosCursados cursados;
@@ -59,7 +59,7 @@ public class Formulario {
         return cargaHoraria;
     }
 
-    public TipoPuesto getTipoPuesto() {
+    public TipodePuesto getTipoPuesto() {
         return tipoPuesto;
     }
 
@@ -78,9 +78,9 @@ public class Formulario {
 
 	@Override
 	public String toString() {
-		return  locacion + "        " + remuneracion  + "          " + cargaHoraria
-				+ "            " + tipoPuesto  + "                " + experienciaprevia 
-				+ "          " + rangoEtario + "      " + cursados ;
+		return  "\nLocacion: "+locacion + "\n" +"Remuneracion: "+ remuneraciondoub  + "\n" +"Carga horaria: "+ cargaHoraria
+				+ "\n" +"Tipo de puesto: "+ tipoPuesto  + "\n" +"Experiencia previa: "+ experienciaprevia 
+				+ "\n" +"Rango etario: "+ rangoEtario + "\n" +"Estudios cursados: "+ cursados ;
 	}
 
 

@@ -1,4 +1,4 @@
-package Persistencia;
+package persistencia;
 
 public class Usuario_puntajeDTO {
 	private TiposDeUsuariosDTO usuario;

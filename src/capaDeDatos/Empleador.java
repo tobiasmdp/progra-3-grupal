@@ -1,5 +1,8 @@
 package capaDeDatos;
 
+import java.util.ArrayList;
+
+import capaDeNegocios.BolsaDeTrabajo;
 import comisiones.FactoryPersona;
 import comisiones.FactoryRubro;
 import comisiones.TipoPersona;
@@ -15,12 +18,20 @@ public class Empleador extends Cliente {
 	private TipoPersona tPersona;
 	private TipoRubro rubro;
 	private TicketEmpleador ticket;
+	private ArrayList<PuestoTrabajo> mispuestotrabajo=new ArrayList<PuestoTrabajo>();
 	private double comision;
+	private int cantpuestos=0;
+	//parte 2 
+	private BolsaDeTrabajo bolsa;
 	
-	public Empleador(String nombreUsuario,String contra) {
+	public Empleador(String nombreUsuario,String contra,BolsaDeTrabajo bolsa) {
 		super(nombreUsuario,contra);
+		this.bolsa=bolsa;
 	}
 	
+	public Empleador(String nombreUsuario,String contra) {
+		super(nombreUsuario,contra);;
+	}
 	
 	public Empleador(String nombreUsuario,String contra,String nombre, String tPersona, String rubro) {
 		super(nombreUsuario,contra);
@@ -90,13 +101,45 @@ public class Empleador extends Cliente {
 	public TicketEmpleador getTicket() {
 		return ticket;
 	}
+	
+	public int getCantpuestos() {
+		return cantpuestos;
+	}
+
+
+	public void setCantpuestos(int cantpuestos) {
+		this.cantpuestos = cantpuestos;
+	}
 
 	@Override
 	public String toString() {
 		return  nombre + "       " + tPersona + "         " + rubro + "         " + ticket;
 	}
 
+	//----------------------------------------Parte 2--------------------------------------------------
 	
+	public void nuevosPuestosTrabajos(PuestoTrabajo trabajo) { 
+			mispuestotrabajo.add(trabajo);
+		}
+
 	
+	public BolsaDeTrabajo getBolsa() {
+		return bolsa;
+	}
+
+
+	public void setBolsa(BolsaDeTrabajo bolsa) {
+		this.bolsa = bolsa;
+	}
+
+
+	public ArrayList<PuestoTrabajo> getMispuestotrabajo() {
+		return mispuestotrabajo;
+	}
+
+
+	public void setMispuestotrabajo(ArrayList<PuestoTrabajo> mispuestotrabajo) {
+		this.mispuestotrabajo = mispuestotrabajo;
+	}
 	
 }

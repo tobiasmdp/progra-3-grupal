@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<java version="17.0.2" class="java.beans.XMLDecoder">
+ <object class="persistencia.AgenciaDTO" id="AgenciaDTO0">
+  <void property="empleadores">
+   <void method="add">
+    <object class="persistencia.EmpleadorDTO">
+     <void property="TPersona">
+      <string>Fisica</string>
+     </void>
+     <void property="nombre">
+      <string>12</string>
+     </void>
+     <void property="nombreUsuario">
+      <string>12</string>
+     </void>
+     <void property="password">
+      <string>12</string>
+     </void>
+     <void property="rubro">
+      <string>Salud</string>
+     </void>
+     <void property="ticket">
+      <object class="persistencia.TicketEmpleadorDTO">
+       <void property="PCargaHoraria">
+        <int>1</int>
+       </void>
+       <void property="PEstudiosCursados">
+        <int>1</int>
+       </void>
+       <void property="PExperienciaPrevia">
+        <int>1</int>
+       </void>
+       <void property="PLocacion">
+        <int>1</int>
+       </void>
+       <void property="PRangoEtario">
+        <int>1</int>
+       </void>
+       <void property="PRemuneracion">
+        <int>2</int>
+       </void>
+       <void property="PTipodePuesto">
+        <int>1</int>
+       </void>
+       <void property="cantempleadosbuscados">
+        <int>2</int>
+       </void>
+       <void property="estado">
+        <string>Suspendido</string>
+       </void>
+       <void property="fecha">
+        <object class="java.util.GregorianCalendar">
+         <void property="time">
+          <object class="java.util.Date">
+           <long>1656297066864</long>
+          </object>
+         </void>
+        </object>
+       </void>
+       <void property="formulario">
+        <object class="persistencia.FormularioDTO">
+         <void property="cargaHoraria">
+          <string>CargaExtendida</string>
+         </void>
+         <void property="cursados">
+          <string>Primario</string>
+         </void>
+         <void property="experienciaprevia">
+          <string>ExperienciaNada</string>
+         </void>
+         <void property="locacion">
+          <string>Presencial</string>
+         </void>
+         <void property="rangoEtario">
+          <string>Mas de 50 años</string>
+         </void>
+         <void property="remuneracion">
+          <double>2.0</double>
+         </void>
+         <void property="tipoPuesto">
+          <string>Junior</string>
+         </void>
+        </object>
+       </void>
+      </object>
+     </void>
+    </object>
+   </void>
+  </void>
+ </object>
+</java>

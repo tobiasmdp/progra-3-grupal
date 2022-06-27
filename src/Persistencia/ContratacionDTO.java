@@ -1,4 +1,4 @@
-package Persistencia;
+package persistencia;
 
 public class ContratacionDTO {
 	private EmpleadoDTO empleado;

@@ -1,4 +1,4 @@
-package Persistencia;
+package persistencia;
 
 public class TiposDeUsuariosDTO {
 	private String nombreUsuario;

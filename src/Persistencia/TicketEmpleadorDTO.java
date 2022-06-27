@@ -1,4 +1,4 @@
-package Persistencia;
+package persistencia;
 
 public class TicketEmpleadorDTO extends TicketDTO{
     private int cantempleadosbuscados, cantempleadosobtenidos;

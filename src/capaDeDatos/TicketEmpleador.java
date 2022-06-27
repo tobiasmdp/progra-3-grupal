@@ -3,8 +3,6 @@
  */
 package capaDeDatos;
 
-import java.util.Calendar;
-
 /**
  * <b>
  * Se encarga de agregar los pesos para luego utilizarlos.
@@ -97,7 +95,7 @@ public class TicketEmpleador extends Ticket {
 	/**este metodo se llama cuando los empleados son contratados
 	 * @param cantempleadosobtenidos se pasa los empleados obtenidos contratados
 	 */
-	public void empleadosObtenido(int cantempleadosobtenidos) { //ver bien con el grupo
+	public void empleadosObtenido(int cantempleadosobtenidos) { 
 		this.cantempleadosobtenidos += cantempleadosobtenidos;
 		if (this.cantempleadosobtenidos<this.cantempleadosbuscados)
 			this.cantempleadosbuscados-=this.cantempleadosobtenidos;
@@ -106,5 +104,16 @@ public class TicketEmpleador extends Ticket {
 			this.setEstado("finalizado");
 		}
 
-	}	
+	}
+
+	@Override
+	public String toString() {
+		return "Fecha de generacion: "+fecha.get(fecha.DATE)+ " / "+ fecha.get(fecha.MONTH)+ " / "+fecha.get(fecha.YEAR)+"\nEstado: " +estado+"\nRondas sin ser elegido:" + rondasTranscurridas +"\nCantidad empleados buscados=" + cantempleadosbuscados + "\nCantidad empleados obtenidos="
+				+ cantempleadosobtenidos + formulario + "\nImportancia de las caracteristicas:"+"\nPeso Locacion=" + pLocacion + "\nPeso Remuneracion=" + pRemuneracion
+				+ "\nPeso Carga Horaria=" + pCargaHoraria + ",\nPeso Tipo de Puesto=" + pTipodePuesto + "\nPeso Experiencia Previa="
+				+ pExperienciaPrevia + "\nPeso rango etario=" + pRangoEtario + "\nPeso Estudios cursados=" + pEstudiosCursados;
+	}
+	
+
+	
 }

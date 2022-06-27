@@ -4,18 +4,21 @@ import java.util.ArrayList;
 
 import capaDeDatos.Empleador;
 import capaDeDatos.Formulario;
+import capaDeDatos.PuestoTrabajo;
+import capaDeDatos.TicketEmpleado;
 import capaDeDatos.TicketEmpleador;
+import capaDePresentacion.UEmpleado;
 import capaDePresentacion.UEmpleador;
+
 
 /**
  *<b>
  *Clase que contiene todos los metodos de los empleadores.
  */
-public class MetodosEmpleador {
+public class MetodosEmpleador extends Thread {
 	private static MetodosEmpleador instance = null;
-
 	
-	private MetodosEmpleador() {//Constructor
+	public MetodosEmpleador() {//Constructor
 	}
 	
 	protected static  MetodosEmpleador getInstance() {//SINGLETON
@@ -75,11 +78,12 @@ public class MetodosEmpleador {
 		}
 	}
 	
+	
 	public void cambiarEstadoTicket(String estado, UEmpleador uEmpleador) {
 		ArrayList <NodoLogeoEmpleador> aux = Agencia.getInstance().getLogeoempleadores();
 		int i=0;
 		int arreglologeado=Agencia.getInstance().logged(uEmpleador);
-		if (arreglologeado==1) {
+		if (arreglologeado==2) {
 			while (i < aux.size() && !uEmpleador.equals(aux.get(i).getUsuario()))
 				i++;
 			aux.get(i).getEmpleador().getTicket().setEstado(estado);
@@ -113,7 +117,27 @@ public class MetodosEmpleador {
 	public void actualizarPuntaje(Empleador empleador, int valor) {
 		empleador.setPuntaje(empleador.getPuntaje()+valor);
 		
-		
 	}
+	
+//------------------------------------Parte 2 ------------------------------------------------------------	
+	public void NuevoPuesto(Empleador empleador, PuestoTrabajo puesto) {
+		empleador.nuevosPuestosTrabajos(puesto);
+	}
+
+	public TicketEmpleador getTicket(UEmpleador uEmpleador) {
+		int i=0;
+		TicketEmpleador ticket=null;
+		ArrayList <NodoLogeoEmpleador> aux = Agencia.getInstance().getLogeoempleadores();
+		int arreglologeado = Agencia.getInstance().logged(uEmpleador);
+		if (arreglologeado==2) {
+			while (i < aux.size() && !uEmpleador.equals(aux.get(i).getUsuario()))
+				i++;
+			if (aux.get(i).getEmpleador().getTicket()!=null)
+				ticket=aux.get(i).getEmpleador().getTicket();
+				
+		}
+		return ticket;
+	}
+	
 	
 }
