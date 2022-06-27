@@ -86,6 +86,25 @@
      </void>
     </object>
    </void>
+   <void method="add">
+    <object class="persistencia.EmpleadorDTO">
+     <void property="TPersona">
+      <string>Fisica</string>
+     </void>
+     <void property="nombre">
+      <string>13</string>
+     </void>
+     <void property="nombreUsuario">
+      <string>13</string>
+     </void>
+     <void property="password">
+      <string>13</string>
+     </void>
+     <void property="rubro">
+      <string>Salud</string>
+     </void>
+    </object>
+   </void>
   </void>
  </object>
 </java>
