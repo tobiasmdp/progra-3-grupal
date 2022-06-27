@@ -141,7 +141,7 @@ public class Prueba {
 		ArrayList<Empleador> empleadores;
 		ArrayList<EmpleadoPretenso> empleados;
 		ArrayList<Contratacion> contrataciones;
-		Agencia.getInstance().guardarAgencia(nombreArchivo);
+		//Agencia.getInstance().guardarAgencia(nombreArchivo);
 		empleadores = Agencia.getInstance().getEmpleadores();
 		empleados = Agencia.getInstance().getEmpleadosPretensos();
 		contrataciones = Agencia.getInstance().getContrataciones();
